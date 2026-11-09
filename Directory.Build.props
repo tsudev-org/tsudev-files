@@ -20,7 +20,8 @@
     <Copyright>Copyright (c) Filee contributors</Copyright>
 
     <!-- Single source of truth for the GitHub repository (used by the updater and the About page). -->
-    <FileeRepositoryUrl>https://github.com/KnifeLemon/Filee</FileeRepositoryUrl>
+    <!-- tsudev-files: bản fork Việt hóa; trình cập nhật chỉ hỏi repo này (không hỏi repo gốc). -->
+    <FileeRepositoryUrl>https://github.com/tsudev-tsudev/tsudev-files</FileeRepositoryUrl>
     <RepositoryUrl>$(FileeRepositoryUrl)</RepositoryUrl>
 
     <!-- What an official build (-p:FileeRelease=true) checks before it installs an update (UpdateService).
@@ -31,9 +32,13 @@
          signed with, its subject and the certificate authority that issued it. Before a renewed certificate comes
          from another authority, ship a release that lists both issuers ("|" between them).
          FileeExpectedSignerKeys: optionally the SHA-256s of the certificate public keys allowed, "|" between them. -->
-    <FileeUpdatePublicKey>MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE8mlW6UZaGmh9cKDhL25Bfl7SJscOpTzRvHrfZGsJOOOIP7zH58g/XyM59H3sDeV4QQRul3TeKqg2x6In1S+uUA==</FileeUpdatePublicKey>
-    <FileeExpectedPublisher>CN=Open Source Developer MYEONGGU KIM, O=Open Source Developer, L=Seoul, S=Seoul, C=KR</FileeExpectedPublisher>
-    <FileeExpectedIssuer>CN=Certum Code Signing 2021 CA, O=Asseco Data Systems S.A., C=PL</FileeExpectedIssuer>
+    <!-- tsudev-files: khóa công khai RIÊNG của bản fork (khóa bí mật nằm ngoài repo, xem docs/vi/PHAT-HANH.md).
+         Bản phát hành của repo gốc không được ký bằng khóa này nên sẽ bị từ chối - đúng chủ đích. -->
+    <FileeUpdatePublicKey>MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEd6wff/VGVI01nwgKA80+DWbDGj9hj3sw2n6nBnj6UggzGd99dK7IMLX78y0T3bJHNaapYIw9n0BLcItu4DIKZQ==</FileeUpdatePublicKey>
+    <!-- tsudev-files: chưa có chứng thư Authenticode riêng; để trống thì trình cập nhật dựa vào chữ ký ECDSA ở trên.
+         Khi có chứng thư, điền subject/issuer của CHÍNH chứng thư đó (không dùng của tác giả gốc). -->
+    <FileeExpectedPublisher></FileeExpectedPublisher>
+    <FileeExpectedIssuer></FileeExpectedIssuer>
     <FileeExpectedSignerKeys></FileeExpectedSignerKeys>
   </PropertyGroup>
 
