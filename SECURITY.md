@@ -1,60 +1,27 @@
-# Security policy
+# Chính sách bảo mật - tsudev-files
 
-## Supported versions
+## Phiên bản được hỗ trợ
 
-Only the [latest release](https://github.com/KnifeLemon/Filee/releases/latest) gets security fixes. Filee checks for
-updates, and an installed copy updates in place, so please check that the problem is still there in the latest
-release before you report it.
+Chỉ bản phát hành mới nhất tại <https://github.com/tsudev-tsudev/tsudev-files/releases/latest> nhận bản vá bảo mật.
 
-## Reporting a vulnerability
+## Báo cáo lỗ hổng
 
-Please don't open a public issue for a security problem.
+**Không mở issue công khai.** Dùng tính năng báo cáo riêng của GitHub:
+<https://github.com/tsudev-tsudev/tsudev-files/security/advisories/new>
 
-Report it privately with **[Report a vulnerability](https://github.com/KnifeLemon/Filee/security/advisories/new)** on
-the repository's Security tab.
+Vui lòng gửi kèm: phiên bản, hệ điều hành, tệp mẫu (nếu có thể chia sẻ) hoặc các bước tái hiện, và mức ảnh hưởng.
 
-Include the Filee version, your operating system, what an attacker can do and the steps or file that show it. If a
-crafted file triggers it, attach the file, or say how to make one.
+Cam kết phản hồi: xác nhận đã nhận trong **3 ngày làm việc**, đánh giá ban đầu trong **7 ngày**, bản vá cho lỗi
+nghiêm trọng (thực thi mã, ghi tệp ngoài thư mục đích, vượt qua kiểm tra chữ ký cập nhật) sớm nhất có thể.
 
-You'll get a reply as soon as possible. Once the fix is released, the advisory is published and you're credited
-unless you'd rather not be. A release that fixes a security problem is marked *required*, so every copy shows it
-each time it starts until it is updated.
+Lỗ hổng nằm trong mã kế thừa từ Filee gốc sẽ được báo tiếp lên upstream theo
+[chính sách của họ](docs/SECURITY.upstream.md) sau khi bạn đồng ý.
 
-## Scope
+## Phạm vi đặc biệt quan tâm
 
-In scope:
+- Xử lý tệp không tin cậy (PDF, Office, HWP, ảnh, video, tệp nén, email) dẫn tới thực thi mã, đọc/ghi tệp ngoài ý muốn
+  (path traversal, "zip slip"), tải tài nguyên mạng khi đang chuyển đổi, hoặc từ chối dịch vụ.
+- Chuỗi cập nhật: tải, kiểm SHA-256, chữ ký ECDSA của SHA256SUMS.
+- Tải engine tùy chọn (FFmpeg, LibreOffice, Pandoc, ...): kiểm SHA-256 ghim sẵn.
 
-- Filee itself: the app, the CLI, Setup, the context menu and Explorer menu, watch folders.
-- Files that make Filee do more than convert them, such as writing outside the output folder, running code, or
-  reading files they shouldn't.
-- How Filee downloads and checks updates and engines.
-
-Out of scope:
-
-- Bugs in the engines (FFmpeg, LibreOffice, Ghostscript, Pandoc, rhwp, 7-Zip and others). Report those to their
-  projects. Tell us too if Filee should update the pinned version.
-- SmartScreen or Gatekeeper warnings: releases up to 2.0.0 aren't code-signed, SmartScreen can still warn about a new
-  signed release for a while, and macOS builds are ad-hoc signed and not notarized (see
-  [Code signing policy](README.md#code-signing-policy)).
-- Attacks that need someone who can already run programs as you on your computer.
-
-## How downloads are checked
-
-- **Updates:** an installed copy downloads the new installer (Windows) or package (Linux) from GitHub Releases and
-  checks its SHA-256 against the release's `SHA256SUMS` file before it runs it.
-  - Official builds carry the public half of Filee's update key. The `SHA256SUMS` file must then have a valid
-    signature made with that key next to it (`…-SHA256SUMS.txt.sig`, ECDSA P-256), and the version it lists must be
-    newer than the installed one. Otherwise nothing is installed, on every platform. The private key never leaves
-    the maintainer's PC; releases are signed there, not on GitHub.
-  - On Windows, Windows must also trust the installer's Authenticode signature, and the certificate must be Filee's:
-    an official build names the publisher and the certificate authority that issued its certificate, so it checks
-    both even if the installed copy itself isn't signed. A copy built from source compares with the certificate that
-    signed it. An installer signed by anyone else is discarded.
-- **Engines:** every engine comes from the official location pinned in
-  [`engines.json`](src/Filee.Engines/Infrastructure/engines.json), with its SHA-256 and size. A download that doesn't
-  match is discarded.
-- **Release files:** each release lists the SHA-256 of every package in `Filee-<version>-SHA256SUMS.txt` (the Linux
-  and macOS packages in their own `-SHA256SUMS.txt` files), each signed with the update key in a `.sig` file.
-
-Filee converts files on your own computer and never uploads them. See the
-[Privacy policy](README.md#privacy-policy).
+Mô hình mối đe dọa và các lớp phòng thủ: [docs/vi/KIEN-TRUC-BAO-MAT.md](docs/vi/KIEN-TRUC-BAO-MAT.md).
