@@ -29,7 +29,7 @@ internal static class CliLanguage
         };
 
     /// <summary>Chọn câu theo ngôn ngữ đang dùng.</summary>
-    public static string T(string vietnamese, string english) => IsVietnamese ? vietnamese : english;
+    public static string T(string vietnamese, string english) => ForkDefaults.Brand(IsVietnamese ? vietnamese : english);
 }
 
 internal sealed class CliTexts : ILocalizer
@@ -53,7 +53,7 @@ internal sealed class CliTexts : ILocalizer
         using var json = JsonDocument.Parse(stream);
         return json.RootElement.EnumerateObject()
             .Where(p => p.Value.ValueKind == JsonValueKind.String)
-            .ToDictionary(p => p.Name, p => p.Value.GetString()!);
+            .ToDictionary(p => p.Name, p => ForkDefaults.Brand(p.Value.GetString()!));
     }
 
     public string Language { get; }

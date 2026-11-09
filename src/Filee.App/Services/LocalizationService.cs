@@ -165,7 +165,11 @@ public sealed class LocalizationService : ILocalizer
         if (!(loader?.Exists(uri) ?? AssetLoader.Exists(uri)))
             return [];
         using var stream = loader?.Open(uri) ?? AssetLoader.Open(uri);
-        return JsonSerializer.Deserialize(stream, AppJsonContext.Default.DictionaryStringString) ?? [];
+        // tsudev-files: đổi tên hiển thị "Filee" -> "tsudev-files" ngay khi nạp, để không phải sửa từng tệp dịch.
+        var strings = JsonSerializer.Deserialize(stream, AppJsonContext.Default.DictionaryStringString) ?? [];
+        foreach (var key in strings.Keys.ToList())
+            strings[key] = Filee.Core.ForkDefaults.Brand(strings[key]);
+        return strings;
     }
 
     /// <summary>

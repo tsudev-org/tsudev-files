@@ -13,7 +13,8 @@ internal static class Help
     /// <summary>Trợ giúp theo ngôn ngữ dòng lệnh (FILEE_LANG): tiếng Việt mặc định, tiếng Anh khi FILEE_LANG=en.</summary>
     public static string Text(string? command) => Text(command, CliLanguage.Current);
 
-    internal static string Text(string? command, string language) => language == "vi" ? TextVi(command) : TextEn(command);
+    internal static string Text(string? command, string language) =>
+        Filee.Core.ForkDefaults.Brand(language == "vi" ? TextVi(command) : TextEn(command));
 
     private static string TextEn(string? command) => command?.ToLowerInvariant() switch
     {
@@ -40,7 +41,7 @@ internal static class Help
     };
 
     private const string GeneralVi = """
-        Filee (tsudev-files): chuyển đổi tệp ngoại tuyến từ dòng lệnh.
+        tsudev-files (bản Việt hóa của KnifeLemon/Filee): chuyển đổi tệp ngoại tuyến từ dòng lệnh.
 
         Cách dùng:
           filee convert <tệp hoặc thư mục...> --to <định dạng> [tùy chọn]
@@ -140,7 +141,7 @@ internal static class Help
         """);
 
     private const string General = """
-        Filee: convert files offline from the command line.
+        tsudev-files (a fork of KnifeLemon/Filee): convert files offline from the command line.
 
         Usage:
           filee convert <files or folders...> --to <format> [options]
