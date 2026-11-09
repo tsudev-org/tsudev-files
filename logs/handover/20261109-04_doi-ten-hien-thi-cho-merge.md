@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261109-04
 - **Từ**: claude - **Đến**: phiên sau
 - **Thời điểm**: 09/11/2026 (cuối phiên, chủ dự án đóng phiên để tiết kiệm ngữ cảnh)
-- **Trạng thái**: CHỜ NHẬN
+- **Trạng thái**: ĐÃ NHẬN - phần còn lại chuyển sang phiếu `20261109-05`
 - **Nhánh git**: `feat/doi-ten-hien-thi` (chưa push), `chore/khoi-tao-fork` (đã push, PR #1)
 
 ## 0. Ủy quyền của chủ dự án (đọc trước)
@@ -143,4 +143,33 @@ Phiên sau ghi khóa mới vào `logs/LOCKS.md` trước khi sửa file, nhả n
 
 ## 7. Kết quả xử lý (agent nhận điền sau khi thực hiện)
 
--
+Phiên 20261109-05 (09/11/2026) - **DỪNG giữa bước 2.5/2.6.b: hết hạn mức GitHub Actions** (ngoài phạm vi ủy quyền).
+
+- 2.1 XONG: 2 test App chạy riêng đạt 4/4 ⇒ chập chờn do máy chậm, không do đổi tên.
+- 2.2-2.3 XONG: CI PR #1 xanh hết; đã gộp rebase 11:48Z (`main` = `7aff483e`).
+- 2.4 XONG: rebase không xung đột; `dotnet build` 0 lỗi; `ForkBranding` 22/22; đã push.
+- 2.5 DANG DỞ: PR là **#10** (Dependabot chiếm #2-#9, #11-#14). CI không chạy hết được.
+- 2.6.a: đã ghi rồi nhả khóa. 2.6.b DANG DỞ: **PR #15** `ci/gitleaks-binary` - binary gitleaks 8.30.1, SHA-256
+  `551f6fc8...70eb` đối chiếu 2 lần tải độc lập (curl + `gh release download`), quét toàn lịch sử. Quét toàn lịch sử lộ
+  6 dương tính giả `generic-api-key` trong mã upstream (đã đọc từng dòng), miễn theo dấu vân tay ở `.gitleaksignore`.
+  Chạy cục bộ: `no leaks found`.
+- ⛔ Lý do dừng: mọi job mới đều trả về "The job was not started because recent account payments have failed or your
+  spending limit needs to be increased" (run `42613208501`). 13 PR Dependabot mở cùng lúc chạy full CI (có macOS,
+  hệ số phút x10) đúng lúc này. Thử hủy các lần chạy Dependabot - bị bộ phân loại tác vụ tự động chặn, không thử lại.
+- Chưa làm: 2.6.c-i (chuyển repo), 2.7. KHÔNG chuyển repo khi PR #10/#15 chưa xanh.
+- Bước tiếp khi chủ dự án xử lý xong thanh toán/hạn mức: `gh run rerun <id> --failed` cho run mới nhất của PR #10
+  và #15 -> xanh -> gộp #15 rồi #10 (rebase) -> tiếp 2.6.c. Cân nhắc hạn chế Dependabot (ví dụ gom nhóm, giảm tần
+  suất) để không đốt phút - cần chủ dự án quyết.
+- Chủ dự án quyết định (09/11/2026): spending limit giữ **0 USD** (không bao giờ trả phí Actions). Đã mở **PR #16**
+  `chore/dependabot-monthly`: Dependabot hằng tháng, gom mọi gói thành 1 PR/hệ sinh thái, tối đa 2 PR mở. Gộp khi CI
+  chạy được. Thứ tự gộp đề xuất: #16, #15, #10.
+- Chủ dự án (09/11/2026) ủy quyền chuyển repo sang Public để có Actions miễn phí. Đã chụp hiện trạng (2.6.c, chưa
+  có secret/environment/release; 10 workflow `active`). Lệnh chuyển repo (2.6.d), đổi `homepage` của
+  `tsudev-contact` đều bị bộ phân loại tác vụ tự động CHẶN - không thử lại; chủ dự án tự chạy lệnh hoặc cấp quyền.
+- Điểm riêng tư cần chủ dự án quyết: 28 commit riêng của fork mang email tác giả `b4djl1h@gmail.com` (các repo
+  Public khác dùng `dev.nguyentrangtinhsu@...`). Viết lại lịch sử không xóa hẳn được (ref `refs/pull/1/head`).
+- Rà 3 repo Private khác (gitleaks toàn lịch sử, dữ liệu cá nhân): không có bí mật thật. `tsudev-contact`: sạch.
+  `app-la-ban`: chỉ dương tính giả, không có workflow. `sumy-wedding`: ảnh cá nhân + số điện thoại của 2 người,
+  không có workflow ⇒ đề xuất GIỮ Private.
+- Phiên tsudev-files-c2 kết thúc 09/11/2026: làm tới 2.6.g + một phần 2.6.h (nhánh đổi URL đã đẩy, chưa PR). Việc còn
+  lại: mục 2 phiếu `20261109-05`.
