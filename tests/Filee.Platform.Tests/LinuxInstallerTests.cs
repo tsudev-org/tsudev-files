@@ -778,6 +778,8 @@ exec ""$REAL_MV"" ""$@""
         psi.Environment["XDG_DATA_HOME"] = dataDir;
         psi.Environment["HOME"] = homeDir;
         psi.Environment["PATH"] = $"{_shimBinDir}:{Environment.GetEnvironmentVariable("PATH") ?? "/bin:/usr/bin"}";
+        // tsudev-files: các test upstream so khớp thông báo tiếng Anh; tiếng Việt mặc định có test riêng (ForkLinuxInstallerTests).
+        psi.Environment["FILEE_LANG"] = "en";
 
         if (extraEnv is not null)
         {
