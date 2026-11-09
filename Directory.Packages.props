@@ -5,7 +5,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <AvaloniaVersion>12.1.4</AvaloniaVersion>
+    <AvaloniaVersion>12.1.5</AvaloniaVersion>
   </PropertyGroup>
 
   <ItemGroup Label="ISO creation">
