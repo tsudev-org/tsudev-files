@@ -5,4 +5,3 @@
 > Sửa xong file thì XÓA NGAY dòng khóa của mình, không đợi cuối phiên.
 > File đang bị người khác khóa: TUYỆT ĐỐI không sửa - gửi phiếu bàn giao thay thế.
 
-(trống - không file nào đang khóa)
