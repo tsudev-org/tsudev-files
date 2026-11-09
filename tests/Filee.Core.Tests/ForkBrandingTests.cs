@@ -55,6 +55,21 @@ public sealed class ForkBrandingTests
         }
     }
 
+    // Chữ viết cứng trong giao diện không đi qua bản dịch (thanh bên, trang Giới thiệu, màn chào của Setup):
+    // phải dùng {x:Static fork:ForkDefaults.DisplayName}. Tiêu đề cửa sổ (Title=) đã có ForkWindowTitles lo.
+    [Fact]
+    public void No_view_shows_the_upstream_name_as_text()
+    {
+        var src = Path.Combine(RepoRoot(), "src");
+        var pattern = new System.Text.RegularExpressions.Regex(@"\b(Text|Content|Header|ToolTip\.Tip)=""Filee""");
+        foreach (var file in Directory.GetFiles(src, "*.axaml", SearchOption.AllDirectories))
+        {
+            var lines = File.ReadAllLines(file);
+            for (var i = 0; i < lines.Length; i++)
+                Assert.False(pattern.IsMatch(lines[i]), $"{Path.GetRelativePath(src, file)}:{i + 1}: {lines[i].Trim()}");
+        }
+    }
+
     private static string RepoRoot()
     {
         var dir = new DirectoryInfo(AppContext.BaseDirectory);

@@ -1,6 +1,7 @@
 <!-- The states of Setup's card. SetupWindow shows one at a time (crossfading); all bind the same SetupViewModel. -->
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fork="using:Filee.Core"
                     xmlns:vm="using:Filee.Setup.ViewModels"
                     xmlns:c="using:Filee.Setup.Controls"
                     xmlns:shared="using:Filee.App.Controls">
@@ -11,7 +12,8 @@
       <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="6" MaxWidth="470" Margin="24,0">
         <c:DonutLogo Width="96" Height="96" HorizontalAlignment="Center" Margin="0,0,0,10" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-          <TextBlock Classes="title" Text="Filee" />
+          <!-- tsudev-files: tên hiển thị (ADR-0001), không viết cứng "Filee". -->
+          <TextBlock Classes="title" Text="{x:Static fork:ForkDefaults.DisplayName}" />
           <Border Classes="pill">
             <TextBlock Text="{Binding Version}" />
           </Border>

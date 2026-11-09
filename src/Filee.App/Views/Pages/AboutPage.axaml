@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:fork="using:Filee.Core"
              xmlns:vm="using:Filee.App.ViewModels.Pages"
              xmlns:c="using:Filee.App.Controls"
              xmlns:v="using:Filee.App.Views"
@@ -39,7 +40,8 @@
           <Image Source="avares://Filee/Assets/Icons/filee.png" Width="72" Height="72" VerticalAlignment="Center" />
           <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
             <StackPanel Orientation="Horizontal" Spacing="10">
-              <TextBlock Text="Filee" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" />
+              <!-- tsudev-files: tên hiển thị (ADR-0001), không viết cứng "Filee". -->
+              <TextBlock Text="{x:Static fork:ForkDefaults.DisplayName}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" />
               <!-- The version as a small pill, tinted with the accent (it follows the accent the user picked). The text colour
                    is set in the code-behind: the accent itself on dark, the deeper accent on light. -->
               <Border Classes="badge" Padding="10,3" Background="{DynamicResource AccentSoftBrush}" VerticalAlignment="Center"
