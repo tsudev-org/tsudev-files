@@ -142,7 +142,7 @@ public class CloseActionTests
             NullLogger<GeneralPageViewModel>.Instance);
         try
         {
-            Assert.Equal(["Ask every time", "Keep Filee running in the tray", "Quit Filee"], page.CloseChoices.Select(c => c.Label));
+            Assert.Equal(["Ask every time", "Keep tsudev-files running in the tray", "Quit tsudev-files"], page.CloseChoices.Select(c => c.Label)); // tsudev-files: ten hien thi (ADR-0001)
             page.CloseChoice = page.CloseChoices.Single(c => c.Value == CloseAction.Quit);
             Assert.Equal(CloseAction.Quit, store.Settings.CloseAction);
         }
