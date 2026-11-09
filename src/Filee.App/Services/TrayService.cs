@@ -36,7 +36,7 @@ public sealed class TrayService(UserDataStore store, ILocalizer loc, IPlatformSe
         {
             Icon = new WindowIcon(iconStream),
             // Set before the icon is attached: on macOS Avalonia passes the tooltip to native code, which can't take null.
-            ToolTipText = "Filee",
+            ToolTipText = Filee.Core.ForkDefaults.DisplayName, // tsudev-files: tên hiển thị
             Menu = new NativeMenu { Items = { _open, _pause, new NativeMenuItemSeparator(), _quit } },
             IsVisible = platform.SupportsDockVisibility ? store.Settings.ShowMenuBarIcon : true,
         };

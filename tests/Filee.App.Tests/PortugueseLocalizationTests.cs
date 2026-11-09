@@ -106,8 +106,9 @@ public class PortugueseLocalizationTests
     public void Editorial_glossary_keeps_variant_specific_terms_separate(string key, string european, string brazilian)
     {
         TestServices.EnsureInitialized("en");
-        Assert.Equal(european, LocalizationService.LoadStrings("pt-PT")[key]);
-        Assert.Equal(brazilian, LocalizationService.LoadStrings("pt-BR")[key]);
+        // tsudev-files: chuỗi đã nạp mang tên hiển thị của bản fork (ForkDefaults.Brand).
+        Assert.Equal(Filee.Core.ForkDefaults.Brand(european), LocalizationService.LoadStrings("pt-PT")[key]);
+        Assert.Equal(Filee.Core.ForkDefaults.Brand(brazilian), LocalizationService.LoadStrings("pt-BR")[key]);
     }
 
     [AvaloniaFact]

@@ -25,6 +25,18 @@ public sealed class ForkLanguageTests
     public void Language_from_environment_is_whitelisted(string? value, string expected) =>
         Assert.Equal(expected, CliLanguage.FromEnvironment(value));
 
+    [Theory]
+    [InlineData("vi")]
+    [InlineData("en")]
+    public void Help_names_the_fork_and_credits_the_original(string language)
+    {
+        var text = Help.Text(null, language);
+        Assert.StartsWith("tsudev-files (", text.TrimStart());
+        Assert.Contains("KnifeLemon/Filee", text);
+        Assert.Contains("filee ", text); // lệnh dòng lệnh giữ tên cũ
+        Assert.DoesNotMatch(@"(?<![\\/.])\bFilee\b(?![./\\])", text.Replace("KnifeLemon/Filee", ""));
+    }
+
     [Fact]
     public void Vietnamese_texts_fall_back_to_english()
     {

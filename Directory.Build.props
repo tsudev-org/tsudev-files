@@ -15,7 +15,8 @@
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
 
     <Version>2.4.0</Version>
-    <Product>Filee</Product>
+    <!-- tsudev-files: tên hiển thị trong thuộc tính tệp (ProductName); tên assembly/tệp chạy vẫn là Filee. -->
+    <Product>tsudev-files</Product>
     <Authors>Filee contributors</Authors>
     <Copyright>Copyright (c) Filee contributors</Copyright>
 

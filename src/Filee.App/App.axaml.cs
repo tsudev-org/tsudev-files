@@ -31,6 +31,7 @@ public partial class App : Application
     {
         AvaloniaXamlLoader.Load(this);
         SingleSelectionGuard.Register();
+        Services.ForkWindowTitles.Register(); // tsudev-files: tên hiển thị trên tiêu đề cửa sổ
     }
 
     public override void OnFrameworkInitializationCompleted()

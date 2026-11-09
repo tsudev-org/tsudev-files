@@ -115,6 +115,7 @@ public sealed class SetupTexts
         using var json = JsonDocument.Parse(stream);
         return json.RootElement.EnumerateObject()
             .Where(p => p.Value.ValueKind == JsonValueKind.String)
-            .ToDictionary(p => p.Name, p => p.Value.GetString() ?? "");
+            // tsudev-files: đổi tên hiển thị "Filee" -> "tsudev-files" (xem ForkDefaults.Brand).
+            .ToDictionary(p => p.Name, p => Filee.Core.ForkDefaults.Brand(p.Value.GetString() ?? ""));
     }
 }
