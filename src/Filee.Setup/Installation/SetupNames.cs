@@ -22,7 +22,12 @@ public static class SetupNames
     public const string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
     public const string AppName = "Filee";
-    public const string Publisher = "Filee contributors";
+
+    /// <summary>tsudev-files: tên hiển thị trong Apps &amp; Features (AppName vẫn là tên giá trị registry nội bộ).</summary>
+    public const string DisplayName = Filee.Core.ForkDefaults.DisplayName;
+
+    // tsudev-files: nhà phát hành của bản fork.
+    public const string Publisher = "tsudev";
     public const string AppExe = "Filee.exe";
 
     /// <summary>The uninstaller next to Filee.exe (UpdateService.IsInstalled looks for it).</summary>
@@ -38,7 +43,11 @@ public static class SetupNames
     public static readonly IReadOnlyList<string> InnoUninstallerFiles = ["unins000.exe", "unins000.dat", "unins000.msg"];
 
     /// <summary>Start menu and desktop shortcut name.</summary>
-    public const string ShortcutName = "Filee.lnk";
+    // tsudev-files: lối tắt mang tên hiển thị; lối tắt "Filee.lnk" của bản cài cũ (Filee gốc, 1.x) được dọn khi cài/gỡ.
+    public const string ShortcutName = Filee.Core.ForkDefaults.DisplayName + ".lnk";
+
+    /// <summary>tsudev-files: tên lối tắt của Filee gốc (Velopack 1.1, Inno Setup 1.x và Setup 2.x của upstream).</summary>
+    public const string LegacyShortcutName = "Filee.lnk";
 
     /// <summary>Registry values Setup adds to the uninstall key (Inno Setup kept the same in "Inno Setup: …").</summary>
     public const string TasksValue = "Filee Setup: Tasks";

@@ -23,9 +23,9 @@ static const IID kIidClassFactory = {0x00000001, 0x0000, 0x0000, {0xc0, 0x00, 0x
 static const IID kIidExplorerCommand = {0xa08ce4d0, 0xfa25, 0x44ab, {0xb5, 0x7c, 0xc7, 0xb1, 0xc3, 0x23, 0xe0, 0xb9}};
 static const KNOWNFOLDERID kFolderRoamingAppData = {0x3eb685db, 0x65f9, 0x4cf6, {0xa0, 0x3a, 0xe3, 0xef, 0x65, 0x72, 0x9f, 0x3d}};
 
-// tsudev-files: tiêu đề dự phòng tiếng Việt "Chuyển đổi bằng Filee" (như general.context_menu_label trong vi.json),
-// viết bằng mã điểm để không phụ thuộc bảng mã của tệp nguồn khi biên dịch.
-#define DEFAULT_TITLE L"Chuy\x1EC3n \x0111\x1ED5i b\x1EB1ng Filee"
+// tsudev-files: tiêu đề dự phòng tiếng Việt "Chuyển đổi bằng tsudev-files" (general.context_menu_label trong vi.json
+// sau ForkDefaults.Brand), viết bằng mã điểm để không phụ thuộc bảng mã của tệp nguồn khi biên dịch.
+#define DEFAULT_TITLE L"Chuy\x1EC3n \x0111\x1ED5i b\x1EB1ng tsudev-files"
 // Written by the app into its data folder (%APPDATA%\Filee, which survives app updates) while the Explorer menu
 // setting is on; first line = the title in the UI language. No file = the entry is hidden, so the setting can switch
 // the entry off and on again without re-registering the package (which needs administrator rights).

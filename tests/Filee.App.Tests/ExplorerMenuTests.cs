@@ -233,7 +233,7 @@ public class ExplorerMenuTests
         // The title comes from the file the app writes into its data folder; without it the English default is used.
         // tsudev-files: bản fork dùng tiêu đề dự phòng tiếng Việt.
         var expectedTitle = ExplorerMenuRegistration.ReadTitle();
-        Assert.Equal(expectedTitle ?? "Chuyển đổi bằng Filee", command.GetTitle());
+        Assert.Equal(expectedTitle ?? "Chuyển đổi bằng tsudev-files", command.GetTitle());
         Assert.Equal(Path.Combine(BuiltFolder, "Filee.exe") + ",0", command.GetIcon(), ignoreCase: true);
         Assert.Equal(ExplorerMenuPackage.ClassId, command.GetCanonicalName());
 
