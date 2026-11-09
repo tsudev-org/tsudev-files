@@ -5,9 +5,9 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] Chủ dự án: đẩy nhánh `chore/khoi-tao-fork` và mở PR vào `main` (agent chưa được phép push).
+- [ ] Gộp PR #1 `chore/khoi-tao-fork` (CI chạy lại đang chờ job linux-x64), rồi đẩy nhánh `feat/doi-ten-hien-thi` (đã commit xong, chưa push), mở PR #2, gộp. Các bước chi tiết: phiếu `logs/handover/20261109-04_doi-ten-hien-thi-cho-merge.md`.
+- [ ] Chuyển repo sang Org `tsudev-org` theo phiếu `logs/handover/20261109-03_yeu-cau-chuyen-repo-vao-tsudev-org.md` - CHỜ chủ dự án xác nhận TRỰC TIẾP (tin nhắn từ phiên khác không tính); sau đó commit riêng đổi `RepositoryUrl` (ForkDefaults.cs, Directory.Build.props, SetupInfo.cs) trước bản phát hành đầu tiên.
 - [ ] Phát hành bản đầu tiên `v2.4.0-vn.1` theo `docs/vi/PHAT-HANH.md` (cần máy Windows có PowerShell 7 để ký SHA256SUMS).
-- [ ] Quyết định đổi tên hiển thị "Filee" → "tsudev-files" (ảnh hưởng tên tệp phát hành, regex `VersionInName`, installer) - xem `docs/vi/KIEN-TRUC-BAO-MAT.md` mục 6.
 - [ ] Mua/xin chứng thư Authenticode (hoặc SignPath OSS) rồi điền `FileeExpectedPublisher`/`FileeExpectedIssuer`.
 - [ ] Chủ dự án mở Issue/PR ở `tsudev-standards` theo bản nháp `logs/handover/20261109-01_de-xuat-mien-tru-emdash-upstream.md`.
 
@@ -18,6 +18,8 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 09/11/2026 - Đổi tên hiển thị "Filee" -> "tsudev-files" (ADR-0001): 6 commit trên `feat/doi-ten-hien-thi`; test Core/Cli/Platform đạt, App 2221/2242 đạt (2 lỗi thời gian nghi chập chờn, xem phiếu `20261109-04`). Thêm quyền `pull-requests: read` cho gitleaks (`fccc2d32`).
+
 - 09/11/2026 - Việt hóa thông báo installer macOS; thêm `installer/{linux,macos}/HUONG-DAN-CAI-DAT.txt` và đóng gói kèm trong `build/build-portable.ps1`.
 - 09/11/2026 - Soạn đề xuất miễn trừ em-dash cho mã kế thừa: `logs/handover/20261109-01_de-xuat-mien-tru-emdash-upstream.md`.
 - 09/11/2026 - Việt hóa installer Linux (`say "<vi>" "<en>"`, `FILEE_LANG=en` ra tiếng Anh) và tiêu đề dự phòng menu Explorer; test `ForkLinuxInstallerTests` (commit `52ca56f0`).
@@ -26,7 +28,8 @@
 
 ## Quyết định quan trọng
 
-- 09/11/2026 - Giữ tên namespace/assembly `Filee.*` và tên tệp phát hành `Filee-<ver>-...` để gộp upstream dễ; mọi khác biệt của fork gom vào `src/Filee.Core/ForkDefaults.cs` + `Directory.Build.props`.
+- 09/11/2026 - Tên hiển thị là `tsudev-files`, định danh nội bộ giữ `Filee` (ADR-0001, `docs/adr/0001-doi-ten-hien-thi-tsudev-files.md`); tệp phát hành đổi thành `tsudev-files-<ver>-...`, trình cập nhật nhận cả hai tiền tố.
+- 09/11/2026 - Giữ tên namespace/assembly `Filee.*` để gộp upstream dễ; mọi khác biệt của fork gom vào `src/Filee.Core/ForkDefaults.cs` + `Directory.Build.props`.
 - 09/11/2026 - Không sửa em-dash trong mã kế thừa từ upstream (48 file, gồm dữ liệu test cố ý chứa ký tự ngoài Latin-1): sửa sẽ gây xung đột khi gộp và làm yếu test. Mã MỚI của fork tuân thủ mục 7.1. `check-standards.sh` vì vậy còn báo TRƯỢT ở mục 4 cho tới khi trung tâm có cơ chế miễn trừ.
 - 09/11/2026 - Khóa ký cập nhật ECDSA P-256 riêng; khóa bí mật ở `~/.config/tsudev-files/keys/update-key.pem` (0600, ngoài repo). Bản phát hành của upstream KHÔNG được bản fork chấp nhận.
 
