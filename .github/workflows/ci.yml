@@ -137,7 +137,7 @@ jobs:
       # downloaded once and not on every run. Release builds restore the same cache.
       - name: Restore Zig toolchain
         id: zig
-        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: build/.cache/zig-x86_64-windows-0.16.0
           key: zig-0.16.0-x86_64-windows
@@ -282,7 +282,7 @@ jobs:
 
       # The x64 Zig toolchain the build job saves; it cross-compiles the ARM64 DLL under x64 emulation.
       - name: Restore Zig toolchain
-        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: build/.cache/zig-x86_64-windows-0.16.0
           key: zig-0.16.0-x86_64-windows
