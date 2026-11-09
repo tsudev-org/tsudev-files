@@ -42,17 +42,41 @@ jobs:
   secrets:
     name: Quét lộ bí mật (gitleaks)
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     permissions:
       contents: read
-      pull-requests: read   # gitleaks-action đọc danh sách commit của PR (thiếu quyền này thì lỗi 403)
+    env:
+      # Ghim phiên bản + checksum. Không dùng gitleaks-action: action đòi GITLEAKS_LICENSE khi repo
+      # thuộc Organization; binary trực tiếp không cần license, secret hay mã JavaScript bên thứ ba.
+      # Nâng phiên bản: đổi CẢ HAI dòng, lấy checksum từ gitleaks_<ver>_checksums.txt của bản phát
+      # hành chính thức (tải 2 lần độc lập, so khớp).
+      GITLEAKS_VERSION: '8.30.1'
+      GITLEAKS_SHA256: '551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Tải gitleaks (ghim phiên bản, kiểm checksum)
+        run: |
+          set -euo pipefail
+          tarball="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -sSfL -o "$RUNNER_TEMP/$tarball" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${tarball}"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/$tarball" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/$tarball" -C "$RUNNER_TEMP" gitleaks
+          "$RUNNER_TEMP/gitleaks" version
+      # Quét toàn lịch sử. Dương tính giả đã đọc kỹ được miễn theo dấu vân tay trong .gitleaksignore.
+      # --ignore-gitleaks-allow: chú thích `gitleaks:allow` trong diff không tự miễn được cho mình.
+      - name: Quét toàn lịch sử git
+        run: |
+          "$RUNNER_TEMP/gitleaks" git \
+            --redact \
+            --ignore-gitleaks-allow \
+            --no-banner \
+            --verbose \
+            --exit-code 1 \
+            .
 
   dependencies:
     name: Lỗ hổng phụ thuộc NuGet

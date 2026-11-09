@@ -1,0 +1,12 @@
+# tsudev-files: dương tính giả của gitleaks (luật generic-api-key) trong lịch sử mã upstream
+# KnifeLemon/Filee, đã đọc từng dòng 09/11/2026. Mỗi dòng là dấu vân tay commit:tệp:luật:dòng nên
+# chỉ miễn đúng chỗ đó; phát hiện mới vẫn làm CI đỏ. KHÔNG thêm dòng nào chưa đọc kỹ nội dung.
+# ExifTool.cs: tham số dòng lệnh "-Keys:GPSCoordinates=" (không phải khóa)
+295a2aecad0b6f13b957e5b2d21c6a31ccb79bd7:src/Filee.Engines/Metadata/ExifTool.cs:generic-api-key:92
+# UpdateServiceTests.cs: chuỗi hex mẫu cố định trong test ("0123456789abcdef...")
+8fd4bc55f4173d73323ea57932031b79ebe0b18a:tests/Filee.App.Tests/UpdateServiceTests.cs:generic-api-key:771
+8fd4bc55f4173d73323ea57932031b79ebe0b18a:tests/Filee.App.Tests/UpdateServiceTests.cs:generic-api-key:772
+8fd4bc55f4173d73323ea57932031b79ebe0b18a:tests/Filee.App.Tests/UpdateServiceTests.cs:generic-api-key:773
+8fd4bc55f4173d73323ea57932031b79ebe0b18a:tests/Filee.App.Tests/UpdateServiceTests.cs:generic-api-key:799
+# GestureDetector.cs: biến cục bộ "token = Environment.TickCount64 ^ ..." (số đếm cử chỉ)
+49961742c2aa7c0bc4d9fbf40071eca25c42aa8b:src/Filee.App/Services/Triggers/GestureDetector.cs:generic-api-key:74
