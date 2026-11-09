@@ -1,4 +1,4 @@
-HƯỚNG DẪN CÀI ĐẶT FILEE TRÊN LINUX (bản tsudev-files)
+HƯỚNG DẪN CÀI ĐẶT TSUDEV-FILES TRÊN LINUX (bản Việt hóa của Filee)
 Bản tiếng Anh đầy đủ: INSTALL.txt. Thông báo của install.sh/uninstall.sh mặc định
 là tiếng Việt; đặt FILEE_LANG=en để xem tiếng Anh.
 
@@ -13,7 +13,7 @@ Nâng cấp tại chỗ, không cần gỡ trước: ./install.sh --upgrade
 - Giữ nguyên cài đặt, preset, lịch sử và các engine chuyển đổi đã tải.
 
 Gỡ cài đặt: ./uninstall.sh
-- Xóa bản cài và các engine do Filee tải về.
+- Xóa bản cài và các engine do tsudev-files tải về.
 - Cài đặt và các tệp đã chuyển đổi của bạn được giữ lại.
 - Nếu bước dọn tích hợp hệ thống lỗi, bản cài được giữ để bạn sửa lỗi rồi chạy lại.
 
@@ -47,25 +47,25 @@ nhập liệu; hãy dùng cửa sổ thả tệp và thao tác trong trình qu�
 thử nghiệm bên dưới.
 
 Cử chỉ trên GNOME Wayland (thử nghiệm, GNOME Shell 45-51):
-Gói Linux kèm extension "Filee donut at the cursor". install.sh cài nó cho người
+Gói Linux kèm extension "tsudev-files donut at the cursor". install.sh cài nó cho người
 dùng hiện tại khi chạy trên GNOME và yêu cầu bật. Mở Extensions và bật nó. Nếu chưa
-thấy hoặc vẫn chạy bản cũ, hãy đăng xuất rồi đăng nhập lại, mở Filee, giữ Ctrl và
+thấy hoặc vẫn chạy bản cũ, hãy đăng xuất rồi đăng nhập lại, mở tsudev-files, giữ Ctrl và
 kéo một tệp trong Files. Trên GNOME không cần nhóm input, sudo hay biến
-FILEE_WAYLAND_GESTURES. Trang Trình kích hoạt (Triggers) cho biết khi Filee đang chờ
-extension hoặc khi extension đang chạy không khớp phiên bản Filee.
+FILEE_WAYLAND_GESTURES. Trang Trình kích hoạt (Triggers) cho biết khi tsudev-files đang chờ
+extension hoặc khi extension đang chạy không khớp phiên bản tsudev-files.
 Extension chỉ gửi trạng thái con trỏ qua socket cục bộ riêng và đặt vòng donut mỗi
 lần mở; không thu phím bạn gõ. Tắt extension là ngừng nhận diện;
-FILEE_WAYLAND_GESTURES=0 cũng tắt được trên GNOME. Cập nhật Filee (trong ứng dụng
-hoặc bằng --upgrade) cũng cập nhật extension nếu do Filee cài; sau đó đăng xuất và
-đăng nhập lại. install.sh chỉ thay thư mục extension do chính Filee cài.
+FILEE_WAYLAND_GESTURES=0 cũng tắt được trên GNOME. Cập nhật tsudev-files (trong ứng dụng
+hoặc bằng --upgrade) cũng cập nhật extension nếu do tsudev-files cài; sau đó đăng xuất và
+đăng nhập lại. install.sh chỉ thay thư mục extension do chính tsudev-files cài.
 Chi tiết, giới hạn và cách xử lý sự cố: GNOME-WAYLAND.md trong gói.
 
 Cử chỉ trên Wayland cho KDE Plasma 6 và Hyprland (thử nghiệm, mặc định tắt):
-Filee đọc chuột và bàn phím từ /dev/input qua libinput; một KWin script hoặc luật
+tsudev-files đọc chuột và bàn phím từ /dev/input qua libinput; một KWin script hoặc luật
 cửa sổ Hyprland đặt vòng donut tại con trỏ (ứng dụng Wayland không tự đặt được vị
 trí cửa sổ). Cần libinput, libudev và libwayland-client (trên Ubuntu: libinput10,
 libudev1, libwayland-client0). Cách bật:
-1. Chạy Filee với biến môi trường FILEE_WAYLAND_GESTURES=1, ví dụ thêm dòng
+1. Chạy tsudev-files với biến môi trường FILEE_WAYLAND_GESTURES=1, ví dụ thêm dòng
    FILEE_WAYLAND_GESTURES=1 vào ~/.config/environment.d/filee.conf (có hiệu lực
    sau khi đăng nhập lại).
 2. Thêm bạn vào nhóm input rồi đăng xuất, đăng nhập lại. CẢNH BÁO: thành viên nhóm
@@ -77,9 +77,9 @@ libudev1, libwayland-client0). Cách bật:
      kwriteconfig6 --file kwinrc --group Plugins --key filee-donutEnabled true
      qdbus6 org.kde.KWin /KWin reconfigure
    Lệnh qdbus có thể tên là qdbus6, qdbus-qt6 hoặc qdbus tùy bản phân phối.
-   Sau khi cập nhật Filee, chạy lại lệnh kpackagetool6 với --upgrade thay cho
+   Sau khi cập nhật tsudev-files, chạy lại lệnh kpackagetool6 với --upgrade thay cho
    --install, rồi chạy lại dòng reconfigure. Nếu KWin vẫn chạy script cũ, tắt rồi
-   bật lại "Filee donut" trong System Settings > Window Management > KWin Scripts,
+   bật lại "tsudev-files donut" trong System Settings > Window Management > KWin Scripts,
    hoặc đăng xuất rồi đăng nhập lại.
    Hyprland: thêm luật cửa sổ cho donut (nổi, căn giữa tại con trỏ, không viền,
    không bóng, không làm mờ). Cú pháp tùy phiên bản (xem hyprctl version); các mẫu
@@ -89,8 +89,8 @@ libudev1, libwayland-client0). Cách bật:
    uninstall.sh, nếu không Hyprland sẽ báo thiếu tệp.
 
 Chạy Wayland gốc (thử nghiệm, mặc định tắt):
-Mặc định Filee chạy qua XWayland để tương thích tốt nhất. Muốn dùng Wayland gốc,
-chạy Filee với FILEE_USE_WAYLAND=1 (export, hoặc ghi vào
+Mặc định tsudev-files chạy qua XWayland để tương thích tốt nhất. Muốn dùng Wayland gốc,
+chạy tsudev-files với FILEE_USE_WAYLAND=1 (export, hoặc ghi vào
 ~/.config/environment.d/filee.conf). Hạn chế: Wayland không cho biết cửa sổ nào
 đang nằm dưới con trỏ, nên Ctrl+kéo trong bất kỳ ứng dụng nào cũng mở một cửa sổ
 donut ẩn; nó chỉ nhận tệp, nên thao tác Ctrl+kéo để chép chữ có thể bị nuốt gần
@@ -99,7 +99,7 @@ Ctrl+Shift). Danh sách ứng dụng loại trừ không áp dụng trên Waylan
 script hoặc luật cửa sổ Hyprland thì donut mở sai chỗ.
 
 Engine: rhwp và 7-Zip có sẵn trong gói. Engine khác cài trong phần Cài đặt của
-Filee hoặc dùng bản có sẵn trên hệ thống. Định dạng hỗ trợ tùy engine có trên máy;
+tsudev-files hoặc dùng bản có sẵn trên hệ thống. Định dạng hỗ trợ tùy engine có trên máy;
 một số engine cần thêm thư viện hệ thống (ví dụ calibre có thể cần libxcb-cursor0,
 libxcb-xinerama0 và các phụ thuộc Qt/XCB khác).
 

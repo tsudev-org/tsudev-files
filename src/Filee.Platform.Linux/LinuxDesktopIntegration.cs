@@ -96,7 +96,8 @@ internal sealed class LinuxDesktopIntegration(string configHome, string dataHome
             File.Delete(path);
             return;
         }
-        Write(path, $"[Desktop Entry]\nType=Application\nName=Filee\nExec={DesktopArgument(executablePath)} --background\nTerminal=false\nX-GNOME-Autostart-enabled=true\n");
+        // tsudev-files: tên hiển thị
+        Write(path, $"[Desktop Entry]\nType=Application\nName={Filee.Core.ForkDefaults.DisplayName}\nExec={DesktopArgument(executablePath)} --background\nTerminal=false\nX-GNOME-Autostart-enabled=true\n");
     }
 
     public void SetContextMenu(bool enabled, string executablePath, string label)
@@ -105,12 +106,17 @@ internal sealed class LinuxDesktopIntegration(string configHome, string dataHome
         var menuPaths = new[]
         {
             Path.Combine(dataHome, "Thunar", "sendto", "filee.desktop"),
-            Path.Combine(dataHome, "nautilus", "scripts", "Filee"),
+            // tsudev-files: Nautilus hiện đúng tên tệp script trong trình đơn Scripts.
+            Path.Combine(dataHome, "nautilus", "scripts", Filee.Core.ForkDefaults.DisplayName),
             Path.Combine(dataHome, "nemo", "actions", "filee.nemo_action"),
             Path.Combine(dataHome, "kio", "servicemenus", "filee.desktop"),
         };
         var thunar = LoadThunarActions(thunarPath);
         UpdateThunarAction(thunar, enabled, executablePath, label);
+        // tsudev-files: bỏ script mang tên cũ "Filee" (bản cài Filee gốc), bật hay tắt đều vậy.
+        var legacyNautilusScript = Path.Combine(dataHome, "nautilus", "scripts", Filee.Core.ForkDefaults.UpstreamName);
+        if (File.Exists(legacyNautilusScript))
+            File.Delete(legacyNautilusScript);
         if (!enabled)
         {
             if (File.Exists(thunarPath))
