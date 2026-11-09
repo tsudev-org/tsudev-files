@@ -20,7 +20,7 @@ public static class ForkDefaults
     public const string FallbackLanguage = "en";
 
     /// <summary>Repo phát hành của bản fork (trình cập nhật đọc giá trị build FileeRepositoryUrl; đây là bản sao để hiển thị).</summary>
-    public const string RepositoryUrl = "https://github.com/tsudev-tsudev/tsudev-files";
+    public const string RepositoryUrl = "https://github.com/tsudev-org/tsudev-files";
 
     /// <summary>Tên hiển thị của ứng dụng (quyết định 09/11/2026: "Filee" -> "tsudev-files").</summary>
     public const string DisplayName = "tsudev-files";

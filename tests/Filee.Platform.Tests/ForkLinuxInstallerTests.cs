@@ -43,7 +43,7 @@ public sealed class ForkLinuxInstallerTests
     {
         var guide = Path.Combine(InstallerFolder, "..", platform, "HUONG-DAN-CAI-DAT.txt");
         Assert.True(File.Exists(guide), guide);
-        Assert.Contains("tsudev-tsudev/tsudev-files/releases", File.ReadAllText(guide));
+        Assert.Contains("tsudev-org/tsudev-files/releases", File.ReadAllText(guide));
         var build = File.ReadAllText(Path.Combine(InstallerFolder, "..", "..", "build", "build-portable.ps1"));
         Assert.Contains($"'installer/{platform}/HUONG-DAN-CAI-DAT.txt'", build);
     }

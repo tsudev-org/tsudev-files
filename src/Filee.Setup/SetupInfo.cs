@@ -8,10 +8,10 @@ public static class SetupInfo
     /// <summary>GitHub repository from Directory.Build.props (FileeRepositoryUrl).</summary>
     public static string RepositoryUrl =>
         typeof(SetupInfo).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
-            .FirstOrDefault(a => a.Key == "RepositoryUrl")?.Value ?? "https://github.com/tsudev-tsudev/tsudev-files";
+            .FirstOrDefault(a => a.Key == "RepositoryUrl")?.Value ?? "https://github.com/tsudev-org/tsudev-files";
 
     /// <summary>The website: one big download button.</summary>
-    public const string WebsiteUrl = "https://github.com/tsudev-tsudev/tsudev-files/releases/latest";
+    public const string WebsiteUrl = "https://github.com/tsudev-org/tsudev-files/releases/latest";
 
     /// <summary>The version this Setup program was built as (the payload says which Filee it installs).</summary>
     public static string Version =>

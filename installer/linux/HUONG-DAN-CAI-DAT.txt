@@ -104,4 +104,4 @@ một số engine cần thêm thư viện hệ thống (ví dụ calibre có th�
 libxcb-xinerama0 và các phụ thuộc Qt/XCB khác).
 
 Cập nhật trong ứng dụng chỉ nhận bản phát hành của tsudev-files, có chữ ký riêng:
-https://github.com/tsudev-tsudev/tsudev-files/releases
+https://github.com/tsudev-org/tsudev-files/releases
