@@ -17,7 +17,7 @@
 
 ## 2. Số phiên bản
 
-- Trình cập nhật chỉ nhận bản có số phiên bản **lớn hơn** bản đang chạy (đọc từ tên tệp `Filee-<x.y.z>-...`).
+- Trình cập nhật chỉ nhận bản có số phiên bản **lớn hơn** bản đang chạy (đọc từ tên tệp `tsudev-files-<x.y.z>-...`).
 - `Version` trong `Directory.Build.props`, nhãn git `v<x.y.z>`; mục `## <x.y.z>` trong `CHANGELOG.md` thành ghi chú
   phát hành.
 - Khi gộp upstream lên phiên bản mới, lấy theo số của upstream; bản sửa riêng của fork giữa hai lần gộp tăng số vá

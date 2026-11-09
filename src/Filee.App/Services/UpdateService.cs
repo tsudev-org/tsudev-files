@@ -574,7 +574,8 @@ public sealed partial class UpdateService : ObservableObject
     }
 
     /// <summary>"Filee-2.4.0-win-Setup.exe" → 2.4.0.</summary>
-    [GeneratedRegex(@"^Filee-(\d+\.\d+\.\d+)-")]
+    // tsudev-files: bản fork phát hành "tsudev-files-2.4.0-win-Setup.exe"; vẫn nhận tên cũ cho tệp phát hành trước đó.
+    [GeneratedRegex(@"^(?:Filee|tsudev-files)-(\d+\.\d+\.\d+)-")]
     private static partial Regex VersionInName();
 
     /// <summary>
