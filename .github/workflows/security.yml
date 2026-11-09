@@ -1,0 +1,83 @@
+# tsudev-files: cổng kiểm bảo mật - phân tích tĩnh (CodeQL), quét lộ bí mật (gitleaks), soát lỗ hổng phụ thuộc NuGet
+# và kiểm tra bản dịch tiếng Việt. Mọi action ghim theo SHA commit; quyền token ở mức tối thiểu.
+name: Bảo mật
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 2 * * 1'   # 09:17 thứ Hai giờ Việt Nam
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  codeql:
+    name: CodeQL (C#)
+    # Repo riêng tư cần GitHub Advanced Security để tải kết quả CodeQL; tự bật khi repo chuyển sang công khai.
+    if: ${{ !github.event.repository.private }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: github/codeql-action/init@33d7b85da1a04171e211befe2c739303b9a4c066 # v4
+        with:
+          languages: csharp
+          build-mode: none
+          queries: security-extended
+      - uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066 # v4
+        with:
+          category: /language:csharp
+
+  secrets:
+    name: Quét lộ bí mật (gitleaks)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dependencies:
+    name: Lỗ hổng phụ thuộc NuGet
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6
+        with:
+          global-json-file: global.json
+      - name: Soát gói có lỗ hổng đã công bố (kể cả phụ thuộc bắc cầu)
+        shell: bash
+        run: |
+          dotnet restore Filee.slnx
+          dotnet list Filee.slnx package --vulnerable --include-transitive 2>&1 | tee vuln.txt
+          if grep -qiE '\b(High|Critical)\b' vuln.txt; then
+            echo "::error::Có gói NuGet mang lỗ hổng mức High/Critical"; exit 1
+          fi
+
+  i18n:
+    name: Bản dịch tiếng Việt
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - run: python3 -I tools/check_i18n_vi.py

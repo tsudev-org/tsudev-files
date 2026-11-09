@@ -1,0 +1,13 @@
+# tsudev-files: tự động đề xuất PR nâng cấp phụ thuộc (bản vá bảo mật).
+version: 2
+updates:
+  - package-ecosystem: nuget
+    directory: /
+    schedule: { interval: weekly, day: monday, timezone: Asia/Ho_Chi_Minh }
+    open-pull-requests-limit: 10
+    groups:
+      avalonia: { patterns: ["Avalonia*"] }
+      microsoft: { patterns: ["Microsoft.*", "System.*"] }
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly, day: monday, timezone: Asia/Ho_Chi_Minh }
