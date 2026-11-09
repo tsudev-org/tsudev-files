@@ -1,0 +1,99 @@
+---
+import TaiLieu from '../components/TaiLieu.astro';
+
+// Nội dung theo `filee help <lệnh>` (src/Filee.Cli, chuỗi CliLanguage.T). Đổi tùy chọn ở đó thì cập nhật trang này.
+const mucLuc = [
+  { id: 'cai-dat', ten: 'Cài lệnh filee' },
+  { id: 'convert', ten: 'filee convert' },
+  { id: 'watch', ten: 'filee watch' },
+  { id: 'formats-presets', ten: 'formats, presets' },
+  { id: 'engines', ten: 'filee engines' },
+  { id: 'json', ten: 'Đầu ra JSON' },
+  { id: 'ma-thoat', ten: 'Mã thoát' },
+];
+const convert: [string, string][] = [
+  ['-t, --to <định dạng>', 'Định dạng đích, ví dụ jpg, png, pdf, docx, mp4 (xem filee formats)'],
+  ['-p, --preset <preset>', 'Một cấu hình sẵn của ứng dụng, theo id hoặc tên (xem filee presets)'],
+  ['-o, --output <thư mục>', 'Lưu vào thư mục này thay vì cạnh tệp nguồn'],
+  ['-r, --recursive', 'Bao gồm thư mục con'],
+  ['--sort <thứ tự>', 'Thứ tự ghép tệp: name, name-desc, modified, modified-desc, created, created-desc'],
+  ['-q, --quality <1-100>', 'Chất lượng ảnh cho JPG, WebP, AVIF...'],
+  ['--pages <khoảng>', 'Các trang PDF, ví dụ 13-55 hoặc 1-3,8,12-15'],
+  ['--overwrite', 'Ghi đè tệp kết quả đã có (mặc định: thêm số thứ tự)'],
+  ['--skip', 'Bỏ qua nếu tệp kết quả đã có'],
+  ['--keep-dates', 'Giữ ngày tạo, ngày sửa của tệp gốc cho tệp đã chuyển'],
+  ['--zip', 'Gói kết quả của mỗi tệp thành một ZIP (các tệp của Shapefile đi cùng nhau)'],
+  ['--json', 'In kết quả dạng JSON cho script; sự kiện tiến độ ghi ra stderr'],
+  ['--quiet', 'Chỉ in lỗi'],
+];
+const watch: [string, string][] = [
+  ['-t, --to <định dạng>', 'Định dạng đích'],
+  ['-p, --preset <preset>', 'Một cấu hình sẵn, theo id hoặc tên'],
+  ['-o, --output <thư mục>', 'Nơi lưu tệp đã chuyển (mặc định: <thư mục>/converted)'],
+  ['-r, --recursive', 'Theo dõi cả thư mục con, kết quả giữ nguyên cấu trúc'],
+  ['--move-originals', 'Chuyển tệp nguồn đã xử lý vào <thư mục>/originals; tệp đang chờ sẵn được chuyển ngay khi bắt đầu'],
+  ['--settle <giây>', 'Thời gian tệp phải giữ nguyên không đổi trước khi chuyển (mặc định 5)'],
+  ['--keep-dates, --zip, --json, --quiet', 'Như ở filee convert'],
+];
+---
+<TaiLieu tieuDe="Dòng lệnh" moTa="Dùng lệnh filee của tsudev-files để chuyển đổi tệp từ terminal và script: convert, watch, formats, presets, engines, đầu ra JSON và mã thoát." duongDan="/dong-lenh/" mucLuc={mucLuc}>
+  <h1>Dòng lệnh filee</h1>
+  <p>Lệnh <code>filee</code> dùng chung engine và cấu hình sẵn với ứng dụng, chạy được trong script, tác vụ định kỳ hay máy chủ không có màn hình. Thông báo mặc định bằng tiếng Việt; đặt <code>FILEE_LANG=en</code> để dùng tiếng Anh. Tên khóa trong đầu ra JSON giữ nguyên như Filee gốc nên script viết cho Filee vẫn chạy.</p>
+  <pre tabindex="0"><code>filee convert anh.heic --to jpg
+filee convert *.png --to webp --quality 80 -o da-chuyen
+filee convert D:\BanScan --recursive --preset to-pdf
+filee watch D:\HopThuDen --to pdf --move-originals
+filee engines install pandoc</code></pre>
+
+  <h2 id="cai-dat">Cài lệnh filee</h2>
+  <p>Bộ cài Windows có tùy chọn thêm lệnh <code>filee</code> vào PATH. Trên Linux và macOS, <code>install.sh</code> trong gói cài luôn lệnh này. Kiểm tra bằng <code>filee version</code>; xem trợ giúp bằng <code>filee help</code> hoặc <code>filee help &lt;lệnh&gt;</code>.</p>
+
+  <h2 id="convert">filee convert</h2>
+  <pre tabindex="0"><code>filee convert &lt;tệp hoặc thư mục...&gt; (--to &lt;định dạng&gt; | --preset &lt;preset&gt;) [tùy chọn]</code></pre>
+  <p>Tệp có thể dùng ký tự đại diện (<code>*.heic</code>). Với thư mục, tsudev-files chuyển các tệp bên trong mà nó nhận diện được.</p>
+  <div class="bang" tabindex="0" role="region" aria-label="Tùy chọn của filee convert, cuộn ngang được">
+    <table>
+      <thead><tr><th scope="col">Tùy chọn</th><th scope="col">Ý nghĩa</th></tr></thead>
+      <tbody>{convert.map(([a, b]) => <tr><td><code>{a}</code></td><td>{b}</td></tr>)}</tbody>
+    </table>
+  </div>
+
+  <h2 id="watch">filee watch</h2>
+  <pre tabindex="0"><code>filee watch &lt;thư mục&gt; (--to &lt;định dạng&gt; | --preset &lt;preset&gt;) [tùy chọn]</code></pre>
+  <p>Chuyển đổi các tệp được đưa vào thư mục cho tới khi nhấn <kbd>Ctrl</kbd>+<kbd>C</kbd>. Tệp chỉ được chuyển khi đã hoàn chỉnh (không còn tăng dung lượng, không bị chương trình khác mở). Kết quả lưu vào thư mục <code>converted</code> bên trong, trừ khi có <code>-o</code>.</p>
+  <div class="bang" tabindex="0" role="region" aria-label="Tùy chọn của filee watch, cuộn ngang được">
+    <table>
+      <thead><tr><th scope="col">Tùy chọn</th><th scope="col">Ý nghĩa</th></tr></thead>
+      <tbody>{watch.map(([a, b]) => <tr><td><code>{a}</code></td><td>{b}</td></tr>)}</tbody>
+    </table>
+  </div>
+
+  <h2 id="formats-presets">filee formats, filee presets</h2>
+  <pre tabindex="0"><code>filee formats [&lt;định dạng&gt;] [--json]    # mọi định dạng, hoặc một định dạng chuyển được sang đâu
+filee presets [--json]                   # cấu hình sẵn đã lưu (có sẵn và do bạn tạo)</code></pre>
+
+  <h2 id="engines">filee engines</h2>
+  <pre tabindex="0"><code>filee engines [--json]
+filee engines install &lt;engine&gt; [--json] [--quiet]
+filee engines remove &lt;engine&gt; [--json] [--quiet]</code></pre>
+  <p>Liệt kê engine tùy chọn (LibreOffice, Pandoc, FFmpeg...), hoặc cài, gỡ một engine với cùng nguồn tải và cùng bước kiểm SHA-256 như ứng dụng. <code>remove</code> chỉ gỡ những gì tsudev-files đã tải; bản riêng của bạn và bản tìm thấy trên máy được giữ nguyên.</p>
+
+  <h2 id="json">Đầu ra JSON cho script</h2>
+  <p>Với <code>--json</code>, <code>filee convert</code> in một tài liệu JSON ra stdout khi xong việc. Trong lúc chạy, stderr nhận mỗi dòng một đối tượng JSON:</p>
+  <pre tabindex="0"><code>{"{"}"event":"progress","source":"...","fraction":0.42{"}"}     # 0 tới 1, khoảng 150 ms một lần khi có thay đổi
+{"{"}"event":"file", ...{"}"}                                    # từng tệp xong, cùng trường như mục của tệp đó trong "files"</code></pre>
+  <p><code>filee watch --json</code> chỉ in sự kiện ra stdout: <code>started</code> (kèm thư mục, cấu hình sẵn, định dạng đích, thư mục kết quả), <code>file</code> khi từng tệp xong, và <code>stopped</code> khi nhấn <kbd>Ctrl</kbd>+<kbd>C</kbd>.</p>
+
+  <h2 id="ma-thoat">Mã thoát</h2>
+  <div class="bang" tabindex="0" role="region" aria-label="Mã thoát, cuộn ngang được">
+    <table>
+      <thead><tr><th scope="col">Mã</th><th scope="col">Nghĩa</th></tr></thead>
+      <tbody>
+        <tr><td><code>0</code></td><td>Không có lỗi (kể cả khi có tệp bị bỏ qua)</td></tr>
+        <tr><td><code>1</code></td><td>Có tệp lỗi hoặc bị hủy</td></tr>
+        <tr><td><code>2</code></td><td>Sai tham số hoặc thiếu đầu vào</td></tr>
+        <tr><td><code>3</code></td><td>Không có gì để chuyển đổi</td></tr>
+      </tbody>
+    </table>
+  </div>
+</TaiLieu>

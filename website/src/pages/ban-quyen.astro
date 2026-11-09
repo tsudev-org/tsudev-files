@@ -1,0 +1,19 @@
+---
+import TaiLieu from '../components/TaiLieu.astro';
+import { docTep, renderMd, UPSTREAM_URL } from '../lib/noi-dung';
+const giayPhep = docTep('LICENSE');
+const benThuBa = renderMd('THIRD-PARTY-NOTICES.md', { boTieuDeDau: true, haCap: 1 });
+---
+<TaiLieu tieuDe="Bản quyền" moTa="Bản quyền và giấy phép của tsudev-files: giấy phép MIT của Filee gốc nguyên văn, ghi công tác giả KnifeLemon và danh sách thành phần bên thứ ba." duongDan="/ban-quyen/">
+  <h1>Bản quyền</h1>
+  <p>tsudev-files là bản phái sinh của <a href={UPSTREAM_URL} target="_blank" rel="noopener noreferrer">Filee</a>, tác phẩm của Myeonggu Kim (KnifeLemon) và những người đóng góp cho Filee. Toàn bộ mã nguồn, kể cả phần tsudev thêm vào, phát hành theo giấy phép MIT dưới đây. Tên định danh nội bộ (tệp chạy <code>Filee.exe</code>, lệnh <code>filee</code>, thư mục dữ liệu) được giữ như bản gốc để dễ đồng bộ và để script viết cho Filee vẫn chạy.</p>
+  <p>Muốn ủng hộ dự án, hãy ủng hộ trực tiếp tác giả gốc qua trang <a href={UPSTREAM_URL} target="_blank" rel="noopener noreferrer">Filee trên GitHub</a>.</p>
+
+  <h2 id="giay-phep-mit">Giấy phép MIT (nguyên văn)</h2>
+  <pre class="giay-phep" tabindex="0" lang="en">{giayPhep}</pre>
+  <p>Tóm tắt không chính thức: bạn được dùng, sao chép, sửa, phân phối, kể cả cho mục đích thương mại, miễn là giữ thông báo bản quyền và giấy phép này. Phần mềm được cung cấp "nguyên trạng", không kèm bảo đảm. Khi có khác biệt, bản tiếng Anh ở trên có giá trị.</p>
+
+  <h2 id="thanh-phan-ben-thu-ba">Thành phần bên thứ ba</h2>
+  <p>Mỗi thành phần giữ giấy phép riêng của nó. Danh sách dưới đây sao nguyên văn từ <code>THIRD-PARTY-NOTICES.md</code> (tiếng Anh).</p>
+  <div lang="en"><Fragment set:html={benThuBa.html} /></div>
+</TaiLieu>

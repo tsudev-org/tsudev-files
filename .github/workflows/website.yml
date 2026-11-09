@@ -1,0 +1,46 @@
+# tsudev-files: build trang files.tsudev.com và kiểm tra nhận diện, CSP, khả năng truy cập cho mỗi PR có thay đổi liên quan.
+# Đưa lên Cloudflare Pages do chủ repo chạy: cd website && npm ci && npm run deploy (xem website/README.md).
+name: Website
+
+on:
+  push:
+    branches: [main]
+    paths: ["website/**", "README.md", "SECURITY.md", "CHANGELOG.md", "LICENSE", "THIRD-PARTY-NOTICES.md", "docs/vi/**", ".github/workflows/website.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["website/**", "README.md", "SECURITY.md", "CHANGELOG.md", "LICENSE", "THIRD-PARTY-NOTICES.md", "docs/vi/**", ".github/workflows/website.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build website
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Build và kiểm tra nhận diện, CSP
+        env:
+          GITHUB_TOKEN: ${{ github.token }}   # đọc releases/latest không bị giới hạn 60 lượt/giờ của IP dùng chung
+        run: npm run build
+      - name: Cài Chromium cho kiểm tra khả năng truy cập
+        run: npx playwright install --with-deps chromium
+      - name: Kiểm tra khả năng truy cập (axe-core, WCAG 2.2 AA, sáng + tối)
+        run: npm run check:a11y

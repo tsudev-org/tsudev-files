@@ -1,0 +1,133 @@
+---
+import Trang from '../layouts/Trang.astro';
+import { banMoiNhat, REPO_URL, UPSTREAM_URL } from '../lib/noi-dung';
+
+const ban = await banMoiNhat();
+const buoc = [
+  { t: 'Giữ phím và kéo tệp', d: 'Giữ Ctrl (Option trên macOS) rồi kéo một hay nhiều tệp, từ trình quản lý tệp hoặc từ trình duyệt.' },
+  { t: 'Vòng tròn mở ra tại con trỏ', d: 'Chỉ những định dạng hợp với tệp đang kéo mới hiện. Nhấn Tab hoặc lăn chuột để lật sang công cụ ít dùng.' },
+  { t: 'Thả vào định dạng muốn có', d: 'Tệp kết quả nằm cạnh tệp gốc (hoặc thư mục bạn chọn). Không hộp thoại, không bước thừa.' },
+];
+const tinhNang = [
+  { t: 'Hơn 260 định dạng', d: 'Ảnh, PDF, Word, Excel, PowerPoint, HWP, video, âm thanh, phụ đề, sách điện tử, tệp nén, CAD, phông chữ, bản đồ, 3D.' },
+  { t: 'Không cần Microsoft Office', d: 'Phần lớn chuyển đổi chạy bằng bộ đọc, bộ ghi có sẵn. Engine tùy chọn (LibreOffice, FFmpeg, Pandoc...) chỉ tải khi cần.' },
+  { t: 'Nhiều tệp cùng lúc', d: 'Chuyển song song cả loạt tệp. Đường đi nhiều bước (HWP sang HWPX sang DOCX) được tự tìm.' },
+  { t: 'Preset theo loại tệp', d: 'Mỗi loại tệp một thanh công cụ riêng: chất lượng, kích thước, DPI, trang PDF, nén, video, thư mục và tên tệp đầu ra.' },
+  { t: 'Thư mục theo dõi', d: 'Tệp nào rơi vào thư mục đã chọn đều được chuyển tự động, kết quả gom vào một chỗ.' },
+  { t: 'Dòng lệnh filee', d: 'Dùng chung engine và preset với ứng dụng, có đầu ra JSON cho script. Xem trang Dòng lệnh.' },
+  { t: 'Tiếng Việt mặc định', d: 'Giao diện, trình cài đặt và dòng lệnh đều bằng tiếng Việt ngay lần chạy đầu; đổi được sang 21 ngôn ngữ khác.' },
+  { t: 'Sáng, tối, màu nhấn riêng', d: 'Chọn chế độ nền, màu nhấn và độ trong của vòng tròn theo ý bạn.' },
+];
+const nhom = [
+  'Ảnh: JPG, PNG, WEBP, AVIF, HEIC, RAW máy ảnh, PSD...',
+  'PDF: sang DOCX, ảnh, PPTX; ghép, tách, nén',
+  'Văn bản: DOCX, DOC, ODT, RTF, EML, MSG, HWP',
+  'Bảng tính: XLSX, XLS, ODS, CSV, JSON',
+  'Trình chiếu: PPTX, PPT, ODP sang PDF, ảnh',
+  'Video, âm thanh: MP4, MKV, MP3, FLAC... (FFmpeg)',
+  'Sách điện tử: EPUB, MOBI, AZW3, CBZ',
+  'Tệp nén, CAD, phông chữ, dữ liệu, bản đồ, 3D',
+];
+const baoMat = [
+  { t: 'Tệp không rời khỏi máy', d: 'Không tải tệp lên máy chủ nào, không thu thập dữ liệu, không cần tài khoản. Chuyển đổi chạy được khi không có mạng.' },
+  { t: 'Bản cập nhật có chữ ký riêng', d: 'Danh sách SHA-256 của mỗi bản phát hành được ký ECDSA P-256 bằng khóa riêng của tsudev-files; sai chữ ký thì từ chối.' },
+  { t: 'Chống tệp độc hại', d: 'Chặn giải nén thoát thư mục ("zip slip"), tệp "bom", tài liệu tự tải nội dung từ mạng hay đọc tệp khác trên máy.' },
+  { t: 'Kiểm tra liên tục', d: 'Mỗi thay đổi đi qua CodeQL, gitleaks, soát lỗ hổng thư viện và hàng nghìn bài kiểm thử trên Windows, Linux, macOS.' },
+];
+---
+<Trang moTa="tsudev-files: chuyển đổi tệp ngoại tuyến bằng kéo thả, hơn 260 định dạng, giao diện tiếng Việt, miễn phí, mã nguồn mở, không tải tệp lên mạng." duongDan="/">
+  <section class="mo-dau">
+    <div class="khung mo-dau__luoi">
+      <div>
+        <span class="nhan">{ban ? `Phiên bản ${ban.phienBan} · ${ban.ngay}` : 'Sắp có bản phát hành đầu tiên'}</span>
+        <h1>Kéo, thả, xong. Chuyển đổi tệp ngay trên máy bạn</h1>
+        <p class="mo-dau__phu">tsudev-files đổi định dạng ảnh, PDF, tài liệu, video, âm thanh và hơn thế nữa chỉ bằng một cú kéo thả. Miễn phí, mã nguồn mở, giao diện tiếng Việt, và tệp của bạn không bao giờ bị tải lên mạng.</p>
+        <div class="mo-dau__nut">
+          <a class="nut nut--chinh" href="/tai-ve/">Tải tsudev-files</a>
+          <a class="nut nut--phu" href="/dinh-dang/">Xem định dạng hỗ trợ</a>
+        </div>
+        <p class="mo-dau__ghi-chu">Windows 10/11 · macOS 13+ (bản xem trước) · Linux x64 và ARM64 · giấy phép MIT</p>
+      </div>
+      <figure class="minh-hoa">
+        <img src="/anh/page-home-vi.png" alt="Màn hình Trang chủ của tsudev-files: vùng thả tệp và danh sách chuyển đổi gần đây, menu bên trái bằng tiếng Việt" width="1080" height="820">
+        <figcaption>Trang chủ: thả tệp vào đây hoặc giữ Ctrl rồi kéo ở bất kỳ đâu</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="muc muc--nen" aria-labelledby="cach-dung">
+    <div class="khung">
+      <h2 id="cach-dung">Ba bước, không cần mở ứng dụng</h2>
+      <p class="muc__dan">tsudev-files chạy nền. Bạn làm việc trong trình quản lý tệp như thường lệ, cần đổi định dạng thì kéo.</p>
+      <ol class="buoc">
+        {buoc.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="muc" aria-labelledby="tinh-nang">
+    <div class="khung">
+      <h2 id="tinh-nang">Tính năng</h2>
+      <p class="muc__dan">Giữ trọn tính năng của Filee, thêm tiếng Việt và các lớp bảo vệ riêng của tsudev.</p>
+      <ul class="the-luoi">
+        {tinhNang.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="muc muc--nen" aria-labelledby="dinh-dang">
+    <div class="khung">
+      <h2 id="dinh-dang">Định dạng nào cũng có đường</h2>
+      <p class="muc__dan">Danh sách đầy đủ, kèm định dạng cần engine tùy chọn, ở trang <a href="/dinh-dang/">Định dạng hỗ trợ</a>.</p>
+      <ul class="nhom-dinh-dang">
+        {nhom.map((x) => <li>{x}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="muc" aria-labelledby="anh-chup">
+    <div class="khung">
+      <h2 id="anh-chup">Ảnh chụp</h2>
+      <p class="muc__dan">Giao diện tiếng Việt, chế độ sáng.</p>
+      <div class="anh-luoi">
+        <figure>
+          <img src="/anh/page-toolbar-vi.png" alt="Trang Thanh công cụ vòng tròn: sắp xếp các ô định dạng bằng kéo thả, mỗi loại tệp một hồ sơ" width="1080" height="820" loading="lazy">
+          <figcaption>Sắp xếp vòng tròn, mỗi loại tệp một hồ sơ</figcaption>
+        </figure>
+        <figure>
+          <img src="/anh/page-presets-vi.png" alt="Trang Preset: danh sách preset chuyển đổi có sẵn và do bạn tạo" width="1080" height="820" loading="lazy">
+          <figcaption>Preset: chất lượng, kích thước, thư mục đầu ra</figcaption>
+        </figure>
+        <figure>
+          <img src="/anh/page-watch-vi.png" alt="Trang Thư mục theo dõi: quy tắc tự chuyển đổi tệp mới trong một thư mục" width="1080" height="820" loading="lazy">
+          <figcaption>Thư mục theo dõi tự chuyển đổi tệp mới</figcaption>
+        </figure>
+        <figure>
+          <img src="/anh/page-engines-vi.png" alt="Trang Engine: trạng thái các engine có sẵn và engine tùy chọn có thể cài thêm" width="1080" height="820" loading="lazy">
+          <figcaption>Engine tùy chọn: chỉ tải khi bạn cần</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="muc muc--nen" aria-labelledby="bao-mat">
+    <div class="khung">
+      <h2 id="bao-mat">Riêng tư và an toàn</h2>
+      <p class="muc__dan">Hạng sản phẩm C theo quy ước tsudev: chạy ngoại tuyến, không tài khoản. Chi tiết ở trang <a href="/bao-mat/">Bảo mật</a>.</p>
+      <ul class="the-luoi">
+        {baoMat.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="muc" aria-labelledby="nguon-goc">
+    <div class="khung">
+      <h2 id="nguon-goc">Mã nguồn và ghi công</h2>
+      <p class="muc__dan">tsudev-files là bản phái sinh của <a href={UPSTREAM_URL} target="_blank" rel="noopener noreferrer">Filee</a>, tác phẩm của Myeonggu Kim (KnifeLemon) và cộng đồng, phát hành theo giấy phép MIT. tsudev giữ bản fork đồng bộ với upstream, Việt hóa và gia cố bảo mật. Muốn ủng hộ, hãy ủng hộ trực tiếp tác giả gốc.</p>
+      <div class="mo-dau__nut">
+        <a class="nut nut--phu" href={REPO_URL} target="_blank" rel="noopener noreferrer">Mã nguồn trên GitHub</a>
+        <a class="nut nut--phu" href="/ban-quyen/">Bản quyền</a>
+      </div>
+    </div>
+  </section>
+</Trang>
