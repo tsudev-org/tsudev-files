@@ -95,8 +95,9 @@ finally {
     git -C $root worktree remove --force $source
 }
 
-$setup = Join-Path $out "Filee-$Version-win-Setup.exe"
-$files = @($setup, (Join-Path $out "Filee-$Version-win-Portable.zip"), (Join-Path $out "Filee-$Version-SHA256SUMS.txt"))
+# tsudev-files: tệp phát hành mang tên hiển thị (ForkDefaults.ReleaseFilePrefix).
+$setup = Join-Path $out "tsudev-files-$Version-win-Setup.exe"
+$files = @($setup, (Join-Path $out "tsudev-files-$Version-win-Portable.zip"), (Join-Path $out "tsudev-files-$Version-SHA256SUMS.txt"))
 foreach ($file in $files) { if (-not (Test-Path $file)) { throw "$file was not written." } }
 
 # The signed Setup still finds its payload, and what it installs is signed, the uninstaller too.
@@ -122,7 +123,7 @@ if ($UpdateKey) {
     $sums = Join-Path $work 'sums'
     New-Item -ItemType Directory -Force -Path $sums | Out-Null
     Invoke-Checked 'gh release download' { gh release download $tag --pattern '*SHA256SUMS.txt' --dir $sums --clobber }
-    Copy-Item (Join-Path $out "Filee-$Version-SHA256SUMS.txt") $sums -Force
+    Copy-Item (Join-Path $out "tsudev-files-$Version-SHA256SUMS.txt") $sums -Force
     $signatures = @(& (Join-Path $PSScriptRoot 'sign-checksums.ps1') -Folder $sums -PrivateKeyPath $UpdateKey -PublicKey $publicKey)
 }
 
@@ -135,7 +136,7 @@ if (-not $NoMirror) {
     $mirror = "https://dl.filee.sh/$Version"
     $types = @{ '.exe' = 'application/vnd.microsoft.portable-executable'; '.zip' = 'application/zip'; '.txt' = 'text/plain; charset=utf-8'
         '.sig' = 'text/plain; charset=utf-8' }
-    $mirrored = $files + @($signatures | Where-Object { (Split-Path $_ -Leaf) -eq "Filee-$Version-SHA256SUMS.txt.sig" })
+    $mirrored = $files + @($signatures | Where-Object { (Split-Path $_ -Leaf) -eq "tsudev-files-$Version-SHA256SUMS.txt.sig" })
     foreach ($file in $mirrored) {
         $name = Split-Path $file -Leaf
         Write-Host "copy $name to $mirror"

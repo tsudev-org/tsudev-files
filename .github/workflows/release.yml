@@ -124,12 +124,13 @@ jobs:
         run: |
           $version = '${{ steps.version.outputs.value }}'
           # Linux and macOS only: build/sign-release.ps1 adds the signed Windows files.
-          $windows = "Filee-$version-win-Setup.exe", "Filee-$version-win-Portable.zip", "Filee-$version-SHA256SUMS.txt"
+          # tsudev-files: tệp phát hành mang tên hiển thị.
+          $windows = "tsudev-files-$version-win-Setup.exe", "tsudev-files-$version-win-Portable.zip", "tsudev-files-$version-SHA256SUMS.txt"
           # tsudev-files: chưa có chứng thư Authenticode nên đưa luôn bản Windows (chưa ký Authenticode) lên bản nháp;
           # tính toàn vẹn dựa vào chữ ký ECDSA của SHA256SUMS (tools/sign-checksums-vn.sh, xem docs/vi/PHAT-HANH.md).
           # Đặt biến repo TSUDEV_UNSIGNED_WINDOWS=false khi đã có chứng thư và dùng build/sign-release.ps1.
           if ($env:TSUDEV_UNSIGNED_WINDOWS -ne 'false') { $windows = @() }
-          $files = Get-ChildItem Releases -File -Filter "Filee-$version-*" | Where-Object Name -notin $windows | ForEach-Object FullName
+          $files = Get-ChildItem Releases -File -Filter "tsudev-files-$version-*" | Where-Object Name -notin $windows | ForEach-Object FullName
           # "## 1.4.0" up to the next "## " heading of CHANGELOG.md, without the heading itself.
           $changes = ''
           $changelog = Get-Content CHANGELOG.md -Raw -Encoding utf8

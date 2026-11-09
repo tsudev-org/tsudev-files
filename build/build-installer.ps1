@@ -146,7 +146,8 @@ if ($sign) {
 }
 
 # The x64 names are the ones Filee's updater looks for (-win-Setup.exe, -SHA256SUMS.txt).
-$prefix = if ($Runtime -eq 'win-x64') { "Filee-$Version-win" } else { "Filee-$Version-$Runtime" }
+# tsudev-files: tệp phát hành mang tên hiển thị (ForkDefaults.ReleaseFilePrefix).
+$prefix = if ($Runtime -eq 'win-x64') { "tsudev-files-$Version-win" } else { "tsudev-files-$Version-$Runtime" }
 $setupExe = Join-Path $OutputDir "$prefix-Setup.exe"
 Write-Host "pack installer $Version"
 $fast = @(if ($CheckOnly) { '--fast' })
@@ -199,7 +200,7 @@ if ($Portable) {
 }
 
 # Checksums for people who verify their download.
-$sums = Join-Path $OutputDir $(if ($Runtime -eq 'win-x64') { "Filee-$Version-SHA256SUMS.txt" } else { "$prefix-SHA256SUMS.txt" })
+$sums = Join-Path $OutputDir $(if ($Runtime -eq 'win-x64') { "tsudev-files-$Version-SHA256SUMS.txt" } else { "$prefix-SHA256SUMS.txt" })
 $files | ForEach-Object { "$((Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant())  $(Split-Path $_ -Leaf)" } |
     Set-Content $sums -Encoding ascii
 Get-Item ($files + $sums) | Format-Table Name, Length

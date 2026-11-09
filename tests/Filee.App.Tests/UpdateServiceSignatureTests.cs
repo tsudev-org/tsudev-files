@@ -36,6 +36,22 @@ public class UpdateServiceSignatureTests
         Assert.Contains(network.Requests, url => url.EndsWith("SHA256SUMS.txt.sig", StringComparison.Ordinal));
     }
 
+    // tsudev-files: bản fork phát hành tệp mang tên hiển thị (tsudev-files-<phiên bản>-win-Setup.exe).
+    [Fact]
+    public async Task Fork_release_name_is_accepted()
+    {
+        const string name = "tsudev-files-9.9.9-win-Setup.exe";
+        using var key = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+        var installer = RandomNumberGenerator.GetBytes(2_000);
+        var sums = Sums(installer, name);
+        var network = new SignedRelease(installer, sums, Sign(key, sums));
+
+        var path = await Updates(network, PublicKey(key), installer.Length, name)
+            .DownloadInstallerAsync(TempFolder(), null, TestContext.Current.CancellationToken);
+
+        Assert.Equal(installer, File.ReadAllBytes(path));
+    }
+
     [Fact]
     public async Task Checksum_file_without_a_signature_is_refused()
     {
