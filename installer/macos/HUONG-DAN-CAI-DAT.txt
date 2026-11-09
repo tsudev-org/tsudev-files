@@ -1,0 +1,42 @@
+HƯỚNG DẪN CÀI ĐẶT FILEE TRÊN macOS (bản tsudev-files)
+Bản tiếng Anh: INSTALL.txt. Thông báo của install.sh/uninstall.sh mặc định là
+tiếng Việt; đặt FILEE_LANG=en để xem tiếng Anh.
+
+Yêu cầu macOS 13 trở lên. Gói có bản riêng cho Apple Silicon hoặc Intel, đã kèm
+.NET runtime.
+
+Cài đặt:
+- Chạy ./install.sh để chép Filee.app vào ~/Applications và tạo lệnh
+  ~/.local/bin/filee.
+- Từ tệp .dmg: kéo Filee.app thả vào Applications (cách này không có lệnh filee).
+- Có thể tự chuyển Filee.app vào Applications. Hãy giữ nguyên vị trí của nó để
+  quyền Accessibility và Finder Automation tiếp tục nhận đúng ứng dụng.
+
+Gói thử nghiệm chỉ được ký ad-hoc, chưa notarize. Với bản tải từ .dmg hoặc tự
+chuyển bằng tay, khi macOS chặn lần mở đầu, vào System Settings > Privacy &
+Security > Open Anyway (install.sh tự xóa cờ tải về trên bản nó cài). Chỉ mở bản
+dựng mà bạn tin nguồn và đã đối chiếu checksum.
+
+Quyền cần cấp:
+- System Settings > Privacy & Security > Accessibility: cho phép Filee để dùng cử
+  chỉ toàn cục. Filee hỏi một lần; trước khi được phép, trang Home sẽ báo.
+- Sau khi cập nhật hoặc cài lại, macOS có thể vẫn hiện Filee đang bật nhưng cử
+  chỉ vẫn chờ quyền: mục đó thuộc bản cũ (ký khác). Chọn Filee, xóa bằng nút -,
+  rồi thêm lại Filee.app bằng nút + và bật lên.
+- Cho phép Finder trong Automation nếu dùng phím tắt theo vùng chọn.
+- Bật Finder Quick Action trong Cài đặt của Filee. Có thể quản lý Services ở
+  System Settings > Keyboard > Keyboard Shortcuts > Services.
+
+Gỡ cài đặt: ./uninstall.sh
+- Xóa bản cài trong ~/Applications, phần tích hợp hệ thống và các engine do
+  Filee tải về. Cài đặt và các tệp đã chuyển đổi của bạn được giữ lại.
+- Nếu bước dọn tích hợp lỗi, bản cài được giữ để bạn sửa lỗi rồi chạy lại.
+- Bản tự đặt trong /Applications: chạy tệp thực thi Filee của nó với
+  --uninstall-cleanup rồi xóa ứng dụng.
+
+Engine: rhwp và 7-Zip có sẵn. Engine khác cài trong Cài đặt của Filee hoặc dùng
+bản có sẵn trên hệ thống. Phát hành công khai cần chữ ký Developer ID và
+notarization; gói thử nghiệm này chưa có.
+
+Cập nhật trong ứng dụng chỉ nhận bản phát hành của tsudev-files, có chữ ký riêng:
+https://github.com/tsudev-tsudev/tsudev-files/releases

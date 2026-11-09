@@ -166,12 +166,16 @@ if ($Runtime.StartsWith('osx-')) {
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/install.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/uninstall.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/INSTALL.txt') -Destination $package
+    # tsudev-files: kèm hướng dẫn cài đặt tiếng Việt.
+    Copy-Item -LiteralPath (Join-Path $root 'installer/macos/HUONG-DAN-CAI-DAT.txt') -Destination $package
 }
 else {
     Copy-Item -LiteralPath (Join-Path $root 'src/Filee.App/Assets/Icons/filee.png') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/install.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/uninstall.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/INSTALL.txt') -Destination $package
+    # tsudev-files: kèm hướng dẫn cài đặt tiếng Việt.
+    Copy-Item -LiteralPath (Join-Path $root 'installer/linux/HUONG-DAN-CAI-DAT.txt') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/kwin') -Destination $package -Recurse
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/gnome') -Destination $package -Recurse
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/hyprland') -Destination $package -Recurse
@@ -190,6 +194,8 @@ if ($Runtime.StartsWith('osx-')) {
     Invoke-Checked 'Copy app for the disk image' { ditto $appBundle (Join-Path $volume 'Filee.app') }
     Invoke-Checked 'Applications link' { ln -s /Applications (Join-Path $volume 'Applications') }
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/INSTALL.txt') -Destination $volume
+    # tsudev-files: kèm hướng dẫn cài đặt tiếng Việt.
+    Copy-Item -LiteralPath (Join-Path $root 'installer/macos/HUONG-DAN-CAI-DAT.txt') -Destination $volume
     $temporaryImage = "$diskImage.$([Guid]::NewGuid().ToString('N')).partial.dmg"
     Invoke-Checked 'Create dmg' { hdiutil create -volname Filee -srcfolder $volume -fs HFS+ -format UDZO -ov $temporaryImage | Out-Null }
     Move-Item -LiteralPath $temporaryImage -Destination $diskImage

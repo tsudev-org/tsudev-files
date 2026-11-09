@@ -1,20 +1,28 @@
 #!/bin/sh
 set -eu
 
+# tsudev-files: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
+say() {
+    case "$(printf '%s' "${FILEE_LANG:-}" | tr '[:upper:]' '[:lower:]')" in
+        en|en-us|english) shift ;;
+    esac
+    printf '%s\n' "$1"
+}
+
 install_dir="$HOME/Applications/Filee.app"
 if [ -L "$install_dir" ] || [ ! -d "$install_dir" ]; then
-    printf '%s\n' "No ordinary Filee app bundle was found at $install_dir."
+    say "Không tìm thấy gói ứng dụng Filee thông thường tại $install_dir." "No ordinary Filee app bundle was found at $install_dir."
     exit 1
 fi
 resolved_parent=$(CDPATH= cd -- "$HOME/Applications" && pwd -P)
 resolved_app=$(CDPATH= cd -- "$install_dir" && pwd -P)
 if [ "$resolved_app" != "$resolved_parent/Filee.app" ]; then
-    printf '%s\n' 'Refusing to remove an app outside the expected Applications directory.'
+    say 'Từ chối gỡ: ứng dụng nằm ngoài thư mục Applications dự kiến.' 'Refusing to remove an app outside the expected Applications directory.'
     exit 1
 fi
 bundle_id=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$install_dir/Contents/Info.plist")
 if [ "$bundle_id" != 'com.filee.app' ]; then
-    printf '%s\n' 'The bundle is not Filee.'
+    say 'Gói này không phải Filee.' 'The bundle is not Filee.'
     exit 1
 fi
 "$install_dir/Contents/MacOS/Filee" --uninstall-cleanup
@@ -22,4 +30,4 @@ if [ -L "$HOME/.local/bin/filee" ] && [ "$(readlink "$HOME/.local/bin/filee")" =
     rm -- "$HOME/.local/bin/filee"
 fi
 rm -rf -- "$install_dir"
-printf '%s\n' 'Filee was removed. Your settings and conversion results were kept.'
+say 'Đã gỡ Filee. Cài đặt và các tệp đã chuyển đổi của bạn vẫn được giữ.' 'Filee was removed. Your settings and conversion results were kept.'

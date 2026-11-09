@@ -1,4 +1,4 @@
-// tsudev-files: script cài/gỡ Linux nói tiếng Việt mặc định và tiếng Anh khi FILEE_LANG=en (giống dòng lệnh).
+// tsudev-files: script cài/gỡ Linux và macOS nói tiếng Việt mặc định và tiếng Anh khi FILEE_LANG=en (giống dòng lệnh).
 
 using System.Diagnostics;
 
@@ -23,9 +23,9 @@ public sealed class ForkLinuxInstallerTests
     [Fact]
     public void Every_message_of_the_scripts_has_both_languages()
     {
-        foreach (var name in new[] { "install.sh", "uninstall.sh" })
+        foreach (var path in new[] { "linux/install.sh", "linux/uninstall.sh", "macos/install.sh", "macos/uninstall.sh" })
         {
-            var lines = File.ReadAllLines(Path.Combine(InstallerFolder, name));
+            var lines = File.ReadAllLines(Path.Combine(InstallerFolder, "..", path));
             // Thông báo cho người dùng đi qua say "<vi>" "<en>"; printf còn lại chỉ ghi tệp đánh dấu hoặc lệnh mv để chép.
             var plain = lines.Where(l => l.TrimStart().StartsWith("printf '%s\\n' \"", StringComparison.Ordinal)
                                          && !l.Contains("upgrade_token", StringComparison.Ordinal)
@@ -34,6 +34,18 @@ public sealed class ForkLinuxInstallerTests
             Assert.Empty(plain);
             Assert.Contains(lines, l => l.TrimStart().StartsWith("say ", StringComparison.Ordinal));
         }
+    }
+
+    [Theory]
+    [InlineData("linux")]
+    [InlineData("macos")]
+    public void Packages_carry_the_vietnamese_install_guide(string platform)
+    {
+        var guide = Path.Combine(InstallerFolder, "..", platform, "HUONG-DAN-CAI-DAT.txt");
+        Assert.True(File.Exists(guide), guide);
+        Assert.Contains("tsudev-tsudev/tsudev-files/releases", File.ReadAllText(guide));
+        var build = File.ReadAllText(Path.Combine(InstallerFolder, "..", "..", "build", "build-portable.ps1"));
+        Assert.Contains($"'installer/{platform}/HUONG-DAN-CAI-DAT.txt'", build);
     }
 
     private static string InstallerFolder
