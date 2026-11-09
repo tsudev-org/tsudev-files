@@ -18,6 +18,7 @@ máy của bạn**, không tải tệp lên bất kỳ máy chủ nào, không c
 | Ngôn ngữ mặc định | Theo ngôn ngữ hệ điều hành, dự phòng tiếng Anh | **Tiếng Việt** cho giao diện, trình cài đặt và dòng lệnh; đổi được trong Cài đặt (`auto`, `en`, ...) |
 | Dòng lệnh `filee` | Chỉ tiếng Anh | Tiếng Việt mặc định, `FILEE_LANG=en` để dùng tiếng Anh; khóa JSON giữ nguyên cho script |
 | Kiểm tra cập nhật | `KnifeLemon/Filee` + khóa ký của tác giả gốc | `tsudev-tsudev/tsudev-files` + **khóa ký ECDSA P-256 riêng**; bản phát hành của repo khác bị từ chối |
+| Tên hiển thị | Filee | **tsudev-files** (giao diện, trình cài đặt, lối tắt, tệp phát hành); tệp chạy, lệnh `filee` và thư mục dữ liệu giữ tên cũ - xem [ADR-0001](docs/adr/0001-doi-ten-hien-thi-tsudev-files.md) |
 | Trang tải khi cập nhật lỗi | filee.sh | Trang phát hành của repo này |
 | GitHub Actions | Ghim theo tag | **Ghim theo SHA commit** (chống tag bị sửa) |
 | Cổng kiểm bảo mật | CI + test | Thêm CodeQL (security-extended), gitleaks, soát lỗ hổng NuGet, kiểm tra bản dịch, Dependabot |

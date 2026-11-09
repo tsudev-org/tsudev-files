@@ -60,4 +60,5 @@
 - [ ] SBOM (CycloneDX) + GitHub artifact attestation cho mỗi bản phát hành.
 - [ ] Bật branch protection cho `main`: yêu cầu PR + các check `ci` và `Bảo mật`.
 - [ ] Fuzz test bộ đọc định dạng tự viết (OFD, HWP, ICNS, MOBI) bằng SharpFuzz.
-- [ ] Cân nhắc đổi tên hiển thị "Filee" -> "tsudev-files" (đổi tên tệp phát hành + regex `VersionInName` + installer).
+- [x] Đổi tên hiển thị "Filee" -> "tsudev-files" (09/11/2026, [ADR-0001](../adr/0001-doi-ten-hien-thi-tsudev-files.md)).
+- [ ] Cài song song với Filee gốc: hiện dùng chung `AppGuid`, khóa registry và thư mục dữ liệu (ADR-0001 mục 4).
