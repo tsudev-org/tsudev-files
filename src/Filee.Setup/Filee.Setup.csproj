@@ -20,7 +20,8 @@
     <IsAotCompatible>true</IsAotCompatible>
     <InvariantGlobalization>true</InvariantGlobalization>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    <Product>Filee Setup</Product>
+    <!-- tsudev-files: tên hiển thị -->
+    <Product>tsudev-files Setup</Product>
   </PropertyGroup>
 
   <!-- build/build-installer.ps1: dotnet publish -c Release -r win-x64 -p:FileeSetupPublish=true -->

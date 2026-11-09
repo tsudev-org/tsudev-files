@@ -95,7 +95,10 @@ public sealed class Uninstaller(SetupContext context)
 
         var hive = PreviousInstall.HiveOf(record.Scope);
         foreach (var shortcut in new[] { context.Paths.StartMenu(record.Scope), context.Paths.Desktop(record.Scope) })
+        {
             DeleteFile(Path.Combine(shortcut, SetupNames.ShortcutName), trash, later, stuck);
+            DeleteFile(Path.Combine(shortcut, SetupNames.LegacyShortcutName), trash, later, stuck); // tsudev-files
+        }
         if (PathVariable.Set(Registry, record.Scope, Path.Combine(folder, SetupNames.CliFolder), present: false))
         {
             System.BroadcastEnvironmentChange();

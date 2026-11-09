@@ -80,7 +80,8 @@ public sealed record PreviousInstall(
         system.ExplorerMenuSupported && system.IsExplorerMenuRegistered(),
         RecordedTasks?.Startup ?? true,
         PathVariable.IsOnPath(registry, Scope, Path.Combine(Folder, SetupNames.CliFolder)),
-        File.Exists(Path.Combine(paths.Desktop(Scope), SetupNames.ShortcutName)));
+        File.Exists(Path.Combine(paths.Desktop(Scope), SetupNames.ShortcutName))
+        || File.Exists(Path.Combine(paths.Desktop(Scope), SetupNames.LegacyShortcutName))); // tsudev-files: lối tắt của Filee gốc
 }
 
 /// <summary>Filee 1.1 and earlier, installed by Velopack into %LocalAppData%\Filee for one user.</summary>
@@ -105,8 +106,9 @@ public static class VelopackInstall
             DeleteFile(Path.Combine(root, file), system, log);
         FileSwap.DeleteTree(Path.Combine(root, "current"), system, log);
         FileSwap.DeleteTree(Path.Combine(root, "packages"), system, log);
-        DeleteFile(Path.Combine(paths.UserStartMenu, SetupNames.ShortcutName), system, log);
-        DeleteFile(Path.Combine(paths.UserDesktop, SetupNames.ShortcutName), system, log);
+        // tsudev-files: Velopack 1.1 là Filee gốc, lối tắt mang tên cũ.
+        DeleteFile(Path.Combine(paths.UserStartMenu, SetupNames.LegacyShortcutName), system, log);
+        DeleteFile(Path.Combine(paths.UserDesktop, SetupNames.LegacyShortcutName), system, log);
         registry.DeleteKey(Hive.CurrentUser, SetupNames.VelopackUninstallKey);
     }
 

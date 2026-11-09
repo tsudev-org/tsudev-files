@@ -265,18 +265,28 @@ public sealed class Installer(SetupContext context, SetupPayload payload)
         {
             if (!File.Exists(startMenu))
                 undo.Push(("Start menu shortcut", () => File.Delete(startMenu)));
-            System.CreateShortcut(startMenu, exe, folder, "Filee");
+            System.CreateShortcut(startMenu, exe, folder, SetupNames.DisplayName); // tsudev-files: tên hiển thị
         }
         if (choices.Tasks.DesktopIcon && !choices.NoIcons)
         {
             if (!File.Exists(desktop))
                 undo.Push(("desktop shortcut", () => File.Delete(desktop)));
-            System.CreateShortcut(desktop, exe, folder, "Filee");
+            System.CreateShortcut(desktop, exe, folder, SetupNames.DisplayName); // tsudev-files: tên hiển thị
         }
         else if (update && File.Exists(desktop))
         {
             // Unticked on an update: the shortcut goes (ticking it again brings it back).
             File.Delete(desktop);
+        }
+        // tsudev-files: cài đè lên Filee gốc thì bỏ lối tắt cũ "Filee.lnk" (cùng trỏ vào tệp chạy này).
+        foreach (var legacy in new[] { Paths.StartMenu(choices.Scope), Paths.Desktop(choices.Scope) })
+        {
+            var old = Path.Combine(legacy, SetupNames.LegacyShortcutName);
+            if (!File.Exists(old))
+                continue;
+            var bytes = File.ReadAllBytes(old);
+            undo.Push(("old Filee shortcut", () => File.WriteAllBytes(old, bytes)));
+            File.Delete(old);
         }
 
         // PATH.
@@ -302,7 +312,7 @@ public sealed class Installer(SetupContext context, SetupPayload payload)
         var uninstaller = Path.Combine(folder, SetupNames.UninstallerExe);
         var repository = SetupInfo.RepositoryUrl.TrimEnd('/');
         Registry.DeleteKey(hive, key);
-        Registry.SetString(hive, key, "DisplayName", SetupNames.AppName);
+        Registry.SetString(hive, key, "DisplayName", SetupNames.DisplayName); // tsudev-files: tên hiển thị
         Registry.SetString(hive, key, "DisplayVersion", version);
         Registry.SetString(hive, key, "Publisher", SetupNames.Publisher);
         Registry.SetString(hive, key, "DisplayIcon", Path.Combine(folder, SetupNames.AppExe));
