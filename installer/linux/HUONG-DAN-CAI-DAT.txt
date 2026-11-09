@@ -1,0 +1,107 @@
+HƯỚNG DẪN CÀI ĐẶT FILEE TRÊN LINUX (bản tsudev-files)
+Bản tiếng Anh đầy đủ: INSTALL.txt. Thông báo của install.sh/uninstall.sh mặc định
+là tiếng Việt; đặt FILEE_LANG=en để xem tiếng Anh.
+
+Chạy thử ngay không cần cài: ./Filee (giao diện) hoặc ./filee-cli help (dòng lệnh).
+
+Cài cho người dùng hiện tại: ./install.sh
+- Cần Python 3. Tạo biểu tượng trong trình đơn ứng dụng và lệnh ~/.local/bin/filee.
+- Không cần quyền root.
+- Nếu đã có bản cài, install.sh từ chối ghi đè.
+
+Nâng cấp tại chỗ, không cần gỡ trước: ./install.sh --upgrade
+- Giữ nguyên cài đặt, preset, lịch sử và các engine chuyển đổi đã tải.
+
+Gỡ cài đặt: ./uninstall.sh
+- Xóa bản cài và các engine do Filee tải về.
+- Cài đặt và các tệp đã chuyển đổi của bạn được giữ lại.
+- Nếu bước dọn tích hợp hệ thống lỗi, bản cài được giữ để bạn sửa lỗi rồi chạy lại.
+
+Độ an toàn khi nâng cấp và khi máy tắt đột ngột:
+install.sh chuẩn bị tệp trên cùng hệ thống tệp rồi thay bản cài bằng các bước đổi
+tên nguyên tử, có bẫy tự khôi phục. Nếu có lỗi hoặc tín hiệu ngắt giữa chừng, bản
+cũ được khôi phục. Lưu ý: việc thay gồm hai bước (dời bản cũ sang bên, rồi đưa bản
+mới vào chỗ), nên nếu tiến trình bị giết cứng (SIGKILL) hoặc mất điện đúng giữa hai
+bước thì bẫy không kịp chạy; khi đó bản cũ vẫn nằm an toàn ở .backup-<pid>.
+Tự khôi phục:
+- Nếu thư mục ứng dụng không còn:
+    mv ~/.local/share/filee/.backup-<pid> ~/.local/share/filee/application
+- Nếu đã có một thư mục ứng dụng dở dang hoặc hỏng:
+    Kiểm tra rồi xóa hoặc đổi tên ~/.local/share/filee/application trước, sau đó chạy:
+    mv ~/.local/share/filee/.backup-<pid> ~/.local/share/filee/application
+
+Yêu cầu hệ thống: Ubuntu 22.04 trở lên, hoặc bản phân phối khác có glibc 2.35 trở
+lên. Đã kèm sẵn .NET runtime, nhưng vẫn cần các thư viện hệ thống bên dưới.
+
+Ubuntu 24.04:
+sudo apt-get install ca-certificates libc6 libgcc-s1 libgssapi-krb5-2 libicu74 libssl3t64 libstdc++6 tzdata zlib1g libfontconfig1 libfreetype6 libx11-6 libice6 libsm6 libxrandr2 libxkbcommon0 libxi6 libxtst6 libxt6 fonts-noto-cjk python3
+
+Ubuntu 22.04:
+sudo apt-get install ca-certificates libc6 libgcc-s1 libgssapi-krb5-2 libicu70 libssl3 libstdc++6 tzdata zlib1g libfontconfig1 libfreetype6 libx11-6 libice6 libsm6 libxrandr2 libxkbcommon0 libxi6 libxtst6 libxt6 fonts-noto-cjk python3
+
+Ubuntu mới hơn dùng libicu bản mới hơn (tìm tên bằng: apt-cache search libicu).
+Bản phân phối khác dùng tên gói khác. Giao diện cần máy chủ X11 (hoặc XWayland),
+fontconfig, FreeType và các thư viện X11 ở trên. Trên X11, thanh cử chỉ toàn cục
+cần libXtst và libXt (libxtst6, libxt6). Phiên Wayland gốc có thêm hạn chế về
+nhập liệu; hãy dùng cửa sổ thả tệp và thao tác trong trình quản lý tệp, hoặc phần
+thử nghiệm bên dưới.
+
+Cử chỉ trên GNOME Wayland (thử nghiệm, GNOME Shell 45-51):
+Gói Linux kèm extension "Filee donut at the cursor". install.sh cài nó cho người
+dùng hiện tại khi chạy trên GNOME và yêu cầu bật. Mở Extensions và bật nó. Nếu chưa
+thấy hoặc vẫn chạy bản cũ, hãy đăng xuất rồi đăng nhập lại, mở Filee, giữ Ctrl và
+kéo một tệp trong Files. Trên GNOME không cần nhóm input, sudo hay biến
+FILEE_WAYLAND_GESTURES. Trang Trình kích hoạt (Triggers) cho biết khi Filee đang chờ
+extension hoặc khi extension đang chạy không khớp phiên bản Filee.
+Extension chỉ gửi trạng thái con trỏ qua socket cục bộ riêng và đặt vòng donut mỗi
+lần mở; không thu phím bạn gõ. Tắt extension là ngừng nhận diện;
+FILEE_WAYLAND_GESTURES=0 cũng tắt được trên GNOME. Cập nhật Filee (trong ứng dụng
+hoặc bằng --upgrade) cũng cập nhật extension nếu do Filee cài; sau đó đăng xuất và
+đăng nhập lại. install.sh chỉ thay thư mục extension do chính Filee cài.
+Chi tiết, giới hạn và cách xử lý sự cố: GNOME-WAYLAND.md trong gói.
+
+Cử chỉ trên Wayland cho KDE Plasma 6 và Hyprland (thử nghiệm, mặc định tắt):
+Filee đọc chuột và bàn phím từ /dev/input qua libinput; một KWin script hoặc luật
+cửa sổ Hyprland đặt vòng donut tại con trỏ (ứng dụng Wayland không tự đặt được vị
+trí cửa sổ). Cần libinput, libudev và libwayland-client (trên Ubuntu: libinput10,
+libudev1, libwayland-client0). Cách bật:
+1. Chạy Filee với biến môi trường FILEE_WAYLAND_GESTURES=1, ví dụ thêm dòng
+   FILEE_WAYLAND_GESTURES=1 vào ~/.config/environment.d/filee.conf (có hiệu lực
+   sau khi đăng nhập lại).
+2. Thêm bạn vào nhóm input rồi đăng xuất, đăng nhập lại. CẢNH BÁO: thành viên nhóm
+   này đọc được mọi phím và chuột từ bất kỳ chương trình nào họ chạy; chỉ bật nếu
+   bạn chấp nhận điều đó.
+     sudo usermod -aG input "$USER"
+3. KDE Plasma: cài và bật KWin script để nó chạy mỗi lần đăng nhập:
+     kpackagetool6 --type=KWin/Script --install "${XDG_DATA_HOME:-$HOME/.local/share}/filee/application/kwin/filee-donut"
+     kwriteconfig6 --file kwinrc --group Plugins --key filee-donutEnabled true
+     qdbus6 org.kde.KWin /KWin reconfigure
+   Lệnh qdbus có thể tên là qdbus6, qdbus-qt6 hoặc qdbus tùy bản phân phối.
+   Sau khi cập nhật Filee, chạy lại lệnh kpackagetool6 với --upgrade thay cho
+   --install, rồi chạy lại dòng reconfigure. Nếu KWin vẫn chạy script cũ, tắt rồi
+   bật lại "Filee donut" trong System Settings > Window Management > KWin Scripts,
+   hoặc đăng xuất rồi đăng nhập lại.
+   Hyprland: thêm luật cửa sổ cho donut (nổi, căn giữa tại con trỏ, không viền,
+   không bóng, không làm mờ). Cú pháp tùy phiên bản (xem hyprctl version); các mẫu
+   cấu hình cho hyprland.lua và hyprland.conf có trong INSTALL.txt, và tệp dựng
+   sẵn ở ~/.local/share/filee/application/hyprland/filee-donut.conf.
+   Nếu dùng dòng "source = ..." trỏ tới tệp đó, hãy xóa dòng này trước khi chạy
+   uninstall.sh, nếu không Hyprland sẽ báo thiếu tệp.
+
+Chạy Wayland gốc (thử nghiệm, mặc định tắt):
+Mặc định Filee chạy qua XWayland để tương thích tốt nhất. Muốn dùng Wayland gốc,
+chạy Filee với FILEE_USE_WAYLAND=1 (export, hoặc ghi vào
+~/.config/environment.d/filee.conf). Hạn chế: Wayland không cho biết cửa sổ nào
+đang nằm dưới con trỏ, nên Ctrl+kéo trong bất kỳ ứng dụng nào cũng mở một cửa sổ
+donut ẩn; nó chỉ nhận tệp, nên thao tác Ctrl+kéo để chép chữ có thể bị nuốt gần
+điểm bắt đầu. Nếu vướng, đổi phím bổ trợ ở trang Trình kích hoạt (ví dụ
+Ctrl+Shift). Danh sách ứng dụng loại trừ không áp dụng trên Wayland. Thiếu KWin
+script hoặc luật cửa sổ Hyprland thì donut mở sai chỗ.
+
+Engine: rhwp và 7-Zip có sẵn trong gói. Engine khác cài trong phần Cài đặt của
+Filee hoặc dùng bản có sẵn trên hệ thống. Định dạng hỗ trợ tùy engine có trên máy;
+một số engine cần thêm thư viện hệ thống (ví dụ calibre có thể cần libxcb-cursor0,
+libxcb-xinerama0 và các phụ thuộc Qt/XCB khác).
+
+Cập nhật trong ứng dụng chỉ nhận bản phát hành của tsudev-files, có chữ ký riêng:
+https://github.com/tsudev-tsudev/tsudev-files/releases
