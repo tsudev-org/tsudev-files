@@ -5,6 +5,14 @@ set -eu
 # Supports first-time installation and in-place upgrade (--upgrade).
 # Preserves downloaded conversion engines (~/.local/share/Filee/engines) and user settings (~/.config/Filee).
 
+# tsudev-files: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
+say() {
+    case "$(printf '%s' "${FILEE_LANG:-}" | tr '[:upper:]' '[:lower:]')" in
+        en|en-us|english) shift ;;
+    esac
+    printf '%s\n' "$1"
+}
+
 upgrade=0
 
 for arg do
@@ -13,12 +21,12 @@ for arg do
             upgrade=1
             ;;
         --help|-h)
-            printf '%s\n' "Usage: $0 [--upgrade|-u]"
+            say "Cách dùng: $0 [--upgrade|-u]" "Usage: $0 [--upgrade|-u]"
             exit 0
             ;;
         *)
-            printf '%s\n' "Unknown option: $arg" >&2
-            printf '%s\n' "Usage: $0 [--upgrade|-u]" >&2
+            say "Tùy chọn không hợp lệ: $arg" "Unknown option: $arg" >&2
+            say "Cách dùng: $0 [--upgrade|-u]" "Usage: $0 [--upgrade|-u]" >&2
             exit 1
             ;;
     esac
@@ -96,40 +104,40 @@ PY
 
 # Validate required tools and incoming payload files before doing anything.
 command -v python3 >/dev/null 2>&1 || {
-    printf '%s\n' "Python 3 is required to install Filee." >&2
+    say "Cần Python 3 để cài Filee." "Python 3 is required to install Filee." >&2
     exit 1
 }
 
 
 if [ ! -f "$source_dir/Filee" ] || [ ! -x "$source_dir/Filee" ]; then
-    printf '%s\n' "Payload validation failed: $source_dir/Filee is missing or not executable." >&2
+    say "Gói cài không hợp lệ: thiếu $source_dir/Filee hoặc tệp không chạy được." "Payload validation failed: $source_dir/Filee is missing or not executable." >&2
     exit 1
 fi
 
 if [ ! -f "$source_dir/filee-cli" ] || [ ! -x "$source_dir/filee-cli" ]; then
-    printf '%s\n' "Payload validation failed: $source_dir/filee-cli is missing or not executable." >&2
+    say "Gói cài không hợp lệ: thiếu $source_dir/filee-cli hoặc tệp không chạy được." "Payload validation failed: $source_dir/filee-cli is missing or not executable." >&2
     exit 1
 fi
 
 # A first install on GNOME replaces an extension folder only when it carries our marker.
 if [ "$upgrade" -eq 0 ] && [ "$is_gnome" = true ] && [ -d "$source_dir/gnome/$gnome_extension_id" ] \
     && { [ -e "$gnome_extension_dir" ] || [ -L "$gnome_extension_dir" ]; } && ! gnome_extension_is_ours; then
-    printf '%s\n' "A GNOME extension that Filee didn't install exists at $gnome_extension_dir. Remove or rename it before installing Filee."
+    say "Đã có một extension GNOME không do Filee cài tại $gnome_extension_dir. Hãy xóa hoặc đổi tên nó trước khi cài Filee." "A GNOME extension that Filee didn't install exists at $gnome_extension_dir. Remove or rename it before installing Filee."
     exit 1
 fi
 
 if [ "$upgrade" -eq 0 ]; then
     # First-time installation: refuse to overwrite an existing installation or files.
     if [ -e "$install_dir" ] || [ -L "$install_dir" ]; then
-        printf '%s\n' "An installation already exists at $install_dir. Run its uninstall.sh first."
+        say "Đã có bản cài tại $install_dir. Hãy chạy uninstall.sh của bản đó trước." "An installation already exists at $install_dir. Run its uninstall.sh first."
         exit 1
     fi
     if [ -e "$bin_dir/filee" ] || [ -L "$bin_dir/filee" ]; then
-        printf '%s\n' "$bin_dir/filee already exists. Remove or rename it before installing Filee."
+        say "$bin_dir/filee đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài Filee." "$bin_dir/filee already exists. Remove or rename it before installing Filee."
         exit 1
     fi
     if [ -e "$desktop_file" ] || [ -L "$desktop_file" ]; then
-        printf '%s\n' "$desktop_file already exists. Remove or rename it before installing Filee."
+        say "$desktop_file đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài Filee." "$desktop_file already exists. Remove or rename it before installing Filee."
         exit 1
     fi
 
@@ -141,26 +149,26 @@ if [ "$upgrade" -eq 0 ]; then
 else
     # Upgrade existing installation: verify it is genuine and safely swap in place.
     if [ ! -d "$install_dir" ] || [ -L "$install_dir" ]; then
-        printf '%s\n' "No existing installation found at $install_dir to upgrade." >&2
+        say "Không tìm thấy bản cài nào tại $install_dir để nâng cấp." "No existing installation found at $install_dir to upgrade." >&2
         exit 1
     fi
 
     marker_file="$install_dir/.filee-package"
     if [ ! -f "$marker_file" ]; then
-        printf '%s\n' "Cannot upgrade: $install_dir is missing the .filee-package marker." >&2
+        say "Không nâng cấp được: $install_dir thiếu tệp đánh dấu .filee-package." "Cannot upgrade: $install_dir is missing the .filee-package marker." >&2
         exit 1
     fi
 
     marker=$(tr -d '\r\n' < "$marker_file" 2>/dev/null || true)
     if [ "$marker" != "com.filee.app" ]; then
-        printf '%s\n' "Cannot upgrade: $install_dir was not installed by Filee." >&2
+        say "Không nâng cấp được: $install_dir không do Filee cài." "Cannot upgrade: $install_dir was not installed by Filee." >&2
         exit 1
     fi
 
     # Tell running instance to save and exit cleanly before touching files.
     if [ -x "$install_dir/Filee" ]; then
         if ! "$install_dir/Filee" --quit; then
-            printf '%s\n' "Could not gracefully shut down the running Filee instance. Please exit Filee and try again." >&2
+            say "Không đóng được Filee đang chạy. Hãy thoát Filee rồi thử lại." "Could not gracefully shut down the running Filee instance. Please exit Filee and try again." >&2
             exit 1
         fi
     fi
@@ -177,7 +185,7 @@ else
 
     # Ensure transaction paths are completely distinct and do not collide with pre-existing files.
     if [ -e "$staging_dir" ] || [ -e "$backup_dir" ] || [ -e "$failed_dir" ]; then
-        printf '%s\n' "Transaction path conflict detected at $data_dir/filee. Please retry." >&2
+        say "Phát hiện xung đột đường dẫn tạm tại $data_dir/filee. Hãy thử lại." "Transaction path conflict detected at $data_dir/filee. Please retry." >&2
         exit 1
     fi
 
@@ -193,7 +201,7 @@ else
     # Validate the staged files before moving the existing installation aside.
     if [ ! -x "$staging_dir/Filee" ] || [ ! -x "$staging_dir/filee-cli" ]; then
         rm -rf "$staging_dir"
-        printf '%s\n' "Staged payload validation failed." >&2
+        say "Bản chuẩn bị nâng cấp không hợp lệ." "Staged payload validation failed." >&2
         exit 1
     fi
 
@@ -230,22 +238,22 @@ else
             fi
 
             if [ ! -d "$install_dir" ] && mv "$backup_dir" "$install_dir" 2>/dev/null; then
-                printf '%s\n' "Update failed. Restored the previous Filee installation." >&2
+                say "Nâng cấp thất bại. Đã khôi phục bản Filee trước đó." "Update failed. Restored the previous Filee installation." >&2
                 if [ -d "$failed_dir" ]; then
-                    printf '%s\n' "Quarantined failed update files preserved at: $failed_dir" >&2
+                    say "Các tệp của lần nâng cấp lỗi được cách ly và giữ lại tại: $failed_dir" "Quarantined failed update files preserved at: $failed_dir" >&2
                 fi
             else
-                printf '%s\n' "CRITICAL: Update failed and automatic rollback could not complete." >&2
-                printf '%s\n' "Your previous installation is preserved at: $backup_dir" >&2
+                say "NGHIÊM TRỌNG: Nâng cấp thất bại và không tự khôi phục được." "CRITICAL: Update failed and automatic rollback could not complete." >&2
+                say "Bản cài trước của bạn vẫn được giữ tại: $backup_dir" "Your previous installation is preserved at: $backup_dir" >&2
                 if [ -d "$install_dir" ]; then
-                    printf '%s\n' "A partial or invalid directory exists at: $install_dir" >&2
-                    printf '%s\n' "To restore manually, inspect and remove or rename '$install_dir', then run:" >&2
+                    say "Có một thư mục dở dang hoặc không hợp lệ tại: $install_dir" "A partial or invalid directory exists at: $install_dir" >&2
+                    say "Để tự khôi phục, hãy kiểm tra rồi xóa hoặc đổi tên '$install_dir', sau đó chạy:" "To restore manually, inspect and remove or rename '$install_dir', then run:" >&2
                     printf '%s\n' "  mv '$backup_dir' '$install_dir'" >&2
                 else
-                    printf '%s\n' "To restore manually, run: mv '$backup_dir' '$install_dir'" >&2
+                    say "Để tự khôi phục, chạy: mv '$backup_dir' '$install_dir'" "To restore manually, run: mv '$backup_dir' '$install_dir'" >&2
                 fi
                 if [ -d "$failed_dir" ]; then
-                    printf '%s\n' "Quarantined failed update files preserved at: $failed_dir" >&2
+                    say "Các tệp của lần nâng cấp lỗi được cách ly và giữ lại tại: $failed_dir" "Quarantined failed update files preserved at: $failed_dir" >&2
                 fi
             fi
         fi
@@ -278,7 +286,7 @@ else
 
     # Post-swap validation: ensure new installation is active and healthy.
     if [ ! -x "$install_dir/Filee" ] || [ ! -x "$install_dir/filee-cli" ] || [ ! -f "$install_dir/.filee-package" ]; then
-        printf '%s\n' "Activated installation failed post-swap validation. Rolling back..." >&2
+        say "Bản vừa thay thế không vượt qua kiểm tra. Đang khôi phục..." "Activated installation failed post-swap validation. Rolling back..." >&2
         exit 1
     fi
 
@@ -300,7 +308,7 @@ if [ -d "$install_dir/gnome/$gnome_extension_id" ]; then
     elif [ "$is_gnome" = true ] && [ ! -e "$gnome_extension_dir" ] && [ ! -L "$gnome_extension_dir" ]; then
         gnome_extension_note=added
     elif [ "$is_gnome" = true ]; then
-        printf '%s\n' "Left $gnome_extension_dir as it is: Filee didn't install it." >&2
+        say "Giữ nguyên $gnome_extension_dir: thư mục này không do Filee cài." "Left $gnome_extension_dir as it is: Filee didn't install it." >&2
     fi
     if [ -n "$gnome_extension_note" ]; then
         if copy_gnome_extension; then
@@ -309,7 +317,7 @@ if [ -d "$install_dir/gnome/$gnome_extension_id" ]; then
             fi
         else
             gnome_extension_note=''
-            printf '%s\n' "Could not install the GNOME extension at $gnome_extension_dir." >&2
+            say "Không cài được extension GNOME tại $gnome_extension_dir." "Could not install the GNOME extension at $gnome_extension_dir." >&2
         fi
     fi
 fi
@@ -342,17 +350,21 @@ if command -v update-desktop-database >/dev/null 2>&1; then
 fi
 
 if [ "$upgrade" -eq 1 ]; then
-    printf '%s\n' "Upgraded Filee at $install_dir."
+    say "Đã nâng cấp Filee tại $install_dir." "Upgraded Filee at $install_dir."
 else
-    printf '%s\n' "Installed Filee at $install_dir" "CLI: $bin_dir/filee (add $bin_dir to PATH if needed)."
+    say "Đã cài Filee tại $install_dir" "Installed Filee at $install_dir"
+    say "Dòng lệnh: $bin_dir/filee (thêm $bin_dir vào PATH nếu cần)." "CLI: $bin_dir/filee (add $bin_dir to PATH if needed)."
 fi
 
 if [ -n "$gnome_extension_note" ] && [ "$upgrade" -eq 0 ] && [ "$is_gnome" = true ]; then
-    printf '%s\n' 'GNOME Wayland: enable "Filee donut at the cursor" in Extensions.' \
-        'Sign out and sign in if the extension is not listed yet. Then hold Ctrl and drag a file in Files.' \
+    say 'GNOME Wayland: hãy bật "Filee donut at the cursor" trong Extensions.' \
+        'GNOME Wayland: enable "Filee donut at the cursor" in Extensions.'
+    say 'Đăng xuất rồi đăng nhập lại nếu chưa thấy extension. Sau đó giữ Ctrl và kéo một tệp trong Files.' \
+        'Sign out and sign in if the extension is not listed yet. Then hold Ctrl and drag a file in Files.'
+    say 'Không cần quyền quản trị hay nhóm input. Xem GNOME-WAYLAND.md.' \
         'No administrator access or input group is required. See GNOME-WAYLAND.md.'
 elif [ "$gnome_extension_note" = added ]; then
-    printf '%s\n' 'GNOME Wayland: added the "Filee donut at the cursor" extension. Sign out and sign in, then enable it in Extensions.'
+    say 'GNOME Wayland: đã thêm extension "Filee donut at the cursor". Hãy đăng xuất, đăng nhập lại rồi bật nó trong Extensions.' 'GNOME Wayland: added the "Filee donut at the cursor" extension. Sign out and sign in, then enable it in Extensions.'
 elif [ "$gnome_extension_note" = updated ]; then
-    printf '%s\n' 'GNOME: updated the "Filee donut at the cursor" extension. Sign out and sign in so GNOME Shell loads it.'
+    say 'GNOME: đã cập nhật extension "Filee donut at the cursor". Hãy đăng xuất, đăng nhập lại để GNOME Shell nạp bản mới.' 'GNOME: updated the "Filee donut at the cursor" extension. Sign out and sign in so GNOME Shell loads it.'
 fi
