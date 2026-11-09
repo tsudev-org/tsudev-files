@@ -39,4 +39,4 @@ bản có sẵn trên hệ thống. Phát hành công khai cần chữ ký Devel
 notarization; gói thử nghiệm này chưa có.
 
 Cập nhật trong ứng dụng chỉ nhận bản phát hành của tsudev-files, có chữ ký riêng:
-https://github.com/tsudev-tsudev/tsudev-files/releases
+https://github.com/tsudev-org/tsudev-files/releases

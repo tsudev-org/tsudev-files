@@ -35,14 +35,14 @@
 
    ```bash
    V=2.4.1; D=$(mktemp -d)
-   gh release download "v$V" -R tsudev-tsudev/tsudev-files -p '*SHA256SUMS*.txt' -D "$D"
+   gh release download "v$V" -R tsudev-org/tsudev-files -p '*SHA256SUMS*.txt' -D "$D"
    tools/sign-checksums-vn.sh "$D"/*SHA256SUMS*.txt
-   gh release upload "v$V" -R tsudev-tsudev/tsudev-files "$D"/*.sig
+   gh release upload "v$V" -R tsudev-org/tsudev-files "$D"/*.sig
    ```
 
    Script từ chối nếu khóa không khớp `FileeUpdatePublicKey`, nằm trong git working tree hoặc có quyền đọc rộng.
 5. Kiểm tra bản nháp: mỗi `*SHA256SUMS*.txt` đều có `.sig`, rồi xuất bản:
-   `gh release edit "v$V" -R tsudev-tsudev/tsudev-files --draft=false`.
+   `gh release edit "v$V" -R tsudev-org/tsudev-files --draft=false`.
 6. Bản cài cũ sẽ nhận cập nhật: tải SHA256SUMS -> kiểm chữ ký ECDSA -> kiểm số phiên bản mới hơn -> tải bộ cài ->
    kiểm SHA-256 -> cài. Sai bất kỳ bước nào thì từ chối và mở trang phát hành.
 

@@ -6,8 +6,8 @@ Kéo tệp, thả vào một định dạng trên vòng "donut" mở ra ngay t�
 Word, Excel, PowerPoint, HWP/HWPX, video, âm thanh, sách điện tử, tệp nén, CAD, bản đồ, 3D... Mọi xử lý chạy **trên
 máy của bạn**, không tải tệp lên bất kỳ máy chủ nào, không cần cài Microsoft Office.
 
-- Tải bản phát hành: <https://github.com/tsudev-tsudev/tsudev-files/releases/latest>
-- Báo lỗi / đề xuất: <https://github.com/tsudev-tsudev/tsudev-files/issues>
+- Tải bản phát hành: <https://github.com/tsudev-org/tsudev-files/releases/latest>
+- Báo lỗi / đề xuất: <https://github.com/tsudev-org/tsudev-files/issues>
 - Báo lỗ hổng bảo mật: xem [SECURITY.md](SECURITY.md) (KHÔNG mở issue công khai)
 - README gốc (tiếng Anh) của upstream: [README.en.md](README.en.md)
 
@@ -17,7 +17,7 @@ máy của bạn**, không tải tệp lên bất kỳ máy chủ nào, không c
 | --- | --- | --- |
 | Ngôn ngữ mặc định | Theo ngôn ngữ hệ điều hành, dự phòng tiếng Anh | **Tiếng Việt** cho giao diện, trình cài đặt và dòng lệnh; đổi được trong Cài đặt (`auto`, `en`, ...) |
 | Dòng lệnh `filee` | Chỉ tiếng Anh | Tiếng Việt mặc định, `FILEE_LANG=en` để dùng tiếng Anh; khóa JSON giữ nguyên cho script |
-| Kiểm tra cập nhật | `KnifeLemon/Filee` + khóa ký của tác giả gốc | `tsudev-tsudev/tsudev-files` + **khóa ký ECDSA P-256 riêng**; bản phát hành của repo khác bị từ chối |
+| Kiểm tra cập nhật | `KnifeLemon/Filee` + khóa ký của tác giả gốc | `tsudev-org/tsudev-files` + **khóa ký ECDSA P-256 riêng**; bản phát hành của repo khác bị từ chối |
 | Tên hiển thị | Filee | **tsudev-files** (giao diện, trình cài đặt, lối tắt, tệp phát hành); tệp chạy, lệnh `filee` và thư mục dữ liệu giữ tên cũ - xem [ADR-0001](docs/adr/0001-doi-ten-hien-thi-tsudev-files.md) |
 | Trang tải khi cập nhật lỗi | filee.sh | Trang phát hành của repo này |
 | GitHub Actions | Ghim theo tag | **Ghim theo SHA commit** (chống tag bị sửa) |

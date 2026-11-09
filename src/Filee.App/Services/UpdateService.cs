@@ -79,7 +79,7 @@ public sealed partial class UpdateService : ObservableObject
     /// <summary>GitHub repository from Directory.Build.props (FileeRepositoryUrl).</summary>
     public static string RepositoryUrl =>
         typeof(UpdateService).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
-            .FirstOrDefault(a => a.Key == "RepositoryUrl")?.Value ?? "https://github.com/tsudev-tsudev/tsudev-files";
+            .FirstOrDefault(a => a.Key == "RepositoryUrl")?.Value ?? "https://github.com/tsudev-org/tsudev-files";
 
     public static string CurrentVersion =>
         typeof(UpdateService).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0]
@@ -92,7 +92,7 @@ public sealed partial class UpdateService : ObservableObject
     public static string LatestReleaseUrl => RepositoryUrl.TrimEnd('/') + "/releases/latest";
 
     /// <summary>The website: one big download button, friendlier than the GitHub release page.</summary>
-    public const string WebsiteUrl = "https://github.com/tsudev-tsudev/tsudev-files/releases/latest";
+    public const string WebsiteUrl = "https://github.com/tsudev-org/tsudev-files/releases/latest";
 
     /// <summary>
     /// True when this copy was installed by Setup on Windows (uninstall.exe; the Inno Setup installer of 1.x put unins000.exe there)

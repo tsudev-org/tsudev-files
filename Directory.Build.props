@@ -22,7 +22,7 @@
 
     <!-- Single source of truth for the GitHub repository (used by the updater and the About page). -->
     <!-- tsudev-files: bản fork Việt hóa; trình cập nhật chỉ hỏi repo này (không hỏi repo gốc). -->
-    <FileeRepositoryUrl>https://github.com/tsudev-tsudev/tsudev-files</FileeRepositoryUrl>
+    <FileeRepositoryUrl>https://github.com/tsudev-org/tsudev-files</FileeRepositoryUrl>
     <RepositoryUrl>$(FileeRepositoryUrl)</RepositoryUrl>
 
     <!-- What an official build (-p:FileeRelease=true) checks before it installs an update (UpdateService).
