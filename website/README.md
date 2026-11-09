@@ -1,7 +1,8 @@
 # Website files.tsudev.com
 
 Trang sản phẩm của tsudev-files: [Astro](https://astro.build) dựng trang tĩnh, **không có JavaScript phía trình duyệt**,
-host trên Cloudflare Pages (dự án `tsudev-files`, tên miền con `files.tsudev.com` của hệ tsudev.com).
+host trên Cloudflare Workers Static Assets (Worker `tsudev-files`, không có mã chạy; tên miền con `files.tsudev.com` của
+hệ tsudev.com, cấu hình ở `wrangler.jsonc`).
 
 * Tài liệu lấy trực tiếp từ tệp của repo (`SECURITY.md`, `docs/vi/KIEN-TRUC-BAO-MAT.md`, `CHANGELOG.md`, `LICENSE`,
   `THIRD-PARTY-NOTICES.md`) - sửa ở đó, không sửa trong `website/`. Trang Hướng dẫn, Định dạng, Dòng lệnh viết tay
@@ -30,15 +31,20 @@ npm ci
 npm run dev          # xem thử ở http://localhost:4321
 npm run build        # dựng vào dist/ và kiểm tra
 npm run check:a11y   # axe-core WCAG 2.2 AA mọi trang, sáng + tối (lần đầu: npx playwright install chromium)
-npm run deploy       # build rồi đưa lên Cloudflare Pages (cần `npx wrangler login` với tài khoản tsudev)
+npm run deploy       # build rồi `wrangler deploy` (cần `npx wrangler login` với tài khoản tsudev)
 ```
 
 Sau mỗi lần phát hành bản mới, chạy lại `npm run deploy` để trang Tải về cập nhật phiên bản và mã SHA-256.
 
-## Thiết lập một lần (đã làm thì bỏ qua)
+## Thiết lập một lần
 
-1. `npx wrangler pages project create tsudev-files --production-branch main`
-2. `npm run deploy`
-3. Cloudflare Dashboard, Workers & Pages, `tsudev-files`, Custom domains, thêm `files.tsudev.com` (zone `tsudev.com`
-   cùng tài khoản nên Cloudflare tự tạo bản ghi CNAME và chứng chỉ).
-4. `gh repo edit tsudev-org/tsudev-files --homepage https://files.tsudev.com`
+Lần đầu chỉ cần `npm run deploy`: khối `routes` trong `wrangler.jsonc` tự gắn `files.tsudev.com` (Cloudflare tạo bản
+ghi DNS và chứng chỉ, khoảng 1 phút). Rồi đổi trang chủ của repo:
+
+```bash
+gh repo edit tsudev-org/tsudev-files --homepage https://files.tsudev.com
+```
+
+Không dùng Cloudflare Pages: `wrangler pages project create` bản 4.158 tự chuyển sang Workers rồi lỗi, và tên miền riêng
+của Pages cần bản ghi CNAME mà phiên `wrangler login` không có quyền ghi DNS. Zone tsudev.com tự chèn beacon Cloudflare
+Web Analytics; CSP chặn nó nên console có một lỗi, trang vẫn chạy bình thường.
