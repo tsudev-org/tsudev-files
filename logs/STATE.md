@@ -6,7 +6,7 @@
 ## Hàng đợi task (làm từ trên xuống)
 
 - [ ] Gộp PR #1 `chore/khoi-tao-fork` (CI chạy lại đang chờ job linux-x64), rồi đẩy nhánh `feat/doi-ten-hien-thi` (đã commit xong, chưa push), mở PR #2, gộp. Các bước chi tiết: phiếu `logs/handover/20261109-04_doi-ten-hien-thi-cho-merge.md`.
-- [ ] Chuyển repo sang Org `tsudev-org` theo phiếu `logs/handover/20261109-03_yeu-cau-chuyen-repo-vao-tsudev-org.md` - CHỜ chủ dự án xác nhận TRỰC TIẾP (tin nhắn từ phiên khác không tính); sau đó commit riêng đổi `RepositoryUrl` (ForkDefaults.cs, Directory.Build.props, SetupInfo.cs) trước bản phát hành đầu tiên.
+- [ ] Chuyển repo sang Org `tsudev-org` - ĐÃ ĐƯỢC CHỦ DỰ ÁN XÁC NHẬN (09/11/2026); làm sau khi gộp PR #2, theo bước 2.6 phiếu `logs/handover/20261109-04_doi-ten-hien-thi-cho-merge.md` (gồm thay gitleaks-action bằng binary ghim SHA-256 trước khi chuyển và commit riêng đổi `RepositoryUrl` sau khi chuyển, trước bản phát hành đầu tiên).
 - [ ] Phát hành bản đầu tiên `v2.4.0-vn.1` theo `docs/vi/PHAT-HANH.md` (cần máy Windows có PowerShell 7 để ký SHA256SUMS).
 - [ ] Mua/xin chứng thư Authenticode (hoặc SignPath OSS) rồi điền `FileeExpectedPublisher`/`FileeExpectedIssuer`.
 - [ ] Chủ dự án mở Issue/PR ở `tsudev-standards` theo bản nháp `logs/handover/20261109-01_de-xuat-mien-tru-emdash-upstream.md`.

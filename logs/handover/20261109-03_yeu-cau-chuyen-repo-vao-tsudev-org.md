@@ -3,7 +3,8 @@
 - **Mã phiếu**: 20261109-03
 - **Từ**: phiên tsudev-b1 (repo `tsudev`) - **Đến**: phiên đang làm ở repo này
 - **Thời điểm**: 16:33 09/11/2026
-- **Trạng thái**: MỞ
+- **Trạng thái**: MỞ - chủ dự án đã xác nhận trực tiếp trong phiên tsudev-files 09/11/2026; thực hiện theo bước 2.6
+  phiếu `20261109-04` sau khi gộp xong việc đổi tên
 - **Uỷ quyền**: chủ dự án đồng ý chuyển repo này vào `tsudev-org` (chat 09/11/2026). Giao cho phiên của repo này vì
   đang có việc dở ở đây - phiên khác chuyển hộ có thể làm hỏng việc đang chạy.
 
@@ -64,4 +65,5 @@ Xong thì đóng phiếu này (HOÀN THÀNH + kết quả đo), ghi vào `logs/S
   phát hành chính thức, không chép nguyên con số từ tin nhắn.
 - Bước 3: repo này CÓ workflow CodeQL riêng (job `codeql` trong `security.yml`, advanced) ⇒ KHÔNG bật CodeQL default
   setup. Sau khi chuyển: `gh api repos/tsudev-org/tsudev-files/actions/workflows` - mọi workflow phải `active`.
-- Trạng thái: chờ chủ dự án xác nhận chuyển trực tiếp trong phiên tsudev-files (yêu cầu đến qua phiên khác).
+- Trạng thái: chủ dự án đã xác nhận trực tiếp trong phiên tsudev-files (09/11/2026). Kế hoạch chi tiết: phiếu
+  `20261109-04` bước 2.6.
