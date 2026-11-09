@@ -32,8 +32,8 @@ public class UninstallerTests
         Assert.Equal(["run-as-user Filee.exe --uninstall-cleanup"], bench.System.Calls.Where(c => c.Contains("--uninstall-cleanup", StringComparison.Ordinal)));
         Assert.Contains("unregister-menu", bench.System.Calls);
         Assert.False(Directory.Exists(bench.InstallFolder));
-        Assert.False(File.Exists(Path.Combine(bench.Paths.CommonStartMenu, "Filee.lnk")));
-        Assert.False(File.Exists(Path.Combine(bench.Paths.CommonDesktop, "Filee.lnk")));
+        Assert.False(File.Exists(Path.Combine(bench.Paths.CommonStartMenu, SetupNames.ShortcutName))); // tsudev-files: tên hiển thị
+        Assert.False(File.Exists(Path.Combine(bench.Paths.CommonDesktop, SetupNames.ShortcutName))); // tsudev-files: tên hiển thị
         Assert.False(bench.Registry.KeyExists(Hive.LocalMachine, SetupNames.UninstallKey));
         var path = bench.Registry.Get(Hive.LocalMachine, SetupNames.MachineEnvironmentKey, "Path")!;
         Assert.Equal(@"%SystemRoot%\system32;C:\Tools", path.Text);

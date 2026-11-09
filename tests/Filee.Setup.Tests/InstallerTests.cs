@@ -31,9 +31,9 @@ public class InstallerTests
         // Apps & Features: Inno Setup's key, with everything Windows shows.
         var registry = bench.Registry;
         string? Value(string name) => registry.Get(Hive.LocalMachine, Key, name)?.Text;
-        Assert.Equal("Filee", Value("DisplayName"));
+        Assert.Equal(SetupNames.DisplayName, Value("DisplayName")); // tsudev-files: tên hiển thị
         Assert.Equal("2.0.0", Value("DisplayVersion"));
-        Assert.Equal("Filee contributors", Value("Publisher"));
+        Assert.Equal(SetupNames.Publisher, Value("Publisher")); // tsudev-files: nhà phát hành của bản fork
         Assert.Equal(Path.Combine(folder, "Filee.exe"), Value("DisplayIcon"));
         Assert.Equal(folder + "\\", Value("InstallLocation"));
         Assert.Equal($"\"{folder}\\uninstall.exe\"", Value("UninstallString"));
@@ -44,8 +44,8 @@ public class InstallerTests
         Assert.Equal(@"contextmenu,contextmenu\top,startup,cli", Value(SetupNames.TasksValue));
 
         // Start menu, PATH (REG_EXPAND_SZ), no desktop shortcut by default.
-        Assert.True(File.Exists(Path.Combine(bench.Paths.CommonStartMenu, "Filee.lnk")));
-        Assert.False(File.Exists(Path.Combine(bench.Paths.CommonDesktop, "Filee.lnk")));
+        Assert.True(File.Exists(Path.Combine(bench.Paths.CommonStartMenu, SetupNames.ShortcutName))); // tsudev-files: tên hiển thị
+        Assert.False(File.Exists(Path.Combine(bench.Paths.CommonDesktop, SetupNames.ShortcutName))); // tsudev-files: tên hiển thị
         var path = registry.Get(Hive.LocalMachine, SetupNames.MachineEnvironmentKey, "Path")!;
         Assert.True(path.Expandable);
         Assert.True(PathVariable.Contains(path.Text, Path.Combine(folder, "cli")));
@@ -156,7 +156,8 @@ public class InstallerTests
         // The user's choices stay: PATH once, the desktop shortcut, the top menu refreshed in place.
         var path = registry.Get(Hive.LocalMachine, SetupNames.MachineEnvironmentKey, "Path")!.Text!;
         Assert.Equal(@"%SystemRoot%\system32;" + folder + @"\cli", path);
-        Assert.True(File.Exists(Path.Combine(bench.Paths.CommonDesktop, "Filee.lnk")));
+        Assert.True(File.Exists(Path.Combine(bench.Paths.CommonDesktop, SetupNames.ShortcutName))); // tsudev-files: tên hiển thị
+        Assert.False(File.Exists(Path.Combine(bench.Paths.CommonDesktop, SetupNames.LegacyShortcutName))); // tsudev-files: lối tắt cũ của Filee 1.x được dọn
         Assert.Contains($"register-menu {folder} False", bench.System.Calls);
         // Back to the tray, as before the update, with the new version's "What's new" slides.
         Assert.Equal("--background --whats-new=1.12.0", result.Launch!.Arguments);
@@ -191,7 +192,7 @@ public class InstallerTests
     {
         using var bench = new SetupBench();
         Assert.True(bench.Install(bench.Choices(SetupTasks.Defaults with { DesktopIcon = true })).Succeeded);
-        var desktop = Path.Combine(bench.Paths.CommonDesktop, "Filee.lnk");
+        var desktop = Path.Combine(bench.Paths.CommonDesktop, SetupNames.ShortcutName); // tsudev-files: tên hiển thị
         Assert.True(File.Exists(desktop));
         var previous = PreviousInstall.Find(bench.Registry, InstallScope.Machine)!;
         var tasks = previous.CurrentTasks(bench.Registry, bench.System, bench.Paths) with { DesktopIcon = false, Cli = false };
@@ -212,7 +213,7 @@ public class InstallerTests
             .ToDictionary(n => n, n => bench.Registry.Get(Hive.LocalMachine, Key, n)!.Value);
         File.WriteAllText(Path.Combine(bench.AppFolder, "Filee.exe"), "Filee 3");
         bench.MakeSetup("3.0.0");
-        File.Delete(Path.Combine(bench.Paths.CommonStartMenu, "Filee.lnk"));
+        File.Delete(Path.Combine(bench.Paths.CommonStartMenu, SetupNames.ShortcutName)); // tsudev-files: tên hiển thị
 
         // The Start menu shortcut can't be written: everything after the file swap fails.
         bench.System.OnCreateShortcut = _ => throw new IOException("Access denied (test)");
@@ -253,7 +254,7 @@ public class InstallerTests
     {
         using var bench = new SetupBench();
         Assert.True(bench.Install(bench.Choices() with { NoIcons = true }).Succeeded);
-        Assert.False(File.Exists(Path.Combine(bench.Paths.CommonStartMenu, "Filee.lnk")));
+        Assert.False(File.Exists(Path.Combine(bench.Paths.CommonStartMenu, SetupNames.ShortcutName))); // tsudev-files: tên hiển thị
 
         using var portable = new SetupBench();
         var folder = portable.Temp.Sub("Portable Filee");
@@ -277,7 +278,7 @@ public class InstallerTests
         Assert.True(bench.Registry.KeyExists(Hive.CurrentUser, Key));
         Assert.False(bench.Registry.KeyExists(Hive.LocalMachine, Key));
         Assert.True(PathVariable.IsOnPath(bench.Registry, InstallScope.User, Path.Combine(folder, "cli")));
-        Assert.True(File.Exists(Path.Combine(bench.Paths.UserStartMenu, "Filee.lnk")));
+        Assert.True(File.Exists(Path.Combine(bench.Paths.UserStartMenu, SetupNames.ShortcutName))); // tsudev-files: tên hiển thị
         Assert.Equal(InstallScope.User, InstallRecord.Read(folder)!.Scope);
         Assert.NotNull(PreviousInstall.Find(bench.Registry, InstallScope.User));
     }
