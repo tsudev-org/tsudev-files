@@ -19,7 +19,7 @@ internal static class EnginesCommand
         var id = options.Inputs[1];
         if (EngineDownloads.Packages.FirstOrDefault(p => string.Equals(p.Id, id, StringComparison.OrdinalIgnoreCase)) is not { } package)
         {
-            errors.WriteLine($"filee: unknown engine '{id}'. Run 'filee engines' for the list.");
+            errors.WriteLine(CliLanguage.T($"filee: engine không xác định '{id}'. Chạy 'filee engines' để xem danh sách.", $"filee: unknown engine '{id}'. Run 'filee engines' for the list."));
             return Cli.UsageError;
         }
         var result = options.Inputs[0].Equals("install", StringComparison.OrdinalIgnoreCase)
@@ -87,15 +87,15 @@ internal static class EnginesCommand
             var downloadable = CanDownload(engines, package);
             var status = copy.Status switch
             {
-                EngineCopyStatus.OwnCopy => copy.FromSystem ? "system copy" : "own copy",
-                EngineCopyStatus.Installed => copy.Outdated ? "update available" : "installed",
-                _ => "not installed",
+                EngineCopyStatus.OwnCopy => copy.FromSystem ? CliLanguage.T("bản có trên máy", "system copy") : CliLanguage.T("bản riêng", "own copy"),
+                EngineCopyStatus.Installed => copy.Outdated ? CliLanguage.T("có bản cập nhật", "update available") : CliLanguage.T("đã cài", "installed"),
+                _ => CliLanguage.T("chưa cài", "not installed"),
             };
             var size = copy.Status switch
             {
                 EngineCopyStatus.OwnCopy => copy.Folder!,
-                EngineCopyStatus.Installed => $"{Bytes(package.InstalledSize)} on disk",
-                _ when downloadable => $"{Bytes(DownloadSize(engines, package))} download, {Bytes(package.InstalledSize)} on disk",
+                EngineCopyStatus.Installed => CliLanguage.T($"{Bytes(package.InstalledSize)} trên đĩa", $"{Bytes(package.InstalledSize)} on disk"),
+                _ when downloadable => CliLanguage.T($"tải {Bytes(DownloadSize(engines, package))}, {Bytes(package.InstalledSize)} trên đĩa", $"{Bytes(DownloadSize(engines, package))} download, {Bytes(package.InstalledSize)} on disk"),
                 _ => UnavailableReason(package),
             };
             // The version Filee downloads; next to a copy Filee didn't download it would read as that copy's version.
@@ -107,7 +107,7 @@ internal static class EnginesCommand
         foreach (var line in lines)
             output.WriteLine($"{line.Id.PadRight(idWidth)}  {line.Status.PadRight(statusWidth)}  {line.Version.PadRight(versionWidth)}  {line.Size}");
         output.WriteLine();
-        output.WriteLine("Install one with: filee engines install <id>");
+        output.WriteLine(CliLanguage.T("Cài một engine bằng: filee engines install <id>", "Install one with: filee engines install <id>"));
         return Cli.Success;
     }
 
@@ -158,11 +158,11 @@ internal static class EnginesCommand
         var downloadable = CanDownload(engines, package);
         var version = downloadable ? Version(engines, package) : null;
         if (copy.Status == EngineCopyStatus.Installed && !copy.Outdated)
-            return new Result(package.Id, "skipped", $"{package.Id} {version} is already installed.", version);
+            return new Result(package.Id, "skipped", CliLanguage.T($"{package.Id} {version} đã được cài.", $"{package.Id} {version} is already installed."), version);
         if (copy.Status == EngineCopyStatus.OwnCopy && !copy.FromSystem)
-            return new Result(package.Id, "skipped", $"{package.Id} uses your own copy at {copy.Folder} (Settings → Engines).");
+            return new Result(package.Id, "skipped", CliLanguage.T($"{package.Id} đang dùng bản riêng của bạn tại {copy.Folder} (Cài đặt → Engine).", $"{package.Id} uses your own copy at {copy.Folder} (Settings → Engines)."));
         if (copy.Status == EngineCopyStatus.OwnCopy && !downloadable)
-            return new Result(package.Id, "skipped", $"{package.Id} uses the copy found at {copy.Folder}.");
+            return new Result(package.Id, "skipped", CliLanguage.T($"{package.Id} đang dùng bản tìm thấy tại {copy.Folder}.", $"{package.Id} uses the copy found at {copy.Folder}."));
         if (!downloadable)
             return new Result(package.Id, "failed", UnavailableReason(package));
 
@@ -174,7 +174,7 @@ internal static class EnginesCommand
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
-            return new Result(package.Id, "cancelled", $"Installing {package.Id} was cancelled.");
+            return new Result(package.Id, "cancelled", CliLanguage.T($"Đã hủy cài đặt {package.Id}.", $"Installing {package.Id} was cancelled."));
         }
         catch (Exception ex)
         {
@@ -186,7 +186,7 @@ internal static class EnginesCommand
             progress.Finish();
         }
         return new Result(package.Id, "installed",
-            copy.Outdated ? $"Updated {package.Id} to {version}." : $"Installed {package.Id} {version}.", version);
+            copy.Outdated ? CliLanguage.T($"Đã cập nhật {package.Id} lên {version}.", $"Updated {package.Id} to {version}.") : CliLanguage.T($"Đã cài {package.Id} {version}.", $"Installed {package.Id} {version}."), version);
     }
 
     /// <summary>Removes Filee's download, as the Engines page allows it; a copy Filee didn't download is never touched.</summary>
@@ -195,14 +195,14 @@ internal static class EnginesCommand
         var copy = engines.StatusOf(package);
         if (copy.Status == EngineCopyStatus.OwnCopy)
             return new Result(package.Id, "skipped", copy.FromSystem
-                ? $"{package.Id} uses the copy found at {copy.Folder}; Filee didn't download it."
-                : $"{package.Id} uses your own copy at {copy.Folder}; Filee didn't download it.");
+                ? CliLanguage.T($"{package.Id} đang dùng bản tìm thấy tại {copy.Folder}; Filee không tải bản này.", $"{package.Id} uses the copy found at {copy.Folder}; Filee didn't download it.")
+                : CliLanguage.T($"{package.Id} đang dùng bản riêng của bạn tại {copy.Folder}; Filee không tải bản này.", $"{package.Id} uses your own copy at {copy.Folder}; Filee didn't download it."));
         if (copy.Status == EngineCopyStatus.NotInstalled)
-            return new Result(package.Id, "skipped", $"{package.Id} is not installed.");
+            return new Result(package.Id, "skipped", CliLanguage.T($"{package.Id} chưa được cài.", $"{package.Id} is not installed."));
         try
         {
             engines.Uninstall(package);
-            return new Result(package.Id, "removed", $"Removed {package.Id}.");
+            return new Result(package.Id, "removed", CliLanguage.T($"Đã gỡ {package.Id}.", $"Removed {package.Id}."));
         }
         catch (EngineBusyException busy)
         {
@@ -210,7 +210,7 @@ internal static class EnginesCommand
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            return new Result(package.Id, "failed", $"{package.Id} is in use; close Filee or wait for the conversion to finish.");
+            return new Result(package.Id, "failed", CliLanguage.T($"{package.Id} đang được sử dụng; hãy đóng Filee hoặc chờ chuyển đổi xong.", $"{package.Id} is in use; close Filee or wait for the conversion to finish."));
         }
     }
 
@@ -233,7 +233,7 @@ internal static class EnginesCommand
         package.Components.Sum(c => engines.Components[c].Size);
 
     private static string UnavailableReason(EnginePackage package) =>
-        EngineDownloads.UnavailableReason(package) ?? $"No Filee download of {package.Id} is available for {EngineDownloads.RuntimeIdentifier}.";
+        EngineDownloads.UnavailableReason(package) ?? CliLanguage.T($"Filee không có bản tải {package.Id} cho {EngineDownloads.RuntimeIdentifier}.", $"No Filee download of {package.Id} is available for {EngineDownloads.RuntimeIdentifier}.");
 
     /// <summary>"297 MB", "1.3 GB", as Settings → Engines shows sizes.</summary>
     private static string Bytes(long bytes) => bytes >= 1_000_000_000
@@ -273,8 +273,8 @@ internal static class EnginesCommand
                     return;
                 }
                 var line = value.Stage == EngineInstallStage.Downloading
-                    ? $"Downloading {id} {version}: {Amount(value.BytesDone)} / {Amount(value.BytesTotal)} ({(int)(value.Fraction * 100)}%)"
-                    : $"Unpacking {value.ComponentId}…";
+                    ? CliLanguage.T($"Đang tải {id} {version}: {Amount(value.BytesDone)} / {Amount(value.BytesTotal)} ({(int)(value.Fraction * 100)}%)", $"Downloading {id} {version}: {Amount(value.BytesDone)} / {Amount(value.BytesTotal)} ({(int)(value.Fraction * 100)}%)")
+                    : CliLanguage.T($"Đang giải nén {value.ComponentId}…", $"Unpacking {value.ComponentId}…");
                 var step = (value.Stage, value.ComponentId);
                 var newStep = _step != step;
                 var tenth = (int)(value.Fraction * 10);

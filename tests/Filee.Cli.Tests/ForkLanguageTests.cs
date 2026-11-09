@@ -1,0 +1,47 @@
+// tsudev-files: kiểm thử ngôn ngữ dòng lệnh của bản fork. Các test gốc của upstream kiểm câu tiếng Anh, nên module
+// initializer đặt FILEE_LANG=en cho cả assembly test; các test dưới đây tự chuyển sang tiếng Việt khi cần.
+
+using System.Runtime.CompilerServices;
+
+namespace Filee.Cli.Tests;
+
+internal static class CliTestLanguage
+{
+    [ModuleInitializer]
+    internal static void UseEnglishForUpstreamTests() => CliLanguage.Current = "en";
+}
+
+public sealed class ForkLanguageTests
+{
+    [Theory]
+    [InlineData(null, "vi")]
+    [InlineData("", "vi")]
+    [InlineData("vi", "vi")]
+    [InlineData("VI-vn", "vi")]
+    [InlineData("en", "en")]
+    [InlineData("English", "en")]
+    [InlineData("ko", "vi")]           // ngoài danh sách trắng → mặc định
+    [InlineData("en;rm -rf /", "vi")]  // giá trị lạ không bao giờ được dùng nguyên văn
+    public void Language_from_environment_is_whitelisted(string? value, string expected) =>
+        Assert.Equal(expected, CliLanguage.FromEnvironment(value));
+
+    [Fact]
+    public void Vietnamese_texts_fall_back_to_english()
+    {
+        var vi = new CliTexts("vi");
+        var en = new CliTexts("en");
+        Assert.Equal("vi", vi.Language);
+        Assert.NotEqual(en["error.no_route"], vi["error.no_route"]);
+        Assert.Equal("no.such.key", vi["no.such.key"]);
+    }
+
+    [Fact]
+    public void Help_is_vietnamese_by_default_and_english_on_request()
+    {
+        Assert.Contains("Cách dùng", Help.Text(null, "vi"));
+        Assert.Contains("Cách dùng", Help.Text("convert", "vi"));
+        Assert.Contains("Cách dùng", Help.Text("watch", "vi"));
+        Assert.Contains("FILEE_LANG", Help.Text(null, "vi"));
+        Assert.Contains("Usage", Help.Text(null, "en"));
+    }
+}

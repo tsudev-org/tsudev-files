@@ -57,7 +57,8 @@ internal static class Program
         foreach (var task in SetupTasks.UnknownNames(options.Tasks).Concat(SetupTasks.UnknownNames(options.MergeTasks)))
             log.Warn($"Unknown task ignored: {task}");
 
-        var texts = new SetupTexts(options.Language ?? "auto");
+        // tsudev-files: trình cài đặt nói tiếng Việt khi không có /LANG; "auto" vẫn theo ngôn ngữ Windows.
+        var texts = new SetupTexts(options.Language ?? Filee.Core.ForkDefaults.DefaultLanguage);
         try
         {
             if (!IsSupportedWindows())

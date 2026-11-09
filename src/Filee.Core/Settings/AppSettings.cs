@@ -136,8 +136,8 @@ public sealed class AppSettings
 
     public int SchemaVersion { get; set; } = CurrentSchemaVersion;
 
-    /// <summary><c>"auto"</c>, <c>"en"</c>, <c>"ko"</c> or <c>"zh-CN"</c>.</summary>
-    public string Language { get; set; } = "auto";
+    /// <summary><c>"auto"</c>, <c>"en"</c>, <c>"ko"</c> or <c>"zh-CN"</c>. tsudev-files: mặc định tiếng Việt (<see cref="ForkDefaults.DefaultLanguage"/>).</summary>
+    public string Language { get; set; } = ForkDefaults.DefaultLanguage;
 
     public bool StartWithSystem { get; set; } = true;
 

@@ -1047,7 +1047,7 @@ public sealed class CliTests : IDisposable
             new() { Id = "hidden-tool", Kind = PresetKind.Tool });
         var store = new UserDataStore(_settings);
         store.Load();
-        var texts = new EnglishTexts();
+        var texts = new CliTexts();
         var expected = store.Presets.Where(p => !p.IsGroup && !p.IsTool).ToArray();
         var (_, output, _) = await RunWith(new([]), "presets", "--json");
         var actual = Result(output).GetProperty("presets").EnumerateArray().ToArray();
@@ -1088,7 +1088,7 @@ public sealed class CliTests : IDisposable
         Assert.Equal(source, done.GetProperty("source").GetString());
         Assert.Equal("done", done.GetProperty("state").GetString());
         Assert.Equal([Path.ChangeExtension(source, "html")], Strings(done.GetProperty("outputs")));
-        Assert.Equal(new EnglishTexts()["notice.pdf_not_smaller"], done.GetProperty("notice").GetString());
+        Assert.Equal(new CliTexts()["notice.pdf_not_smaller"], done.GetProperty("notice").GetString());
         Assert.Equal(["Missing Family"], Strings(done.GetProperty("missingFonts")));
 
         // An allocator skip returns no outputs, notice or fonts.
@@ -1101,7 +1101,7 @@ public sealed class CliTests : IDisposable
         (_, output, _) = await RunWith(new([]), "convert", source, "--to", "mp3", "--json");
         var failed = FileResultOf(output);
         Assert.Equal(["source", "state", "outputs", "error", "errorKey"], failed.EnumerateObject().Select(p => p.Name));
-        Assert.Equal(new EnglishTexts()["error.no_route"] + " (md → mp3)", failed.GetProperty("error").GetString());
+        Assert.Equal(new CliTexts()["error.no_route"] + " (md → mp3)", failed.GetProperty("error").GetString());
         Assert.Empty(Strings(failed.GetProperty("outputs")));
         // Cancellation's exact old fields and values are asserted by the event-driven cancellation test.
         await Cancelled_files_do_not_invent_failure_metadata();

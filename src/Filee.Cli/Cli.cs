@@ -29,7 +29,7 @@ internal static class Cli
         if (options.Error is not null)
         {
             errors.WriteLine($"filee: {options.Error}");
-            errors.WriteLine("Run 'filee help' for usage.");
+            errors.WriteLine(CliLanguage.T("Chạy 'filee help' để xem cách dùng.", "Run 'filee help' for usage."));
             return UsageError;
         }
         switch (options.Command)
@@ -64,12 +64,12 @@ internal static class Cli
         var files = ExpandInputs(options.Inputs, options.Recursive, missing,
             foldersAsInputs: preset.TargetFormat == "iso" || preset.PacksIntoOneArchive);
         foreach (var path in missing)
-            errors.WriteLine($"filee: not found: {path}");
+            errors.WriteLine(CliLanguage.T($"filee: không tìm thấy: {path}", $"filee: not found: {path}"));
         if (missing.Count > 0)
             return UsageError;
         if (files.Count == 0)
         {
-            errors.WriteLine("filee: no files to convert.");
+            errors.WriteLine(CliLanguage.T("filee: không có tệp nào để chuyển đổi.", "filee: no files to convert."));
             return NothingToDo;
         }
         // Without it files stay as given, and a folder or wildcard as the file system lists it.
@@ -85,8 +85,8 @@ internal static class Cli
             WriteJson(job, host.Texts, host.Catalog, output);
         else if (!options.Quiet)
             output.WriteLine(failed == 0
-                ? $"Converted {done} of {job.Files.Count} file(s)."
-                : $"Converted {done} of {job.Files.Count} file(s), {failed} failed.");
+                ? CliLanguage.T($"Đã chuyển đổi {done}/{job.Files.Count} tệp.", $"Converted {done} of {job.Files.Count} file(s).")
+                : CliLanguage.T($"Đã chuyển đổi {done}/{job.Files.Count} tệp, {failed} tệp lỗi.", $"Converted {done} of {job.Files.Count} file(s), {failed} failed."));
         return failed == 0 ? Success : SomeFailed;
     }
 
@@ -120,7 +120,7 @@ internal static class Cli
         if (events is not null)
             events.Started(rule.Folder, host.Texts.DisplayName(preset), preset.TargetFormat, rule.ResolvedOutputFolder);
         else if (!options.Quiet)
-            output.WriteLine($"Watching {rule.Folder} → {host.Texts.DisplayName(preset)}, saving to {rule.ResolvedOutputFolder}. Press Ctrl+C to stop.");
+            output.WriteLine(CliLanguage.T($"Đang theo dõi {rule.Folder} → {host.Texts.DisplayName(preset)}, lưu vào {rule.ResolvedOutputFolder}. Nhấn Ctrl+C để dừng.", $"Watching {rule.Folder} → {host.Texts.DisplayName(preset)}, saving to {rule.ResolvedOutputFolder}. Press Ctrl+C to stop."));
         try
         {
             await Task.Delay(Timeout.Infinite, cancellationToken);
@@ -187,16 +187,16 @@ internal static class Cli
         {
             FileState.Done => $"ok    {source} -> {string.Join(", ", file.Outputs.Select(Shorten))}"
                 + (file.HasNotice ? $" ({Notice(file, texts)})" : "")
-                + (file.MissingFonts.Count == 0 ? "" : $" (missing fonts: {string.Join(", ", file.MissingFonts)})"),
-            FileState.Skipped => $"skip  {source} (the output file already exists)",
-            FileState.Cancelled => $"stop  {source} (cancelled)",
+                + (file.MissingFonts.Count == 0 ? "" : CliLanguage.T($" (thiếu phông chữ: {string.Join(", ", file.MissingFonts)})", $" (missing fonts: {string.Join(", ", file.MissingFonts)})")),
+            FileState.Skipped => CliLanguage.T($"skip  {source} (tệp kết quả đã tồn tại)", $"skip  {source} (the output file already exists)"),
+            FileState.Cancelled => CliLanguage.T($"stop  {source} (đã hủy)", $"stop  {source} (cancelled)"),
             _ => $"fail  {source}: {Error(file, texts)}",
         };
     }
 
     private static string Error(FileResult file, ILocalizer texts)
     {
-        var message = file.ErrorKey is null ? "conversion failed" : texts[file.ErrorKey];
+        var message = file.ErrorKey is null ? CliLanguage.T("chuyển đổi thất bại", "conversion failed") : texts[file.ErrorKey];
         return string.IsNullOrWhiteSpace(file.ErrorDetail) ? message : $"{message} ({file.ErrorDetail})";
     }
 
@@ -269,12 +269,12 @@ internal static class Cli
         {
             if (FindFormat(options.To) is not { } format)
             {
-                errors.WriteLine($"filee: unknown format '{options.To}'. Run 'filee formats' for the list.");
+                errors.WriteLine(CliLanguage.T($"filee: định dạng không xác định '{options.To}'. Chạy 'filee formats' để xem danh sách.", $"filee: unknown format '{options.To}'. Run 'filee formats' for the list."));
                 return null;
             }
             if (!format.Writable)
             {
-                errors.WriteLine($"filee: Filee reads {format.DisplayName} but can't write it.");
+                errors.WriteLine(CliLanguage.T($"filee: Filee đọc được {format.DisplayName} nhưng không ghi được định dạng này.", $"filee: Filee reads {format.DisplayName} but can't write it."));
                 return null;
             }
             preset = new Preset { TargetFormat = format.Id };
@@ -290,7 +290,7 @@ internal static class Cli
             var found = Find(host.Store.Presets.Where(p => !p.IsGroup && !p.IsTool)) ?? Find(host.Store.Presets);
             if (found is null)
             {
-                errors.WriteLine($"filee: no preset '{wanted}'. Run 'filee presets' for the list.");
+                errors.WriteLine(CliLanguage.T($"filee: không có preset '{wanted}'. Chạy 'filee presets' để xem danh sách.", $"filee: no preset '{wanted}'. Run 'filee presets' for the list."));
                 return null;
             }
             if (found.IsGroup)
@@ -298,13 +298,13 @@ internal static class Cli
                 // A donut group converts nothing; name what it holds so the right one is easy to pick.
                 var members = found.SubPresetIds.Select(host.Store.FindConversion).OfType<Preset>().Select(p => p.Id).ToList();
                 errors.WriteLine(members.Count > 0
-                    ? $"filee: '{wanted}' is a group on the donut, not a conversion. Use one of: {string.Join(", ", members)}"
-                    : $"filee: '{wanted}' is a group on the donut, not a conversion, and has no presets left. Run 'filee presets' for the list.");
+                    ? CliLanguage.T($"filee: '{wanted}' là một nhóm trên vòng donut, không phải phép chuyển đổi. Dùng một trong: {string.Join(", ", members)}", $"filee: '{wanted}' is a group on the donut, not a conversion. Use one of: {string.Join(", ", members)}")
+                    : CliLanguage.T($"filee: '{wanted}' là một nhóm trên vòng donut, không phải phép chuyển đổi, và không còn preset nào. Chạy 'filee presets' để xem danh sách.", $"filee: '{wanted}' is a group on the donut, not a conversion, and has no presets left. Run 'filee presets' for the list."));
                 return null;
             }
             if (found.IsTool)
             {
-                errors.WriteLine($"filee: '{wanted}' is an interactive tool, not a conversion.");
+                errors.WriteLine(CliLanguage.T($"filee: '{wanted}' là công cụ tương tác, không phải phép chuyển đổi.", $"filee: '{wanted}' is an interactive tool, not a conversion."));
                 return null;
             }
             preset = found.Clone();
@@ -378,7 +378,7 @@ internal static class Cli
         {
             if (FindFormat(name) is not { } from)
             {
-                errors.WriteLine($"filee: unknown format '{name}'.");
+                errors.WriteLine(CliLanguage.T($"filee: định dạng không xác định '{name}'.", $"filee: unknown format '{name}'."));
                 return UsageError;
             }
             var installed = host.Catalog.CreatePlanner();
@@ -399,10 +399,10 @@ internal static class Cli
                 });
                 return Success;
             }
-            output.WriteLine($"{from.DisplayName} ({string.Join(", ", from.Extensions)}) converts to:");
-            output.WriteLine(now.Count > 0 ? "  " + string.Join(", ", now) : "  (nothing with the engines installed now)");
+            output.WriteLine(CliLanguage.T($"{from.DisplayName} ({string.Join(", ", from.Extensions)}) chuyển được sang:", $"{from.DisplayName} ({string.Join(", ", from.Extensions)}) converts to:"));
+            output.WriteLine(now.Count > 0 ? "  " + string.Join(", ", now) : CliLanguage.T("  (không có định dạng nào với các engine đang cài)", "  (nothing with the engines installed now)"));
             if (later.Count > 0)
-                output.WriteLine($"With optional engines (install them with 'filee engines'):{Environment.NewLine}  {string.Join(", ", later)}");
+                output.WriteLine(CliLanguage.T($"Khi cài thêm engine tùy chọn (cài bằng 'filee engines'):{Environment.NewLine}  {string.Join(", ", later)}", $"With optional engines (install them with 'filee engines'):{Environment.NewLine}  {string.Join(", ", later)}"));
             return Success;
         }
 
@@ -428,10 +428,10 @@ internal static class Cli
         {
             output.WriteLine($"{group.Key}:");
             foreach (var format in group)
-                output.WriteLine($"  {format.Id,-10} {format.DisplayName}{(format.Writable ? "" : " (read only)")}  .{string.Join(" .", format.Extensions)}");
+                output.WriteLine($"  {format.Id,-10} {format.DisplayName}{(format.Writable ? "" : CliLanguage.T(" (chỉ đọc)", " (read only)"))}  .{string.Join(" .", format.Extensions)}");
         }
         output.WriteLine();
-        output.WriteLine("Run 'filee formats <format>' to see what a format converts to.");
+        output.WriteLine(CliLanguage.T("Chạy 'filee formats <định dạng>' để xem một định dạng chuyển được sang đâu.", "Run 'filee formats <format>' to see what a format converts to."));
         return Success;
     }
 
@@ -486,7 +486,7 @@ internal static class Cli
         foreach (var preset in host.Store.Presets.Where(p => !p.IsGroup && !p.IsTool))
             output.WriteLine($"{preset.Id,-24} {host.Texts.DisplayName(preset),-28} {preset.TargetFormat}");
         output.WriteLine();
-        output.WriteLine("Use one with: filee convert <files> --preset <id or name>");
+        output.WriteLine(CliLanguage.T("Dùng bằng: filee convert <tệp> --preset <id hoặc tên>", "Use one with: filee convert <files> --preset <id or name>"));
         return Success;
     }
 

@@ -26,7 +26,7 @@ internal sealed class CliHost : IAsyncDisposable
     public UserDataStore Store { get; }
     public ConverterCatalog Catalog { get; }
     public JobQueue Queue { get; }
-    public ILocalizer Texts { get; } = new EnglishTexts();
+    public ILocalizer Texts { get; } = new CliTexts();
 
     /// <summary>
     /// The installer Settings → Engines uses, on EngineEnvironment.DownloadRoot (the engines folder in FILEE_DATA_DIR
