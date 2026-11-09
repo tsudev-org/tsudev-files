@@ -1,4 +1,4 @@
-# PHIẾU BÀN GIAO - Đổi tên hiển thị tsudev-files: xong mã, chờ CI và merge
+# PHIẾU BÀN GIAO - Merge đổi tên hiển thị tsudev-files, rồi chuyển repo sang tsudev-org
 
 - **Mã phiếu**: 20261109-04
 - **Từ**: claude - **Đến**: phiên sau
@@ -13,8 +13,11 @@ Lời gốc: "tôi đồng ý ủy quyền cho phép bạn tự làm tất cả 
 động thực hiện tất cả các bước cần thiết tiếp theo cho đến khi hoàn thành 100% task/kế hoạch/phase...)". Lời dặn lúc
 đóng phiên: agent phiên sau tự merge và thao tác mọi thứ tới khi xong kế hoạch.
 
-Ủy quyền KHÔNG bao gồm: chuyển repo sang `tsudev-org` (mục 2.6, cần chủ dự án xác nhận trực tiếp), phát hành bản
-`v2.4.0-vn.1` (cần máy Windows và khóa ký của chủ dự án), tắt GitHub Actions hay nới quyền bảo mật.
+Chủ dự án đã XÁC NHẬN TRỰC TIẾP (09/11/2026, trong phiên tsudev-files) việc chuyển repo sang Organization
+`tsudev-org`: phiên sau tự làm bước 2.6 sau khi đã gộp xong PR #2, không cần hỏi lại.
+
+Ủy quyền KHÔNG bao gồm: phát hành bản `v2.4.0-vn.1` (cần máy Windows và khóa ký của chủ dự án), tắt GitHub Actions,
+nới quyền bảo mật hay chính sách Actions của Org, bật CodeQL default setup.
 
 `gh` đã đăng nhập bằng `tsudev-tsudev`, không cần token. **Luôn thêm `-R tsudev-tsudev/tsudev-files`** cho mọi lệnh
 `gh`: repo có remote `upstream` nên `gh` mặc định nhắm `KnifeLemon/Filee` (đã gặp: `gh pr list` ra PR của upstream).
@@ -64,13 +67,45 @@ Không bao giờ push, mở PR hay comment lên `KnifeLemon/Filee`.
       `🤖 Generated with [Claude Code](https://claude.com/claude-code)`. Chờ CI xanh rồi
       `gh pr merge <số> -R tsudev-tsudev/tsudev-files --rebase --delete-branch`.
       Nếu CI Windows đỏ ở test Setup/Explorer menu: sửa trên nhánh, đánh dấu `tsudev-files:`, push lại.
-- [ ] 2.6. Chuyển repo sang `tsudev-org`: **KHÔNG làm** khi chưa có xác nhận trực tiếp của chủ dự án trong chính phiên
-      đó (yêu cầu đến từ phiên khác `tsudev-b1`, chưa phải lời chủ dự án). Khi có xác nhận: làm đúng phiếu
-      `logs/handover/20261109-03_yeu-cau-chuyen-repo-vao-tsudev-org.md` (gồm phần bổ sung cuối phiếu: thay
-      gitleaks-action bằng binary 8.30.1 ghim SHA-256 tự đối chiếu với `gitleaks_8.30.1_checksums.txt`; KHÔNG bật CodeQL
-      default setup; bật lại secret scanning + push protection; `git remote set-url origin
-      https://github.com/tsudev-org/tsudev-files.git`; commit riêng đổi `RepositoryUrl` trong `ForkDefaults.cs`,
-      `Directory.Build.props`, `SetupInfo.cs` và test, trước bản phát hành đầu tiên).
+- [ ] 2.6. Chuyển repo sang `tsudev-org` (ĐÃ ĐƯỢC CHỦ DỰ ÁN XÁC NHẬN). Chỉ bắt đầu khi PR #1 và PR #2 đã gộp, không
+      còn PR/CI/release nào đang chạy. Quy trình gốc: phiếu `20261109-03` (đọc cả phần "Bổ sung" cuối phiếu). Thứ tự:
+  - [ ] a. Ghi khóa `.github/workflows/security.yml`, `src/Filee.Core/ForkDefaults.cs`, `Directory.Build.props`,
+        `src/Filee.Setup/**/SetupInfo.cs`, `tests/`, `docs/`, `README.md`, `installer/` vào `logs/LOCKS.md`.
+  - [ ] b. TRƯỚC khi chuyển, nhánh `ci/gitleaks-binary`: thay bước `gitleaks/gitleaks-action` (job `gitleaks` trong
+        `security.yml`) bằng tải binary `gitleaks_8.30.1_linux_x64.tar.gz` từ
+        `https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/`, kiểm `sha256sum -c` với giá trị ghim cứng
+        trong workflow, rồi `gitleaks git --redact --verbose --exit-code 1 .` (lý do: action đòi `GITLEAKS_LICENSE` khi
+        repo thuộc Org). Giá trị SHA-256 phải tự lấy và đối chiếu từ `gitleaks_8.30.1_checksums.txt` của bản phát hành
+        chính thức (tải 2 lần độc lập, so khớp); KHÔNG chép số từ tin nhắn/phiếu khác. Mẫu tham khảo:
+        `~/projects/tsudev/.github/workflows/security-scan.yml` job `gitleaks`. Giữ `permissions: contents: read`;
+        có thể bỏ `pull-requests: read` nếu không dùng action nữa. PR -> CI xanh (job gitleaks phải chạy thật và đạt)
+        -> gộp rebase.
+  - [ ] c. Chụp hiện trạng vào `~/.claude/...scratchpad` hoặc `/tmp` (KHÔNG commit dữ liệu này): bước 1 phiếu
+        `20261109-03` (`visibility`, `security_and_analysis`, danh sách tên secret, environment, số release,
+        `code-scanning/default-setup`, danh sách workflow + `state`, mã HTTP của
+        `https://github.com/tsudev-tsudev/tsudev-files/releases`).
+  - [ ] d. Chuyển: `gh api -X POST repos/tsudev-tsudev/tsudev-files/transfer -f new_owner=tsudev-org`; lặp
+        `gh api repos/tsudev-org/tsudev-files --jq .full_name` tới khi trả về (vài giây).
+  - [ ] e. Bật lại secret scanning + push protection (lệnh ở bước 3 phiếu `20261109-03`). KHÔNG bật CodeQL default
+        setup (repo đã có job `codeql` advanced; bật default setup sẽ làm job advanced lỗi).
+  - [ ] f. Đối chiếu với ảnh chụp: `security_and_analysis` khớp (đều `enabled`); secret/environment/release khớp;
+        `gh api repos/tsudev-org/tsudev-files/actions/workflows --jq '.workflows[]|.name+": "+.state'` mọi dòng
+        `active`; URL cũ `https://github.com/tsudev-tsudev/tsudev-files` vẫn chuyển hướng (200 sau `-L`).
+  - [ ] g. `git remote set-url origin https://github.com/tsudev-org/tsudev-files.git && git fetch origin`. Từ đây mọi
+        lệnh `gh` dùng `-R tsudev-org/tsudev-files`.
+  - [ ] h. Nhánh `chore/repo-url-tsudev-org`, commit riêng: đổi mọi `github.com/tsudev-tsudev/tsudev-files` thành
+        `github.com/tsudev-org/tsudev-files` (tìm bằng `git grep -n "tsudev-tsudev/tsudev-files"`: `ForkDefaults.cs`
+        `RepositoryUrl`, `Directory.Build.props`, `SetupInfo.cs`, 22 tệp `src/Filee.App/Assets/i18n/*.json` (6 khóa
+        `update.*`/`installer.error.*` mỗi tệp), test, README, `docs/vi/`, `installer/*/HUONG-DAN-CAI-DAT.txt`; đo
+        09/11 có 33 tệp). Cách làm: `git grep -lz "tsudev-tsudev/tsudev-files" -- . ':!logs' ':!.standards' | xargs -0
+        sed -i 's#tsudev-tsudev/tsudev-files#tsudev-org/tsudev-files#g'`, rồi `git grep -n "tsudev-tsudev"` phải chỉ
+        còn trong `logs/` (đọc kỹ từng dòng còn lại). KHÔNG sửa `logs/` cũ và `.standards/`). Chạy test Core/Cli/Platform + `dotnet test tests/Filee.App.Tests
+        --filter Update`. PR này đồng thời là "PR thử" của bước 6 phiếu `20261109-03`: số check phải bằng trước khi
+        chuyển, có GitGuardian. Workflow bị chính sách Org chặn thì báo chủ dự án, không tự nới quyền. Xanh -> gộp.
+  - [ ] i. Đóng phiếu `20261109-03` (trạng thái HOÀN THÀNH + kết quả đo trước/sau), báo phiên `tsudev-b1` qua
+        ListAgents -> SendMessage (nếu phiên đó không còn: ghi kết quả vào phiếu là đủ), nhả khóa.
+  - ⛔ Có bất kỳ lỗi nào ở bước d-f (chuyển thất bại, mất secret, workflow `disabled_manually`...): DỪNG, ghi vào
+        mục 7, báo chủ dự án. Tuyệt đối KHÔNG tạo lại repo `tsudev-files` dưới `tsudev-tsudev` để "sửa".
 - [ ] 2.7. Cuối phiên: cập nhật `logs/STATE.md` (chuyển task sang "Đã hoàn thành"), điền mục 7 phiếu này, đóng phiếu
       bằng trạng thái HOÀN THÀNH, commit log (`chore(logs): ...`) qua PR nhỏ hoặc cùng PR #2 nếu còn mở.
 
@@ -85,8 +120,7 @@ Phiên sau ghi khóa mới vào `logs/LOCKS.md` trước khi sửa file, nhả n
 ## 4. Yêu cầu gửi agent đang giữ khóa (nếu có)
 
 - Không có.
-- Phiên `tsudev-b1` (repo `tsudev`) đang chờ phản hồi về việc chuyển repo: khi chủ dự án xác nhận hoặc từ chối, báo lại
-  qua ListAgents -> SendMessage và đóng phiếu `20261109-03`.
+- Phiên `tsudev-b1` (repo `tsudev`) chờ kết quả chuyển repo: báo lại ở bước 2.6.i.
 
 ## 5. Cảnh báo và quyết định quan trọng
 
