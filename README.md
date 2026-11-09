@@ -2,6 +2,11 @@
 
 **Trình chuyển đổi tệp ngoại tuyến, miễn phí, mã nguồn mở - bản Việt hóa và gia cố bảo mật của [Filee](https://github.com/KnifeLemon/Filee).**
 
+Một sản phẩm của [tsudev](https://tsudev.com).
+
+**Hạng sản phẩm: C - Ngoại tuyến** (theo `.standards/docs/AUTH_AND_ACCOUNT.md` mục 1): mọi chức năng chuyển đổi chạy
+trọn vẹn không cần internet và không cần tài khoản; kiểm tra cập nhật là tùy chọn.
+
 Kéo tệp, thả vào một định dạng trên vòng "donut" mở ra ngay tại con trỏ chuột là xong. Hơn 260 định dạng: ảnh, PDF,
 Word, Excel, PowerPoint, HWP/HWPX, video, âm thanh, sách điện tử, tệp nén, CAD, bản đồ, 3D... Mọi xử lý chạy **trên
 máy của bạn**, không tải tệp lên bất kỳ máy chủ nào, không cần cài Microsoft Office.
