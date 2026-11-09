@@ -1,0 +1,109 @@
+---
+import Trang from '../layouts/Trang.astro';
+import { banMoiNhat, NEN_TANG, RELEASES_URL, REPO, REPO_URL } from '../lib/noi-dung';
+
+const ban = await banMoiNhat();
+const mb = (b: number) => `${(b / 1024 / 1024).toFixed(1).replace('.', ',')} MB`;
+const theoNenTang = NEN_TANG.map((nt) => ({ ...nt, goi: ban?.goi.filter((g) => g.nenTang === nt.ma) ?? [] })).filter((nt) => nt.goi.length > 0);
+const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsudev-files-<phiên bản>-win-Setup.exe';
+---
+<Trang tieuDe="Tải về" moTa="Tải tsudev-files cho Windows, macOS và Linux; mã SHA-256 của từng gói, cách kiểm tra tệp và hướng dẫn cài đặt từng hệ điều hành." duongDan="/tai-ve/">
+  <div class="khung tai-lieu">
+    <nav class="tai-lieu__menu" aria-label="Tải về">
+      <p>Tải về</p>
+      <ul>
+        <li><a href="#chon-goi">Chọn gói</a></li>
+        <li><a href="#kiem-tra">Kiểm tra tệp</a></li>
+        <li><a href="#windows">Cài trên Windows</a></li>
+        <li><a href="#macos">Cài trên macOS</a></li>
+        <li><a href="#linux">Cài trên Linux</a></li>
+        <li><a href="#cap-nhat">Cập nhật</a></li>
+      </ul>
+    </nav>
+    <article class="van-ban">
+      {ban ? (
+        <>
+          <h1>Tải tsudev-files {ban.phienBan}</h1>
+          <p>Phát hành ngày {ban.ngay}. Mọi gói được GitHub Actions build từ mã nguồn công khai; trang này chỉ dẫn tới <a href={ban.url} target="_blank" rel="noopener noreferrer">trang phát hành trên GitHub</a>, không lưu bản sao.</p>
+        </>
+      ) : (
+        <>
+          <h1>Tải tsudev-files</h1>
+          <div class="chu-y">
+            <p><strong>Bản phát hành đầu tiên đang được chuẩn bị.</strong> Khi có, danh sách gói kèm mã SHA-256 sẽ hiện ngay tại đây và ở <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer">trang phát hành trên GitHub</a>.</p>
+            <p>Trong lúc chờ, bạn có thể tự build từ <a href={REPO_URL} target="_blank" rel="noopener noreferrer">mã nguồn</a> (cần .NET SDK 10), hoặc theo dõi repo trên GitHub (Watch, chọn Releases) để được báo khi có bản mới.</p>
+          </div>
+        </>
+      )}
+
+      <h2 id="chon-goi">Chọn gói</h2>
+      {theoNenTang.length > 0 ? (
+        <div class="goi">
+          {theoNenTang.map((nt) => (
+            <section class="goi__nhom" aria-labelledby={`goi-${nt.ma}`}>
+              <h3 id={`goi-${nt.ma}`}>{nt.ten}</h3>
+              {nt.goi.map((g) => (
+                <div class="goi__muc">
+                  <div>
+                    <p class="goi__loai">{g.loai}</p>
+                    <p class="goi__ten">{g.ten} · {mb(g.kichThuoc)}</p>
+                  </div>
+                  <a class={`nut ${g.ten.endsWith('-win-Setup.exe') ? 'nut--chinh' : 'nut--phu'}`} href={g.url}>Tải về<span class="an-di"> {g.ten}</span></a>
+                  {g.sha256 && <p class="goi__bam">SHA-256: {g.sha256}</p>}
+                </div>
+              ))}
+            </section>
+          ))}
+        </div>
+      ) : (
+        <div class="bang" tabindex="0" role="region" aria-label="Các gói sẽ có, cuộn ngang được">
+          <table>
+            <thead><tr><th scope="col">Hệ điều hành</th><th scope="col">Gói</th></tr></thead>
+            <tbody>
+              <tr><td>Windows 10/11 x64</td><td><code>-win-Setup.exe</code> (bộ cài) hoặc <code>-win-Portable.zip</code> (di động)</td></tr>
+              <tr><td>Windows 11 ARM64</td><td><code>-win-arm64-Setup.exe</code>, <code>-win-arm64-Portable.zip</code></td></tr>
+              <tr><td>macOS 13+ (Apple, Intel)</td><td><code>-osx-arm64</code>, <code>-osx-x64</code>: <code>.dmg</code> hoặc <code>.tar.gz</code></td></tr>
+              <tr><td>Linux x64, ARM64</td><td><code>-linux-x64.tar.gz</code>, <code>-linux-arm64.tar.gz</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+      <p>Không chắc máy Windows dùng bản nào? Mở <strong>Cài đặt, Hệ thống, Giới thiệu</strong>, xem dòng <em>Loại hệ thống</em>. Phần lớn máy dùng bản <strong>x64</strong>. Trên Mac, menu Apple, <strong>Giới thiệu về máy Mac</strong> cho biết chip Apple hay Intel.</p>
+
+      <h2 id="kiem-tra">Kiểm tra tệp trước khi chạy</h2>
+      <p>Mỗi bản phát hành có tệp <code>*SHA256SUMS.txt</code> chứa mã SHA-256 của từng gói, kèm chữ ký <code>.sig</code>. So mã của tệp bạn tải với mã ở trên hoặc trong tệp đó.</p>
+      <p>Windows (PowerShell):</p>
+      <pre tabindex="0"><code>Get-FileHash .\{vd} -Algorithm SHA256</code></pre>
+      <p>macOS, Linux (đặt tệp SHA256SUMS cùng thư mục):</p>
+      <pre tabindex="0"><code>sha256sum -c --ignore-missing tsudev-files-*-SHA256SUMS.txt     # macOS: shasum -a 256 -c</code></pre>
+      <div class="chu-y">
+        <p><strong>Chỉ tải từ trang này hoặc từ <a href={`${REPO_URL}/releases`} target="_blank" rel="noopener noreferrer">github.com/{REPO}</a>.</strong> Mọi trang khác tự xưng "bản chính thức" đều không liên quan tới tsudev.</p>
+        <p>Bản Windows hiện chưa có chứng thư Authenticode nên SmartScreen có thể cảnh báo ở lần chạy đầu: chọn <em>Thông tin thêm</em>, rồi <em>Vẫn chạy</em> sau khi đã kiểm SHA-256. Bản phát hành của Filee gốc không dùng được để cập nhật tsudev-files và ngược lại: hai bên ký bằng hai khóa khác nhau.</p>
+      </div>
+
+      <h2 id="windows">Cài trên Windows 10/11</h2>
+      <ol>
+        <li>Chạy <code>tsudev-files-&lt;phiên bản&gt;-win-Setup.exe</code>. Bộ cài bằng tiếng Việt, không cần cài thêm gì.</li>
+        <li>Chọn các tùy chọn: menu chuột phải trong Explorer, chạy khi đăng nhập, lệnh <code>filee</code>, engine tùy chọn.</li>
+        <li>Hoặc dùng bản di động: giải nén <code>-win-Portable.zip</code> vào một thư mục cố định rồi chạy <code>Filee.exe</code>.</li>
+      </ol>
+      <p>Cài im lặng cho nhiều máy: bộ cài nhận tham số của Inno Setup, ví dụ <code>/VERYSILENT /SUPPRESSMSGBOXES</code>.</p>
+      <p>Ứng dụng không mở (không cửa sổ, không báo lỗi) trên Windows 10 lâu ngày chưa cập nhật? Xem <a href="/huong-dan/#khong-mo-duoc-tren-windows">cách xử lý</a>.</p>
+
+      <h2 id="macos">Cài trên macOS 13 trở lên (bản xem trước)</h2>
+      <ol>
+        <li>Mở tệp <code>.dmg</code> rồi kéo ứng dụng vào thư mục Applications; hoặc giải nén gói <code>.tar.gz</code> và chạy <code>./install.sh</code> (cách này cài cả lệnh <code>filee</code>).</li>
+        <li>Bản build chưa được Apple công chứng (notarize). Lần mở đầu tiên, vào <strong>Cài đặt hệ thống, Quyền riêng tư và bảo mật</strong>, chọn <strong>Vẫn mở</strong>.</li>
+      </ol>
+
+      <h2 id="linux">Cài trên Linux x64, ARM64 (Ubuntu 22.04 trở lên)</h2>
+      <pre tabindex="0"><code>tar -xzf tsudev-files-&lt;phiên bản&gt;-linux-x64.tar.gz
+cd tsudev-files-&lt;phiên bản&gt;-linux-x64
+./install.sh            # không cần quyền root, cần Python 3; FILEE_LANG=en ./install.sh để xem tiếng Anh</code></pre>
+      <p>Gói kèm tệp <code>HUONG-DAN-CAI-DAT.txt</code>. Thao tác giữ phím rồi kéo cần X11; trên Wayland, dùng vùng thả tệp và menu chuột phải của trình quản lý tệp.</p>
+
+      <h2 id="cap-nhat">Cập nhật</h2>
+      <p>tsudev-files tự báo khi có bản mới trong menu và tự cập nhật, giữ nguyên cài đặt và engine. Trước khi cài, ứng dụng kiểm chữ ký ECDSA của danh sách SHA-256, kiểm số phiên bản phải mới hơn, rồi kiểm SHA-256 của bộ cài; sai bất kỳ bước nào thì dừng và mở trang phát hành. Chi tiết ở trang <a href="/bao-mat/kien-truc/">Kiến trúc bảo mật</a>.</p>
+    </article>
+  </div>
+</Trang>

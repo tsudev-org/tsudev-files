@@ -1,0 +1,42 @@
+---
+import TaiLieu from '../components/TaiLieu.astro';
+
+// Dịch từ bảng "Formats" của README.en.md (upstream). Chỉ số: 1 Ghostscript, 2 LibreOffice, 3 Pandoc, 4 calibre, 5 FFmpeg.
+const bang: { nhom: string; tu: string; sang: string }[] = [
+  { nhom: 'Ảnh', tu: 'JPG, PNG, WEBP, AVIF, TIFF, BMP, GIF, APNG, ICO, ICNS, JPEG XL, JPEG 2000, PSD/PSB, TGA, PPM, HEIC, QOI, DDS, PCX, MNG, CUR...; đọc được GIMP XCF, RAW máy ảnh (CR2, CR3, NEF, ARW, DNG...), DICOM, OpenEXR, HDR, FITS, JPEG XR (Windows), Live Photo iPhone (LIVP)', sang: 'Bất kỳ định dạng nào bên trái (HEIC⁵), PDF, SVG (vẽ lại nét), đổi cỡ, ảnh xám; Live Photo, Motion Photo sang video (MP4, MOV⁵) và video sang Live Photo hoặc Motion Photo⁵ (thử nghiệm)' },
+  { nhom: 'Đồ họa vector', tu: 'SVG, SVGZ, EMF, WMF, AI; EPS, PS¹; CDR, VSD, CGM, ODG, FODG²', sang: 'PDF (giữ vector), PNG và ảnh khác; SVG ↔ SVGZ; SVG sang DXF/DWG, EMF, WMF, ODG²; PDF sang EPS/PS¹' },
+  { nhom: 'PDF', tu: 'PDF', sang: 'DOCX, HWPX, TXT, PNG, JPG, TIFF, CBZ, PPTX (mỗi trang một ảnh), SVG²; ghép (theo thứ tự bạn chọn), tách, chọn trang, nén cho nhẹ' },
+  { nhom: 'Văn bản', tu: 'DOCX, DOCM, DOTX, EML, Outlook MSG; đọc được OFD (hóa đơn điện tử Trung Quốc); DOC, ODT, FODT, OTT, RTF, WPS, WPD, Pages, ClarisWorks, MacWrite, T602...²', sang: 'PDF, DOCX, HWPX, EPUB, TXT, HTML; MSG sang EML; ODT, FODT, OTT²' },
+  { nhom: 'Bảng tính', tu: 'XLSX, XLSM, XLS, XLT, ODS, CSV, TSV; OTS, FODS, Numbers, ET²', sang: 'PDF, XLSX, ODS, CSV, TSV, JSON, HWPX, HTML; XLT, OTS²' },
+  { nhom: 'Trình chiếu', tu: 'PPTX, PPTM, POTX, POTM, PPSX; PPT, ODP, OTP, FODP, Keynote²', sang: 'PDF, PNG, JPG, DOCX, HWPX; OTP²' },
+  { nhom: 'HWP (Hancom)', tu: 'HWP, HWPX', sang: 'PDF, PNG, DOCX, HWPX ↔ HWP, TXT, Markdown, HTML' },
+  { nhom: 'Chữ, mã nguồn', tu: 'TXT, LOG, mã script (PY, PAC, BAT, COMMAND: chỉ đọc, không bao giờ chạy), Markdown, HTML; đọc được MHTML (trang web đã lưu); reStructuredText, LaTeX, Org, AsciiDoc, Typst, MediaWiki, DocBook, Jupyter, Textile, man, OPML³', sang: 'TXT UTF-8, PDF, DOCX, HWPX, EPUB; chuyển qua lại giữa nhau, slide PPTX³' },
+  { nhom: 'Sách điện tử', tu: 'EPUB, KEPUB, MOBI, AZW3, AZW, AZW4, FB2, CBZ, CBR, CB7, HTMLZ, TXTZ; LIT, LRF, CHM, PDB...⁴', sang: 'PDF, EPUB, KEPUB (Kobo), DOCX, TXT, HTML, HWPX; MOBI, AZW3⁴' },
+  { nhom: 'Video⁵', tu: 'MP4, MOV, MKV, WEBM, AVI, WMV, FLV, MPEG, Video CD (DAT), TS, M2TS, 3GP, OGV, VOB...', sang: 'MP4 (H.264, HEVC, AV1), WEBM, MOV, MKV, AVI, GIF, APNG, MP3, M4A, 720p; phụ đề (SRT, ASS, WebVTT)' },
+  { nhom: 'Âm thanh⁵', tu: 'MP3, M4A, AAC, WAV, FLAC, OGG, OPUS, WMA, AIFF, AMR, APE, WavPack, TTA, DSD (DSF, DFF), DTS, AC3, E-AC3...', sang: 'MP3, M4A (AAC, ALAC), WAV, FLAC, OGG, OPUS, AAC, WavPack, TTA, W64, AC3, E-AC3' },
+  { nhom: 'Phụ đề', tu: 'SRT, ASS/SSA, WebVTT, SAMI (SMI), LRC, TTML, MicroDVD, SCC', sang: 'Chuyển qua lại, luôn ra UTF-8' },
+  { nhom: 'Tệp nén', tu: 'ZIP, ANSYS Workbench (WBPZ), 7Z, RAR, TAR, TAR.GZ, TAR.BZ2, TAR.XZ, GZ, ISO, CAB, DMG, ALZ, EGG...', sang: 'Giải nén, ZIP, 7Z, TAR, TAR.GZ; gom nhiều tệp vào một ZIP' },
+  { nhom: 'CAD', tu: 'DWG, DXF', sang: 'PDF, SVG, PNG, DWG ↔ DXF' },
+  { nhom: 'Phông chữ', tu: 'TTF, OTF, WOFF, WOFF2, EOT; đọc được FON (phông bitmap Windows)', sang: 'Chuyển qua lại; FON thành một phông cho mỗi cỡ' },
+  { nhom: 'Dữ liệu', tu: 'JSON, JSON Lines, YAML, TOML, XML; vCard, iCalendar', sang: 'Chuyển qua lại, sang CSV và XLSX (dạng bảng); vCard, iCalendar ↔ CSV' },
+  { nhom: 'Mô hình 3D', tu: 'GLB, glTF, STL, OBJ (+ MTL), 3MF, PLY; đọc được FBX', sang: 'Chuyển qua lại, ảnh xem trước PNG' },
+  { nhom: 'Bản đồ (vector)', tu: 'Shapefile, GeoJSON, KML, KMZ, GPX, CSV có tọa độ; đọc được Garmin FIT', sang: 'Chuyển qua lại và sang CSV, XLSX, JSON; dữ liệu đã chiếu (UTM, Web Mercator, Lambert, Albers) ra kinh độ, vĩ độ WGS 84' },
+];
+---
+<TaiLieu tieuDe="Định dạng hỗ trợ" moTa="Danh sách định dạng tsudev-files chuyển đổi được: ảnh, PDF, văn bản, bảng tính, HWP, video, âm thanh, sách điện tử, tệp nén, CAD, phông chữ, 3D, bản đồ." duongDan="/dinh-dang/">
+  <h1>Định dạng hỗ trợ</h1>
+  <p>Hơn 260 định dạng, chia theo nhóm. Định dạng không đánh dấu chạy ngay sau khi cài, không cần Microsoft Office, Hancom Office hay LibreOffice. Định dạng có số nhỏ cần một engine tùy chọn, chỉ tải khi bạn cần (xem <a href="/huong-dan/#engine">Engine tùy chọn</a>):</p>
+  <p class="chu-thich-so">¹ Ghostscript · ² LibreOffice · ³ Pandoc · ⁴ calibre · ⁵ FFmpeg</p>
+  <div class="bang" tabindex="0" role="region" aria-label="Bảng định dạng, cuộn ngang được">
+    <table>
+      <thead><tr><th scope="col">Nhóm</th><th scope="col">Đọc từ</th><th scope="col">Chuyển sang</th></tr></thead>
+      <tbody>
+        {bang.map((d) => <tr><th scope="row">{d.nhom}</th><td>{d.tu}</td><td>{d.sang}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p>Danh sách đầy đủ, luôn khớp với bản bạn đang dùng, xem bằng lệnh:</p>
+  <pre tabindex="0"><code>filee formats            # mọi định dạng
+filee formats heic       # HEIC chuyển được sang những gì</code></pre>
+  <p>Cần một định dạng chưa có? <a href="https://github.com/tsudev-org/tsudev-files/issues" target="_blank" rel="noopener noreferrer">Đề xuất trên GitHub</a>.</p>
+</TaiLieu>

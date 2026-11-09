@@ -81,6 +81,9 @@ jobs:
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             case "$f" in
+              # tsudev-files: trang files.tsudev.com có workflow riêng (website.yml), không cần build .NET.
+              website/*|.github/workflows/website.yml)
+                continue ;;
               *.md|docs/*|LICENSE|.mailmap|.github/CODEOWNERS|.github/ISSUE_TEMPLATE/*|.github/labeler.yml|.github/FUNDING.yml|.github/release.yml|.github/PULL_REQUEST_TEMPLATE*|.github/workflows/label-issue.yml|.github/workflows/label-pr.yml)
                 continue ;;
             esac
