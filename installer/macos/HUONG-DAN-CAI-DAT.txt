@@ -1,4 +1,4 @@
-HƯỚNG DẪN CÀI ĐẶT FILEE TRÊN macOS (bản tsudev-files)
+HƯỚNG DẪN CÀI ĐẶT TSUDEV-FILES TRÊN macOS (bản Việt hóa của Filee)
 Bản tiếng Anh: INSTALL.txt. Thông báo của install.sh/uninstall.sh mặc định là
 tiếng Việt; đặt FILEE_LANG=en để xem tiếng Anh.
 
@@ -18,23 +18,23 @@ Security > Open Anyway (install.sh tự xóa cờ tải về trên bản nó cà
 dựng mà bạn tin nguồn và đã đối chiếu checksum.
 
 Quyền cần cấp:
-- System Settings > Privacy & Security > Accessibility: cho phép Filee để dùng cử
-  chỉ toàn cục. Filee hỏi một lần; trước khi được phép, trang Home sẽ báo.
-- Sau khi cập nhật hoặc cài lại, macOS có thể vẫn hiện Filee đang bật nhưng cử
-  chỉ vẫn chờ quyền: mục đó thuộc bản cũ (ký khác). Chọn Filee, xóa bằng nút -,
+- System Settings > Privacy & Security > Accessibility: cho phép tsudev-files để dùng cử
+  chỉ toàn cục. tsudev-files hỏi một lần; trước khi được phép, trang Home sẽ báo.
+- Sau khi cập nhật hoặc cài lại, macOS có thể vẫn hiện tsudev-files đang bật nhưng cử
+  chỉ vẫn chờ quyền: mục đó thuộc bản cũ (ký khác). Chọn tsudev-files, xóa bằng nút -,
   rồi thêm lại Filee.app bằng nút + và bật lên.
 - Cho phép Finder trong Automation nếu dùng phím tắt theo vùng chọn.
-- Bật Finder Quick Action trong Cài đặt của Filee. Có thể quản lý Services ở
+- Bật Finder Quick Action trong Cài đặt của tsudev-files. Có thể quản lý Services ở
   System Settings > Keyboard > Keyboard Shortcuts > Services.
 
 Gỡ cài đặt: ./uninstall.sh
 - Xóa bản cài trong ~/Applications, phần tích hợp hệ thống và các engine do
-  Filee tải về. Cài đặt và các tệp đã chuyển đổi của bạn được giữ lại.
+  tsudev-files tải về. Cài đặt và các tệp đã chuyển đổi của bạn được giữ lại.
 - Nếu bước dọn tích hợp lỗi, bản cài được giữ để bạn sửa lỗi rồi chạy lại.
-- Bản tự đặt trong /Applications: chạy tệp thực thi Filee của nó với
+- Bản tự đặt trong /Applications: chạy tệp thực thi Filee.app/Contents/MacOS/Filee của nó với
   --uninstall-cleanup rồi xóa ứng dụng.
 
-Engine: rhwp và 7-Zip có sẵn. Engine khác cài trong Cài đặt của Filee hoặc dùng
+Engine: rhwp và 7-Zip có sẵn. Engine khác cài trong Cài đặt của tsudev-files hoặc dùng
 bản có sẵn trên hệ thống. Phát hành công khai cần chữ ký Developer ID và
 notarization; gói thử nghiệm này chưa có.
 

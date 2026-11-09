@@ -57,14 +57,15 @@ public sealed class MacOSIntegrationTests
         var folder = Path.Combine(installer, language + ".lproj");
         var menu = ReadStrings(Path.Combine(folder, "ServicesMenu.strings"));
         using var app = JsonDocument.Parse(File.ReadAllText(Path.Combine(repository, "src", "Filee.App", "Assets", "i18n", language + ".json")));
-        Assert.Equal(app.RootElement.GetProperty("general.context_menu_label").GetString(), menu[MacOSServicesProvider.MenuItem]);
+        // tsudev-files: ứng dụng đổi tên hiển thị lúc nạp bản dịch (ForkDefaults.Brand); .lproj ghi sẵn tên mới.
+        Assert.Equal(Filee.Core.ForkDefaults.Brand(app.RootElement.GetProperty("general.context_menu_label").GetString()!), menu[MacOSServicesProvider.MenuItem]);
 
         var permissions = ReadStrings(Path.Combine(folder, "InfoPlist.strings"));
         Assert.Equal(2, permissions.Count);
         foreach (var (key, value) in permissions)
         {
             Assert.NotEqual(Property(root, key).Value, value);
-            Assert.StartsWith("O Filee ", value);
+            Assert.StartsWith("O tsudev-files ", value); // tsudev-files: tên hiển thị
             Assert.True(value.IsNormalized(), $"{language}: {key} is not NFC");
         }
         Assert.Contains(files, permissions["NSAppleEventsUsageDescription"]);
