@@ -115,11 +115,11 @@ public class SetupStartTests
     public void Every_language_says_the_download_is_incomplete()
     {
         var english = new SetupTexts("en")["installer.error.incomplete"];
-        Assert.Contains("filee.sh", english);
+        Assert.Contains("github.com/tsudev-tsudev/tsudev-files", english);
         Assert.All(SetupTexts.Languages, l =>
         {
             Assert.True(SetupTexts.Load(l.Code).TryGetValue("installer.error.incomplete", out var text), l.Code);
-            Assert.Contains("filee.sh", text);
+            Assert.Contains("github.com/tsudev-tsudev/tsudev-files", text);
         });
     }
 
