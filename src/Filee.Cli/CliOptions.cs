@@ -43,7 +43,7 @@ internal sealed record CliOptions
         var options = new CliOptions { Command = command };
         if (!Commands.Contains(command))
         {
-            options.Error = $"Unknown command '{args[0]}'.";
+            options.Error = CliLanguage.T($"Lệnh không xác định '{args[0]}'.", $"Unknown command '{args[0]}'.");
             return options;
         }
 
@@ -87,7 +87,7 @@ internal sealed record CliOptions
                             _ => null,
                         };
                         if (options.Sort is null)
-                            options.Error ??= "--sort must be name, name-desc, modified, modified-desc, created or created-desc.";
+                            options.Error ??= CliLanguage.T("--sort phải là name, name-desc, modified, modified-desc, created hoặc created-desc.", "--sort must be name, name-desc, modified, modified-desc, created or created-desc.");
                     }
                     break;
                 case "-q" or "--quality":
@@ -97,7 +97,7 @@ internal sealed record CliOptions
                         if (int.TryParse(quality, out var q) && q is >= 1 and <= 100)
                             options.Quality = q;
                         else
-                            options.Error ??= "--quality must be a number from 1 to 100.";
+                            options.Error ??= CliLanguage.T("--quality phải là số từ 1 đến 100.", "--quality must be a number from 1 to 100.");
                     }
                     break;
                 case "--pages":
@@ -108,7 +108,7 @@ internal sealed record CliOptions
                         if (check.IsValid)
                             options.Pages = check.Text;
                         else
-                            options.Error ??= "--pages must be page numbers or ranges from 1, e.g. 13-55 or 1-3,8,12-15.";
+                            options.Error ??= CliLanguage.T("--pages phải là số trang hoặc khoảng trang tính từ 1, ví dụ 13-55 hoặc 1-3,8,12-15.", "--pages must be page numbers or ranges from 1, e.g. 13-55 or 1-3,8,12-15.");
                     }
                     break;
                 case "--overwrite":
@@ -139,7 +139,7 @@ internal sealed record CliOptions
                         if (double.TryParse(settle, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var s) && s >= 0)
                             options.SettleSeconds = s;
                         else
-                            options.Error ??= "--settle must be a number of seconds.";
+                            options.Error ??= CliLanguage.T("--settle phải là số giây.", "--settle must be a number of seconds.");
                     }
                     break;
                 case "-h" or "--help":
@@ -147,7 +147,7 @@ internal sealed record CliOptions
                     return options with { Command = "help" };
                 default:
                     if (arg.StartsWith("--", StringComparison.Ordinal) || (arg.StartsWith('-') && arg.Length == 2))
-                        options.Error ??= $"Unknown option '{arg}'.";
+                        options.Error ??= CliLanguage.T($"Tùy chọn không xác định '{arg}'.", $"Unknown option '{arg}'.");
                     else
                         options.Inputs.Add(arg);
                     break;
@@ -156,14 +156,14 @@ internal sealed record CliOptions
 
         options.Error ??= options.Command switch
         {
-            "convert" when options.Inputs.Count == 0 => "Give at least one file or folder to convert.",
-            "convert" or "watch" when options.To is null == (options.Preset is null) => "Use either --to <format> or --preset <preset>.",
-            "watch" when options.Inputs.Count != 1 => "Give exactly one folder to watch.",
-            "watch" when options.Sort is not null => "--sort only works with 'filee convert'.",
+            "convert" when options.Inputs.Count == 0 => CliLanguage.T("Hãy chỉ định ít nhất một tệp hoặc thư mục cần chuyển đổi.", "Give at least one file or folder to convert."),
+            "convert" or "watch" when options.To is null == (options.Preset is null) => CliLanguage.T("Dùng một trong hai: --to <định dạng> hoặc --preset <preset>.", "Use either --to <format> or --preset <preset>."),
+            "watch" when options.Inputs.Count != 1 => CliLanguage.T("Hãy chỉ định đúng một thư mục cần theo dõi.", "Give exactly one folder to watch."),
+            "watch" when options.Sort is not null => CliLanguage.T("--sort chỉ dùng được với 'filee convert'.", "--sort only works with 'filee convert'."),
             "engines" when options.Inputs.Count > 0 && options.Inputs[0].ToLowerInvariant() is not ("install" or "remove") =>
-                $"Unknown engines command '{options.Inputs[0]}'. Use 'filee engines', 'filee engines install <id>' or 'filee engines remove <id>'.",
-            "engines" when options.Inputs.Count == 1 => $"Give the engine to {options.Inputs[0].ToLowerInvariant()}, e.g. 'filee engines {options.Inputs[0].ToLowerInvariant()} pandoc'.",
-            "engines" when options.Inputs.Count > 2 => "Give one engine at a time.",
+                CliLanguage.T($"Lệnh engines không xác định '{options.Inputs[0]}'. Dùng 'filee engines', 'filee engines install <id>' hoặc 'filee engines remove <id>'.", $"Unknown engines command '{options.Inputs[0]}'. Use 'filee engines', 'filee engines install <id>' or 'filee engines remove <id>'."),
+            "engines" when options.Inputs.Count == 1 => CliLanguage.T($"Hãy chỉ định engine cần {options.Inputs[0].ToLowerInvariant()}, ví dụ 'filee engines {options.Inputs[0].ToLowerInvariant()} pandoc'.", $"Give the engine to {options.Inputs[0].ToLowerInvariant()}, e.g. 'filee engines {options.Inputs[0].ToLowerInvariant()} pandoc'."),
+            "engines" when options.Inputs.Count > 2 => CliLanguage.T("Mỗi lần chỉ chỉ định một engine.", "Give one engine at a time."),
             _ => null,
         };
         return options;

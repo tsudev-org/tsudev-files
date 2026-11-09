@@ -10,7 +10,12 @@ internal static class Help
     public static string Version =>
         typeof(Help).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "?";
 
-    public static string Text(string? command) => command?.ToLowerInvariant() switch
+    /// <summary>Trợ giúp theo ngôn ngữ dòng lệnh (FILEE_LANG): tiếng Việt mặc định, tiếng Anh khi FILEE_LANG=en.</summary>
+    public static string Text(string? command) => Text(command, CliLanguage.Current);
+
+    internal static string Text(string? command, string language) => language == "vi" ? TextVi(command) : TextEn(command);
+
+    private static string TextEn(string? command) => command?.ToLowerInvariant() switch
     {
         "convert" => Convert,
         "watch" => Watch,
@@ -21,6 +26,118 @@ internal static class Help
         "engines" => Engines,
         _ => General,
     };
+
+    private static string TextVi(string? command) => command?.ToLowerInvariant() switch
+    {
+        "convert" => ConvertVi,
+        "watch" => WatchVi,
+        "formats" => "Cách dùng: filee formats [<định dạng>] [--json]\n\nLiệt kê mọi định dạng, hoặc một định dạng chuyển được sang những định dạng nào.\n" +
+                     "Với --json, in cùng nội dung dưới dạng JSON (cho script và chương trình khác).\n",
+        "presets" => "Cách dùng: filee presets [--json]\n\nLiệt kê các preset đã lưu trong Filee (có sẵn và do bạn tạo).\n" +
+                     "Với --json, in cùng nội dung dưới dạng JSON (cho script và chương trình khác).\n",
+        "engines" => EnginesVi,
+        _ => GeneralVi,
+    };
+
+    private const string GeneralVi = """
+        Filee (tsudev-files): chuyển đổi tệp ngoại tuyến từ dòng lệnh.
+
+        Cách dùng:
+          filee convert <tệp hoặc thư mục...> --to <định dạng> [tùy chọn]
+          filee convert <tệp hoặc thư mục...> --preset <preset> [tùy chọn]
+          filee watch <thư mục> --to <định dạng> [tùy chọn]
+          filee formats [<định dạng>] [--json]
+          filee presets [--json]
+          filee engines [--json]
+          filee engines (install | remove) <engine> [--json]
+          filee help [<lệnh>]
+          filee version
+
+        Ví dụ:
+          filee convert anh.heic --to jpg
+          filee convert *.png --to webp --quality 80 -o da-chuyen
+          filee convert D:\BanScan --recursive --preset to-pdf
+          filee watch D:\HopThuDen --to pdf --move-originals
+          filee engines install pandoc
+
+        Preset và engine dùng chung với ứng dụng Filee. Mã thoát: 0 không có lỗi (kể cả tệp bị bỏ qua),
+        1 có tệp lỗi hoặc bị hủy, 2 sai tham số hoặc thiếu đầu vào, 3 không có gì để chuyển đổi.
+
+        Ngôn ngữ: mặc định tiếng Việt; đặt biến môi trường FILEE_LANG=en để dùng tiếng Anh.
+
+        """;
+
+    private const string EnginesVi = """
+        Cách dùng: filee engines [--json]
+                   filee engines install <engine> [--json] [--quiet]
+                   filee engines remove <engine> [--json] [--quiet]
+
+        Liệt kê các engine tùy chọn trong Cài đặt → Engine (LibreOffice, Pandoc, FFmpeg, …), hoặc cài/gỡ một engine
+        với cùng nguồn tải và cùng bước kiểm tra (SHA-256) như ứng dụng. 'remove' chỉ gỡ những gì Filee đã tải;
+        bản riêng của bạn và bản tìm thấy trên máy được giữ nguyên.
+
+        Trong JSON của danh sách, "version" là phiên bản Filee sẽ tải, kể cả với engine có trạng thái
+        "owncopy" (bản riêng của bạn hoặc bản tìm thấy trên máy).
+
+        Tùy chọn:
+              --json             In kết quả dạng JSON; tiến độ ghi ra stderr, mỗi dòng một đối tượng JSON
+              --quiet            Chỉ in lỗi
+
+        """;
+
+    private const string ConvertVi = """
+        Cách dùng: filee convert <tệp hoặc thư mục...> (--to <định dạng> | --preset <preset>) [tùy chọn]
+
+        Tệp có thể dùng ký tự đại diện (*.heic). Với thư mục, Filee chuyển đổi các tệp bên trong mà nó nhận diện được.
+
+        Tùy chọn:
+          -t, --to <định dạng>   Định dạng đích, ví dụ jpg, png, pdf, docx, mp4 (xem 'filee formats')
+          -p, --preset <preset>  Một preset của ứng dụng, theo id hoặc tên (xem 'filee presets')
+          -o, --output <thư mục> Lưu vào thư mục này thay vì cạnh tệp nguồn
+          -r, --recursive        Bao gồm thư mục con
+              --sort <thứ tự>    Thứ tự ghép tệp: name, name-desc, modified, modified-desc, created hoặc
+                                 created-desc (mặc định: theo thứ tự đưa vào; thư mục/ký tự đại diện theo hệ thống tệp).
+                                 Khi sắp theo tên, tệp của mỗi thư mục đứng cạnh nhau, thư mục con trước. Tệp không có
+                                 ngày tạo (một số hệ thống tệp Linux) thì created dùng ngày thay đổi hoặc ngày sửa
+          -q, --quality <1-100>  Chất lượng ảnh cho JPG, WebP, AVIF, …
+              --pages <khoảng>   Các trang PDF, ví dụ 13-55 hoặc 1-3,8,12-15 (mặc định: theo preset)
+              --overwrite        Ghi đè tệp kết quả đã có (mặc định: thêm số thứ tự)
+              --skip             Bỏ qua nếu tệp kết quả đã có
+              --keep-dates       Giữ ngày tạo và ngày sửa của tệp gốc cho tệp đã chuyển đổi
+              --zip              Gói kết quả của mỗi tệp thành một ZIP (các tệp của Shapefile đi cùng nhau)
+              --json             In kết quả dạng JSON (cho script và chương trình khác); sự kiện ghi ra stderr
+              --quiet            Chỉ in lỗi
+
+        Với --json, stdout nhận một tài liệu JSON khi xong việc. Trong lúc chạy, stderr nhận mỗi dòng một đối tượng JSON:
+        {"event":"progress","source":…,"fraction":…} (0 đến 1, khoảng 150 ms một lần khi có thay đổi) và
+        {"event":"file",…} khi từng tệp xong, với các trường giống mục của tệp đó trong "files".
+
+        """;
+
+    private static string WatchVi => FormattableString.Invariant($$"""
+        Cách dùng: filee watch <thư mục> (--to <định dạng> | --preset <preset>) [tùy chọn]
+
+        Chuyển đổi các tệp được đưa vào thư mục cho đến khi nhấn Ctrl+C. Tệp chỉ được chuyển đổi khi đã hoàn chỉnh
+        (không còn tăng dung lượng hay đang mở bởi chương trình khác). Kết quả lưu vào thư mục "converted" bên trong,
+        trừ khi có -o.
+
+        Tùy chọn:
+          -t, --to <định dạng>   Định dạng đích
+          -p, --preset <preset>  Một preset của ứng dụng, theo id hoặc tên
+          -o, --output <thư mục> Nơi lưu tệp đã chuyển đổi (mặc định: <thư mục>\converted)
+          -r, --recursive        Theo dõi cả thư mục con (kết quả giữ nguyên cấu trúc thư mục con)
+              --move-originals   Chuyển tệp nguồn đã xử lý vào <thư mục>\originals; tệp đang chờ sẵn
+                                 được chuyển đổi ngay khi bắt đầu
+              --settle <giây>    Thời gian tệp phải giữ nguyên không đổi (mặc định {{FolderWatcher.DefaultSettleTime.TotalSeconds}})
+              --keep-dates       Giữ ngày tạo và ngày sửa của tệp gốc cho tệp đã chuyển đổi
+              --zip              Gói kết quả của mỗi tệp thành một ZIP (các tệp của Shapefile đi cùng nhau)
+              --json             In sự kiện dạng JSON, mỗi dòng một đối tượng (cho script và chương trình khác)
+              --quiet            Chỉ in lỗi
+
+        Với --json, stdout chỉ nhận sự kiện: {"event":"started",…} kèm thư mục, preset, định dạng đích và thư mục kết quả,
+        {"event":"file",…} khi từng tệp xong (các trường của 'filee convert --json'), và {"event":"stopped"} khi nhấn Ctrl+C.
+
+        """);
 
     private const string General = """
         Filee: convert files offline from the command line.

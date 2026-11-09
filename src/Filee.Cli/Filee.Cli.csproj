@@ -25,6 +25,7 @@
   <!-- Error messages and built-in preset names, in English (the app's translation file). -->
   <ItemGroup>
     <EmbeddedResource Include="..\Filee.App\Assets\i18n\en.json" LogicalName="Filee.Cli.en.json" />
+    <EmbeddedResource Include="..\Filee.App\Assets\i18n\vi.json" LogicalName="Filee.Cli.vi.json" />
   </ItemGroup>
 
   <ItemGroup>
