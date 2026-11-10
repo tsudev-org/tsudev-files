@@ -5,16 +5,15 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] (Chủ dự án, bảng điều khiển Cloudflare) Tắt tự chèn Web Analytics và JavaScript Detections/Bot Fight Mode cho
-      `files.tsudev.com`: Cloudflare chèn `beacon.min.js` và script `/cdn-cgi/challenge-platform` vào HTML, CSP chặn
-      nên console báo lỗi (không ảnh hưởng trang). Không nới CSP. Chi tiết: phiếu `20261110-02` mục Kết quả xử lý.
+- [ ] Tắt JavaScript Detections của zone tsudev.com (`PUT /zones/<id>/bot_management {"enable_js": false}`; Web
+      Analytics và Bot Fight Mode chủ dự án đã tắt 10/11): Cloudflare còn chèn script nội tuyến
+      `/cdn-cgi/challenge-platform`, CSP chặn nên console báo lỗi (trang không ảnh hưởng). Cần token Zone > Bot
+      Management: Edit, lưu ở `~/.config/tsudev-files/cf-token` (0600, chủ dự án tạo rồi thu hồi). Không nới CSP.
 - [ ] Phiếu `logs/handover/20261110-01_*.md`: áp dụng miễn trừ em-dash theo dòng khi `tsudev-standards` PR #48 gộp và có
       nhãn v3.3.0. Gồm sửa vi phạm THẬT của fork: `src/Filee.App/Assets/i18n/ru.json` khóa `installer.error.incomplete`
       (dòng fork sửa URL, câu gốc có em-dash -> thay bằng `-`). (Regex `check-dist.mjs` đã sửa ở PR #25.)
-- [ ] (Chủ dự án quyết) Ruleset bảo vệ `main`: chặn force-push/xóa, bắt buộc PR + check `build`,
-      `Quét lộ bí mật (gitleaks)` (phiếu `20261109-05` bước 2.5). Repo Public nên giờ bật được.
-- [ ] (Chủ dự án quyết) Đóng 13 PR Dependabot lẻ #2-#9, #11-#14 (PR nhóm hằng tháng sẽ thay; phiếu `20261109-05` bước 2.6).
-- [ ] Hộp Giới thiệu của ứng dụng thêm liên kết `https://tsudev.com` và `https://files.tsudev.com` (ECOSYSTEM_IDENTITY 2.3).
+- [ ] Gộp PR #28 (hộp Giới thiệu liên kết tsudev.com + files.tsudev.com, Company/Copyright tsudev; ECOSYSTEM_IDENTITY
+      2.3) khi CI xanh.
 - [ ] Sao lưu các tệp build đang tải từ `dl.filee.sh` (máy chủ upstream: engine Windows ARM, Magick.Native macOS, font -
       `build/fetch-engines.ps1`, `build/fetch-magick-native.ps1`, `build/fetch-fonts.ps1`) sang nơi 0 đồng của tsudev-org,
       giữ nguyên SHA-256 ghim. KHÔNG đặt vào Releases của repo này (trình cập nhật đọc releases/latest) - dùng repo
@@ -29,6 +28,12 @@
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 10/11/2026 - Giao diện website đen tuyền + tím kiểu Supabase, bộ chọn Sáng/Tối/Hệ thống ở chân trang (phiếu
+  `20261110-05`, PR #29, deploy `b57f2ec3`, nghiệm thu production). Ruleset "Bảo vệ main" (id 26937532: chặn
+  force-push/xóa, bắt buộc PR + check `build`, `Quét lộ bí mật (gitleaks)`, admin chỉ bỏ qua khi gộp PR). Dependabot:
+  13 PR lẻ tự đóng khi chuyển sang nhóm; gộp #18 (actions, SHA đã đối chiếu tag) và #22 (playwright); đóng #24 (nhóm
+  NuGet có bản major SkiaSharp 3->4, xunit.v3 3->4 làm đỏ mọi job) và gộp #27 (bỏ qua bản major của NuGet).
 
 - 10/11/2026 - Phiếu `20261109-05` mục 2: gộp PR #10 (đổi tên hiển thị + sửa tên ở thanh bên/Giới thiệu/Setup, kiểm
   lối tắt bộ cài, `ForkDefaults.Brand` không regex - hết sập `filee help engines`), PR #21 (URL `tsudev-org`, quy ước
@@ -53,8 +58,9 @@
 - 10/11/2026 - Website `files.tsudev.com` (thư mục `website/`): Astro trang tĩnh, host Cloudflare Workers Static Assets
   (Worker `tsudev-files`, `custom_domain` trong `wrangler.jsonc`) thay vì Pages - OAuth của `wrangler login` không ghi
   được DNS cho CNAME của Pages. Deploy: chủ dự án chạy `cd website && npm run deploy`. JavaScript phía trình duyệt chỉ
-  có `public/theme.js` (CSP `script-src 'self'`, không script nội tuyến); giao diện mặc định "Theo hệ thống" (tsudev.com
-  mặc định Tối từ 10/11 - đồng bộ hay không là quyết định riêng của chủ dự án).
+  có `public/theme.js` (CSP `script-src 'self'`, không script nội tuyến). Giao diện: từ 10/11/2026 theo quyết định chung
+  của hệ sinh thái (phiếu `20261110-05`): đen tuyền + tím, chỉ Sáng/Tối/Hệ thống, mặc định Tối.
+- 10/11/2026 - Dependabot NuGet bỏ qua bản major (PR #27): bản major chờ upstream KnifeLemon/Filee nâng rồi gộp về.
 - 10/11/2026 - Giữ tên lệnh `filee` (không đổi thành `tsudev-files`): script ngoài phụ thuộc, ADR-0001. Muốn có tên
   phụ `tsudev-files` thì cần ADR riêng.
 

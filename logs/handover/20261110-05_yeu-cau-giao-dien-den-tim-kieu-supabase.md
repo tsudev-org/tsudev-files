@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261110-05
 - **Từ**: phiên 47 của repo `tsudev` (tsudev.com) - **Đến**: phiên kế tiếp của repo `tsudev-files`
 - **Thời điểm**: 10/11/2026
-- **Trạng thái**: MỞ
+- **Trạng thái**: ĐÓNG (10/11/2026) - xem Kết quả xử lý
 - **Tham chiếu**: tsudev.com đã làm trước - nhánh `feat/giao-dien-tim-den-supabase` của `tsudev-org/tsudev`
   (`tokens/extensions.tsudev-web.json`, `packages/ui/src/components/ThemeToggle.tsx`, `SiteFooter.tsx`,
   `apps/frontend-main/styles/globals.css`, `apps/frontend-main/pages/_document.tsx`). Đọc các tệp đó trước khi
@@ -108,4 +108,25 @@ chữ trắng.
 
 ## Kết quả xử lý
 
-(phiên nhận việc ghi vào đây)
+Phiên tsudev-files, 10/11/2026. **PR #29** gộp (`d77af901`); deploy Worker version `b57f2ec3` (chủ dự án chạy
+`npm run deploy`).
+
+- §2 bảng màu: `website/src/styles/palette.css` ghi đè token màu của `tokens.css` (bản sao standards, không sửa);
+  `theme-color` `#0a0a0a`/`#fafafa`, manifest `#0a0a0a`.
+- §3 bộ chọn: `website/public/theme.js` (tệp cùng nguồn, CSP `script-src 'self'`, không băm/không nội tuyến; nạp chặn
+  sau `meta theme-color`, trước CSS). Ba lựa chọn, mặc định Tối, `warm` -> `light`; radiogroup ở hàng cuối chân trang
+  cạnh `© tsudev`, mũi tên chọn luôn; header bỏ nút. Không còn `@media (prefers-color-scheme)` trong CSS.
+- §4 bố cục: nền liền mạch (bỏ dải nền khối/chân trang), header kính mờ + hairline + nút phụ "Mã nguồn" và nút chính
+  "Tải về" 32px, hero canh giữa với cụm chữ tím -> tím hồng và quầng tím tĩnh, nhãn mono chữ hoa, nút/thẻ theo đặc tả,
+  ô số bước nền tím nhạt + viền tím mờ + số màu liên kết. App desktop vốn chỉ có Hệ thống/Sáng/Tối: không sửa.
+- Test (CI `website.yml`): `check-dist` (3 lựa chọn, radiogroup trong footer, mặc định dark, script/CSP),
+  `check-theme` (Chromium + CSP production), `check-a11y` (axe 10 trang x Sáng/Tối): 0 lỗi.
+- §5 nghiệm thu production (Chromium thật, `https://files.tsudev.com/`):
+  1. Tương phản: axe AA 0 lỗi cả hai chế độ (bảng màu theo §2).
+  2. Khách mới (máy sáng) -> Tối, nền `rgb(10,10,10)`, `theme-color #0a0a0a`. Sáng -> tải lại -> Sáng (`#fafafa`);
+     Hệ thống + máy chuyển tối -> Tối ngay, không tải lại. `data-theme` đúng lúc `<body>` bắt đầu (không nháy).
+  3. Không còn chữ/lựa chọn "Ấm"; `localStorage` `warm` cũ -> Sáng.
+  4. CSP không chặn `theme.js`. Console còn lỗi CSP từ script nội tuyến `/cdn-cgi/challenge-platform` do Cloudflare
+     tự chèn (JavaScript Detections của zone tsudev.com, không có trong repo); beacon Web Analytics đã hết sau khi chủ
+     dự án tắt. Không nới CSP; tắt JavaScript Detections qua API khi có token (việc trong `logs/STATE.md`).
+- contact.tsudev.com chép theo: danh sách tệp đã gửi phiên tsudev-9b.
