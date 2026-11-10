@@ -20,6 +20,9 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 11/11/2026 - PR #36 thay PR #31 (Dependabot NuGet, đỏ mọi job): nâng Avalonia 12.1.6, Logging/Pkcs 10.0.15, Magick.NET
+  15.1.0, Markdig 1.6.0, ExcelNumberFormat 1.2.0, AngleSharp 1.10.1, Tomlyn 2.11.1, MsgReader 6.2.1. CI 20/20 xanh.
+  Đóng #31. Trên WSL: Engines trượt 2 (phông chữ), Setup trượt 15 (đường dẫn Windows) - lỗi môi trường, CI đạt.
 - 11/11/2026 - **Phát hành `v2.4.0-vn.1`** (bản đầu tiên, latest): https://github.com/tsudev-org/tsudev-files/releases/tag/v2.4.0-vn.1
   Workflow Release `42851826849` xanh; 8 gói (Windows Setup/Portable x64, Linux x64/arm64 tar.gz, macOS arm64/x64
   dmg+tar.gz) khớp SHA256SUMS; 5 tệp SHA256SUMS ký ECDSA trên WSL (`tools/sign-checksums-vn.sh`), đã tải `.sig`.
@@ -75,6 +78,8 @@
   `/cdn-cgi/challenge-platform` do Cloudflare chèn; trang không ảnh hưởng. Không nới CSP. Hết lỗi khi site có phần
   chạy phía máy chủ sinh nonce (như tsudev.com). Web Analytics và Bot Fight Mode đã tắt (chủ dự án, 10/11).
 - 10/11/2026 - Dependabot NuGet bỏ qua bản major (PR #27): bản major chờ upstream KnifeLemon/Filee nâng rồi gộp về.
+  Từ 11/11/2026 (PR #36) bỏ qua thêm: PDFsharp >= 6.3 (AGPL, kiểm license lúc chạy), PDFtoImage >= 5.3, Svg.Skia
+  >= 5.2, SkiaSharp >= 4 (xung đột Avalonia 12.1), Unhwp (ghim cùng `build/build-native.py`).
 - 10/11/2026 - Giữ tên lệnh `filee` (không đổi thành `tsudev-files`): script ngoài phụ thuộc, ADR-0001. Muốn có tên
   phụ `tsudev-files` thì cần ADR riêng.
 
