@@ -60,9 +60,10 @@
 
 ## Quyết định quan trọng
 
-- 11/11/2026 - Tài khoản `gh` active là chung cho mọi phiên trên máy. Phiên khác (b4djl1h-cmdb) có thể đổi sang
-  `b4djl1h` (không có quyền ghi `tsudev-org`). Quy ước giữa các phiên: nhắn trước, chờ "OK", xong đổi về
-  `tsudev-tsudev` và báo "XONG". Lệnh ghi lỗi quyền thì chạy `gh api user -q .login` trước.
+- 11/11/2026 - Tài khoản `gh` active là chung cho mọi phiên trên máy (phiên b4djl1h-cmdb hay đổi qua lại). Từ
+  11/11/2026 chủ dự án thêm `b4djl1h` làm Owner `tsudev-org` (đã kiểm: org admin, repo admin) - cả `tsudev-tsudev` và
+  `b4djl1h` đều ghi được, đổi tài khoản không còn chặn việc. Chỉ tránh đổi đúng lúc phiên khác đang push/merge; lệnh
+  ghi lỗi quyền thì chạy `gh api user -q .login` trước.
 - 11/11/2026 - Thẻ phát hành của fork dạng `v<x.y.z>-vn.<n>`; trình cập nhật bỏ hậu tố, nên bản sửa riêng tiếp theo
   phải tăng số vá (2.4.1...), không chỉ tăng `-vn.<n>`.
 - 10/11/2026 - Website `files.tsudev.com` (thư mục `website/`): Astro trang tĩnh, host Cloudflare Workers Static Assets
