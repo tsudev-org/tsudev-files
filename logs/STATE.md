@@ -5,12 +5,6 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] (Chủ dự án quyết) Lỗi console từ script nội tuyến `/cdn-cgi/challenge-platform` mà Cloudflare chèn (JavaScript
-      Detections; Web Analytics và Bot Fight Mode đã tắt 10/11). CSP chặn nên trang không ảnh hưởng. JavaScript
-      Detections là thiết lập CẤP ZONE: tắt (`PUT /zones/<id>/bot_management {"enable_js": false}`, token Zone > Bot
-      Management: Edit) ảnh hưởng MỌI site *.tsudev.com. tsudev.com không bị lỗi vì CSP dùng nonce (Cloudflare gắn
-      nonce vào script challenge); site tĩnh này không sinh nonce được. Lựa chọn: giữ nguyên (chỉ là lỗi console) hoặc
-      tắt cả zone. Không nới CSP.
 - [ ] Phiếu `logs/handover/20261110-01_*.md`: áp dụng miễn trừ em-dash theo dòng khi `tsudev-standards` PR #48 gộp và có
       nhãn v3.3.0. Gồm sửa vi phạm THẬT của fork: `src/Filee.App/Assets/i18n/ru.json` khóa `installer.error.incomplete`
       (dòng fork sửa URL, câu gốc có em-dash -> thay bằng `-`). (Regex `check-dist.mjs` đã sửa ở PR #25.)
@@ -62,6 +56,10 @@
   được DNS cho CNAME của Pages. Deploy: chủ dự án chạy `cd website && npm run deploy`. JavaScript phía trình duyệt chỉ
   có `public/theme.js` (CSP `script-src 'self'`, không script nội tuyến). Giao diện: từ 10/11/2026 theo quyết định chung
   của hệ sinh thái (phiếu `20261110-05`): đen tuyền + tím, chỉ Sáng/Tối/Hệ thống, mặc định Tối.
+- 10/11/2026 - KHÔNG tắt JavaScript Detections của Cloudflare (thiết lập cấp zone, ảnh hưởng mọi site *.tsudev.com;
+  Bot Fight Mode cần nó nếu bật lại). Hệ quả chấp nhận: console files.tsudev.com báo CSP chặn script nội tuyến
+  `/cdn-cgi/challenge-platform` do Cloudflare chèn; trang không ảnh hưởng. Không nới CSP. Hết lỗi khi site có phần
+  chạy phía máy chủ sinh nonce (như tsudev.com). Web Analytics và Bot Fight Mode đã tắt (chủ dự án, 10/11).
 - 10/11/2026 - Dependabot NuGet bỏ qua bản major (PR #27): bản major chờ upstream KnifeLemon/Filee nâng rồi gộp về.
 - 10/11/2026 - Giữ tên lệnh `filee` (không đổi thành `tsudev-files`): script ngoài phụ thuộc, ADR-0001. Muốn có tên
   phụ `tsudev-files` thì cần ADR riêng.
