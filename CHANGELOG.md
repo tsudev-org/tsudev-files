@@ -14,6 +14,31 @@ change, a language may repeat; a language without lines shows the English ones):
 - `recommended`: bug fixes. The card shows once per version.
 - `optional`: new features only. No card, the sidebar button only.
 
+## 2.4.0-vn.1
+
+<!-- update
+level: recommended
+vi: Bản phát hành đầu tiên của tsudev-files: dựa trên Filee 2.4.0, giao diện, trình cài đặt và dòng lệnh tiếng Việt
+vi: Trình cập nhật lấy bản mới từ github.com/tsudev-org/tsudev-files và kiểm chữ ký bằng khóa riêng của tsudev-files
+vi: Trang Giới thiệu liên kết tới tsudev.com và files.tsudev.com
+en: First tsudev-files release: based on Filee 2.4.0, with a Vietnamese interface, installers and command line
+en: Updates come from github.com/tsudev-org/tsudev-files and are checked against the tsudev-files update key
+en: The About page links to tsudev.com and files.tsudev.com
+-->
+
+Bản đầu tiên của **tsudev-files**, bản fork tiếng Việt của [Filee](https://github.com/KnifeLemon/Filee) 2.4.0 (MIT).
+Mọi tính năng và bản sửa của Filee 2.4.0 (mục bên dưới) đều có trong bản này.
+
+- **Tiếng Việt mặc định:** giao diện, trình cài đặt Windows/Linux/macOS, hướng dẫn cài đặt và dòng lệnh (`FILEE_LANG=en`
+  để dùng tiếng Anh). Vẫn đổi được ngôn ngữ trong Cài đặt.
+- **Tên hiển thị tsudev-files:** thanh bên, trang Giới thiệu, lối tắt và tên tệp phát hành
+  (`tsudev-files-<phiên bản>-...`). Lệnh dòng lệnh vẫn là `filee`.
+- **Cập nhật an toàn:** trình cập nhật chỉ nhận bản phát hành của `tsudev-org/tsudev-files` có tệp SHA256SUMS ký bằng
+  khóa ECDSA riêng của tsudev-files. Bản phát hành của Filee gốc không được cài đè.
+- **Trang Giới thiệu:** liên kết tới [tsudev.com](https://tsudev.com) và [files.tsudev.com](https://files.tsudev.com).
+- **Lưu ý Windows:** bộ cài chưa ký Authenticode, SmartScreen có thể cảnh báo lần đầu (chọn *Thêm thông tin* rồi
+  *Vẫn chạy*). Đối chiếu SHA-256 với tệp `tsudev-files-2.4.0-vn.1-SHA256SUMS.txt` nếu cần.
+
 ## 2.4.0
 
 <!-- update
