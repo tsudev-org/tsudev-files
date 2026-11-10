@@ -5,8 +5,18 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] Gộp PR #1 `chore/khoi-tao-fork` (CI chạy lại đang chờ job linux-x64), rồi đẩy nhánh `feat/doi-ten-hien-thi` (đã commit xong, chưa push), mở PR #2, gộp. Các bước chi tiết: phiếu `logs/handover/20261109-04_doi-ten-hien-thi-cho-merge.md`.
-- [ ] Chuyển repo sang Org `tsudev-org` - ĐÃ ĐƯỢC CHỦ DỰ ÁN XÁC NHẬN (09/11/2026); làm sau khi gộp PR #2, theo bước 2.6 phiếu `logs/handover/20261109-04_doi-ten-hien-thi-cho-merge.md` (gồm thay gitleaks-action bằng binary ghim SHA-256 trước khi chuyển và commit riêng đổi `RepositoryUrl` sau khi chuyển, trước bản phát hành đầu tiên).
+- [ ] ⚡ TIẾP THEO: gộp **PR #25** (nút đổi giao diện website, phiếu `logs/handover/20261110-02_*.md`) -> chủ dự án
+      chạy `cd website && npm run deploy` -> nghiệm thu production theo phiếu (`curl -sI https://files.tsudev.com/ | grep -i
+      content-security-policy` có `script-src 'self'`; đổi 4 chế độ, tải lại, không nháy) -> điền Kết quả, ĐÓNG phiếu.
+- [ ] Phiếu `logs/handover/20261110-01_*.md`: áp dụng miễn trừ em-dash theo dòng khi `tsudev-standards` PR #48 gộp và có
+      nhãn v3.3.0. Gồm sửa vi phạm THẬT của fork: `src/Filee.App/Assets/i18n/ru.json` khóa `installer.error.incomplete`
+      (dòng fork sửa URL, câu gốc có em-dash -> thay bằng `-`). (Regex `check-dist.mjs` đã sửa ở PR #25.)
+- [ ] (Chủ dự án quyết) Ruleset bảo vệ `main`: chặn force-push/xóa, bắt buộc PR + check `build`,
+      `Quét lộ bí mật (gitleaks)` (phiếu `20261109-05` bước 2.5). Repo Public nên giờ bật được.
+- [ ] (Chủ dự án quyết) Đóng 13 PR Dependabot lẻ #2-#9, #11-#14 (PR nhóm hằng tháng sẽ thay; phiếu `20261109-05` bước 2.6).
+- [ ] (Chủ dự án) Xóa nhánh remote đã gộp: `git push origin --delete feat/website chore/repo-url-tsudev-org
+      chore/repo-url-tsudev-org-v2` (đã kiểm `git cherry`: mọi commit có trong `main`; lệnh bị chặn với agent).
+- [ ] Hộp Giới thiệu của ứng dụng thêm liên kết `https://tsudev.com` và `https://files.tsudev.com` (ECOSYSTEM_IDENTITY 2.3).
 - [ ] Sao lưu các tệp build đang tải từ `dl.filee.sh` (máy chủ upstream: engine Windows ARM, Magick.Native macOS, font -
       `build/fetch-engines.ps1`, `build/fetch-magick-native.ps1`, `build/fetch-fonts.ps1`) sang nơi 0 đồng của tsudev-org,
       giữ nguyên SHA-256 ghim. KHÔNG đặt vào Releases của repo này (trình cập nhật đọc releases/latest) - dùng repo
@@ -15,15 +25,17 @@
 - [ ] Mua/xin chứng thư Authenticode (hoặc SignPath OSS) rồi điền `FileeExpectedPublisher`/`FileeExpectedIssuer`.
 - [ ] Chủ dự án mở Issue/PR ở `tsudev-standards` theo bản nháp `logs/handover/20261109-01_de-xuat-mien-tru-emdash-upstream.md`.
 
-- [ ] ⚡ TIẾP THEO: làm mục 2 phiếu `logs/handover/20261109-05_chuyen-org-public-va-gop-con-lai.md` (gộp PR #10, PR đổi
-      URL `chore/repo-url-tsudev-org`, đóng phiếu 03/04/05). Repo đã ở `tsudev-org` và Public - hết chặn hạn mức Actions.
-
 ## Đang thực hiện
 
 | Task | Agent | Bắt đầu |
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 10/11/2026 - Phiếu `20261109-05` mục 2: gộp PR #10 (đổi tên hiển thị + sửa tên ở thanh bên/Giới thiệu/Setup, kiểm
+  lối tắt bộ cài, `ForkDefaults.Brand` không regex - hết sập `filee help engines`), PR #21 (URL `tsudev-org`, quy ước
+  v3.2.0, README). Website `files.tsudev.com` (PR #20, Astro, Cloudflare Workers Static Assets) đã chạy trên production.
+  Đóng phiếu 03, 04, 05. Mở PR #25 (nút đổi giao diện, phiếu `20261110-02`).
 
 - 09/11/2026 - Chuyển repo sang `tsudev-org` + Public (đã bật lại secret scanning/push protection); `tsudev-contact`, `app-la-ban` Public; gộp PR #16 (Dependabot hằng tháng), #17 (gitleaks binary); nhận diện tsudev.com cho 8 repo. Chi tiết: phiếu `20261109-05`.
 
@@ -38,6 +50,14 @@
 - 09/11/2026 - Khởi tạo fork từ `KnifeLemon/Filee@64890f1e` (v2.4.0): rà soát an toàn, tiếng Việt mặc định (GUI, Setup, CLI), trình cập nhật trỏ về repo riêng + khóa ký riêng, ghim action theo SHA, thêm CodeQL/gitleaks/Dependabot/kiểm tra bản dịch.
 
 ## Quyết định quan trọng
+
+- 10/11/2026 - Website `files.tsudev.com` (thư mục `website/`): Astro trang tĩnh, host Cloudflare Workers Static Assets
+  (Worker `tsudev-files`, `custom_domain` trong `wrangler.jsonc`) thay vì Pages - OAuth của `wrangler login` không ghi
+  được DNS cho CNAME của Pages. Deploy: chủ dự án chạy `cd website && npm run deploy`. JavaScript phía trình duyệt chỉ
+  có `public/theme.js` (CSP `script-src 'self'`, không script nội tuyến); giao diện mặc định "Theo hệ thống" (tsudev.com
+  mặc định Tối từ 10/11 - đồng bộ hay không là quyết định riêng của chủ dự án).
+- 10/11/2026 - Giữ tên lệnh `filee` (không đổi thành `tsudev-files`): script ngoài phụ thuộc, ADR-0001. Muốn có tên
+  phụ `tsudev-files` thì cần ADR riêng.
 
 - 09/11/2026 - Spending limit GitHub Actions giữ 0 USD; Dependabot chạy hằng tháng và gom nhóm (PR #16) để tiết kiệm phút.
 

@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261109-04
 - **Từ**: claude - **Đến**: phiên sau
 - **Thời điểm**: 09/11/2026 (cuối phiên, chủ dự án đóng phiên để tiết kiệm ngữ cảnh)
-- **Trạng thái**: ĐÃ NHẬN - phần còn lại chuyển sang phiếu `20261109-05`
+- **Trạng thái**: HOÀN THÀNH (10/11/2026) - phần còn lại đã làm xong ở phiếu `20261109-05` (PR #10 gộp)
 - **Nhánh git**: `feat/doi-ten-hien-thi` (chưa push), `chore/khoi-tao-fork` (đã push, PR #1)
 
 ## 0. Ủy quyền của chủ dự án (đọc trước)
