@@ -5,6 +5,7 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
+- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261110-06_ban-giao-gop-pr-28-30.md` (gộp PR #30 rồi #28 khi CI xanh).
 - [ ] Phiếu `logs/handover/20261110-01_*.md`: áp dụng miễn trừ em-dash theo dòng khi `tsudev-standards` PR #48 gộp và có
       nhãn v3.3.0. Gồm sửa vi phạm THẬT của fork: `src/Filee.App/Assets/i18n/ru.json` khóa `installer.error.incomplete`
       (dòng fork sửa URL, câu gốc có em-dash -> thay bằng `-`). (Regex `check-dist.mjs` đã sửa ở PR #25.)
