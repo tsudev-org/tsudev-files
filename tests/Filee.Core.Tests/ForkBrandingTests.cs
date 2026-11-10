@@ -82,17 +82,17 @@ public sealed class ForkBrandingTests
     public void Every_translation_matches_the_old_pattern()
     {
         foreach (var folder in new[] { "src/Filee.App/Assets/i18n", "src/Filee.Cli", "src/Filee.Setup" })
-        foreach (var file in Directory.GetFiles(Path.Combine(RepoRoot(), folder), "*.json", SearchOption.AllDirectories))
-        {
-            using var json = System.Text.Json.JsonDocument.Parse(File.ReadAllText(file));
-            if (json.RootElement.ValueKind != System.Text.Json.JsonValueKind.Object) continue;
-            foreach (var property in json.RootElement.EnumerateObject())
+            foreach (var file in Directory.GetFiles(Path.Combine(RepoRoot(), folder), "*.json", SearchOption.AllDirectories))
             {
-                if (property.Value.ValueKind != System.Text.Json.JsonValueKind.String) continue;
-                var text = property.Value.GetString()!;
-                Assert.True(Old(text) == ForkDefaults.Brand(text), $"{Path.GetFileName(file)}: {property.Name}");
+                using var json = System.Text.Json.JsonDocument.Parse(File.ReadAllText(file));
+                if (json.RootElement.ValueKind != System.Text.Json.JsonValueKind.Object) continue;
+                foreach (var property in json.RootElement.EnumerateObject())
+                {
+                    if (property.Value.ValueKind != System.Text.Json.JsonValueKind.String) continue;
+                    var text = property.Value.GetString()!;
+                    Assert.True(Old(text) == ForkDefaults.Brand(text), $"{Path.GetFileName(file)}: {property.Name}");
+                }
             }
-        }
     }
 
     // Lỗi gốc: regex giới hạn 100 ms ném RegexMatchTimeoutException khi máy bận. Bộ quét không có đồng hồ: dù mọi lõi
