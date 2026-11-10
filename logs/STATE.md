@@ -14,8 +14,6 @@
 - [ ] (Chủ dự án quyết) Ruleset bảo vệ `main`: chặn force-push/xóa, bắt buộc PR + check `build`,
       `Quét lộ bí mật (gitleaks)` (phiếu `20261109-05` bước 2.5). Repo Public nên giờ bật được.
 - [ ] (Chủ dự án quyết) Đóng 13 PR Dependabot lẻ #2-#9, #11-#14 (PR nhóm hằng tháng sẽ thay; phiếu `20261109-05` bước 2.6).
-- [ ] (Chủ dự án) Xóa nhánh remote đã gộp: `git push origin --delete feat/website chore/repo-url-tsudev-org
-      chore/repo-url-tsudev-org-v2` (đã kiểm `git cherry`: mọi commit có trong `main`; lệnh bị chặn với agent).
 - [ ] Hộp Giới thiệu của ứng dụng thêm liên kết `https://tsudev.com` và `https://files.tsudev.com` (ECOSYSTEM_IDENTITY 2.3).
 - [ ] Sao lưu các tệp build đang tải từ `dl.filee.sh` (máy chủ upstream: engine Windows ARM, Magick.Native macOS, font -
       `build/fetch-engines.ps1`, `build/fetch-magick-native.ps1`, `build/fetch-fonts.ps1`) sang nơi 0 đồng của tsudev-org,
