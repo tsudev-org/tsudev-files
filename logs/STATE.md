@@ -9,7 +9,11 @@
       `build/fetch-engines.ps1`, `build/fetch-magick-native.ps1`, `build/fetch-fonts.ps1`) sang nơi 0 đồng của tsudev-org,
       giữ nguyên SHA-256 ghim. KHÔNG đặt vào Releases của repo này (trình cập nhật đọc releases/latest) - dùng repo
       riêng trong `tsudev-org` hoặc Cloudflare R2/Pages. Cần chủ dự án duyệt nơi lưu.
-- [ ] Phát hành `v2.4.0-vn.1`: nhãn đã đẩy, chờ workflow Release -> ký SHA256SUMS trên WSL (`tools/sign-checksums-vn.sh`) -> xuất bản -> deploy website.
+- [ ] ⚡ TIẾP THEO (chủ dự án): deploy website để trang Tải về hiện `v2.4.0-vn.1`:
+      `cd ~/projects/tsudev-files/website && npm run deploy` (bộ phân loại chặn agent chạy lệnh này). Đã build thử cục bộ: đủ 8
+      gói, `check-dist` 0 lỗi.
+- [ ] Gói Windows ARM64 chưa có trong bản phát hành (`release.yml` chỉ build win-x64); upstream đang thêm ở
+      KnifeLemon/Filee PR #1339 - lấy về khi gộp upstream.
 - [ ] Mua/xin chứng thư Authenticode (hoặc SignPath OSS) rồi điền `FileeExpectedPublisher`/`FileeExpectedIssuer`.
 
 ## Đang thực hiện
@@ -19,6 +23,11 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 11/11/2026 - **Phát hành `v2.4.0-vn.1`** (bản đầu tiên, latest): https://github.com/tsudev-org/tsudev-files/releases/tag/v2.4.0-vn.1
+  Workflow Release `42851826849` xanh; 8 gói (Windows Setup/Portable x64, Linux x64/arm64 tar.gz, macOS arm64/x64
+  dmg+tar.gz) khớp SHA256SUMS; 5 tệp SHA256SUMS ký ECDSA trên WSL (`tools/sign-checksums-vn.sh`), đã tải `.sig`.
+  Chạy thử gói Linux x64: `filee-cli --version` = 2.4.0-vn.1, `help` tiếng Việt, chuyển `.txt -> .md` đạt. Gộp PR #33
+  (quy ước v3.3.0, job CI "Quy ước tsudev"). Ký SHA256SUMS không còn cần máy Windows.
 - 10/11/2026 - Phiếu `20261110-06`: gộp PR #30, #28 (hộp Giới thiệu liên kết tsudev.com, nhà phát hành tsudev), #32
   (CHANGELOG 2.4.0-vn.1); đẩy nhãn `v2.4.0-vn.1`.
 - 10/11/2026 - Quy ước v3.3.0: `.standards-upstream` (miễn em-dash kế thừa theo dòng, KnifeLemon/Filee@64890f1e), sửa
@@ -51,6 +60,11 @@
 
 ## Quyết định quan trọng
 
+- 11/11/2026 - Tài khoản `gh` active là chung cho mọi phiên trên máy. Phiên khác (b4djl1h-cmdb) có thể đổi sang
+  `b4djl1h` (không có quyền ghi `tsudev-org`). Quy ước giữa các phiên: nhắn trước, chờ "OK", xong đổi về
+  `tsudev-tsudev` và báo "XONG". Lệnh ghi lỗi quyền thì chạy `gh api user -q .login` trước.
+- 11/11/2026 - Thẻ phát hành của fork dạng `v<x.y.z>-vn.<n>`; trình cập nhật bỏ hậu tố, nên bản sửa riêng tiếp theo
+  phải tăng số vá (2.4.1...), không chỉ tăng `-vn.<n>`.
 - 10/11/2026 - Website `files.tsudev.com` (thư mục `website/`): Astro trang tĩnh, host Cloudflare Workers Static Assets
   (Worker `tsudev-files`, `custom_domain` trong `wrangler.jsonc`) thay vì Pages - OAuth của `wrangler login` không ghi
   được DNS cho CNAME của Pages. Deploy: chủ dự án chạy `cd website && npm run deploy`. JavaScript phía trình duyệt chỉ
