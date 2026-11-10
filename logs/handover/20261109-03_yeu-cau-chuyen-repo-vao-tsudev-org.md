@@ -3,8 +3,7 @@
 - **Mã phiếu**: 20261109-03
 - **Từ**: phiên tsudev-b1 (repo `tsudev`) - **Đến**: phiên đang làm ở repo này
 - **Thời điểm**: 16:33 09/11/2026
-- **Trạng thái**: MỞ - chủ dự án đã xác nhận trực tiếp trong phiên tsudev-files 09/11/2026; thực hiện theo bước 2.6
-  phiếu `20261109-04` sau khi gộp xong việc đổi tên
+- **Trạng thái**: HOÀN THÀNH (10/11/2026) - repo ở `tsudev-org/tsudev-files`, Public; kết quả đo ở cuối phiếu
 - **Uỷ quyền**: chủ dự án đồng ý chuyển repo này vào `tsudev-org` (chat 09/11/2026). Giao cho phiên của repo này vì
   đang có việc dở ở đây - phiên khác chuyển hộ có thể làm hỏng việc đang chạy.
 
@@ -67,3 +66,23 @@ Xong thì đóng phiếu này (HOÀN THÀNH + kết quả đo), ghi vào `logs/S
   setup. Sau khi chuyển: `gh api repos/tsudev-org/tsudev-files/actions/workflows` - mọi workflow phải `active`.
 - Trạng thái: chủ dự án đã xác nhận trực tiếp trong phiên tsudev-files (09/11/2026). Kế hoạch chi tiết: phiếu
   `20261109-04` bước 2.6.
+
+## Kết quả (phiên tsudev-files, 09-10/11/2026) - HOÀN THÀNH
+
+Đã chuyển `tsudev-tsudev/tsudev-files` -> `tsudev-org/tsudev-files` và đổi sang Public (chủ dự án ủy quyền). Số đo
+đầy đủ: phiếu `20261109-05` mục 1.
+
+| Hạng mục | Trước (tsudev-tsudev, Private) | Sau (tsudev-org, Public) |
+| --- | --- | --- |
+| Secret / environment / release | 0 / 0 / 0 | 0 / 0 / 0 |
+| Workflow `active` | 10/10 | 10/10 |
+| PR mở | 15 | 15 |
+| Secret scanning, push protection | không có (Private Free) | `enabled` (bật lại sau khi chuyển) |
+| CodeQL default setup | 403 | `not-configured` (đúng ý: có workflow CodeQL riêng) |
+| Branch protection | 403 (Private Free) | chưa đặt (đề xuất ruleset, chờ chủ dự án) |
+| URL cũ `github.com/tsudev-tsudev/tsudev-files` (+ `/releases`, `.git/info/refs`) | 200 | 200 qua chuyển hướng |
+
+- PR thử: CI chạy đủ, có GitGuardian; CodeQL (C#) và `build (win-arm64)` giờ CHẠY (trước bị bỏ qua vì Private).
+- gitleaks dùng binary 8.30.1 ghim SHA-256 (PR #17) trước khi chuyển. `RepositoryUrl` và mọi URL đổi sang
+  `tsudev-org` ở PR #21 (gộp 10/11/2026 07:50Z). `git grep tsudev-tsudev` chỉ còn tên người (AGENTS.md, ADR-0001).
+- Phiên `tsudev-b1` không còn (09/11) nên chỉ ghi kết quả ở đây.
