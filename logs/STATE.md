@@ -5,9 +5,9 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: gộp **PR #25** (nút đổi giao diện website, phiếu `logs/handover/20261110-02_*.md`) -> chủ dự án
-      chạy `cd website && npm run deploy` -> nghiệm thu production theo phiếu (`curl -sI https://files.tsudev.com/ | grep -i
-      content-security-policy` có `script-src 'self'`; đổi 4 chế độ, tải lại, không nháy) -> điền Kết quả, ĐÓNG phiếu.
+- [ ] (Chủ dự án, bảng điều khiển Cloudflare) Tắt tự chèn Web Analytics và JavaScript Detections/Bot Fight Mode cho
+      `files.tsudev.com`: Cloudflare chèn `beacon.min.js` và script `/cdn-cgi/challenge-platform` vào HTML, CSP chặn
+      nên console báo lỗi (không ảnh hưởng trang). Không nới CSP. Chi tiết: phiếu `20261110-02` mục Kết quả xử lý.
 - [ ] Phiếu `logs/handover/20261110-01_*.md`: áp dụng miễn trừ em-dash theo dòng khi `tsudev-standards` PR #48 gộp và có
       nhãn v3.3.0. Gồm sửa vi phạm THẬT của fork: `src/Filee.App/Assets/i18n/ru.json` khóa `installer.error.incomplete`
       (dòng fork sửa URL, câu gốc có em-dash -> thay bằng `-`). (Regex `check-dist.mjs` đã sửa ở PR #25.)
@@ -33,7 +33,8 @@
 - 10/11/2026 - Phiếu `20261109-05` mục 2: gộp PR #10 (đổi tên hiển thị + sửa tên ở thanh bên/Giới thiệu/Setup, kiểm
   lối tắt bộ cài, `ForkDefaults.Brand` không regex - hết sập `filee help engines`), PR #21 (URL `tsudev-org`, quy ước
   v3.2.0, README). Website `files.tsudev.com` (PR #20, Astro, Cloudflare Workers Static Assets) đã chạy trên production.
-  Đóng phiếu 03, 04, 05. Mở PR #25 (nút đổi giao diện, phiếu `20261110-02`).
+  Đóng phiếu 03, 04, 05. PR #25: nút đổi giao diện Sáng/Ấm/Tối/Theo hệ thống (phiếu `20261110-02`), đã deploy và
+  nghiệm thu production.
 
 - 09/11/2026 - Chuyển repo sang `tsudev-org` + Public (đã bật lại secret scanning/push protection); `tsudev-contact`, `app-la-ban` Public; gộp PR #16 (Dependabot hằng tháng), #17 (gitleaks binary); nhận diện tsudev.com cho 8 repo. Chi tiết: phiếu `20261109-05`.
 
