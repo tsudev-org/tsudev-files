@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261110-01
 - **Từ**: phiên tsudev-lotus (projects-55) - **Đến**: phiên tsudev-files (tsudev-files-50) / phiên sau của repo này
 - **Thời điểm**: 10/11/2026
-- **Trạng thái**: MỞ - chờ `tsudev-standards` PR #48 được merge và gắn nhãn `v3.3.0`
+- **Trạng thái**: HOÀN THÀNH (10/11/2026)
 - **Thay thế**: phiếu `20261109-01_de-xuat-mien-tru-emdash-upstream.md` (đề xuất theo danh sách file). Cơ chế được
   chọn ở PR #48 miễn **theo dòng**, không cần liệt kê 48 file, và chống khai `ref` giả.
 
@@ -36,7 +36,11 @@ không được miễn).
 
 ## Kết quả xử lý
 
--
+- 10/11/2026 (phiên tsudev-files): đồng bộ quy ước v3.3.0 (`sync-standards.sh --ref v3.3.0`, đã xác minh MANIFEST),
+  thêm `.standards-upstream` (`KnifeLemon/Filee@64890f1e`, là tổ tiên HEAD), sửa em-dash ở `ru.json`
+  `installer.error.incomplete`. Thêm job CI "Quy ước tsudev" trong `security.yml` chạy `check-standards.sh` với
+  `STANDARDS_VERIFY_UPSTREAM=1` (không có `continue-on-error`). Kết quả cục bộ: ĐẠT, miễn 295 dòng kế thừa, 3 lưu ý
+  (ngày YYYY-MM-DD trong tài liệu upstream). Phiếu `20261109-01` đóng theo.
 
 > Ghi chú phiên tsudev-files (10/11/2026): khi commit phiếu này, các ký tự en/em-dash viết thẳng trong phiếu được đổi
 > sang dạng mã (U+2013/U+2014) để `check-standards.sh` không tính thêm vi phạm; nội dung không đổi.

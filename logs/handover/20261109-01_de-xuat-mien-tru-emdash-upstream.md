@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261109-01
 - **Từ**: claude (phiên tsudev-files) - **Đến**: chủ dự án, để mở Issue/PR tại `tsudev-tsudev/tsudev-standards`
 - **Thời điểm**: 15:25 09/11/2026
-- **Trạng thái**: MỞ
+- **Trạng thái**: ĐÓNG (10/11/2026) - thay bằng cơ chế miễn theo dòng của v3.3.0, xem phiếu `20261110-01`
 - **Nhánh git**: `chore/khoi-tao-fork` (repo này không cần sửa gì thêm)
 
 ## 1. Việc đã làm xong
