@@ -22,6 +22,13 @@ const menu = [
   { href: '/dong-lenh/', ten: 'Dòng lệnh' },
   { href: '/bao-mat/', ten: 'Bảo mật' },
 ];
+// Cùng 4 lựa chọn với tsudev.com (packages/ui ThemeToggle); public/theme.js đọc data-chon-giao-dien
+const cheDo = [
+  { ma: 'light', ten: 'Sáng' },
+  { ma: 'warm', ten: 'Ấm' },
+  { ma: 'dark', ten: 'Tối' },
+  { ma: 'system', ten: 'Theo hệ thống' },
+];
 const dangO = (href: string) => duongDan.startsWith(href);
 ---
 <!doctype html>
@@ -34,6 +41,8 @@ const dangO = (href: string) => duongDan.startsWith(href);
     <meta name="theme-color" content="#EEF4FB" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0F1B2D" media="(prefers-color-scheme: dark)">
     <meta name="color-scheme" content="light dark">
+    <!-- Chế độ màu: chạy chặn, trước stylesheet, để không nháy màu (public/theme.js; CSP script-src 'self') -->
+    <script is:inline src="/theme.js"></script>
     <link rel="canonical" href={url}>
     <meta property="og:site_name" content="tsudev">
     <meta property="og:type" content="website">
@@ -65,6 +74,17 @@ const dangO = (href: string) => duongDan.startsWith(href);
             ))}
           </ul>
         </nav>
+        <div class="giao-dien" id="giao-dien" hidden>
+          <button type="button" class="giao-dien__nut" aria-label="Đổi giao diện" aria-haspopup="menu" aria-expanded="false" aria-controls="giao-dien-menu">
+            <svg class="giao-dien__mat-troi" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+            <svg class="giao-dien__mat-trang" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>
+          </button>
+          <ul class="giao-dien__menu" id="giao-dien-menu" role="menu" aria-label="Giao diện" hidden>
+            {cheDo.map((c) => (
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-chon-giao-dien={c.ma}>{c.ten}</button></li>
+            ))}
+          </ul>
+        </div>
       </div>
     </header>
     <main id="noi-dung">
