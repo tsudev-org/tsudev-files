@@ -155,6 +155,20 @@ public sealed class ForkBrandingTests
         }
     }
 
+    // ECOSYSTEM_IDENTITY 2.3: hộp Giới thiệu có liên kết mở được tới https://tsudev.com; siêu dữ liệu ghi nhà phát hành.
+    [Fact]
+    public void About_page_links_to_tsudev_and_metadata_names_the_publisher()
+    {
+        Assert.Equal("https://tsudev.com", ForkDefaults.HomepageUrl);
+        Assert.Equal("tsudev", ForkDefaults.PublisherName);
+        var about = File.ReadAllText(Path.Combine(RepoRoot(), "src", "Filee.App", "Views", "Pages", "AboutPage.axaml"));
+        Assert.Contains(@"Click=""OnOpenLink"" Tag=""{x:Static fork:ForkDefaults.HomepageUrl}""", about);
+        Assert.Contains(@"Click=""OnOpenLink"" Tag=""{x:Static fork:ForkDefaults.ProductPageUrl}""", about);
+        var props = File.ReadAllText(Path.Combine(RepoRoot(), "Directory.Build.props"));
+        Assert.Contains("<Company>tsudev</Company>", props);
+        Assert.Matches(@"<Copyright>Copyright \(c\) \d{4} tsudev\.", props);
+    }
+
     private static string RepoRoot()
     {
         var dir = new DirectoryInfo(AppContext.BaseDirectory);

@@ -39,6 +39,14 @@ public partial class AboutPage : UserControl
             await top.Launcher.LaunchUriAsync(new Uri(vm.RepositoryUrl));
     }
 
+    // tsudev-files: liên kết cố định (trang sản phẩm, tsudev.com) đặt ở Tag của nút; chỉ mở https.
+    private async void OnOpenLink(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Control { Tag: string url } && Uri.TryCreate(url, UriKind.Absolute, out var uri)
+            && uri.Scheme == Uri.UriSchemeHttps && TopLevel.GetTopLevel(this) is { } top)
+            await top.Launcher.LaunchUriAsync(uri);
+    }
+
     // A star is given on the repository page itself.
     private void OnStar(object? sender, RoutedEventArgs e) => OnOpenRepository(sender, e);
 

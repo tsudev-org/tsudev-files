@@ -57,6 +57,21 @@
                 <TextBlock Text="{Binding RepositoryUrl}" Foreground="{DynamicResource AccentBrush}" TextWrapping="Wrap" />
               </StackPanel>
             </Button>
+            <!-- tsudev-files: liên kết trang sản phẩm và trang chủ tsudev (ECOSYSTEM_IDENTITY mục 2.3). -->
+            <Button Classes="ghost" Padding="0" Click="OnOpenLink" Tag="{x:Static fork:ForkDefaults.ProductPageUrl}"
+                    AutomationProperties.Name="{x:Static fork:ForkDefaults.ProductPageUrl}">
+              <StackPanel Orientation="Horizontal" Spacing="6">
+                <PathIcon Width="13" Height="13" Data="{StaticResource Icon.Link}" Foreground="{DynamicResource AccentBrush}" />
+                <TextBlock Text="{x:Static fork:ForkDefaults.ProductPageUrl}" Foreground="{DynamicResource AccentBrush}" TextWrapping="Wrap" />
+              </StackPanel>
+            </Button>
+            <Button Classes="ghost" Padding="0" Click="OnOpenLink" Tag="{x:Static fork:ForkDefaults.HomepageUrl}"
+                    AutomationProperties.Name="{x:Static fork:ForkDefaults.HomepageUrl}">
+              <StackPanel Orientation="Horizontal" Spacing="6">
+                <PathIcon Width="13" Height="13" Data="{StaticResource Icon.Link}" Foreground="{DynamicResource AccentBrush}" />
+                <TextBlock Text="{x:Static fork:ForkDefaults.HomepageUrl}" Foreground="{DynamicResource AccentBrush}" TextWrapping="Wrap" />
+              </StackPanel>
+            </Button>
             <!-- This version's "What's new" slides again -->
             <Button x:Name="WhatsNewLink" Classes="ghost" Padding="0" Command="{Binding ShowWhatsNewCommand}" IsVisible="{Binding HasWhatsNew}">
               <StackPanel Orientation="Horizontal" Spacing="6">
