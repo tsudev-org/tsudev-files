@@ -9,9 +9,6 @@
       `build/fetch-engines.ps1`, `build/fetch-magick-native.ps1`, `build/fetch-fonts.ps1`) sang nơi 0 đồng của tsudev-org,
       giữ nguyên SHA-256 ghim. KHÔNG đặt vào Releases của repo này (trình cập nhật đọc releases/latest) - dùng repo
       riêng trong `tsudev-org` hoặc Cloudflare R2/Pages. Cần chủ dự án duyệt nơi lưu.
-- [ ] ⚡ TIẾP THEO (chủ dự án): deploy website để trang Tải về hiện `v2.4.0-vn.1`:
-      `cd ~/projects/tsudev-files/website && npm run deploy` (bộ phân loại chặn agent chạy lệnh này). Đã build thử cục bộ: đủ 8
-      gói, `check-dist` 0 lỗi.
 - [ ] Gói Windows ARM64 chưa có trong bản phát hành (`release.yml` chỉ build win-x64); upstream đang thêm ở
       KnifeLemon/Filee PR #1339 - lấy về khi gộp upstream.
 - [ ] Mua/xin chứng thư Authenticode (hoặc SignPath OSS) rồi điền `FileeExpectedPublisher`/`FileeExpectedIssuer`.
@@ -28,6 +25,8 @@
   dmg+tar.gz) khớp SHA256SUMS; 5 tệp SHA256SUMS ký ECDSA trên WSL (`tools/sign-checksums-vn.sh`), đã tải `.sig`.
   Chạy thử gói Linux x64: `filee-cli --version` = 2.4.0-vn.1, `help` tiếng Việt, chuyển `.txt -> .md` đạt. Gộp PR #33
   (quy ước v3.3.0, job CI "Quy ước tsudev"). Ký SHA256SUMS không còn cần máy Windows.
+  Website: chủ dự án deploy (Worker version `90e83133`); production `/tai-ve/` hiện đủ 8 gói, `/nhat-ky/` có mục
+  2.4.0-vn.1, liên kết tải Setup.exe trả 200.
 - 10/11/2026 - Phiếu `20261110-06`: gộp PR #30, #28 (hộp Giới thiệu liên kết tsudev.com, nhà phát hành tsudev), #32
   (CHANGELOG 2.4.0-vn.1); đẩy nhãn `v2.4.0-vn.1`.
 - 10/11/2026 - Quy ước v3.3.0: `.standards-upstream` (miễn em-dash kế thừa theo dòng, KnifeLemon/Filee@64890f1e), sửa
