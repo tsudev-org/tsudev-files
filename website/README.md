@@ -1,7 +1,7 @@
 # Website files.tsudev.com
 
 Trang sản phẩm của tsudev-files: [Astro](https://astro.build) dựng trang tĩnh; JavaScript phía trình duyệt chỉ có
-`public/theme.js` (nút đổi giao diện Sáng/Ấm/Tối/Theo hệ thống, khóa `tsudev-theme` như tsudev.com; nạp chặn trong `<head>`
+`public/theme.js` (bộ chọn giao diện Sáng/Tối/Hệ thống ở chân trang, mặc định Tối, khóa `tsudev-theme` như tsudev.com; nạp chặn trong `<head>`
 để không nháy màu, CSP `script-src 'self'`, không script nội tuyến),
 host trên Cloudflare Workers Static Assets (Worker `tsudev-files`, không có mã chạy; tên miền con `files.tsudev.com` của
 hệ tsudev.com, cấu hình ở `wrangler.jsonc`).
@@ -32,7 +32,7 @@ cd website
 npm ci
 npm run dev          # xem thử ở http://localhost:4321
 npm run build        # dựng vào dist/ và kiểm tra
-npm run check:a11y   # axe-core WCAG 2.2 AA mọi trang, Sáng + Ấm + Tối (lần đầu: npx playwright install chromium)
+npm run check:a11y   # axe-core WCAG 2.2 AA mọi trang, Sáng + Tối (lần đầu: npx playwright install chromium)
 npm run check:theme  # nút đổi giao diện trong Chromium, với CSP của production
 npm run deploy       # build rồi `wrangler deploy` (cần `npx wrangler login` với tài khoản tsudev)
 ```
