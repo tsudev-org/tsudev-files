@@ -1,6 +1,6 @@
 # tsudev-files: tự động đề xuất PR nâng cấp phụ thuộc (bản vá bảo mật).
 # Mỗi tháng một lần, gom MỌI gói của một hệ sinh thái vào một PR: mỗi PR chạy CI đầy đủ (Windows + macOS)
-# và repo Private chỉ có 2.000 phút Actions/tháng, spending limit giữ 0 USD (quyết định 09/11/2026).
+# để tiết kiệm phút Actions; spending limit giữ 0 USD (quyết định 09/11/2026; repo nay Public).
 version: 2
 updates:
   - package-ecosystem: nuget
@@ -10,6 +10,11 @@ updates:
     groups:
       nuget:
         patterns: ["*"]
+    # Bản major (vd. SkiaSharp 3->4, xunit.v3 3->4) phá tương thích với mã upstream: chờ KnifeLemon/Filee nâng rồi
+    # gộp về bằng `git merge upstream/main`. Lỗ hổng ở bản cũ vẫn bị job "Lỗ hổng phụ thuộc NuGet" (security.yml) báo.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: monthly, timezone: Asia/Ho_Chi_Minh }
