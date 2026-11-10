@@ -63,7 +63,7 @@ jobs:
 
       - name: Restore native builds
         id: native-cache
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: build/.cache/linux-native/${{ matrix.rid }}
           key: linux-native-${{ matrix.rid }}-ubuntu-22.04-${{ hashFiles('build/build-native.py') }}
@@ -82,7 +82,7 @@ jobs:
 
       - name: Restore cargo downloads
         if: steps.native-cache.outputs.cache-hit != 'true'
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             ~/.cargo/registry/index
@@ -152,7 +152,7 @@ jobs:
         run: ./build/fetch-fonts.ps1
 
       - name: Restore engine downloads
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: build/.cache/portable-downloads
           key: portable-engines-${{ matrix.rid }}-${{ hashFiles('src/Filee.Engines/Infrastructure/engines.json') }}
