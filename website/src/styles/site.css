@@ -1,7 +1,8 @@
 /* Giao diện files.tsudev.com - dùng token tsudev (tokens.css, sao nguyên văn từ tsudev-standards).
-   Không có JavaScript nên chế độ tối đi theo hệ điều hành: ánh xạ giá trị token "dark" vào [data-theme="light"]. */
+   Chế độ màu do public/theme.js đặt vào data-theme (cả "Theo hệ thống" cũng giải bằng JavaScript). Khối @media dưới
+   đây CHỈ là dự phòng khi script không chạy (chưa có data-theme-chon): trang khi ấy vẫn theo hệ điều hành. */
 @media (prefers-color-scheme: dark) {
-  [data-theme="light"] {
+  :root:not([data-theme-chon])[data-theme="light"] {
     --bg-base: #0F1B2D;
     --bg-surface: #16263C;
     --bg-subtle: #1C2F4A;
@@ -79,6 +80,33 @@ pre {
 .menu a { display: block; padding: 0.45rem 0.8rem; border-radius: 8px; color: var(--text-secondary); text-decoration: none; font-weight: 600; }
 .menu a:hover { background: var(--bg-hover); color: var(--text-primary); }
 .menu a[aria-current="page"] { color: var(--text-link); background: var(--bg-subtle); }
+.dau-trang nav { margin-left: auto; }
+
+/* Nút đổi giao diện (public/theme.js). Biểu tượng theo chế độ đang hiện: mặt trăng ở Tối, mặt trời ở Sáng/Ấm. */
+.giao-dien { position: relative; }
+.giao-dien[hidden], .giao-dien__menu[hidden] { display: none; }
+.giao-dien__nut {
+  display: inline-flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem;
+  border: 1px solid var(--border-control); border-radius: 10px; background: var(--bg-surface); color: var(--text-primary); cursor: pointer;
+}
+.giao-dien__nut:hover { background: var(--bg-hover); }
+.giao-dien__mat-trang { display: none; }
+[data-theme="dark"] .giao-dien__mat-troi { display: none; }
+[data-theme="dark"] .giao-dien__mat-trang { display: block; }
+.giao-dien__menu {
+  position: absolute; right: 0; top: calc(100% + 0.4rem); z-index: 6; min-width: 11rem;
+  list-style: none; margin: 0; padding: 0.35rem; display: grid; gap: 0.1rem;
+  background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: 12px;
+  box-shadow: 0 10px 30px var(--overlay);
+}
+.giao-dien__menu button {
+  width: 100%; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.7rem; border: 0; border-radius: 8px;
+  background: transparent; color: var(--text-primary); font: inherit; font-weight: 600; text-align: left; cursor: pointer;
+}
+.giao-dien__menu button::before { content: ""; width: 1rem; flex: none; text-align: center; color: var(--text-link); }
+.giao-dien__menu button[aria-checked="true"] { color: var(--text-link); background: var(--bg-subtle); }
+.giao-dien__menu button[aria-checked="true"]::before { content: "✓"; }
+.giao-dien__menu button:hover { background: var(--bg-hover); }
 
 /* Nút */
 .nut {
@@ -176,6 +204,9 @@ kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; border-r
 .chan-trang__lien-ket { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.35rem; font-size: 0.93rem; }
 
 @media (max-width: 860px) {
+  /* Logo và nút giao diện cùng hàng (menu giao diện mở về bên trái, không tràn màn hình); điều hướng xuống hàng dưới */
+  .dau-trang nav { order: 3; flex-basis: 100%; margin-left: 0; padding-bottom: 0.5rem; }
+  .giao-dien { margin-left: auto; }
   .mo-dau { padding: 2.5rem 0 2rem; }
   .mo-dau__luoi { grid-template-columns: 1fr; gap: 2rem; }
   .tai-lieu { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 1.5rem; }

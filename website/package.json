@@ -2,13 +2,14 @@
   "name": "tsudev-files-website",
   "private": true,
   "type": "module",
-  "description": "Trang sản phẩm files.tsudev.com (Astro, trang tĩnh, không JavaScript phía trình duyệt)",
+  "description": "Trang sản phẩm files.tsudev.com (Astro, trang tĩnh; JavaScript phía trình duyệt chỉ có public/theme.js)",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/check-dist.mjs",
     "preview": "astro preview",
     "deploy": "npm run build && wrangler deploy",
-    "check:a11y": "node scripts/check-a11y.mjs"
+    "check:a11y": "node scripts/check-a11y.mjs",
+    "check:theme": "node scripts/check-theme.mjs"
   },
   "dependencies": {
     "astro": "7.4.7",
