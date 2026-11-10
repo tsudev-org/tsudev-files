@@ -5,19 +5,12 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261110-06_ban-giao-gop-pr-28-30.md` (gộp PR #30 rồi #28 khi CI xanh).
-- [ ] Phiếu `logs/handover/20261110-01_*.md`: áp dụng miễn trừ em-dash theo dòng khi `tsudev-standards` PR #48 gộp và có
-      nhãn v3.3.0. Gồm sửa vi phạm THẬT của fork: `src/Filee.App/Assets/i18n/ru.json` khóa `installer.error.incomplete`
-      (dòng fork sửa URL, câu gốc có em-dash -> thay bằng `-`). (Regex `check-dist.mjs` đã sửa ở PR #25.)
-- [ ] Gộp PR #28 (hộp Giới thiệu liên kết tsudev.com + files.tsudev.com, Company/Copyright tsudev; ECOSYSTEM_IDENTITY
-      2.3) khi CI xanh.
 - [ ] Sao lưu các tệp build đang tải từ `dl.filee.sh` (máy chủ upstream: engine Windows ARM, Magick.Native macOS, font -
       `build/fetch-engines.ps1`, `build/fetch-magick-native.ps1`, `build/fetch-fonts.ps1`) sang nơi 0 đồng của tsudev-org,
       giữ nguyên SHA-256 ghim. KHÔNG đặt vào Releases của repo này (trình cập nhật đọc releases/latest) - dùng repo
       riêng trong `tsudev-org` hoặc Cloudflare R2/Pages. Cần chủ dự án duyệt nơi lưu.
-- [ ] Phát hành bản đầu tiên `v2.4.0-vn.1` theo `docs/vi/PHAT-HANH.md` (cần máy Windows có PowerShell 7 để ký SHA256SUMS).
+- [ ] Phát hành `v2.4.0-vn.1`: nhãn đã đẩy, chờ workflow Release -> ký SHA256SUMS trên WSL (`tools/sign-checksums-vn.sh`) -> xuất bản -> deploy website.
 - [ ] Mua/xin chứng thư Authenticode (hoặc SignPath OSS) rồi điền `FileeExpectedPublisher`/`FileeExpectedIssuer`.
-- [ ] Chủ dự án mở Issue/PR ở `tsudev-standards` theo bản nháp `logs/handover/20261109-01_de-xuat-mien-tru-emdash-upstream.md`.
 
 ## Đang thực hiện
 
@@ -25,6 +18,12 @@
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 10/11/2026 - Phiếu `20261110-06`: gộp PR #30, #28 (hộp Giới thiệu liên kết tsudev.com, nhà phát hành tsudev), #32
+  (CHANGELOG 2.4.0-vn.1); đẩy nhãn `v2.4.0-vn.1`.
+- 10/11/2026 - Quy ước v3.3.0: `.standards-upstream` (miễn em-dash kế thừa theo dòng, KnifeLemon/Filee@64890f1e), sửa
+  em-dash do fork ở `ru.json`, job CI "Quy ước tsudev" (`STANDARDS_VERIFY_UPSTREAM=1`). `check-standards.sh` ĐẠT.
+  Đóng phiếu `20261110-01`, `20261109-01`.
 
 - 10/11/2026 - Giao diện website đen tuyền + tím kiểu Supabase, bộ chọn Sáng/Tối/Hệ thống ở chân trang (phiếu
   `20261110-05`, PR #29, deploy `b57f2ec3`, nghiệm thu production). Ruleset "Bảo vệ main" (id 26937532: chặn
@@ -69,7 +68,7 @@
 
 - 09/11/2026 - Tên hiển thị là `tsudev-files`, định danh nội bộ giữ `Filee` (ADR-0001, `docs/adr/0001-doi-ten-hien-thi-tsudev-files.md`); tệp phát hành đổi thành `tsudev-files-<ver>-...`, trình cập nhật nhận cả hai tiền tố.
 - 09/11/2026 - Giữ tên namespace/assembly `Filee.*` để gộp upstream dễ; mọi khác biệt của fork gom vào `src/Filee.Core/ForkDefaults.cs` + `Directory.Build.props`.
-- 09/11/2026 - Không sửa em-dash trong mã kế thừa từ upstream (48 file, gồm dữ liệu test cố ý chứa ký tự ngoài Latin-1): sửa sẽ gây xung đột khi gộp và làm yếu test. Mã MỚI của fork tuân thủ mục 7.1. `check-standards.sh` vì vậy còn báo TRƯỢT ở mục 4 cho tới khi trung tâm có cơ chế miễn trừ.
+- 09/11/2026 - Không sửa em-dash trong mã kế thừa từ upstream (48 file, gồm dữ liệu test cố ý chứa ký tự ngoài Latin-1): sửa sẽ gây xung đột khi gộp và làm yếu test. Mã MỚI của fork tuân thủ mục 7.1. Từ 10/11/2026 các dòng đó được miễn theo dòng qua `.standards-upstream` (quy ước v3.3.0); khi gộp upstream mới thì cập nhật `ref` trong file đó.
 - 09/11/2026 - Khóa ký cập nhật ECDSA P-256 riêng; khóa bí mật ở `~/.config/tsudev-files/keys/update-key.pem` (0600, ngoài repo). Bản phát hành của upstream KHÔNG được bản fork chấp nhận.
 
 - 09/11/2026 - Giữ nút tài trợ trỏ về tác giả gốc KnifeLemon (`SponsorLinks.cs`, `.github/FUNDING.yml`, README): ghi công

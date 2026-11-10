@@ -108,3 +108,18 @@ jobs:
         with:
           python-version: '3.12'
       - run: python3 -I tools/check_i18n_vi.py
+
+  # tsudev-files: cổng kiểm quy ước tsudev-standards (v3.3.0). Dòng em-dash kế thừa nguyên văn từ upstream được miễn
+  # theo .standards-upstream; STANDARDS_VERIFY_UPSTREAM=1 tải `ref` từ github.com/KnifeLemon/Filee để chống khai giả.
+  # Cần toàn bộ lịch sử (fetch-depth: 0) để kiểm `ref` là tổ tiên của HEAD.
+  standards:
+    name: Quy ước tsudev
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - run: ./scripts/check-standards.sh
+        env:
+          STANDARDS_VERIFY_UPSTREAM: '1'
