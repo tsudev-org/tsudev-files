@@ -17,8 +17,11 @@
     <Version>2.4.0</Version>
     <!-- tsudev-files: tên hiển thị trong thuộc tính tệp (ProductName); tên assembly/tệp chạy vẫn là Filee. -->
     <Product>tsudev-files</Product>
-    <Authors>Filee contributors</Authors>
-    <Copyright>Copyright (c) Filee contributors</Copyright>
+    <!-- tsudev-files: siêu dữ liệu nhà phát hành theo ECOSYSTEM_IDENTITY 2.3 (Company, Copyright); vẫn ghi công upstream
+         (giấy phép MIT: thông báo bản quyền gốc giữ nguyên trong LICENSE). -->
+    <Company>tsudev</Company>
+    <Authors>tsudev; Filee contributors</Authors>
+    <Copyright>Copyright (c) 2026 tsudev. Filee: Copyright (c) Filee contributors</Copyright>
 
     <!-- Single source of truth for the GitHub repository (used by the updater and the About page). -->
     <!-- tsudev-files: bản fork Việt hóa; trình cập nhật chỉ hỏi repo này (không hỏi repo gốc). -->

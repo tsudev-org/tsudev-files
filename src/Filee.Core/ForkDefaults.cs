@@ -22,6 +22,15 @@ public static class ForkDefaults
     /// <summary>Repo phát hành của bản fork (trình cập nhật đọc giá trị build FileeRepositoryUrl; đây là bản sao để hiển thị).</summary>
     public const string RepositoryUrl = "https://github.com/tsudev-org/tsudev-files";
 
+    /// <summary>Nhà phát hành (ECOSYSTEM_IDENTITY mục 2.3): thương hiệu luôn viết thường.</summary>
+    public const string PublisherName = "tsudev";
+
+    /// <summary>Trang chủ hệ sinh thái tsudev; hộp Giới thiệu phải có liên kết mở được tới đây (ECOSYSTEM_IDENTITY 2.3).</summary>
+    public const string HomepageUrl = "https://tsudev.com";
+
+    /// <summary>Trang sản phẩm (thư mục website/ của repo).</summary>
+    public const string ProductPageUrl = "https://files.tsudev.com";
+
     /// <summary>Tên hiển thị của ứng dụng (quyết định 09/11/2026: "Filee" -> "tsudev-files").</summary>
     public const string DisplayName = "tsudev-files";
 
