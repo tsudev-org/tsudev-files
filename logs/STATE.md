@@ -5,10 +5,12 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] Tắt JavaScript Detections của zone tsudev.com (`PUT /zones/<id>/bot_management {"enable_js": false}`; Web
-      Analytics và Bot Fight Mode chủ dự án đã tắt 10/11): Cloudflare còn chèn script nội tuyến
-      `/cdn-cgi/challenge-platform`, CSP chặn nên console báo lỗi (trang không ảnh hưởng). Cần token Zone > Bot
-      Management: Edit, lưu ở `~/.config/tsudev-files/cf-token` (0600, chủ dự án tạo rồi thu hồi). Không nới CSP.
+- [ ] (Chủ dự án quyết) Lỗi console từ script nội tuyến `/cdn-cgi/challenge-platform` mà Cloudflare chèn (JavaScript
+      Detections; Web Analytics và Bot Fight Mode đã tắt 10/11). CSP chặn nên trang không ảnh hưởng. JavaScript
+      Detections là thiết lập CẤP ZONE: tắt (`PUT /zones/<id>/bot_management {"enable_js": false}`, token Zone > Bot
+      Management: Edit) ảnh hưởng MỌI site *.tsudev.com. tsudev.com không bị lỗi vì CSP dùng nonce (Cloudflare gắn
+      nonce vào script challenge); site tĩnh này không sinh nonce được. Lựa chọn: giữ nguyên (chỉ là lỗi console) hoặc
+      tắt cả zone. Không nới CSP.
 - [ ] Phiếu `logs/handover/20261110-01_*.md`: áp dụng miễn trừ em-dash theo dòng khi `tsudev-standards` PR #48 gộp và có
       nhãn v3.3.0. Gồm sửa vi phạm THẬT của fork: `src/Filee.App/Assets/i18n/ru.json` khóa `installer.error.incomplete`
       (dòng fork sửa URL, câu gốc có em-dash -> thay bằng `-`). (Regex `check-dist.mjs` đã sửa ở PR #25.)
