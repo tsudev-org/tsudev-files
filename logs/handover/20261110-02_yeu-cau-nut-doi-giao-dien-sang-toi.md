@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261110-02
 - **Từ**: phiên tsudev-c8 (repo `tsudev`) - **Đến**: phiên Claude của repo `tsudev-files`
 - **Thời điểm**: 10/11/2026
-- **Trạng thái**: MỞ
+- **Trạng thái**: ĐÓNG (10/11/2026) - còn một việc ngoài repo cho chủ dự án, xem Kết quả xử lý
 - **Ủy quyền**: chủ dự án yêu cầu bổ sung nút đổi màu sáng/tối ở header website của mọi dự án hệ tsudev
   (chat 10/11/2026, phiên tsudev-c8).
 
@@ -51,4 +51,22 @@ trên tsudev.com để người dùng thấy một hệ sinh thái nhất quán.
 
 ## Kết quả xử lý
 
--
+Phiên tsudev-files, 10/11/2026. **PR #25** gộp (`ed49cbfc`); chủ dự án deploy (Worker version `5c375f4d`).
+
+- Cách làm: `website/public/theme.js` nạp chặn bằng `<script src="/theme.js">` ngay sau các meta, trước stylesheet;
+  CSP thêm `script-src 'self'` (không `'unsafe-inline'`). Mặc định `system` (giữ hành vi cũ của site, không tự đổi
+  sang Tối). Menu 4 lựa chọn ARIA `menuitemradio`; không JavaScript thì nút ẩn và trang vẫn theo hệ điều hành.
+- Test quét nguồn/trình duyệt (chạy trong CI `website.yml`): `check-dist` (đúng một script, trong `<head>`, trước
+  CSS; CSP có `script-src 'self'`, không `unsafe-*`), `check-theme` (Chromium với CSP production: 4 lựa chọn, giữ sau
+  tải lại, `data-theme` có trước `<body>`, bàn phím, localStorage bị chặn, giá trị lạ, không JS, 320/390/1280px),
+  `check-a11y` (axe 10 trang x Sáng/Ấm/Tối + menu mở: 0 lỗi). Đột biến: bỏ `script-src` hoặc thêm `defer` đều bị bắt.
+- Nghiệm thu production (Chromium thật, `https://files.tsudev.com/`):
+  - `curl -sI` -> `content-security-policy: default-src 'none'; script-src 'self'; ...`; `/theme.js` 200 `text/javascript`.
+  - Mặc định: `data-theme=light`, chọn `system`. Bấm Sáng/Ấm/Tối/Theo hệ thống rồi tải lại: giữ đúng
+    (`localStorage tsudev-theme` = giá trị đã chọn), `data-theme` đã đúng lúc `<body>` bắt đầu (không nháy),
+    `theme-color` và nền đổi theo (`#EEF4FB`/`#F6F1E6`/`#0F1B2D`). "Theo hệ thống" + hệ điều hành chuyển tối -> `dark` ngay.
+  - Console: **không có lỗi từ `theme.js`**. Còn lỗi CSP từ script do **Cloudflare tự chèn** vào HTML (không có trong
+    repo): Web Analytics `static.cloudflareinsights.com/beacon.min.js` và script nội tuyến
+    `/cdn-cgi/challenge-platform` (phát hiện bot). Chúng vốn đã bị CSP chặn từ trước (khi chưa có `script-src`).
+    KHÔNG nới CSP cho chúng (trang cam kết không thu thập dữ liệu). Việc cho chủ dự án: tắt tự chèn Web Analytics
+    và JavaScript Detections/Bot Fight Mode cho `files.tsudev.com` trong bảng điều khiển Cloudflare (thiết lập zone).

@@ -142,4 +142,4 @@ Phiên tsudev-files 10/11/2026 (chủ dự án yêu cầu làm mục 2, kèm xâ
 - Xóa nhánh remote đã gộp (`feat/website`, `chore/repo-url-tsudev-org`, `chore/repo-url-tsudev-org-v2`, mọi commit
   đã có trong `main` theo `git cherry`): lệnh bị bộ phân loại chặn ("Git Destructive") - chủ dự án đã tự xóa (10/11/2026).
 - Phiếu mới nhận trong phiên (commit kèm PR này): `20261110-01` (áp dụng miễn trừ em-dash v3.3.0 - chờ
-  `tsudev-standards` PR #48), `20261110-02` (nút đổi giao diện - **PR #25**, chờ gộp + deploy + nghiệm thu).
+  `tsudev-standards` PR #48), `20261110-02` (nút đổi giao diện - **PR #25** gộp, deploy, nghiệm thu production: ĐÓNG).
