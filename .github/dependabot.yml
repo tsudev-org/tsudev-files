@@ -15,6 +15,18 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+      # Các gói phải giữ nguyên theo ghi chú trong Directory.Packages.props (PR #31 làm đỏ mọi job vì chúng):
+      # PDFsharp 6.3+ là AGPL-3.0 và kiểm license lúc chạy; PDFtoImage 5.3+ / Svg.Skia 5.2+ cần SkiaSharp 4, xung đột
+      # Avalonia 12.1; Unhwp ghim cùng commit nguồn trong build/build-native.py (chỉ nâng khi gộp upstream).
+      - dependency-name: "PDFsharp"
+        versions: [">= 6.3"]
+      - dependency-name: "PDFtoImage"
+        versions: [">= 5.3"]
+      - dependency-name: "Svg.Skia"
+        versions: [">= 5.2"]
+      - dependency-name: "SkiaSharp*"
+        versions: [">= 4"]
+      - dependency-name: "Unhwp"
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: monthly, timezone: Asia/Ho_Chi_Minh }
