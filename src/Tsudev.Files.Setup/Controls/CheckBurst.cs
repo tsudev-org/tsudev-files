@@ -54,13 +54,13 @@ public sealed class CheckBurst : Control
             for (var i = 0; i < 10; i++)
             {
                 var angle = i * Math.PI / 5 + 0.3;
-                var distance = r * (1.05 + 0.75 * DonutLogo.EaseOut(dots));
+                var distance = r * (1.05 + 0.75 * AppLogo.EaseOut(dots));
                 var size = (i % 2 == 0 ? 3.4 : 2.4) * (1 - 0.5 * dots);
                 context.DrawEllipse(brush, null, center + new Vector(Math.Cos(angle), Math.Sin(angle)) * distance, size, size);
             }
         }
 
-        var pop = DonutLogo.BackOut(Math.Clamp(t / 0.4, 0, 1));
+        var pop = AppLogo.BackOut(Math.Clamp(t / 0.4, 0, 1));
         if (pop > 0)
             context.DrawEllipse(Fill, null, center, r * pop, r * pop);
 
@@ -73,7 +73,7 @@ public sealed class CheckBurst : Control
         var c = center + new Vector(r * 0.45, -r * 0.30);
         var first = Distance(a, b);
         var second = Distance(b, c);
-        var length = (first + second) * DonutLogo.EaseOut(draw);
+        var length = (first + second) * AppLogo.EaseOut(draw);
         var pen = new Pen(Mark, r * 0.16, lineCap: PenLineCap.Round, lineJoin: PenLineJoin.Round);
         var geometry = new StreamGeometry();
         using (var g = geometry.Open())

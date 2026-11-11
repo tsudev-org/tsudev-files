@@ -580,7 +580,7 @@ Windows' own UI fonts (Segoe UI, Nirmala UI and the UI language's CJK font first
 have no semibold) instead of the app's embedded Noto fonts.
 
 - **Look**: one borderless 640×420 card (`SetupWindow`, its own window buttons, drag to move) whose states crossfade
-  (`Views/StateViews.axaml`): Welcome (the logo assembling itself, `DonutLogo`; one Install button; an Options sheet
+  (`Views/StateViews.axaml`): Welcome (the logo springing into place, `AppLogo`; one Install button; an Options sheet
   sliding up with the language, folder, options and engines), Progress (the new version's "What's new" slides, a thin
   `ShimmerBar`), Done (`CheckBurst`, "Launch Filee"), Failed ("Copy details") and the uninstaller's states.
   `SoftBackdrop` draws slowly drifting accent blobs behind it. The slides are the app's (`SlideShow`, `AnimatedImage`,

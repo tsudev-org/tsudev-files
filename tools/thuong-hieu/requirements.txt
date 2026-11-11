@@ -1,0 +1,6 @@
+# Dây chuyền thương hiệu (tools/thuong-hieu/tao-tai-san.py). Chạy tay, không chạy trong CI.
+pillow==13.0.0
+numpy==2.5.4
+scipy==1.18.1
+fonttools==4.68.0
+brotli==1.2.1
