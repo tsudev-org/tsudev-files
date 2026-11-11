@@ -40,7 +40,7 @@ SKIP_PREFIXES = (".standards/", "logs/", "docs/adr/", "CHANGELOG.md", "LICENSE",
 TEXT_SUFFIXES = {".cs", ".csproj", ".props", ".targets", ".slnx", ".axaml", ".xaml", ".json", ".jsonc", ".xml", ".yml",
                  ".yaml", ".ps1", ".psm1", ".sh", ".py", ".md", ".txt", ".plist", ".resx", ".manifest", ".js", ".mjs",
                  ".ts", ".astro", ".toml", ".editorconfig", ".runsettings", ".c", ".h", ".rc", ".def", ".iss", ".cmd",
-                 ".bat", ".desktop", ".css", ".html", ".svg", ".config", ".in", ""}
+                 ".bat", ".desktop", ".css", ".html", ".svg", ".config", ".in", ".patch", ".diff", ""}
 
 
 def git(*args: str) -> str:
