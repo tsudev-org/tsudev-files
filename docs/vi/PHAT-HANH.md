@@ -41,8 +41,11 @@
    ```
 
    Script từ chối nếu khóa không khớp `FileeUpdatePublicKey`, nằm trong git working tree hoặc có quyền đọc rộng.
-5. Kiểm tra bản nháp: mỗi `*SHA256SUMS*.txt` đều có `.sig`, rồi xuất bản:
-   `gh release edit "v$V" -R tsudev-org/tsudev-files --draft=false`.
+5. Kiểm tra bản nháp: mỗi `*SHA256SUMS*.txt` đều có `.sig`; mỗi gói có chứng thực nguồn gốc build (từ 2.4.1,
+   bước "Attest build provenance" của `release.yml`):
+   `gh release download "v$V" -R tsudev-org/tsudev-files -p '*linux-x64.tar.gz' -D "$D" &&
+   gh attestation verify "$D"/*linux-x64.tar.gz -R tsudev-org/tsudev-files`. Rồi xuất bản:
+   `gh release edit "v$V" -R tsudev-org/tsudev-files --draft=false --latest`.
 6. Bản cài cũ sẽ nhận cập nhật: tải SHA256SUMS -> kiểm chữ ký ECDSA -> kiểm số phiên bản mới hơn -> tải bộ cài ->
    kiểm SHA-256 -> cài. Sai bất kỳ bước nào thì từ chối và mở trang phát hành.
 

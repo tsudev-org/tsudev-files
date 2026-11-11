@@ -5,8 +5,8 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261111-01_ban-giao-sau-phat-hanh-2.4.0-vn.1.md` (dọn nhánh đã gộp, hàng
-      đợi dài hạn, quy trình phát hành đã chạy thật).
+- [ ] Dọn nhánh đã gộp trên `origin` (agent bị chặn xóa nhánh từ xa): chủ dự án chạy lệnh trong phiếu
+      `20261111-01` mục 2.1 (+ `feat/packaging-package-json` sau khi gộp) và bật "Automatically delete head branches".
 - [ ] Sao lưu các tệp build đang tải từ `dl.filee.sh` (máy chủ upstream: engine Windows ARM, Magick.Native macOS, font -
       `build/fetch-engines.ps1`, `build/fetch-magick-native.ps1`, `build/fetch-fonts.ps1`) sang nơi 0 đồng của tsudev-org,
       giữ nguyên SHA-256 ghim. KHÔNG đặt vào Releases của repo này (trình cập nhật đọc releases/latest) - dùng repo
@@ -15,12 +15,25 @@
       KnifeLemon/Filee PR #1339 - lấy về khi gộp upstream.
 - [ ] Mua/xin chứng thư Authenticode (hoặc SignPath OSS) rồi điền `FileeExpectedPublisher`/`FileeExpectedIssuer`.
 
+- [ ] Chờ phiên đóng gói (`projects-5d`) xử lý `~/projects/logs/handover/20261111-03_yeu-cau-linux-packages-ho-tro-tsudev-files.md`
+      (bộ dựng `linux-packages` hỗ trợ `{tagVersion}`, `sums`/`root` theo tệp, `desktop.exec`, `links`). Xong và CI cài thử
+      đạt thì chuyển `apt`, `rpm` từ `planned` sang `channels` trong `packaging/package.json`, thêm khối "Cài bằng lệnh"
+      trên website (`/tai-ve/`), nhờ chủ dự án deploy.
+- [ ] Tệp `tsudev-files-<ver>-SHA256SUMS.txt` chính chỉ liệt kê tệp Windows (Linux/macOS ở tệp riêng theo nền tảng);
+      PACKAGING.md mục 4.1 muốn một SHA256SUMS liệt kê mọi tệp. Không đổi tên/định dạng tệp hiện có vì trình cập nhật
+      đọc chúng - nếu làm thì THÊM tệp gộp mới ở bản 2.4.1 và ghi vào `docs/vi/PHAT-HANH.md`.
+
 ## Đang thực hiện
 
 | Task | Agent | Bắt đầu |
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 11/11/2026 - Phiếu `20261111-02`: thêm `packaging/package.json` (schema 1, khớp tên tệp Release `v2.4.0-vn.1`;
+  `revision` = `vn.1`); gửi phiếu sửa bộ dựng cho `linux-packages`. Phiếu `20261111-03` (tài khoản gh): đã đọc, dùng
+  mục 2. `release.yml`: thêm bước `actions/attest-build-provenance` v4.2.2 (PACKAGING.md mục 4.1) - có hiệu lực từ bản
+  2.4.1; cách kiểm ở `docs/vi/PHAT-HANH.md` bước 5.
 
 - 11/11/2026 - PR #36 thay PR #31 (Dependabot NuGet, đỏ mọi job): nâng Avalonia 12.1.6, Logging/Pkcs 10.0.15, Magick.NET
   15.1.0, Markdig 1.6.0, ExcelNumberFormat 1.2.0, AngleSharp 1.10.1, Tomlyn 2.11.1, MsgReader 6.2.1. CI 20/20 xanh.
