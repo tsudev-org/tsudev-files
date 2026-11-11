@@ -203,7 +203,7 @@ Compila con .NET 10 SDK su Windows, macOS o Linux:
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # engine opzionali
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -231,7 +231,7 @@ Si connette a Internet solo:
 
 - per chiedere a GitHub (`api.github.com`) se esiste una versione più recente, poco dopo l'avvio e poi ogni poche ore.
   Disattivabile in Impostazioni → Informazioni ("Controlla automaticamente gli aggiornamenti").
-- per scaricare gli engine di conversione che scegli di installare, dalle posizioni ufficiali indicate in [`engines.json`](../../src/Filee.Engines/Infrastructure/engines.json), e le lingue per il riconoscimento del testo (OCR) usate da un preset, indicate in [`ocr-languages.json`](../../src/Filee.Engines/Infrastructure/ocr-languages.json).
+- per scaricare gli engine di conversione che scegli di installare, dalle posizioni ufficiali indicate in [`engines.json`](../../src/Tsudev.Files.Engines/Infrastructure/engines.json), e le lingue per il riconoscimento del testo (OCR) usate da un preset, indicate in [`ocr-languages.json`](../../src/Tsudev.Files.Engines/Infrastructure/ocr-languages.json).
 - quando clicchi un link, che apre il tuo browser.
 
 ## Sostenitori
@@ -243,7 +243,7 @@ Se vuoi sostenerlo, scegli il modo che preferisci ([Fairy](https://fairy.hada.io
 I sostenitori mensili sono elencati qui per nome, e gli sponsor ottengono il proprio logo qui e nella pagina Informazioni di Filee.
 Anche chi fa una donazione una tantum può chiedere di essere elencato.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

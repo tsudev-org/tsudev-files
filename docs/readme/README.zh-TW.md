@@ -203,7 +203,7 @@ filee watch D:\Inbox --to pdf --move-originals
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # optional engines
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -232,7 +232,7 @@ Filee 免費，並將一直免費。
 按月贊助者的名字會列在這裡，標誌檔位的標誌會顯示在這裡和 Filee 的「關於」頁面。
 一次性贊助的朋友也可以要求列出名字。
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

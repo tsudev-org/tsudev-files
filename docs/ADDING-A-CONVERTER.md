@@ -1,18 +1,18 @@
 # Adding a converter
 
-A converter is one class implementing `IConverter` (`src/Filee.Core/Conversion/IConverter.cs`).
+A converter is one class implementing `IConverter` (`src/Tsudev.Files.Core/Conversion/IConverter.cs`).
 The route planner combines converters automatically, so a new edge can unlock many conversions at once
 (for example, adding `epub → pdf` also gives `epub → png` through PDFium).
 
 ## 1. New format? Register it
 
-If the format is new, add one line to `FormatRegistry.Known` (`src/Filee.Core/Formats/FormatRegistry.cs`):
+If the format is new, add one line to `FormatRegistry.Known` (`src/Tsudev.Files.Core/Formats/FormatRegistry.cs`):
 
 ```csharp
 new("epub", "EPUB", FormatCategory.Document, ["epub"]),
 ```
 
-Then add its id to one grade list in `FormatFields` (`src/Filee.Core/Formats/FormatFields.cs`): everyday, general,
+Then add its id to one grade list in `FormatFields` (`src/Tsudev.Files.Core/Formats/FormatFields.cs`): everyday, general,
 specialist or legacy, by how widely files in it are made today. The full criteria, tie-breaks and close calls are in
 [#844](https://github.com/KnifeLemon/Filee/issues/844); what fields and grades decide is in
 [docs/FORMAT-RULES.md](FORMAT-RULES.md). It belongs to its category's field; if it belongs to
@@ -22,14 +22,14 @@ until the format has a grade.
 
 ## 2. Write the converter
 
-Create `src/Filee.Engines/<Area>/<Name>Converter.cs`:
+Create `src/Tsudev.Files.Engines/<Area>/<Name>Converter.cs`:
 
 ```csharp
 // EPUB → PDF with the (hypothetical) SuperEpub library (MIT).
 
-using Filee.Core.Conversion;
+using Tsudev.Files.Core.Conversion;
 
-namespace Filee.Engines.Documents;
+namespace Tsudev.Files.Engines.Documents;
 
 public sealed class SuperEpubConverter : IConverter
 {
@@ -75,12 +75,12 @@ Rules:
 
 ## 3. Register it
 
-Add one line to `EngineRegistry.CreateAll` (`src/Filee.Engines/EngineRegistry.cs`).
+Add one line to `EngineRegistry.CreateAll` (`src/Tsudev.Files.Engines/EngineRegistry.cs`).
 If it should be preferred over existing engines by default, add its id to `AppSettings.EnginePriority`.
 
 ## 4. Test it
 
-Add a test to `tests/Filee.Engines.Tests`. Generate the input files in the test (see `EngineFixture`) so the test
+Add a test to `tests/Tsudev.Files.Engines.Tests`. Generate the input files in the test (see `EngineFixture`) so the test
 runs everywhere without sample documents, and skip when the engine is not available:
 
 ```csharp
@@ -94,7 +94,7 @@ public async Task Epub_to_pdf()
 
 ## 5. Ship it (optional)
 
-Command line tools are pinned in `src/Filee.Engines/Infrastructure/engines.json` (URL, SHA-256, size, archive kind),
+Command line tools are pinned in `src/Tsudev.Files.Engines/Infrastructure/engines.json` (URL, SHA-256, size, archive kind),
 which both `build/fetch-engines.ps1` and the app read. Small tools can be bundled with the installer (add the id to
 the `fetch-engines.ps1 -Only` list in `.github/workflows/release.yml`); large ones become an optional download by
 adding an `EnginePackage` to `EngineDownloads.Packages` plus its name and description in the three `i18n/*.json`

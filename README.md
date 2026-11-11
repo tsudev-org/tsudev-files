@@ -44,10 +44,10 @@ tools/fetch-engines-linux.sh 7zip         # Windows: pwsh build/fetch-engines.ps
 ```
 
 ```bash
-dotnet build Filee.slnx
-dotnet test tests/Filee.Core.Tests        # các bộ test khác: tests/Filee.*.Tests
+dotnet build tsudev-files.slnx
+dotnet test tests/Tsudev.Files.Core.Tests        # các bộ test khác: tests/Filee.*.Tests
 # Bộ giao diện chạy riêng, có phát hiện treo (giống CI; khoảng 30-60 phút trên WSL):
-dotnet test tests/Filee.App.Tests --no-build --blame-crash --blame-hang-timeout 5m
+dotnet test tests/Tsudev.Files.App.Tests --no-build --blame-crash --blame-hang-timeout 5m
 python3 -I tools/check_i18n_vi.py         # kiểm tra bản dịch tiếng Việt
 bash scripts/check-standards.sh           # cổng kiểm quy ước tsudev
 ```
@@ -55,8 +55,8 @@ bash scripts/check-standards.sh           # cổng kiểm quy ước tsudev
 Chạy dòng lệnh từ mã nguồn:
 
 ```bash
-dotnet run --project src/Filee.Cli -- help
-FILEE_LANG=en dotnet run --project src/Filee.Cli -- help
+dotnet run --project src/Tsudev.Files.Cli -- help
+FILEE_LANG=en dotnet run --project src/Tsudev.Files.Cli -- help
 ```
 
 Quy ước làm việc (cho người và agent AI): đọc [AGENTS.md](AGENTS.md) trước tiên.
@@ -66,7 +66,7 @@ Quy ước làm việc (cho người và agent AI): đọc [AGENTS.md](AGENTS.md
 ```bash
 git fetch upstream
 git merge upstream/main     # giải quyết xung đột, ưu tiên giữ ForkDefaults.cs và Directory.Build.props của fork
-python3 -I tools/check_i18n_vi.py && dotnet test tests/Filee.App.Tests
+python3 -I tools/check_i18n_vi.py && dotnet test tests/Tsudev.Files.App.Tests
 ```
 
 Remote `upstream` đã bị khóa chiều đẩy (`DISABLED`) để không thể vô tình đẩy lên repo gốc.
@@ -76,7 +76,7 @@ Remote `upstream` đã bị khóa chiều đẩy (`DISABLED`) để không thể
 Filee miễn phí và sẽ luôn miễn phí. Nếu muốn ủng hộ, hãy ủng hộ trực tiếp tác giả gốc (Myeonggu Kim - KnifeLemon);
 nhà tài trợ được liệt kê tại đây và trong trang "Giới thiệu" của ứng dụng.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

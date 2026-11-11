@@ -37,7 +37,8 @@ xuất tại repo `tsudev-standards` theo `.standards/docs/SYNC.md` mục 1.
 ### B.1. Repo này là gì
 
 - **Loại**: phần mềm desktop (Windows/Linux/macOS) + công cụ dòng lệnh
-- **Stack**: C# / .NET 10, Avalonia 12; fork của `KnifeLemon/Filee` (MIT). Kiến trúc gốc: `docs/ARCHITECTURE.md`;
+- **Stack**: C# / .NET 10, Avalonia 12; tách hẳn (hard fork, [ADR-0002](docs/adr/0002-hard-fork-doi-ten-toan-bo-tsudev.md))
+  từ `KnifeLemon/Filee` (MIT - giữ thông báo bản quyền gốc trong `LICENSE`). Kiến trúc: `docs/ARCHITECTURE.md`;
   bảo mật: `docs/vi/KIEN-TRUC-BAO-MAT.md`
 - **Mức phân loại dữ liệu cao nhất**: D3 (tệp người dùng xử lý cục bộ; khóa ký cập nhật)
 - **Người liên hệ khi có sự cố**: tsudev-tsudev
@@ -45,26 +46,28 @@ xuất tại repo `tsudev-standards` theo `.standards/docs/SYNC.md` mục 1.
 ### B.2. Chạy trong 5 phút
 
 ```bash
-dotnet build Filee.slnx                      # .NET SDK 10 (global.json)
-dotnet test tests/Filee.Core.Tests           # và tests/Filee.{App,Cli,Setup,Engines,Platform}.Tests
-python3 -I tools/check_i18n_vi.py            # bản dịch tiếng Việt
-dotnet run --project src/Filee.Cli -- help   # FILEE_LANG=en để xem tiếng Anh
+dotnet build tsudev-files.slnx                     # .NET SDK 10 (global.json)
+dotnet test tests/Tsudev.Files.Core.Tests          # và tests/Tsudev.Files.{App,Cli,Setup,Engines,Platform}.Tests
+python3 -I tools/check_i18n_vi.py                  # bản dịch tiếng Việt
+dotnet run --project src/Tsudev.Files.Cli -- help  # FILEE_LANG=en để xem tiếng Anh
 ```
 
 ### B.3. Ranh giới sở hữu file
 
 | Vùng | Chủ sở hữu |
 | --- | --- |
-| `src/Filee.Core/ForkDefaults.cs`, `Directory.Build.props` (URL, khóa) | Chủ dự án - mọi thay đổi cần duyệt |
-| `src/Filee.App/Assets/i18n/vi.json` | Agent/người dịch; giữ đồng bộ khóa với `en.json` |
-| `src/Filee.Cli/` (chuỗi `CliLanguage.T`) | Agent dòng lệnh |
+| `src/Tsudev.Files.Core/ForkDefaults.cs`, `Directory.Build.props` (URL, khóa) | Chủ dự án - mọi thay đổi cần duyệt |
+| `src/Tsudev.Files.App/Assets/i18n/vi.json` | Agent/người dịch; giữ đồng bộ khóa với `en.json` |
+| `src/Tsudev.Files.Cli/` (chuỗi `CliLanguage.T`) | Agent dòng lệnh |
 | `tools/`, `.github/workflows/security.yml`, `docs/vi/` | Riêng của fork |
-| Phần còn lại của `src/`, `tests/`, `build/` | Mã upstream - sửa tối thiểu, ghi chú `tsudev-files:` tại chỗ sửa |
+| Phần còn lại của `src/`, `tests/`, `build/` | tsudev-files (kế thừa từ Filee, đã tách hẳn - sửa như mã của mình) |
 
 ### B.4. Quy tắc riêng
 
-- Remote `upstream` = KnifeLemon/Filee (chiều đẩy bị khóa). Gộp bằng `git fetch upstream && git merge upstream/main`.
-- Mỗi chỗ sửa trong mã upstream đánh dấu bằng chú thích bắt đầu `tsudev-files:` để dễ tìm khi gộp.
+- Hard fork (ADR-0002): KHÔNG `git merge upstream/main`. Bản vá bảo mật của KnifeLemon/Filee chép thủ công:
+  `git format-patch` -> `python3 -I tools/doi-ten-tsudev.py --tep <tệp>` -> `git apply`, ghi nguồn trong commit.
+- Mã mới dùng tên tsudev (`Tsudev.Files.*`, `TsudevFiles*`); `python3 -I tools/doi-ten-tsudev.py --kiem` phải sạch.
 - Không đổi khóa JSON đầu ra của dòng lệnh (script bên ngoài phụ thuộc).
 - Không bao giờ đưa khóa bí mật ký cập nhật vào repo; quy trình ở `docs/vi/PHAT-HANH.md`.
-- Ngoại lệ đã ghi nhận: em-dash trong mã kế thừa upstream (xem `logs/STATE.md`, mục Quyết định).
+- Em-dash trong mã kế thừa: còn miễn theo dòng (`.standards-upstream`) cho tới khi sửa hết; dòng đã sửa thì phải tuân
+  thủ mục 7.1.

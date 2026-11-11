@@ -14,7 +14,7 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$Destination = (Join-Path $PSScriptRoot '..\src\Filee.App\Assets\Fonts')
+    [string]$Destination = (Join-Path $PSScriptRoot '..\src\Tsudev.Files.App\Assets\Fonts')
 )
 
 $ErrorActionPreference = 'Stop'

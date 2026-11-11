@@ -206,7 +206,7 @@ Build with the .NET 10 SDK on Windows, macOS or Linux:
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # optional engines
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -234,7 +234,7 @@ It connects to the internet only:
 
 - to ask GitHub (`api.github.com`) whether a newer release exists, shortly after start and then every few hours.
   Turn this off in Settings → About ("Check for updates automatically").
-- to download the conversion engines you choose to install, from the official locations pinned in [`engines.json`](src/Filee.Engines/Infrastructure/engines.json), and the text recognition (OCR) languages a preset uses, pinned in [`ocr-languages.json`](src/Filee.Engines/Infrastructure/ocr-languages.json).
+- to download the conversion engines you choose to install, from the official locations pinned in [`engines.json`](src/Tsudev.Files.Engines/Infrastructure/engines.json), and the text recognition (OCR) languages a preset uses, pinned in [`ocr-languages.json`](src/Tsudev.Files.Engines/Infrastructure/ocr-languages.json).
 - when you click a link, which opens your web browser.
 
 ## Sponsor
@@ -246,7 +246,7 @@ If you'd like to support it, pick whichever way suits you ([Fairy](https://fairy
 Monthly backers are listed here by name, and sponsors get their logo here and on Filee's About page.
 One-time supporters can ask to be listed too.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

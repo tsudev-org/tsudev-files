@@ -206,7 +206,7 @@ Windows, macOS বা Linux-এ .NET 10 SDK দিয়ে বিল্ড কর�
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # ঐচ্ছিক ইঞ্জিন
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -234,7 +234,7 @@ Filee আপনার নিজস্ব কম্পিউটারে ফা�
 
 - চালুর কিছুক্ষণ পর এবং প্রতি কয়েক ঘণ্টা অন্তর GitHub-কে (`api.github.com`) জিজ্ঞাসা করতে যে কোনো নতুন রিলিজ এসেছে কি না।
   সেটিংস → পরিচিতি ("স্বয়ংক্রিয়ভাবে আপডেটের জন্য পরীক্ষা করুন") থেকে এটি বন্ধ করতে পারেন।
-- [`engines.json`](../../src/Filee.Engines/Infrastructure/engines.json)-এ নির্দিষ্ট অফিশিয়াল অবস্থান থেকে আপনার ইনস্টল করার জন্য বেছে নেওয়া রূপান্তর ইঞ্জিনগুলো এবং [`ocr-languages.json`](../../src/Filee.Engines/Infrastructure/ocr-languages.json)-এ নির্দিষ্ট প্রিসেটের প্রয়োজনীয় টেক্সট শনাক্তকরণ (OCR) ভাষাগুলো ডাউনলোড করতে।
+- [`engines.json`](../../src/Tsudev.Files.Engines/Infrastructure/engines.json)-এ নির্দিষ্ট অফিশিয়াল অবস্থান থেকে আপনার ইনস্টল করার জন্য বেছে নেওয়া রূপান্তর ইঞ্জিনগুলো এবং [`ocr-languages.json`](../../src/Tsudev.Files.Engines/Infrastructure/ocr-languages.json)-এ নির্দিষ্ট প্রিসেটের প্রয়োজনীয় টেক্সট শনাক্তকরণ (OCR) ভাষাগুলো ডাউনলোড করতে।
 - আপনি যখন কোনো লিঙ্কে ক্লিক করেন, যা আপনার ওয়েব ব্রাউজার খুলে দেয়।
 
 ## স্পনসর
@@ -246,7 +246,7 @@ Filee সম্পূর্ণ ফ্রি এবং সর্বদাই ফ�
 মাসিক সহায়তাকারীদের নাম এখানে তালিকাভুক্ত করা হয়, এবং স্পনসররা এখানে ও Filee-র ‘পরিচিতি’ পেজে তাদের লোগো প্রদর্শন করতে পারেন।
 এককালীন সহায়তাকারীরাও তাদের নাম তালিকায় রাখার অনুরোধ করতে পারেন।
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

@@ -93,7 +93,7 @@ The installer contains only the small engines. On first start Filee asks which o
 they can be installed or removed later in Settings → *Engines*. A conversion that needs a missing engine shows
 "Needs LibreOffice …" on its donut slice.
 
-- Downloads are pinned in `src/Filee.Engines/Infrastructure/engines.json` (URL, SHA-256, size). The same file is
+- Downloads are pinned in `src/Tsudev.Files.Engines/Infrastructure/engines.json` (URL, SHA-256, size). The same file is
   read by `build/fetch-engines.ps1`, so development and the app always use the same versions. A macOS download can
   name the oldest macOS it runs on (`minimumMacOS`); an older Mac isn't offered it.
 - `EngineInstaller` verifies the SHA-256 before unpacking and unpacks into a staging folder that replaces the
@@ -494,7 +494,7 @@ Element order and attribute values follow files saved by 한글 where the schema
 - layout caches (table row heights, inline tab widths) are estimated, because simpler readers use them as-is.
 
 Every generated file is checked in the tests with three independent readers: rhwp (renders it), Unhwp (reads the
-text) and LibreOffice + H2Orestart (opens it), see `tests/Filee.Engines.Tests/DocxToHwpxTests.cs` and
+text) and LibreOffice + H2Orestart (opens it), see `tests/Tsudev.Files.Engines.Tests/DocxToHwpxTests.cs` and
 `OfficeTests.cs`.
 
 Not converted: Word charts, SmartArt, free-form shapes, tracked changes and comments.
@@ -554,7 +554,7 @@ built-in XLSX route reads the workbook into Filee's document model.
 
 ## Fonts
 
-Fonts are converted in-process (`Filee.Engines/Fonts`); zlib and Brotli come with .NET. The input format is
+Fonts are converted in-process (`Tsudev.Files.Engines/Fonts`); zlib and Brotli come with .NET. The input format is
 recognised by content, so a mislabelled file still converts. FON is the exception: it is chosen by its `.fon`
 extension, and the file must then have an NE header with FNT resources.
 
@@ -593,10 +593,10 @@ extension, and the file must then have an NE header with FNT resources.
 - Not supported: CFF2 (variable) outlines to TTF or EOT (to WOFF, WOFF2 and OTF they convert), writing font
   collections, and WOFF/WOFF2 extended metadata (dropped).
 
-`tests/Filee.Engines.Tests/FontTests.cs` checks every conversion with small OFL fonts in
-`tests/Filee.Engines.Tests/Fonts` (see `OFL.txt` there): round trips keep every table byte for byte, a WOFF2 made
+`tests/Tsudev.Files.Engines.Tests/FontTests.cs` checks every conversion with small OFL fonts in
+`tests/Tsudev.Files.Engines.Tests/Fonts` (see `OFL.txt` there): round trips keep every table byte for byte, a WOFF2 made
 by Google's encoder decodes to the source font, and converted CFF glyphs are compared with the originals in Skia.
-`tests/Filee.Engines.Tests/FonTests.cs` builds synthetic FON samples in code (`FonBuilder`) and compares every
+`tests/Tsudev.Files.Engines.Tests/FonTests.cs` builds synthetic FON samples in code (`FonBuilder`) and compares every
 rendered glyph with its source bitmap.
 
 ## DOCX writer
@@ -625,7 +625,7 @@ Pandoc. It writes:
 Parts, relationships and content types are written per part (pictures and links in headers and notes are related
 from their own part), children in schema order. The tests validate every file with the Open XML SDK schema
 validator, read it back with DocxReader (DOCX → model → DOCX → model keeps the layout) and convert it with
-LibreOffice as an independent reader, see `tests/Filee.Engines.Tests/DocxWriterTests.cs`.
+LibreOffice as an independent reader, see `tests/Tsudev.Files.Engines.Tests/DocxWriterTests.cs`.
 
 Its edges cost 8, less than Pandoc's and LibreOffice's direct conversions, so Markdown → DOCX, PDF → DOCX, ... use
 it. DOCX → DOCX is no edge; the Word variants are the Office Open XML engine's job.
@@ -996,7 +996,7 @@ the other HTML targets go on from the page.
 - **Limits**: archives over 256 MB are refused; a picture over 32 MB (decoded) is left out, as is any picture once
   the page's data URIs reach 192 MB (a picture used many times counts each time); 8 MB of style sheet text per page.
 
-Tests (`tests/Filee.Engines.Tests/MhtmlTests.cs`) write archives in code: a Chrome-style one (quoted-printable page
+Tests (`tests/Tsudev.Files.Engines.Tests/MhtmlTests.cs`) write archives in code: a Chrome-style one (quoted-printable page
 with the charset only in its meta tag, a `cid:` style sheet, pictures by absolute and relative URL and from CSS, one
 saved as octet-stream, and scripts, frames, remote pictures, fonts and style sheets that must go), a Word `.mht`
 (windows-1252, `file:///C:/` locations, VML fallbacks), a `cid:`-only page in EUC-KR, a picture on disk named by a
@@ -1076,7 +1076,7 @@ VALARM, X-properties, VJOURNAL, VFREEBUSY, binary attachments and other unsuppor
 
 ## CAD drawings (DWG, DXF)
 
-Built in, no AutoCAD or ODA software (`Filee.Engines/Cad`). [ACadSharp](https://github.com/DomCR/ACadSharp) reads
+Built in, no AutoCAD or ODA software (`Tsudev.Files.Engines/Cad`). [ACadSharp](https://github.com/DomCR/ACadSharp) reads
 and writes the files; Filee's own renderer draws them with SkiaSharp (one drawing routine for PDF, SVG and images).
 
 - **Reading**: DWG from R14 (AC1014) to the AutoCAD 2018 format (AC1032, still current in AutoCAD 2026); DXF R12 to
@@ -1152,7 +1152,7 @@ and writes the files; Filee's own renderer draws them with SkiaSharp (one drawin
 
 ## 3D models
 
-`Filee.Engines/Models3D` converts GLB, glTF, STL, OBJ, 3MF and PLY into each other, and FBX into any of them, in
+`Tsudev.Files.Engines/Models3D` converts GLB, glTF, STL, OBJ, 3MF and PLY into each other, and FBX into any of them, in
 managed code: every reader
 fills one in-memory model (`Model3D`: parts with positions, normals, UVs, vertex colours and triangles; materials
 with a base colour and a base colour texture) and every writer takes it, so each pair is one step. glTF and GLB are
@@ -1217,7 +1217,7 @@ upright seen from above. GLB, glTF and OBJ get the picture as the material's tex
 PLY vertex colours, STL none; transparent pixels are light grey (#D9D9D9) and the walls take their edge pixels' colour.
 A 200 × 200 grid is about 160,000 triangles, some 8 MB as STL.
 
-Tests (`tests/Filee.Engines.Tests/ModelTests.cs`) build a cube, a sphere and a fan of coloured triangles in code and
+Tests (`tests/Tsudev.Files.Engines.Tests/ModelTests.cs`) build a cube, a sphere and a fan of coloured triangles in code and
 convert each through every format pair, checking triangle counts, bounds, signed volume (winding), normals, UVs,
 colours and materials where both formats keep them; hand-written STL, OBJ, PLY, 3MF and glTF files cover the reading
 details, and a generated 1,000,000-triangle STL the speed. `FbxTests.cs` writes FBX files in code (`FbxBuilder`:
@@ -1229,7 +1229,7 @@ grid and every output format.
 
 ## Geospatial data (GeoJSON, KML / KMZ, GPX, Shapefile, CSV, FIT)
 
-`Filee.Engines/Geo` converts geospatial **vector** data between GeoJSON, KML, KMZ, GPX, Shapefile and CSV in managed
+`Tsudev.Files.Engines/Geo` converts geospatial **vector** data between GeoJSON, KML, KMZ, GPX, Shapefile and CSV in managed
 code, with no GDAL and no download. Every reader fills one in-memory model (`GeoModel`: features, each with an optional
 geometry and its attributes in file order) and every writer takes it, so each pair is one step; through CSV the data
 also reaches the spreadsheet and data engines (Shapefile → XLSX, GeoJSON → JSON, KML → HWPX, …).
@@ -1336,7 +1336,7 @@ Filee can't convert, a CSV with no coordinates (`error.geo_*` in the language fi
 conversion fails.
 
 Tests: `GeoFormatTests`, `GeoShapefileTests`, `GeoCrsTests`, `GeoHostileInputTests`, `GeoZipTests` and
-`GeoRobustnessTests` in `tests/Filee.Engines.Tests`. The Shapefiles in `tests/Filee.Engines.Tests/Geo` were written by
+`GeoRobustnessTests` in `tests/Tsudev.Files.Engines.Tests`. The Shapefiles in `tests/Tsudev.Files.Engines.Tests/Geo` were written by
 GDAL (synthetic data; `Geo/make-test-geo.py` recreates them), so Filee's reader and writer are not only checked against
 each other. Everything else is written in the tests: `GeoBuilders.cs` has GeoJSON, KML and GPX text and a Shapefile and
 dBASE builder that follows the ESRI specification for the cases GDAL won't write, and the Shapefiles Filee writes are
@@ -1379,7 +1379,7 @@ Password-protected (encrypted) HWPX and DRM-wrapped files stop with a clear erro
 
 ## E-books
 
-The built-in e-book engine (`src/Filee.Engines/Ebooks`) reads books into the same document model as the HWPX
+The built-in e-book engine (`src/Tsudev.Files.Engines/Ebooks`) reads books into the same document model as the HWPX
 writer, so every e-book also reaches HWPX, PDF and images. The document model is written back out by
 `XhtmlWriter` (EPUB chapters, HTMLZ, single-page HTML), `PlainTextWriter`, `MarkdownWriter` and `Fb2Writer`.
 
@@ -1743,7 +1743,7 @@ format, and FFmpeg reads what the file holds, so a `.dat` with no video in it fa
   320 kbit/s); *RemoveAudio* drops the sound; *AudioChannels* (0 source, 1 mono, 2 stereo) applies to every audio
   target but AMR; *AudioSampleRate* (8 to 48 kHz) and *WavFormat* (bit depth) apply to WAV and W64.
 - *VideoCodec* (Default, HEVC, AV1) and *AudioCodec* (Default, ALAC) pick another codec where the target takes it
-  (`MediaCodecs` in Filee.Core: HEVC for MP4/M4V/MKV/MOV, AV1 for MP4/M4V/MKV/WEBM, ALAC for M4A/M4B); for any other
+  (`MediaCodecs` in Tsudev.Files.Core: HEVC for MP4/M4V/MKV/MOV, AV1 for MP4/M4V/MKV/WEBM, ALAC for M4A/M4B); for any other
   target the usual codec is written. The presets "MP4 HEVC" (on the video donut), "MP4 AV1" and "ALAC" use them. A
   video already in the chosen codec is copied (the rules above, with AV1 also into MP4); HEVC and AV1 keep 10 bits
   (`yuv420p10le`, Main 10) for 10-bit and HDR sources and write their colour tags (BT.2020, PQ or HLG), 8-bit 4:2:0

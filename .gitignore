@@ -28,8 +28,8 @@ Thumbs.db
 .DS_Store
 
 # Fonts are downloaded by build/fetch-fonts.ps1
-src/Filee.App/Assets/Fonts/*.ttf
-src/Filee.App/Assets/Fonts/*.otf
+src/Tsudev.Files.App/Assets/Fonts/*.ttf
+src/Tsudev.Files.App/Assets/Fonts/*.otf
 
 # --- tsudev-standards v3.1.1 (base + dotnet) ---
 .env

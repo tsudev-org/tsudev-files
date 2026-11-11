@@ -8,15 +8,15 @@ hệ tsudev.com, cấu hình ở `wrangler.jsonc`).
 
 * Tài liệu lấy trực tiếp từ tệp của repo (`SECURITY.md`, `docs/vi/KIEN-TRUC-BAO-MAT.md`, `CHANGELOG.md`, `LICENSE`,
   `THIRD-PARTY-NOTICES.md`) - sửa ở đó, không sửa trong `website/`. Trang Hướng dẫn, Định dạng, Dòng lệnh viết tay
-  trong `src/pages/`; đổi tùy chọn dòng lệnh (`src/Filee.Cli`) thì cập nhật `src/pages/dong-lenh.astro`.
+  trong `src/pages/`; đổi tùy chọn dòng lệnh (`src/Tsudev.Files.Cli`) thì cập nhật `src/pages/dong-lenh.astro`.
 * Bản phát hành (phiên bản, liên kết, SHA-256) lấy từ GitHub Releases lúc build; repo chưa có bản phát hành thì trang
   Tải về hiện thông báo "đang chuẩn bị" thay vì danh sách gói.
 * Ảnh chụp `public/anh/page-*-vi.png` sinh từ test giao diện (giao diện tiếng Việt thật, không cắt tay):
 
   ```bash
-  dotnet test tests/Filee.App.Tests --filter "FullyQualifiedName~RenderTests.Main_window_pages_render"
+  dotnet test tests/Tsudev.Files.App.Tests --filter "FullyQualifiedName~RenderTests.Main_window_pages_render"
   for f in home toolbar presets watch engines; do
-    cp tests/Filee.App.Tests/bin/Debug/net10.0/screenshots/page-$f-vi.png website/public/anh/
+    cp tests/Tsudev.Files.App.Tests/bin/Debug/net10.0/screenshots/page-$f-vi.png website/public/anh/
   done
   ```
 

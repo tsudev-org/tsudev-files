@@ -4,7 +4,7 @@
 
 - Thuật toán: ECDSA P-256 / SHA-256, chữ ký dạng r||s 64 byte, base64, đặt trong `<tệp>.sig` cạnh mỗi tệp
   `*SHA256SUMS*.txt` của bản phát hành.
-- Khóa công khai: `FileeUpdatePublicKey` trong `Directory.Build.props` (được nhúng vào ứng dụng lúc build).
+- Khóa công khai: `TsudevFilesUpdatePublicKey` trong `Directory.Build.props` (được nhúng vào ứng dụng lúc build).
 - Khóa bí mật: `~/.config/tsudev-files/keys/update-key.pem` (quyền 600, **ngoài mọi git working tree**).
   - `MUST` sao lưu khóa này ra nơi chỉ chủ dự án truy cập (ví dụ: trình quản lý mật khẩu, USB mã hóa). Mất khóa thì mọi
     bản đã cài không tự cập nhật được nữa; người dùng phải tải tay bản mới mang khóa mới.
@@ -12,7 +12,7 @@
     được bảo vệ (environment + người duyệt).
   - Nên mã hóa khóa bằng passphrase: `openssl pkey -in update-key.pem -aes256 -out update-key.enc.pem`
     (script ký sẽ hỏi passphrase).
-- Khóa bị lộ: tạo khóa mới, cập nhật `FileeUpdatePublicKey`, phát hành bản mới ký bằng **khóa cũ** lần cuối (để bản
+- Khóa bị lộ: tạo khóa mới, cập nhật `TsudevFilesUpdatePublicKey`, phát hành bản mới ký bằng **khóa cũ** lần cuối (để bản
   đã cài nhận được khóa mới), rồi hủy khóa cũ. Ghi sự cố vào `logs/STATE.md` mục "Sự cố bảo mật".
 
 ## 2. Số phiên bản
@@ -40,7 +40,7 @@
    gh release upload "v$V" -R tsudev-org/tsudev-files "$D"/*.sig
    ```
 
-   Script từ chối nếu khóa không khớp `FileeUpdatePublicKey`, nằm trong git working tree hoặc có quyền đọc rộng.
+   Script từ chối nếu khóa không khớp `TsudevFilesUpdatePublicKey`, nằm trong git working tree hoặc có quyền đọc rộng.
 5. Kiểm tra bản nháp: mỗi `*SHA256SUMS*.txt` đều có `.sig`; mỗi gói có chứng thực nguồn gốc build (từ 2.4.1,
    bước "Attest build provenance" của `release.yml`):
    `gh release download "v$V" -R tsudev-org/tsudev-files -p '*linux-x64.tar.gz' -D "$D" &&
@@ -54,7 +54,7 @@
 
 ## 4. Khi có chứng thư Authenticode
 
-- Điền `FileeExpectedPublisher` / `FileeExpectedIssuer` (của **chính** chứng thư đó) trong `Directory.Build.props`.
+- Điền `TsudevFilesExpectedPublisher` / `TsudevFilesExpectedIssuer` (của **chính** chứng thư đó) trong `Directory.Build.props`.
 - Đặt biến repo `TSUDEV_UNSIGNED_WINDOWS=false` và dùng `build/sign-release.ps1` của upstream (bỏ phần gương R2
   bằng `-NoMirror`).
 - Lựa chọn 0 đồng cho dự án mã nguồn mở: SignPath Foundation (cần duyệt hồ sơ).

@@ -196,7 +196,7 @@ Bangun (*build*) proyek menggunakan .NET 10 SDK pada Windows, macOS, atau Linux:
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # mengunduh engine opsional
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -222,7 +222,7 @@ Filee memproses konversi file secara lokal di komputer Anda dan tidak pernah men
 
 - Memeriksa ke GitHub (`api.github.com`) apakah ada rilis terbaru, yang dijalankan sesaat setelah aplikasi dibuka dan diulang setiap beberapa jam.  
   Fitur ini bisa dinonaktifkan di: **Settings → About ("Check for updates automatically")**.
-- Mengunduh engine konversi yang Anda pilih untuk dipasang dari sumber resmi yang terdaftar di [`engines.json`](../../src/Filee.Engines/Infrastructure/engines.json), serta paket bahasa OCR yang terdaftar di [`ocr-languages.json`](../../src/Filee.Engines/Infrastructure/ocr-languages.json).
+- Mengunduh engine konversi yang Anda pilih untuk dipasang dari sumber resmi yang terdaftar di [`engines.json`](../../src/Tsudev.Files.Engines/Infrastructure/engines.json), serta paket bahasa OCR yang terdaftar di [`ocr-languages.json`](../../src/Tsudev.Files.Engines/Infrastructure/ocr-languages.json).
 - Membuka peramban web saat Anda mengeklik tautan eksternal.
 
 ## Sponsor
@@ -233,7 +233,7 @@ Bagi yang ingin mendukung pengembangannya, silakan pilih platform yang sesuai ba
 **Nama atau logo Anda di sini.**  
 Donatur bulanan akan dicantumkan namanya di bagian ini, dan sponsor dapat menampilkan logo mereka di sini serta pada halaman *About* di dalam aplikasi Filee. Pendukung satu kali (*one-time support*) juga dapat meminta namanya dicantumkan.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

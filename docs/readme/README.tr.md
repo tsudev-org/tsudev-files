@@ -203,7 +203,7 @@ Windows, macOS veya Linux üzerinde .NET 10 SDK ile derleyin:
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # isteğe bağlı motorlar
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -231,7 +231,7 @@ Yalnızca şu durumlarda internete bağlanır:
 
 - Başlangıçtan kısa bir süre sonra ve ardından birkaç saatte bir daha yeni bir sürümün olup olmadığını GitHub'a (`api.github.com`) sormak için.
   Bunu Ayarlar → Hakkında bölümünden kapatabilirsiniz ("Güncellemeleri otomatik olarak denetle").
-- Kurmayı seçtiğiniz dönüştürme motorlarını [`engines.json`](../../src/Filee.Engines/Infrastructure/engines.json) içinde sabitlenmiş resmi konumlardan ve bir ön ayarın kullandığı metin tanıma (OCR) dillerini [`ocr-languages.json`](../../src/Filee.Engines/Infrastructure/ocr-languages.json) içinden indirmek için.
+- Kurmayı seçtiğiniz dönüştürme motorlarını [`engines.json`](../../src/Tsudev.Files.Engines/Infrastructure/engines.json) içinde sabitlenmiş resmi konumlardan ve bir ön ayarın kullandığı metin tanıma (OCR) dillerini [`ocr-languages.json`](../../src/Tsudev.Files.Engines/Infrastructure/ocr-languages.json) içinden indirmek için.
 - Bir bağlantıya tıkladığınızda web tarayıcınızı açmak için.
 
 ## Destek Olun
@@ -243,7 +243,7 @@ Destek olmak isterseniz size en uygun yöntemi seçebilirsiniz ([Fairy](https://
 Aylık destekçiler burada isimleriyle listelenir; sponsorlar logolarını hem burada hem de Filee'nin Hakkında sayfasında sergileyebilir.
 Tek seferlik destekçiler de listelenmeyi talep edebilir.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

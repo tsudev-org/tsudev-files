@@ -85,10 +85,10 @@ function Invoke-Checked([string]$name, [scriptblock]$command) {
 }
 
 if (-not $SkipFonts) { & (Join-Path $PSScriptRoot 'fetch-fonts.ps1') }
-foreach ($project in @('Filee.App', 'Filee.Cli')) {
+foreach ($project in @('Tsudev.Files.App', 'Tsudev.Files.Cli')) {
     Invoke-Checked "Publish $project" {
         dotnet publish (Join-Path $root "src/$project/$project.csproj") -c Release -r $Runtime --self-contained true `
-            "-p:Version=$Version" -p:FileeRelease=true -p:PublishReadyToRun=false @native -o $publish
+            "-p:Version=$Version" -p:TsudevFilesRelease=true -p:PublishReadyToRun=false @native -o $publish
     }
 }
 $engines = Join-Path $publish 'engines'
@@ -133,7 +133,7 @@ if ($Runtime.StartsWith('osx-')) {
     Invoke-Checked 'Validate Info.plist' { plutil -lint (Join-Path $contents 'Info.plist') }
     $iconset = Join-Path $stage 'filee.iconset'
     New-Item -ItemType Directory -Path $iconset | Out-Null
-    $sourceIcon = Join-Path $root 'src/Filee.App/Assets/Icons/filee.png'
+    $sourceIcon = Join-Path $root 'src/Tsudev.Files.App/Assets/Icons/filee.png'
     foreach ($size in @(16, 32, 128, 256, 512)) {
         foreach ($scale in @(1, 2)) {
             $pixels = $size * $scale
@@ -171,7 +171,7 @@ if ($Runtime.StartsWith('osx-')) {
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/HUONG-DAN-CAI-DAT.txt') -Destination $package
 }
 else {
-    Copy-Item -LiteralPath (Join-Path $root 'src/Filee.App/Assets/Icons/filee.png') -Destination $package
+    Copy-Item -LiteralPath (Join-Path $root 'src/Tsudev.Files.App/Assets/Icons/filee.png') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/install.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/uninstall.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/INSTALL.txt') -Destination $package

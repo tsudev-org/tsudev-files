@@ -208,7 +208,7 @@ filee watch D:\Inbox --to pdf --move-originals
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # موتورهای اختیاری
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -236,7 +236,7 @@ Filee فایل‌ها را روی رایانه شما تبدیل می‌کند �
 
 - برای بررسی اینکه نسخه جدیدتری در گیت‌هاب (`api.github.com`) موجود است یا خیر؛ کمی پس از اجرا و سپس هر چند ساعت یک‌بار.
   می‌توانید این قابلیت را در تنظیمات → درباره ("بررسی خودکار برای به‌روزرسانی") غیرفعال کنید.
-- برای دانلود موتورهای تبدیلی که خودتان نصب آن‌ها را انتخاب می‌کنید، از آدرس‌های رسمی مشخص‌شده در [`engines.json`](../../src/Filee.Engines/Infrastructure/engines.json)، و زبان‌های تشخیص متن (OCR) مورد استفاده یک پیش‌تنظیم در [`ocr-languages.json`](../../src/Filee.Engines/Infrastructure/ocr-languages.json).
+- برای دانلود موتورهای تبدیلی که خودتان نصب آن‌ها را انتخاب می‌کنید، از آدرس‌های رسمی مشخص‌شده در [`engines.json`](../../src/Tsudev.Files.Engines/Infrastructure/engines.json)، و زبان‌های تشخیص متن (OCR) مورد استفاده یک پیش‌تنظیم در [`ocr-languages.json`](../../src/Tsudev.Files.Engines/Infrastructure/ocr-languages.json).
 - هنگام کلیک روی یک پیوند، که مرورگر وب شما را باز می‌کند.
 
 ## حمایت مالی
@@ -248,7 +248,7 @@ Filee رایگان است و رایگان خواهد ماند.
 حامیان ماهانه با نام در اینجا ذکر می‌شوند و حامیان ویژه لوگوی خود را در اینجا و صفحه درباره Filee دریافت می‌کنند.
 حامیان یک‌باره نیز در صورت تمایل می‌توانند در لیست قرار گیرند.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center" dir="ltr">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

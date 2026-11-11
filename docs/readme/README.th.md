@@ -203,7 +203,7 @@ filee watch D:\Inbox --to pdf --move-originals
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # ดาวน์โหลดเครื่องมือแปลงไฟล์เสริม
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -230,7 +230,7 @@ Filee ทำการแปลงไฟล์ภายในเครื่อ�
 การเชื่อมต่ออินเทอร์เน็ตจะเกิดขึ้นเฉพาะในกรณีต่อไปนี้:
 
 - ตรวจสอบเวอร์ชันใหม่กับ GitHub (`api.github.com`) หลังเปิดโปรแกรมและทุกๆ สองสามชั่วโมง (ปิดได้ที่ การตั้งค่า → เกี่ยวกับ "ตรวจสอบการอัปเดตอัตโนมัติ")
-- ดาวน์โหลดเครื่องมือแปลงไฟล์ที่คุณเลือกติดตั้ง จากแหล่งทางการที่ระบุไว้ใน [`engines.json`](../../src/Filee.Engines/Infrastructure/engines.json) และภาษาสำหรับการรู้จำข้อความ (OCR) ที่พรีเซ็ตใช้ ซึ่งระบุไว้ใน [`ocr-languages.json`](../../src/Filee.Engines/Infrastructure/ocr-languages.json)
+- ดาวน์โหลดเครื่องมือแปลงไฟล์ที่คุณเลือกติดตั้ง จากแหล่งทางการที่ระบุไว้ใน [`engines.json`](../../src/Tsudev.Files.Engines/Infrastructure/engines.json) และภาษาสำหรับการรู้จำข้อความ (OCR) ที่พรีเซ็ตใช้ ซึ่งระบุไว้ใน [`ocr-languages.json`](../../src/Tsudev.Files.Engines/Infrastructure/ocr-languages.json)
 - เมื่อคุณคลิกลิงก์ ซึ่งจะเปิดหน้าเว็บในเบราว์เซอร์ของคุณ
 
 ## ผู้สนับสนุน (Sponsor)
@@ -242,7 +242,7 @@ Filee ใช้งานได้ฟรีและจะฟรีตลอด�
 ผู้สนับสนุนรายเดือนจะได้รับการแสดงชื่อไว้ที่นี่ และผู้สนับสนุนระดับโลโก้จะได้แสดงโลโก้ทั้งที่นี่และในหน้าเกี่ยวกับของ Filee
 ผู้ที่สนับสนุนครั้งเดียวก็ขอให้แสดงชื่อได้เช่นกัน
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
