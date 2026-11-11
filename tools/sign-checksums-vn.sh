@@ -11,7 +11,9 @@
 # An toàn:
 #   - Từ chối khóa nằm trong bất kỳ git working tree nào (một commit là lộ khóa).
 #   - Từ chối khóa có quyền đọc cho group/other.
-#   - Đối chiếu khóa công khai với FileeUpdatePublicKey trong Directory.Build.props trước khi ký.
+#   - Đối chiếu khóa công khai với vòng khóa FileeUpdatePublicKey ("<chính>|<dự phòng>") trước khi ký.
+#   - Khóa đã mã hóa (tools/khoa-ky-vn.sh ma-hoa): hỏi passphrase MỘT lần, truyền cho openssl qua fd (không qua
+#     tham số/biến môi trường).
 #   - Tự xác minh lại từng chữ ký sau khi ký.
 set -euo pipefail
 
@@ -36,19 +38,27 @@ fi
 perm="$(stat -c '%a' "$KEY")"
 [[ "$perm" =~ ^[0-7]00$ ]] || die "khóa có quyền $perm; cần 600 (chmod 600 '$KEY')."
 
-own_pub="$(openssl pkey -in "$KEY" -pubout -outform DER | base64 -w0)"
+PASSIN=()
+if grep -q "ENCRYPTED PRIVATE KEY" "$KEY"; then
+  read -rsp "Passphrase của khóa ký: " KEY_PASS; echo >&2
+  PASSIN=(-passin fd:3)
+fi
+ossl() { if (( ${#PASSIN[@]} )); then openssl "$1" "${PASSIN[@]}" "${@:2}" 3<<<"$KEY_PASS"; else openssl "$@"; fi; }
+grep -q "ENCRYPTED PRIVATE KEY" "$KEY" || echo "CẢNH BÁO: khóa ký đang để thô - chạy tools/khoa-ky-vn.sh ma-hoa." >&2
+
+own_pub="$(ossl pkey -in "$KEY" -pubout -outform DER | base64 -w0)"
 build_pub="$(sed -n 's:.*<FileeUpdatePublicKey>\([^<]*\)</FileeUpdatePublicKey>.*:\1:p' "$ROOT/Directory.Build.props" | head -1)"
 if [[ "${TSUDEV_FILES_SKIP_PROPS_CHECK:-0}" != 1 ]]; then
   [[ -n "$build_pub" ]] || die "Directory.Build.props không có FileeUpdatePublicKey."
-  [[ "$own_pub" == "$build_pub" ]] || die "khóa bí mật KHÔNG khớp FileeUpdatePublicKey trong Directory.Build.props."
+  [[ "|${build_pub// /}|" == *"|$own_pub|"* ]] || die "khóa bí mật KHÔNG thuộc vòng khóa FileeUpdatePublicKey trong Directory.Build.props."
 fi
 
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
-openssl pkey -in "$KEY" -pubout -out "$tmp/pub.pem"
+ossl pkey -in "$KEY" -pubout -out "$tmp/pub.pem"
 
 for f in "$@"; do
   [[ -f "$f" ]] || die "không thấy $f"
-  openssl dgst -sha256 -sign "$KEY" -out "$tmp/sig.der" "$f"
+  ossl dgst -sha256 -sign "$KEY" -out "$tmp/sig.der" "$f"
   # DER (SEQUENCE{INTEGER r, INTEGER s}) -> r||s 64 byte, base64.
   python3 -I - "$tmp/sig.der" "$f.sig" <<'PY'
 import base64, sys

@@ -4,6 +4,7 @@
 //    bản phát hành của repo gốc, hoặc từ chối mọi bản của fork).
 // Khóa dùng ở đây là khóa THỬ, tạo riêng cho test và đã hủy; không liên quan khóa phát hành thật.
 
+using System.Security.Cryptography;
 using System.Text;
 using Filee.App.Services;
 using Filee.Core;
@@ -41,12 +42,56 @@ public sealed class ForkUpdateTests
 
         var key = Value("FileeUpdatePublicKey");
         Assert.False(string.IsNullOrWhiteSpace(key));
-        Assert.NotEqual(UpstreamPublicKey, key);
+        var ring = UpdateSignature.Keys(key);
+        // Khóa chính + ít nhất một khóa dự phòng ngoại tuyến, khác nhau, không có khóa upstream.
+        Assert.InRange(ring.Length, 2, UpdateSignature.MaxKeys);
+        Assert.Equal(ring.Length, ring.Distinct().Count());
+        Assert.DoesNotContain(UpstreamPublicKey, ring);
+        foreach (var k in ring)
+        {
+            using var ec = ECDsa.Create();
+            ec.ImportSubjectPublicKeyInfo(Convert.FromBase64String(k), out _);
+            Assert.Equal(ECCurve.NamedCurves.nistP256.Oid.Value, ec.ExportParameters(false).Curve.Oid.Value);
+        }
         Assert.True(string.IsNullOrEmpty(Value("FileeExpectedPublisher")), "chưa có chứng thư riêng thì không ghim nhà phát hành");
         Assert.Equal(ForkDefaults.RepositoryUrl, Value("FileeRepositoryUrl"));
         Assert.Equal(ForkDefaults.RepositoryUrl, UpdateService.RepositoryUrl);
         Assert.StartsWith(ForkDefaults.RepositoryUrl, UpdateService.WebsiteUrl);
     }
+
+    [Fact]
+    public void Key_ring_accepts_a_signature_of_any_of_its_keys()
+    {
+        using var primary = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+        using var backup = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+        using var stranger = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+        var data = "abc  tsudev-files-9.9.9-win-Setup.exe\n"u8.ToArray();
+        var ring = $"{Pub(primary)} | {Pub(backup)}";
+
+        Assert.True(UpdateSignature.Verify(data, Sign(primary, data), ring));
+        Assert.True(UpdateSignature.Verify(data, Sign(backup, data), ring));
+        Assert.False(UpdateSignature.Verify(data, Sign(stranger, data), ring));
+        // Một khóa hỏng trong vòng không làm hỏng các khóa còn lại.
+        Assert.True(UpdateSignature.Verify(data, Sign(backup, data), $"AAAA|{Pub(backup)}"));
+        // Quá nhiều khóa: nghi bị chèn, từ chối hết.
+        var tooMany = string.Join('|', Enumerable.Repeat(Pub(primary), UpdateSignature.MaxKeys + 1));
+        Assert.False(UpdateSignature.Verify(data, Sign(primary, data), tooMany));
+        Assert.False(UpdateSignature.Verify(data, Sign(primary, data), ""));
+    }
+
+    [Fact]
+    public void Key_with_trailing_bytes_is_refused()
+    {
+        using var key = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+        var data = "x"u8.ToArray();
+        var padded = Convert.ToBase64String([.. key.ExportSubjectPublicKeyInfo(), 0, 0]);
+        Assert.False(UpdateSignature.Verify(data, Sign(key, data), padded));
+    }
+
+    private static string Pub(ECDsa key) => Convert.ToBase64String(key.ExportSubjectPublicKeyInfo());
+
+    private static string Sign(ECDsa key, byte[] data) =>
+        Convert.ToBase64String(key.SignData(data, HashAlgorithmName.SHA256, DSASignatureFormat.IeeeP1363FixedFieldConcatenation));
 
     private static string FindRepoRoot()
     {
