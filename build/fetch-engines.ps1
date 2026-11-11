@@ -34,7 +34,7 @@
   Windows on ARM64 (-Runtime win-arm64): rhwp and 7-Zip are ARM64 builds, and "unhwp" is Unhwp's ARM64 library
   (unhwp\unhwp.dll; the build passes it to dotnet with -p:UnhwpNativeLibrary, see build-installer.ps1). rhwp and Unhwp
   have no ARM64 release: .github/workflows/windows-arm64-native.yml builds them from the pinned sources
-  (build/build-native.py), the files are hosted on dl.filee.sh and pinned below ($arm64Pins). Both link the C runtime
+  (build/build-native.py), the files are hosted on tsudev-org/tsudev-files-assets (an immutable release per version) and pinned below ($arm64Pins). Both link the C runtime
   statically, so nothing gets the Microsoft C++ runtime DLLs. Every other engine is the x64 download, which Windows 11
   on ARM runs under emulation.
 
@@ -86,12 +86,12 @@ foreach ($component in $manifest.components.PSObject.Properties) {
 $arm64Pins = [ordered]@{
     rhwp = @{
         Version = '0.8.7'
-        Url = 'https://dl.filee.sh/engines/rhwp/0.8.7/rhwp-v0.8.7-windows-aarch64.zip'
+        Url = 'https://github.com/tsudev-org/tsudev-files-assets/releases/download/rhwp-0.8.7/rhwp-v0.8.7-windows-aarch64.zip'
         Sha256 = 'EAC4F747115AA061208FB20E2727E67C8A8AE6AAA60D74F139A9DD6BCBA83172'
     }
     unhwp = @{
         Version = '0.13.0'
-        Url = 'https://dl.filee.sh/engines/unhwp/0.13.0/unhwp-0.13.0-win-arm64.dll'
+        Url = 'https://github.com/tsudev-org/tsudev-files-assets/releases/download/unhwp-0.13.0/unhwp-0.13.0-win-arm64.dll'
         Sha256 = '2D9760720F281E49B5D472437849E7C66704F8DF0330F378CE350D1561F16621'
     }
     # The official ARM64 installer, a 7z self-extracting archive; it is unpacked, never run.

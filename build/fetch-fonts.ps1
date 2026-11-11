@@ -26,10 +26,10 @@ $arabic = "$noto/NotoSansArabic/hinted/ttf"
 $thai = "$noto/NotoSansThai/hinted/ttf"
 $cjk = 'https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/Sans/SubsetOTF'
 
-# The same files on Filee's download mirror (R2 bucket filee-downloads), kept under their SHA-256 so that a new version
-# never replaces one an older branch pins. Copy a new or bumped file there too:
-#   npx wrangler r2 object put filee-downloads/fonts/<SHA-256>/<name> --file <file> --remote
-$mirror = 'https://dl.filee.sh/fonts'
+# tsudev-files: the same files on tsudev's mirror, an immutable release of tsudev-org/tsudev-files-assets. A new or
+# bumped file goes into a new release (fonts-<n+1>) so that a version an older branch pins is never replaced:
+#   gh release create fonts-<n+1> -R tsudev-org/tsudev-files-assets <files>
+$mirror = 'https://github.com/tsudev-org/tsudev-files-assets/releases/download/fonts-1'
 
 # File name => (URL, SHA-256). Update both together when bumping a version.
 $fonts = [ordered]@{
@@ -73,7 +73,7 @@ foreach ($name in $fonts.Keys) {
     Write-Host "get  $name"
     # A source can fail for a moment (a 503 has stopped whole CI jobs): once more, then the mirror. The checksum decides.
     $actual = $null
-    foreach ($source in $url, $url, "$mirror/$expected/$name") {
+    foreach ($source in $url, $url, "$mirror/$name") {
         try {
             Invoke-WebRequest -Uri $source -OutFile $target -UseBasicParsing
             $actual = (Get-FileHash $target -Algorithm SHA256).Hash
