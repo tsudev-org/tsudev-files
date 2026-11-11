@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261111-01
 - **Từ**: phiên tsudev-files-97 (10-11/11/2026) - **Đến**: phiên kế tiếp của repo này
 - **Thời điểm**: 11/11/2026 (chủ dự án đóng phiên để tiết kiệm ngữ cảnh)
-- **Trạng thái**: CHỜ NHẬN
+- **Trạng thái**: ĐÃ NHẬN (tsudev-files-61, 11/11/2026)
 - **Nhánh git**: `main` (sạch, khớp `origin/main` @ `2feb4d43`). Không có PR mở.
 
 ## 0. Đọc trước
@@ -78,4 +78,6 @@
 
 ## 7. Kết quả xử lý (agent nhận điền sau khi thực hiện)
 
--
+- 11/11/2026 tsudev-files-61: 2.1 vẫn cần chủ dự án (thêm `feat/packaging-package-json`); `delete_branch_on_merge`
+  vẫn `false`. 2.2: PR #1339 upstream còn OPEN, upstream chưa có bản sau 2.4.0; sao lưu `dl.filee.sh` và Authenticode
+  chờ chủ dự án quyết. 2.3/2.4: chưa tới lượt. Chuyển tiếp sang phiếu `20261111-04`.
