@@ -5,6 +5,8 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
+- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261111-04_ban-giao-packaging-va-chung-thuc.md`.
+
 - [ ] Dọn nhánh đã gộp trên `origin` (agent bị chặn xóa nhánh từ xa): chủ dự án chạy lệnh trong phiếu
       `20261111-01` mục 2.1 (+ `feat/packaging-package-json` sau khi gộp) và bật "Automatically delete head branches".
 - [ ] Sao lưu các tệp build đang tải từ `dl.filee.sh` (máy chủ upstream: engine Windows ARM, Magick.Native macOS, font -
@@ -33,7 +35,7 @@
 - 11/11/2026 - Phiếu `20261111-02`: thêm `packaging/package.json` (schema 1, khớp tên tệp Release `v2.4.0-vn.1`;
   `revision` = `vn.1`); gửi phiếu sửa bộ dựng cho `linux-packages`. Phiếu `20261111-03` (tài khoản gh): đã đọc, dùng
   mục 2. `release.yml`: thêm bước `actions/attest-build-provenance` v4.2.2 (PACKAGING.md mục 4.1) - có hiệu lực từ bản
-  2.4.1; cách kiểm ở `docs/vi/PHAT-HANH.md` bước 5.
+  2.4.1; cách kiểm ở `docs/vi/PHAT-HANH.md` bước 5. PR #40 (CI 19/19 xanh) đã gộp, `3875c931`.
 
 - 11/11/2026 - PR #36 thay PR #31 (Dependabot NuGet, đỏ mọi job): nâng Avalonia 12.1.6, Logging/Pkcs 10.0.15, Magick.NET
   15.1.0, Markdig 1.6.0, ExcelNumberFormat 1.2.0, AngleSharp 1.10.1, Tomlyn 2.11.1, MsgReader 6.2.1. CI 20/20 xanh.
