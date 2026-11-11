@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "name": "tsudev-files",
+  "winget": "tsudev.Files",
+  "homepage": "https://files.tsudev.com",
+  "license": "MIT",
+  "description": {
+    "vi": "Chuyển đổi tệp ngoại tuyến 260+ định dạng - bản Việt hóa, gia cố bảo mật của Filee",
+    "en": "Offline file converter for 260+ formats - Vietnamese, security-hardened Filee"
+  },
+  "release": {
+    "repo": "tsudev-org/tsudev-files",
+    "tagRegex": "^v(?<version>\\d+\\.\\d+\\.\\d+)-(?<revision>vn\\.\\d+)$",
+    "sums": "tsudev-files-{tagVersion}-SHA256SUMS.txt"
+  },
+  "assets": {
+    "windows-x64": {
+      "file": "tsudev-files-{tagVersion}-win-Portable.zip",
+      "kind": "portable",
+      "bin": "filee-cli.exe",
+      "gui": "Filee.exe"
+    },
+    "windows-x64-installer": {
+      "file": "tsudev-files-{tagVersion}-win-Setup.exe",
+      "kind": "installer"
+    },
+    "linux-x64": {
+      "file": "tsudev-files-{tagVersion}-linux-x64.tar.gz",
+      "kind": "tar",
+      "root": "tsudev-files-{tagVersion}-linux-x64",
+      "sums": "tsudev-files-{tagVersion}-linux-x64-SHA256SUMS.txt",
+      "bin": "filee-cli"
+    },
+    "linux-arm64": {
+      "file": "tsudev-files-{tagVersion}-linux-arm64.tar.gz",
+      "kind": "tar",
+      "root": "tsudev-files-{tagVersion}-linux-arm64",
+      "sums": "tsudev-files-{tagVersion}-linux-arm64-SHA256SUMS.txt",
+      "bin": "filee-cli"
+    },
+    "macos-arm64": {
+      "file": "tsudev-files-{tagVersion}-osx-arm64.tar.gz",
+      "kind": "tar",
+      "root": "tsudev-files-{tagVersion}-osx-arm64",
+      "sums": "tsudev-files-{tagVersion}-osx-arm64-SHA256SUMS.txt",
+      "app": "Filee.app",
+      "bin": "Filee.app/Contents/MacOS/filee-cli"
+    },
+    "macos-x64": {
+      "file": "tsudev-files-{tagVersion}-osx-x64.tar.gz",
+      "kind": "tar",
+      "root": "tsudev-files-{tagVersion}-osx-x64",
+      "sums": "tsudev-files-{tagVersion}-osx-x64-SHA256SUMS.txt",
+      "app": "Filee.app",
+      "bin": "Filee.app/Contents/MacOS/filee-cli"
+    }
+  },
+  "linux": {
+    "command": "tsudev-files",
+    "links": {
+      "filee": "filee-cli"
+    },
+    "icon": "filee.png",
+    "desktop": {
+      "name": "tsudev Files",
+      "exec": "Filee --convert %F",
+      "genericName": {
+        "vi": "Chuyển đổi tệp",
+        "en": "File converter"
+      },
+      "categories": [
+        "Utility"
+      ],
+      "keywords": [
+        "Filee",
+        "convert",
+        "PDF",
+        "image",
+        "video",
+        "chuyển đổi"
+      ],
+      "wmClass": "Filee"
+    },
+    "deb": {
+      "depends": [
+        "libc6 (>= 2.31)",
+        "libgcc-s1",
+        "libstdc++6",
+        "libssl3 | libssl3t64",
+        "libicu78 | libicu77 | libicu76 | libicu74 | libicu72 | libicu70",
+        "libfontconfig1",
+        "libx11-6",
+        "libice6",
+        "libsm6"
+      ],
+      "section": "utils"
+    },
+    "rpm": {
+      "depends": [
+        "libstdc++.so.6()(64bit)",
+        "libssl.so.3()(64bit)",
+        "libicu",
+        "libfontconfig.so.1()(64bit)",
+        "libX11.so.6()(64bit)",
+        "libICE.so.6()(64bit)",
+        "libSM.so.6()(64bit)"
+      ],
+      "group": "Applications/File"
+    }
+  },
+  "channels": [
+    "scoop",
+    "brew"
+  ],
+  "planned": [
+    "winget",
+    "apt",
+    "rpm"
+  ]
+}
