@@ -15,7 +15,7 @@ The command is `filee` on every OS. If the shell can't find it, Filee may be ins
 filee version
 ```
 
-It prints something like `filee 2.2.0` and exits with 0. If the command doesn't exist and you can't find the install, tell the user to download Filee from https://filee.sh and stop.
+It prints something like `filee 2.2.0` and exits with 0. If the command doesn't exist and you can't find the install, tell the user to download tsudev-files from https://files.tsudev.com/tai-ve/ and stop.
 
 ## 2. Check the conversion first
 
