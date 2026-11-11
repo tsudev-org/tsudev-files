@@ -5,6 +5,8 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
+- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261111-01_ban-giao-sau-phat-hanh-2.4.0-vn.1.md` (dọn nhánh đã gộp, hàng
+      đợi dài hạn, quy trình phát hành đã chạy thật).
 - [ ] Sao lưu các tệp build đang tải từ `dl.filee.sh` (máy chủ upstream: engine Windows ARM, Magick.Native macOS, font -
       `build/fetch-engines.ps1`, `build/fetch-magick-native.ps1`, `build/fetch-fonts.ps1`) sang nơi 0 đồng của tsudev-org,
       giữ nguyên SHA-256 ghim. KHÔNG đặt vào Releases của repo này (trình cập nhật đọc releases/latest) - dùng repo
