@@ -44,7 +44,10 @@
 5. Kiểm tra bản nháp: mỗi `*SHA256SUMS*.txt` đều có `.sig`; mỗi gói có chứng thực nguồn gốc build (từ 2.4.1,
    bước "Attest build provenance" của `release.yml`):
    `gh release download "v$V" -R tsudev-org/tsudev-files -p '*linux-x64.tar.gz' -D "$D" &&
-   gh attestation verify "$D"/*linux-x64.tar.gz -R tsudev-org/tsudev-files`. Rồi xuất bản:
+   gh attestation verify "$D"/*linux-x64.tar.gz -R tsudev-org/tsudev-files`. Có thêm SBOM
+   `tsudev-files-<ver>-sbom.cdx.json` (CycloneDX 1.7, từ 2.4.1) được chứng thực cho mọi gói:
+   `gh attestation verify "$D"/*linux-x64.tar.gz -R tsudev-org/tsudev-files --predicate-type https://cyclonedx.org/bom`.
+   Rồi xuất bản:
    `gh release edit "v$V" -R tsudev-org/tsudev-files --draft=false --latest`.
 6. Bản cài cũ sẽ nhận cập nhật: tải SHA256SUMS -> kiểm chữ ký ECDSA -> kiểm số phiên bản mới hơn -> tải bộ cài ->
    kiểm SHA-256 -> cài. Sai bất kỳ bước nào thì từ chối và mở trang phát hành.

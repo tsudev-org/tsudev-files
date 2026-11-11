@@ -121,6 +121,25 @@ jobs:
           merge-multiple: true
           path: Releases
 
+      # tsudev-files: SBOM CycloneDX 1.7 (mọi gói NuGet kể cả bắc cầu, có SHA-512; bỏ dự án test). Công cụ ghim
+      # phiên bản, dotnet tool kiểm chữ ký gói NuGet khi cài.
+      - name: Generate SBOM (CycloneDX)
+        shell: pwsh
+        run: |
+          $version = '${{ steps.version.outputs.value }}'
+          dotnet tool install CycloneDX --version 6.3.1 --tool-path "$env:RUNNER_TEMP/cdx"
+          & "$env:RUNNER_TEMP/cdx/dotnet-CycloneDX" Filee.slnx --exclude-test-projects --output-format Json `
+            --output Releases --filename "tsudev-files-$version-sbom.cdx.json" --set-name tsudev-files --set-version $version
+          if ($LASTEXITCODE -ne 0) { throw 'CycloneDX failed' }
+
+      # tsudev-files: SBOM được chứng thực gắn với từng tệp phát hành (gh attestation verify --predicate-type
+      # https://cyclonedx.org/bom).
+      - name: Attest SBOM
+        uses: actions/attest-sbom@c604332985a26aa8cf1bdc465b92731239ec6b9e # v4.1.0
+        with:
+          subject-path: 'Releases/tsudev-files-*'
+          sbom-path: 'Releases/tsudev-files-${{ steps.version.outputs.value }}-sbom.cdx.json'
+
       # tsudev-files: chứng thực nguồn gốc build (SLSA, Sigstore) cho mọi tệp phát hành; người dùng kiểm bằng
       # `gh attestation verify <tệp> -R tsudev-org/tsudev-files` (docs/vi/PHAT-HANH.md).
       - name: Attest build provenance

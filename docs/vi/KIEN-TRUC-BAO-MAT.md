@@ -57,7 +57,7 @@
 ## 6. Lộ trình gia cố tiếp theo
 
 - [ ] Chứng thư Authenticode (SignPath OSS) để hết cảnh báo SmartScreen và bật ghim nhà phát hành.
-- [ ] SBOM (CycloneDX) + GitHub artifact attestation cho mỗi bản phát hành.
+- [x] SBOM (CycloneDX 1.7) + GitHub artifact attestation (nguồn gốc build + SBOM) cho mỗi bản phát hành (11/11/2026).
 - [ ] Bật branch protection cho `main`: yêu cầu PR + các check `ci` và `Bảo mật`.
 - [x] Fuzz đột biến cho bộ đọc tự viết (MOBI/PalmDOC/HUFF-CDIC, ICNS, OFD) + kiểm thuộc tính ArchiveSafety: 200 vòng mỗi CI, 20.000 vòng hằng tuần (`fuzz.yml`). Lượt đầu 5.000 vòng/mục tiêu: không lỗi (11/11/2026). Còn HWP/HWPX.
 - [x] Đổi tên hiển thị "Filee" -> "tsudev-files" (09/11/2026, [ADR-0001](../adr/0001-doi-ten-hien-thi-tsudev-files.md)).
