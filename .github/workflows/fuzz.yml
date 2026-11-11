@@ -1,0 +1,32 @@
+# tsudev-files: fuzz sâu hằng tuần cho các bộ đọc định dạng tự viết (tests/Filee.Engines.Tests/ForkFuzzTests.cs).
+# CI thường chạy 200 vòng mỗi mục tiêu; ở đây 20.000. Seed cố định: lỗi tái hiện được bằng cùng số vòng.
+name: Fuzz
+
+on:
+  schedule:
+    - cron: '41 3 * * 0'   # 10:41 Chủ nhật giờ Việt Nam
+  workflow_dispatch:
+    inputs:
+      iterations:
+        description: Số vòng mỗi mục tiêu
+        default: '20000'
+
+permissions:
+  contents: read
+
+jobs:
+  fuzz:
+    name: Fuzz bộ đọc định dạng
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6
+        with:
+          global-json-file: global.json
+      - name: Fuzz
+        env:
+          TSUDEV_FUZZ_ITERATIONS: ${{ inputs.iterations || '20000' }}
+        run: dotnet test tests/Filee.Engines.Tests --filter "FullyQualifiedName~ForkFuzzTests" --logger "console;verbosity=normal"

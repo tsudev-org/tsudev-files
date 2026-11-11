@@ -59,6 +59,6 @@
 - [ ] Chứng thư Authenticode (SignPath OSS) để hết cảnh báo SmartScreen và bật ghim nhà phát hành.
 - [ ] SBOM (CycloneDX) + GitHub artifact attestation cho mỗi bản phát hành.
 - [ ] Bật branch protection cho `main`: yêu cầu PR + các check `ci` và `Bảo mật`.
-- [ ] Fuzz test bộ đọc định dạng tự viết (OFD, HWP, ICNS, MOBI) bằng SharpFuzz.
+- [x] Fuzz đột biến cho bộ đọc tự viết (MOBI/PalmDOC/HUFF-CDIC, ICNS, OFD) + kiểm thuộc tính ArchiveSafety: 200 vòng mỗi CI, 20.000 vòng hằng tuần (`fuzz.yml`). Lượt đầu 5.000 vòng/mục tiêu: không lỗi (11/11/2026). Còn HWP/HWPX.
 - [x] Đổi tên hiển thị "Filee" -> "tsudev-files" (09/11/2026, [ADR-0001](../adr/0001-doi-ten-hien-thi-tsudev-files.md)).
 - [ ] Cài song song với Filee gốc: hiện dùng chung `AppGuid`, khóa registry và thư mục dữ liệu (ADR-0001 mục 4).
