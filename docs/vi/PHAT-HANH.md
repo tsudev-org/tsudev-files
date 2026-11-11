@@ -4,16 +4,28 @@
 
 - Thuật toán: ECDSA P-256 / SHA-256, chữ ký dạng r||s 64 byte, base64, đặt trong `<tệp>.sig` cạnh mỗi tệp
   `*SHA256SUMS*.txt` của bản phát hành.
-- Khóa công khai: `FileeUpdatePublicKey` trong `Directory.Build.props` (được nhúng vào ứng dụng lúc build).
-- Khóa bí mật: `~/.config/tsudev-files/keys/update-key.pem` (quyền 600, **ngoài mọi git working tree**).
-  - `MUST` sao lưu khóa này ra nơi chỉ chủ dự án truy cập (ví dụ: trình quản lý mật khẩu, USB mã hóa). Mất khóa thì mọi
-    bản đã cài không tự cập nhật được nữa; người dùng phải tải tay bản mới mang khóa mới.
-  - `MUST NOT` commit, gửi qua chat/email, hoặc đưa vào GitHub Secrets trừ khi chuyển sang ký trong CI có môi trường
-    được bảo vệ (environment + người duyệt).
-  - Nên mã hóa khóa bằng passphrase: `openssl pkey -in update-key.pem -aes256 -out update-key.enc.pem`
-    (script ký sẽ hỏi passphrase).
-- Khóa bị lộ: tạo khóa mới, cập nhật `FileeUpdatePublicKey`, phát hành bản mới ký bằng **khóa cũ** lần cuối (để bản
-  đã cài nhận được khóa mới), rồi hủy khóa cũ. Ghi sự cố vào `logs/STATE.md` mục "Sự cố bảo mật".
+- **Vòng khóa** (từ 2.4.1): `FileeUpdatePublicKey` trong `Directory.Build.props` chứa 2-4 khóa công khai ngăn bởi `|`
+  (`<khóa chính>|<khóa dự phòng>`), được nhúng vào ứng dụng lúc build. Chữ ký hợp lệ với bất kỳ khóa nào trong vòng
+  thì đạt (`UpdateSignature.Verify`); vòng có hơn 4 khóa bị coi là bị chèn và từ chối hết.
+- Khóa chính: `~/.config/tsudev-files/keys/update-key.pem` - ký mọi bản phát hành.
+- Khóa dự phòng: tạo bằng `tools/khoa-ky-vn.sh tao <đường dẫn>.pem`, cất **ngoại tuyến** (USB mã hóa/két, không để
+  trên máy ký hằng ngày). Chỉ dùng khi khóa chính lộ hoặc mất.
+- Cả hai khóa `MUST` mã hóa bằng passphrase (`tools/khoa-ky-vn.sh ma-hoa <khóa>.pem`: PKCS#8, scrypt + AES-256,
+  ghi đè khóa thô bằng `shred`). `tools/sign-checksums-vn.sh` hỏi passphrase một lần, truyền cho openssl qua fd và
+  cảnh báo nếu khóa còn để thô. Passphrase cất trong trình quản lý mật khẩu, tách nơi cất tệp khóa.
+- Mọi khóa: quyền 600, **ngoài mọi git working tree**; `MUST NOT` commit, gửi qua chat/email, hoặc đưa vào GitHub
+  Secrets trừ khi chuyển sang ký trong CI có môi trường được bảo vệ (environment + người duyệt).
+- Kiểm một khóa có trong vòng không: `tools/khoa-ky-vn.sh kiem <khóa>.pem`.
+
+### 1.1. Thay khóa ký
+
+1. **Khóa chính lộ** (người khác có thể ký): ký bản vá kế tiếp bằng **khóa dự phòng**; trong bản đó bỏ khóa chính cũ
+   khỏi vòng và thêm một khóa dự phòng MỚI (`tools/khoa-ky-vn.sh tao`). Bản đã cài nhận bản vá nhờ khóa dự phòng,
+   từ đó không còn tin khóa bị lộ. Khóa dự phòng cũ trở thành khóa chính.
+2. **Khóa chính mất** (không lộ): làm như trên, không gấp.
+3. **Thay định kỳ** (khuyến nghị 2 năm/lần): thêm khóa mới vào vòng ở một bản, ký bằng khóa mới từ bản sau, rồi bỏ
+   khóa cũ ở bản sau nữa.
+4. Mọi lần thay khóa: ghi vào `logs/STATE.md` mục "Sự cố bảo mật" (nếu lộ) và "Quyết định quan trọng".
 
 ## 2. Số phiên bản
 

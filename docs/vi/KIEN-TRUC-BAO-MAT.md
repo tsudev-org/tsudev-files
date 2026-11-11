@@ -20,7 +20,7 @@
 | Ghi tệp ra ngoài thư mục đích | "zip slip", liên kết tượng trưng trong tệp nén | `Archives/ArchiveSafety.cs`: chặn đường dẫn thoát thư mục, symlink, nội dung mã hóa, "entry bomb", kiểm dung lượng trống |
 | Rò rỉ dữ liệu/SSRF khi chuyển đổi | Tài liệu nhúng liên kết tới URL/tệp ngoài | `Office/LinkedContent.cs`, `Web/LocalNetwork.cs`; MsgReader 6.2 không đọc tệp đính kèm theo tham chiếu |
 | Từ chối dịch vụ | Tệp "bom" giải nén, ảnh khổng lồ | Giới hạn số mục, dung lượng; tiến trình có thể hủy |
-| Cập nhật giả mạo | Chiếm repo/CDN, MITM | HTTPS + SHA-256 + **chữ ký ECDSA P-256 riêng của fork** trên SHA256SUMS + chống hạ cấp (chỉ nhận số phiên bản lớn hơn) |
+| Cập nhật giả mạo | Chiếm repo/CDN, MITM | HTTPS + SHA-256 + **chữ ký ECDSA P-256 riêng của fork** trên SHA256SUMS (vòng khóa chính + dự phòng ngoại tuyến, khóa bí mật mã hóa scrypt/AES-256) + chống hạ cấp (số phiên bản nằm trong tệp đã ký) |
 | Engine tải về bị tráo | Chiếm nguồn tải FFmpeg/LibreOffice/... | SHA-256 ghim sẵn trong mã (`EngineDownloads`/`EngineInstaller`), sai thì hủy |
 | Chuỗi cung ứng CI | Tag action bị sửa, workflow bị lạm dụng | Action ghim SHA commit, `permissions` tối thiểu, `persist-credentials: false` ở workflow mới, `pull_request_target` không checkout mã PR |
 | Lộ bí mật trong repo | Commit nhầm khóa/token | gitleaks trong CI, `.gitignore` chuẩn tsudev, cổng kiểm `scripts/check-standards.sh` |
