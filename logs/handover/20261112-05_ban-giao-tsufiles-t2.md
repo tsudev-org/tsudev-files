@@ -65,4 +65,9 @@
 
 ## 5. Kết quả xử lý
 
--
+- Kết quả của phiên tsufiles-02 (người nhận phiếu điền tiếp bên dưới):
+  - CI #46 và #47: `build`, gitleaks, website, bản dịch, quy ước xanh. `portable (macos-15, osx-arm64)` đỏ ở #46 nhưng
+    xanh ở #47 (cùng cây mã) - chập chờn. Check "CodeQL" đỏ: 4 cảnh báo cũ ở `Program.cs` (mục 1 STATE), không bắt buộc.
+  - Gộp #46, #47 lúc 12/11/2026, `main` @ `39af4028`.
+  - Website chưa deploy lại (agent bị chặn): chủ dự án chạy `! cd website && npm run deploy`, rồi nghiệm thu favicon
+    con cú, `/ung-ho/`, og-image theo phiếu `20261112-03` mục 2.3.
