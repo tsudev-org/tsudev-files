@@ -5,9 +5,9 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261112-05_ban-giao-tsufiles-t2.md` - đổi tên sản phẩm thành **TsuFiles**
-      (ADR-0003): T2 mã nguồn + hiển thị + kiểu giao diện Cú đêm -> T3 bản 2.4.1 (định danh lúc chạy, di trú, bắt buộc
-      cập nhật) -> T4 đổi tên repo. Phiếu `20261112-03` mục 2.5, 2.8 vẫn còn hiệu lực.
+- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261113-01_ban-giao-tsufiles-t3.md` - TsuFiles (ADR-0003): T2 xong (#49),
+      T3a bắt buộc cập nhật PR #50; tiếp T3b định danh lúc chạy + di trú (bản 2.4.1) -> T4 đổi tên repo. Phiếu
+      `20261112-03` mục 2.5, 2.8 vẫn còn hiệu lực.
 
 - [ ] Kế hoạch gia cố + hard fork (11/11/2026), mỗi phase một PR, làm theo thứ tự:
   - P1 PR #42 tải tệp build từ `tsudev-org/tsudev-files-assets` - CHỜ chủ dự án tạo repo assets (job win-arm64 đỏ tới lúc đó).
@@ -57,9 +57,12 @@
 
 | Task | Agent | Bắt đầu |
 | --- | --- | --- |
-| T2 TsuFiles (mã nguồn + hiển thị + Cú đêm), nhánh `feat/t2-tsufiles-ma-nguon` | tsudev-files-b3 | 12/11/2026 |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 13/11/2026 - ADR-0003 T2 gộp PR #49 (`290456b4`): `Tsudev.Files.*` -> `TsuFiles.*`, `TsuFiles.slnx`, tên hiển thị
+  TsuFiles, kiểu giao diện Cú đêm (`ThemeStyle.NightOwl`, mặc định bản cài mới + Tối), logo `tsufiles-mark.*`, og-image.
+  T3a bắt buộc cập nhật: PR #50 (`VersionGate`, `ForcedUpdateService`, `website/public/phien-ban.json`). Phiếu: `20261113-01`.
 
 - 12/11/2026 - Phiếu `20261112-03` mục 2.1-2.2: sửa thứ tự `using` (`2d02d52b`), gộp PR #46 (P5a) và #47 (P6, thêm
   logo cú TsuFiles - T1 của ADR-0003), `main` @ `39af4028`. CodeQL báo 4 `cs/cleartext-storage` ở `Program.cs` là cảnh
@@ -114,6 +117,15 @@
 - 09/11/2026 - Khởi tạo fork từ `KnifeLemon/Filee@64890f1e` (v2.4.0): rà soát an toàn, tiếng Việt mặc định (GUI, Setup, CLI), trình cập nhật trỏ về repo riêng + khóa ký riêng, ghim action theo SHA, thêm CodeQL/gitleaks/Dependabot/kiểm tra bản dịch.
 
 ## Quyết định quan trọng
+
+- 13/11/2026 - Tên còn phụ thuộc bởi bản 2.4.0-vn.1 đã cài (lối tắt `tsudev-files.lnk`, script Nautilus, tiền tố tệp
+  phát hành) gom vào `ForkDefaults.InstalledName`; chỉ đổi ở T3b cùng di trú. Trình cập nhật đã nhận cả tiền tố
+  `Filee-`, `tsudev-files-`, `tsufiles-`.
+- 13/11/2026 - Kiểu Cú đêm: tím logo đo được `#8840F0` không đạt 4.5:1 làm chữ trên nền tối, nên dùng `#A06BF5` (tối),
+  `#6A2BD0` (sáng); màu nhấn cố định, ẩn bộ chọn màu nhấn. Bản cài mới (chưa có settings.json) = Cú đêm + Tối; test App
+  dựng theo Soft (`TestApp.cs` đặt lại `Theme`).
+- 13/11/2026 - Bắt buộc cập nhật so `ForkDefaults.BuildNumber` (1 = 2.4.0-vn.1, 2 = 2.4.1, +1 mỗi bản). Bản cũ còn
+  dùng được không thêm hộp thoại (thẻ cập nhật sẵn có đã nhắc). Quy trình: `docs/vi/CAP-NHAT-BAT-BUOC.md`.
 
 - 12/11/2026 - Tên sản phẩm **TsuFiles**, logo con cú, lệnh `tsufiles` (bỏ `filee` không bí danh), namespace
   `TsuFiles.*`, kiểu giao diện Cú đêm mặc định, repo đổi thành `tsudev-org/tsufiles` ở phase cuối:
