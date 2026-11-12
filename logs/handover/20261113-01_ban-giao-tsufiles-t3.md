@@ -30,7 +30,8 @@
 ## 2. Việc tiếp theo
 
 - [x] 2.1. Gộp #50 - xong (mục 5).
-- [ ] 2.2. **Chủ dự án deploy website** sau khi #49/#50 gộp: `! cd website && npm run deploy`. Nghiệm thu: tiêu đề
+- [x] 2.2. (Xong 13/11/2026, phiên bản Worker `f30e00a3`; đã kiểm tiêu đề, logo, `phien-ban.json` 200 + max-age=300.)
+      **Chủ dự án deploy website** sau khi #49/#50 gộp: `! cd website && npm run deploy`. Nghiệm thu: tiêu đề
       "TsuFiles | tsudev", logo/og-image con cú, `https://files.tsudev.com/phien-ban.json` trả
       `{"schema":1,"phienBan":"2.4.0","moiNhat":1,"toiThieu":1}`. Đổi og-image thì tải lại Social preview của repo
       (chỉ làm được qua giao diện web).
