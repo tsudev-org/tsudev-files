@@ -203,7 +203,7 @@ Compilez avec le SDK .NET 10 sous Windows, macOS ou Linux :
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # optional engines
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -231,7 +231,7 @@ Il ne se connecte à Internet que :
 
 - pour demander à GitHub (`api.github.com`) si une nouvelle version existe, peu après le démarrage puis toutes les quelques heures.
   Désactivez-le dans Paramètres → À propos (« Rechercher automatiquement les mises à jour »).
-- pour télécharger les moteurs de conversion que vous choisissez d'installer, depuis les emplacements officiels fixés dans [`engines.json`](../../src/Filee.Engines/Infrastructure/engines.json), et les langues de reconnaissance de texte (OCR) qu'un préréglage utilise, fixées dans [`ocr-languages.json`](../../src/Filee.Engines/Infrastructure/ocr-languages.json).
+- pour télécharger les moteurs de conversion que vous choisissez d'installer, depuis les emplacements officiels fixés dans [`engines.json`](../../src/Tsudev.Files.Engines/Infrastructure/engines.json), et les langues de reconnaissance de texte (OCR) qu'un préréglage utilise, fixées dans [`ocr-languages.json`](../../src/Tsudev.Files.Engines/Infrastructure/ocr-languages.json).
 - quand vous cliquez sur un lien, ce qui ouvre votre navigateur web.
 
 ## Soutenir Filee
@@ -243,7 +243,7 @@ Si vous souhaitez le soutenir, choisissez le moyen qui vous convient ([Fairy](ht
 Les soutiens mensuels sont cités ici par leur nom, et les sponsors ont leur logo ici et sur la page À propos de Filee.
 Les soutiens ponctuels peuvent aussi demander à y figurer.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

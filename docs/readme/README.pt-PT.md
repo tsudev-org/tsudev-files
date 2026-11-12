@@ -203,7 +203,7 @@ Compila com o SDK do .NET 10 em Windows, macOS ou Linux:
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # motores opcionais
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -231,7 +231,7 @@ Só se liga à Internet:
 
 - para perguntar ao GitHub (`api.github.com`) se existe uma versão mais recente, pouco depois do arranque e, depois, a cada poucas horas.
   Podes desativar esta opção em Definições → Acerca de ("Procurar atualizações automaticamente").
-- para descarregar os motores de conversão que escolheres instalar, a partir dos endereços oficiais fixados em [`engines.json`](../../src/Filee.Engines/Infrastructure/engines.json), e os idiomas de reconhecimento de texto (OCR) usados por uma predefinição, fixados em [`ocr-languages.json`](../../src/Filee.Engines/Infrastructure/ocr-languages.json).
+- para descarregar os motores de conversão que escolheres instalar, a partir dos endereços oficiais fixados em [`engines.json`](../../src/Tsudev.Files.Engines/Infrastructure/engines.json), e os idiomas de reconhecimento de texto (OCR) usados por uma predefinição, fixados em [`ocr-languages.json`](../../src/Tsudev.Files.Engines/Infrastructure/ocr-languages.json).
 - quando clicas numa ligação, que abre o navegador.
 
 ## Apoiar
@@ -243,7 +243,7 @@ Se quiseres apoiar o projeto, escolhe a forma que preferires ([Fairy](https://fa
 Quem contribui mensalmente é mencionado aqui pelo nome, e os patrocinadores têm o seu logótipo aqui e na página Acerca de do Filee.
 Quem faz uma contribuição pontual também pode pedir para ser mencionado.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

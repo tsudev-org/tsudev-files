@@ -3,13 +3,13 @@
 // Uses the Windows packaging API (AppxPackaging.dll, part of Windows 10/11): it validates the manifest and writes the
 // block map and content types exactly like MakeAppx, so no Windows SDK is needed. The manifest comes from
 // ExplorerMenuPackage.CreateManifest (unit tested).
-#:project ../../src/Filee.Platform.Windows/Filee.Platform.Windows.csproj
+#:project ../../src/Tsudev.Files.Platform.Windows/Tsudev.Files.Platform.Windows.csproj
 #:property AllowUnsafeBlocks=true
 #:property PublishAot=false
 
 using System.Runtime.InteropServices;
 using System.Text;
-using Filee.Platform.Windows;
+using Tsudev.Files.Platform.Windows;
 
 if (args.Length is < 1 or > 2 || (args.Length == 2 && !ExplorerMenuPackage.Architectures.Contains(args[1])))
 {
@@ -21,7 +21,7 @@ var architecture = args.Length == 2 ? args[1] : ExplorerMenuPackage.Architecture
 var output = Path.GetFullPath(args[0]);
 Directory.CreateDirectory(output);
 var repo = Environment.CurrentDirectory;
-while (!File.Exists(Path.Combine(repo, "Filee.slnx")))
+while (!File.Exists(Path.Combine(repo, "tsudev-files.slnx")))
     repo = Path.GetDirectoryName(repo) ?? throw new InvalidOperationException("Run this from inside the Filee repository.");
 
 var work = Directory.CreateTempSubdirectory("filee-msix-");
@@ -30,7 +30,7 @@ try
     var manifestPath = Path.Combine(work.FullName, "AppxManifest.xml");
     File.WriteAllText(manifestPath, ExplorerMenuPackage.CreateManifest(architecture), new UTF8Encoding(false));
     var packagePath = Path.Combine(output, ExplorerMenuPackage.PackageFileName);
-    var logo = Path.Combine(repo, "src", "Filee.App", "Assets", "Icons", "filee.png");
+    var logo = Path.Combine(repo, "src", "Tsudev.Files.App", "Assets", "Icons", "filee.png");
     Appx.Pack(packagePath, manifestPath, [(ExplorerMenuPackage.LogoPath, logo, "image/png")]);
     Console.WriteLine($"Wrote {packagePath} ({new FileInfo(packagePath).Length:N0} bytes, manifest {ExplorerMenuPackage.ManifestVersion}, {architecture})");
 }

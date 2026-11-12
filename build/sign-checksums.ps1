@@ -4,7 +4,7 @@
 
 .DESCRIPTION
   The signature is ECDSA P-256 over the SHA-256 of the file's bytes, as base64 of r and s (64 bytes) on one line. The
-  in-app updater of an official build checks it with the public key the build carries (FileeUpdatePublicKey in
+  in-app updater of an official build checks it with the public key the build carries (TsudevFilesUpdatePublicKey in
   Directory.Build.props) and refuses an update without it. build/sign-release.ps1 runs this; the key comes from
   build/new-update-key.ps1. Every signature is checked again before the script ends; with -PublicKey, also that the
   private key is the one that public key belongs to. Outputs the paths of the .sig files.
@@ -48,7 +48,7 @@ try {
     }
     $own = [Convert]::ToBase64String($key.ExportSubjectPublicKeyInfo())
     if ($PublicKey -and $PublicKey.Trim() -ne $own) {
-        throw "$PrivateKeyPath does not belong to the public key the build carries (FileeUpdatePublicKey)."
+        throw "$PrivateKeyPath does not belong to the public key the build carries (TsudevFilesUpdatePublicKey)."
     }
     $verifier.ImportSubjectPublicKeyInfo([Convert]::FromBase64String($own), [ref]$null)
 

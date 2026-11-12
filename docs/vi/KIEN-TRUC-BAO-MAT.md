@@ -37,7 +37,7 @@
 
 ## 4. Nguyên tắc khi sửa mã
 
-1. Mọi khác biệt của fork gom vào `src/Filee.Core/ForkDefaults.cs` (giá trị lúc chạy) và `Directory.Build.props`
+1. Mọi khác biệt của fork gom vào `src/Tsudev.Files.Core/ForkDefaults.cs` (giá trị lúc chạy) và `Directory.Build.props`
    (giá trị lúc build). Không rải URL/khóa khắp mã.
 2. Không thêm bất kỳ lệnh gọi mạng nào trong luồng chuyển đổi. Tính năng cần mạng (cập nhật, tải engine, Ollama cục
    bộ) phải có kiểm tra toàn vẹn và mặc định an toàn.

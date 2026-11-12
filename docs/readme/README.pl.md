@@ -203,7 +203,7 @@ Zbuduj projekt za pomocą .NET 10 SDK w systemie Windows, macOS lub Linux:
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # optional engines
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -231,7 +231,7 @@ Jeśli chcesz go wesprzeć, wybierz sposób, który Ci odpowiada ([Fairy](https:
 Osoby wspierające co miesiąc wymieniamy tutaj z imienia, a sponsorzy mają swoje logo tutaj i na stronie „O programie” w Filee.
 Jeśli wspierasz jednorazowo, też możesz poprosić o wpis.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

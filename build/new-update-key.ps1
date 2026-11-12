@@ -4,7 +4,7 @@
 
 .DESCRIPTION
   Writes the private key to -PrivateKeyPath (PKCS#8 PEM, encrypted with a passphrase typed twice) and prints the
-  public key. Put the public key into Directory.Build.props as FileeUpdatePublicKey: official builds then refuse an
+  public key. Put the public key into Directory.Build.props as TsudevFilesUpdatePublicKey: official builds then refuse an
   update whose checksum file is not signed with this key, on every platform. build/sign-release.ps1 signs each release
   with the private key (build/sign-checksums.ps1).
 
@@ -76,5 +76,5 @@ finally {
 
 Write-Host "private key: $target (keep it, and a backup, outside the repository)"
 Write-Host ''
-Write-Host 'public key, for <FileeUpdatePublicKey> in Directory.Build.props:'
+Write-Host 'public key, for <TsudevFilesUpdatePublicKey> in Directory.Build.props:'
 Write-Output $publicKey

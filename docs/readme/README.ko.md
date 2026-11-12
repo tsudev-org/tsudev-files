@@ -204,7 +204,7 @@ Windows, macOS, Linux에서 .NET 10 SDK로 빌드해요.
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # optional engines
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -233,7 +233,7 @@ Filee는 앞으로도 무료예요.
 매월 후원하시면 이곳에 이름을, 로고 티어는 이곳과 Filee 정보 페이지에 로고를 올려 드려요.
 한 번 후원하신 분도 원하시면 이름을 올려 드려요.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

@@ -1,7 +1,7 @@
 # Builds the Windows installer and publishes it to GitHub Releases.
 # Trigger: push a tag like v1.0.0  (git tag v1.0.0 && git push origin v1.0.0)
 #
-# Output (build/build-installer.ps1): Filee-<version>-win-Setup.exe (Filee's own installer, src/Filee.Setup),
+# Output (build/build-installer.ps1): Filee-<version>-win-Setup.exe (Filee's own installer, src/Tsudev.Files.Setup),
 # Filee-<version>-win-Portable.zip and Filee-<version>-SHA256SUMS.txt.
 # The release is a draft with the Linux and macOS packages: the Windows files are signed on a PC signed in to Certum's
 # SimplySign cloud (its key needs a phone token), so this run keeps the tested, unsigned build as the artifact
@@ -75,13 +75,13 @@ jobs:
       # Built first and tested like CI: the UI tests on their own with crash and hang blame (a crash names the
       # running test and leaves a dump in TestResults), then the rest.
       - name: Build
-        run: dotnet build Filee.slnx -c Release
+        run: dotnet build tsudev-files.slnx -c Release
 
       - name: Test UI on its own
-        run: dotnet test tests/Filee.App.Tests --no-build -c Release --blame-crash --blame-hang-timeout 5m --logger "console;verbosity=normal" --results-directory TestResults/app
+        run: dotnet test tests/Tsudev.Files.App.Tests --no-build -c Release --blame-crash --blame-hang-timeout 5m --logger "console;verbosity=normal" --results-directory TestResults/app
 
       - name: Test
-        run: dotnet test Filee.slnx --no-build -c Release --filter "FullyQualifiedName!~Filee.App.Tests"
+        run: dotnet test tsudev-files.slnx --no-build -c Release --filter "FullyQualifiedName!~Tsudev.Files.App.Tests"
 
       - name: Upload test results
         if: failure()
@@ -105,7 +105,7 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path unsigned | Out-Null
           Move-Item publish/win-x64 unsigned/app
-          Copy-Item build/.cache/setup/Filee.Setup.exe unsigned/
+          Copy-Item build/.cache/setup/Tsudev.Files.Setup.exe unsigned/
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
@@ -128,7 +128,7 @@ jobs:
         run: |
           $version = '${{ steps.version.outputs.value }}'
           dotnet tool install CycloneDX --version 6.3.1 --tool-path "$env:RUNNER_TEMP/cdx"
-          & "$env:RUNNER_TEMP/cdx/dotnet-CycloneDX" Filee.slnx --exclude-test-projects --output-format Json `
+          & "$env:RUNNER_TEMP/cdx/dotnet-CycloneDX" tsudev-files.slnx --exclude-test-projects --output-format Json `
             --output Releases --filename "tsudev-files-$version-sbom.cdx.json" --set-name tsudev-files --set-version $version
           if ($LASTEXITCODE -ne 0) { throw 'CycloneDX failed' }
 

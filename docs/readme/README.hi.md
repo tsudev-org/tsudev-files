@@ -203,7 +203,7 @@ Windows, macOS या Linux पर .NET 10 SDK से बिल्ड करे�
 git clone https://github.com/KnifeLemon/Filee.git
 cd Filee
 pwsh build/fetch-engines.ps1 -Only rhwp,pandoc   # optional engines
-dotnet run --project src/Filee.App
+dotnet run --project src/Tsudev.Files.App
 dotnet test
 ```
 
@@ -231,7 +231,7 @@ Filee मुफ़्त है और मुफ़्त ही रहेगा
 हर महीने सहयोग करने वालों के नाम यहाँ दिए जाते हैं, और स्पॉन्सर का लोगो यहाँ और Filee के परिचय पेज पर दिखता है।
 एक बार सहयोग करने वाले भी अपना नाम जोड़ने के लिए कह सकते हैं।
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 <p align="center">
   <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>

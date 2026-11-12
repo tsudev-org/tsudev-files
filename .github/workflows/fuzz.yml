@@ -1,4 +1,4 @@
-# tsudev-files: fuzz sâu hằng tuần cho các bộ đọc định dạng tự viết (tests/Filee.Engines.Tests/ForkFuzzTests.cs).
+# tsudev-files: fuzz sâu hằng tuần cho các bộ đọc định dạng tự viết (tests/Tsudev.Files.Engines.Tests/ForkFuzzTests.cs).
 # CI thường chạy 200 vòng mỗi mục tiêu; ở đây 20.000. Seed cố định: lỗi tái hiện được bằng cùng số vòng.
 name: Fuzz
 
@@ -29,4 +29,4 @@ jobs:
       - name: Fuzz
         env:
           TSUDEV_FUZZ_ITERATIONS: ${{ inputs.iterations || '20000' }}
-        run: dotnet test tests/Filee.Engines.Tests --filter "FullyQualifiedName~ForkFuzzTests" --logger "console;verbosity=normal"
+        run: dotnet test tests/Tsudev.Files.Engines.Tests --filter "FullyQualifiedName~ForkFuzzTests" --logger "console;verbosity=normal"

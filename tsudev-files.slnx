@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Tsudev.Files.Core/Tsudev.Files.Core.csproj" />
+    <Project Path="src/Tsudev.Files.Engines/Tsudev.Files.Engines.csproj" />
+    <Project Path="src/Tsudev.Files.Platform.Windows/Tsudev.Files.Platform.Windows.csproj" />
+    <Project Path="src/Tsudev.Files.Platform.Linux/Tsudev.Files.Platform.Linux.csproj" />
+    <Project Path="src/Tsudev.Files.Platform.MacOS/Tsudev.Files.Platform.MacOS.csproj" />
+    <Project Path="src/Tsudev.Files.App/Tsudev.Files.App.csproj" />
+    <Project Path="src/Tsudev.Files.Cli/Tsudev.Files.Cli.csproj" />
+    <Project Path="src/Tsudev.Files.Setup/Tsudev.Files.Setup.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Tsudev.Files.Core.Tests/Tsudev.Files.Core.Tests.csproj" />
+    <Project Path="tests/Tsudev.Files.Engines.Tests/Tsudev.Files.Engines.Tests.csproj" />
+    <Project Path="tests/Tsudev.Files.App.Tests/Tsudev.Files.App.Tests.csproj" />
+    <Project Path="tests/Tsudev.Files.Cli.Tests/Tsudev.Files.Cli.Tests.csproj" />
+    <Project Path="tests/Tsudev.Files.Platform.Tests/Tsudev.Files.Platform.Tests.csproj" />
+    <Project Path="tests/Tsudev.Files.Setup.Tests/Tsudev.Files.Setup.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path=".editorconfig" />
+  </Folder>
+</Solution>
