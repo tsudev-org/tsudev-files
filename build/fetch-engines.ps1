@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
   Downloads and prepares conversion engines for development and for the installer (which bundles rhwp and 7-Zip
-  only; the app downloads the large engines on demand, see src/Tsudev.Files.Engines/Infrastructure/EngineInstaller.cs).
+  only; the app downloads the large engines on demand, see src/TsuFiles.Engines/Infrastructure/EngineInstaller.cs).
 
 .DESCRIPTION
   Produces this layout (next to Filee.exe in a published build, or in the repo root for development):
@@ -23,7 +23,7 @@
       exiftool/      ExifTool (Perl's licence, separate program), the Windows build: exiftool(-k).exe renamed
                      exiftool.exe (the "-k" makes it wait for a key), with its exiftool_files/ beside it
 
-  Every download is pinned to a version and verified with SHA-256 (src/Tsudev.Files.Engines/Infrastructure/engines.json,
+  Every download is pinned to a version and verified with SHA-256 (src/TsuFiles.Engines/Infrastructure/engines.json,
   shared with the app). Downloads are cached in build/.cache.
 
   The Microsoft C++ runtime (the "vcruntime" component: MSVCP140.dll, VCRUNTIME140.dll, ...) is copied next to the
@@ -73,7 +73,7 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue' # Invoke-WebRequest is ~10x faster without the progress bar
 
 # Versions, URLs and hashes come from the same list the app uses for on-demand downloads.
-$manifest = Get-Content (Join-Path $PSScriptRoot '..\src\Tsudev.Files.Engines\Infrastructure\engines.json') -Raw | ConvertFrom-Json
+$manifest = Get-Content (Join-Path $PSScriptRoot '..\src\TsuFiles.Engines\Infrastructure\engines.json') -Raw | ConvertFrom-Json
 $engines = [ordered]@{}
 foreach ($component in $manifest.components.PSObject.Properties) {
     $engines[$component.Name] = @{ Url = $component.Value.url; Sha256 = $component.Value.sha256 }

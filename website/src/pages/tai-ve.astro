@@ -7,7 +7,7 @@ const mb = (b: number) => `${(b / 1024 / 1024).toFixed(1).replace('.', ',')} MB`
 const theoNenTang = NEN_TANG.map((nt) => ({ ...nt, goi: ban?.goi.filter((g) => g.nenTang === nt.ma) ?? [] })).filter((nt) => nt.goi.length > 0);
 const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsudev-files-<phiên bản>-win-Setup.exe';
 ---
-<Trang tieuDe="Tải về" moTa="Tải tsudev-files cho Windows, macOS và Linux; mã SHA-256 của từng gói, cách kiểm tra tệp và hướng dẫn cài đặt từng hệ điều hành." duongDan="/tai-ve/">
+<Trang tieuDe="Tải về" moTa="Tải TsuFiles cho Windows, macOS và Linux; mã SHA-256 của từng gói, cách kiểm tra tệp và hướng dẫn cài đặt từng hệ điều hành." duongDan="/tai-ve/">
   <div class="khung tai-lieu">
     <nav class="tai-lieu__menu" aria-label="Tải về">
       <p>Tải về</p>
@@ -23,12 +23,12 @@ const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsude
     <article class="van-ban">
       {ban ? (
         <>
-          <h1>Tải tsudev-files {ban.phienBan}</h1>
+          <h1>Tải TsuFiles {ban.phienBan}</h1>
           <p>Phát hành ngày {ban.ngay}. Mọi gói được GitHub Actions build từ mã nguồn công khai; trang này chỉ dẫn tới <a href={ban.url} target="_blank" rel="noopener noreferrer">trang phát hành trên GitHub</a>, không lưu bản sao.</p>
         </>
       ) : (
         <>
-          <h1>Tải tsudev-files</h1>
+          <h1>Tải TsuFiles</h1>
           <div class="chu-y">
             <p><strong>Bản phát hành đầu tiên đang được chuẩn bị.</strong> Khi có, danh sách gói kèm mã SHA-256 sẽ hiện ngay tại đây và ở <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer">trang phát hành trên GitHub</a>.</p>
             <p>Trong lúc chờ, bạn có thể tự build từ <a href={REPO_URL} target="_blank" rel="noopener noreferrer">mã nguồn</a> (cần .NET SDK 10), hoặc theo dõi repo trên GitHub (Watch, chọn Releases) để được báo khi có bản mới.</p>
@@ -78,7 +78,7 @@ const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsude
       <pre tabindex="0"><code>sha256sum -c --ignore-missing tsudev-files-*-SHA256SUMS.txt     # macOS: shasum -a 256 -c</code></pre>
       <div class="chu-y">
         <p><strong>Chỉ tải từ trang này hoặc từ <a href={`${REPO_URL}/releases`} target="_blank" rel="noopener noreferrer">github.com/{REPO}</a>.</strong> Mọi trang khác tự xưng "bản chính thức" đều không liên quan tới tsudev.</p>
-        <p>Bản Windows hiện chưa có chứng thư Authenticode nên SmartScreen có thể cảnh báo ở lần chạy đầu: chọn <em>Thông tin thêm</em>, rồi <em>Vẫn chạy</em> sau khi đã kiểm SHA-256. Bản phát hành của Filee gốc không dùng được để cập nhật tsudev-files và ngược lại: hai bên ký bằng hai khóa khác nhau.</p>
+        <p>Bản Windows hiện chưa có chứng thư Authenticode nên SmartScreen có thể cảnh báo ở lần chạy đầu: chọn <em>Thông tin thêm</em>, rồi <em>Vẫn chạy</em> sau khi đã kiểm SHA-256. Bản phát hành của Filee gốc không dùng được để cập nhật TsuFiles và ngược lại: hai bên ký bằng hai khóa khác nhau.</p>
       </div>
 
       <h2 id="windows">Cài trên Windows 10/11</h2>
@@ -103,7 +103,7 @@ cd tsudev-files-&lt;phiên bản&gt;-linux-x64
       <p>Gói kèm tệp <code>HUONG-DAN-CAI-DAT.txt</code>. Thao tác giữ phím rồi kéo cần X11; trên Wayland, dùng vùng thả tệp và menu chuột phải của trình quản lý tệp.</p>
 
       <h2 id="cap-nhat">Cập nhật</h2>
-      <p>tsudev-files tự báo khi có bản mới trong menu và tự cập nhật, giữ nguyên cài đặt và engine. Trước khi cài, ứng dụng kiểm chữ ký ECDSA của danh sách SHA-256, kiểm số phiên bản phải mới hơn, rồi kiểm SHA-256 của bộ cài; sai bất kỳ bước nào thì dừng và mở trang phát hành. Chi tiết ở trang <a href="/bao-mat/kien-truc/">Kiến trúc bảo mật</a>.</p>
+      <p>TsuFiles tự báo khi có bản mới trong menu và tự cập nhật, giữ nguyên cài đặt và engine. Trước khi cài, ứng dụng kiểm chữ ký ECDSA của danh sách SHA-256, kiểm số phiên bản phải mới hơn, rồi kiểm SHA-256 của bộ cài; sai bất kỳ bước nào thì dừng và mở trang phát hành. Chi tiết ở trang <a href="/bao-mat/kien-truc/">Kiến trúc bảo mật</a>.</p>
     </article>
   </div>
 </Trang>

@@ -14,9 +14,9 @@ const mucLuc = [
   { id: 'wayland', ten: 'Linux Wayland' },
 ];
 ---
-<TaiLieu tieuDe="Hướng dẫn sử dụng" moTa="Hướng dẫn dùng tsudev-files: vòng tròn kéo thả, preset, thư mục theo dõi, engine tùy chọn, ngôn ngữ, và cách xử lý khi ứng dụng không mở được." duongDan="/huong-dan/" mucLuc={mucLuc}>
+<TaiLieu tieuDe="Hướng dẫn sử dụng" moTa="Hướng dẫn dùng TsuFiles: vòng tròn kéo thả, preset, thư mục theo dõi, engine tùy chọn, ngôn ngữ, và cách xử lý khi ứng dụng không mở được." duongDan="/huong-dan/" mucLuc={mucLuc}>
   <h1>Hướng dẫn sử dụng</h1>
-  <p>Sau khi cài, tsudev-files chạy nền và có biểu tượng ở khay hệ thống (vùng thông báo). Bạn không cần mở cửa sổ chính để chuyển đổi: mọi thứ bắt đầu từ thao tác kéo tệp.</p>
+  <p>Sau khi cài, TsuFiles chạy nền và có biểu tượng ở khay hệ thống (vùng thông báo). Bạn không cần mở cửa sổ chính để chuyển đổi: mọi thứ bắt đầu từ thao tác kéo tệp.</p>
 
   <h2 id="vong-donut">Vòng tròn (donut)</h2>
   <ol>
@@ -30,14 +30,14 @@ const mucLuc = [
 
   <h2 id="cach-khac">Cách khác để chuyển đổi</h2>
   <ul>
-    <li><strong>Menu chuột phải</strong> trong Explorer (Windows) hoặc trình quản lý tệp (Linux, macOS): chọn tệp, nhấp phải, chọn tsudev-files.</li>
+    <li><strong>Menu chuột phải</strong> trong Explorer (Windows) hoặc trình quản lý tệp (Linux, macOS): chọn tệp, nhấp phải, chọn TsuFiles.</li>
     <li><strong>Phím tắt</strong>: đặt trong Cài đặt, mục <em>Phím tắt</em>, để mở vòng tròn cho tệp đang chọn.</li>
     <li><strong>Vùng thả tệp</strong> ở Trang chủ của cửa sổ chính.</li>
     <li><strong>Dòng lệnh</strong> <code>filee</code>: xem trang <a href="/dong-lenh/">Dòng lệnh</a>.</li>
   </ul>
 
   <h2 id="tu-trinh-duyet">Kéo từ trình duyệt</h2>
-  <p>Kéo một ảnh, một liên kết tới tệp hay một mục đã tải xuống từ Chrome, Edge, Firefox hoặc Safari theo cách y hệt. tsudev-files lưu tệp vào thư mục Tải xuống (hoặc chỉ giữ tệp đã chuyển, tùy cài đặt) rồi chuyển đổi. Liên kết được tải về mà không dùng phiên đăng nhập của trình duyệt.</p>
+  <p>Kéo một ảnh, một liên kết tới tệp hay một mục đã tải xuống từ Chrome, Edge, Firefox hoặc Safari theo cách y hệt. TsuFiles lưu tệp vào thư mục Tải xuống (hoặc chỉ giữ tệp đã chuyển, tùy cài đặt) rồi chuyển đổi. Liên kết được tải về mà không dùng phiên đăng nhập của trình duyệt.</p>
 
   <h2 id="preset">Thanh công cụ và cấu hình sẵn</h2>
   <p>Mỗi loại tệp có một thanh công cụ riêng (một "hồ sơ"), sắp xếp bằng kéo thả ở mục <em>Thanh công cụ vòng tròn</em>. Mỗi ô trên vòng là một <em>cấu hình sẵn</em> (preset), giữ các thiết lập:</p>
@@ -70,7 +70,7 @@ const mucLuc = [
       </tbody>
     </table>
   </div>
-  <p>Mọi engine tải về đều được kiểm mã SHA-256 ghim sẵn trong mã nguồn; sai mã thì hủy. Nếu máy đã có sẵn một engine (ví dụ LibreOffice), tsudev-files dùng luôn bản đó.</p>
+  <p>Mọi engine tải về đều được kiểm mã SHA-256 ghim sẵn trong mã nguồn; sai mã thì hủy. Nếu máy đã có sẵn một engine (ví dụ LibreOffice), TsuFiles dùng luôn bản đó.</p>
 
   <h2 id="ngon-ngu">Ngôn ngữ và giao diện</h2>
   <p>Giao diện, bộ cài và dòng lệnh mặc định là tiếng Việt. Đổi ngôn ngữ ở mục <em>Chung</em> (chọn <em>Mặc định của hệ thống</em> để theo hệ điều hành, hoặc một trong 22 ngôn ngữ). Dòng lệnh dùng tiếng Anh khi đặt biến môi trường <code>FILEE_LANG=en</code>. Mục <em>Chủ đề</em> chọn chế độ sáng, tối, màu nhấn và độ trong của vòng tròn.</p>

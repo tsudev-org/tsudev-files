@@ -1,7 +1,7 @@
 # Architecture
 
 ```
-            ┌──────────────────────────── Tsudev.Files.App (Avalonia) ─────────────────────────────┐
+            ┌──────────────────────────── TsuFiles.App (Avalonia) ─────────────────────────────┐
  global     │ TriggerService ──► GestureDetector ──► RadialController ──► RadialWindow/DonutMenu │
  mouse/keys │   (SharpHook)        (pure state         (drag / click       (transparent,          │
  ─────────► │                       machine)            mode)               topmost window)       │
@@ -13,12 +13,12 @@
             │ MainWindow (settings pages) ◄──► UserDataStore (JSON in %APPDATA%\Filee)            │
             └──────────────────────────────────────────────┬──────────────────────────────────────┘
                                                            ▼
-            ┌──────────────────────────── Tsudev.Files.Core ───────────────────────────────────────────┐
+            ┌──────────────────────────── TsuFiles.Core ───────────────────────────────────────────┐
             │ JobQueue ──► RoutePlanner (Dijkstra over converter edges) ──► IConverter steps    │
             │ FormatRegistry · Preset · OutputPathResolver · ToolbarProfile · ProfileSelector   │
             └──────────────────────────────────────────────┬──────────────────────────────────────┘
                                                            ▼
-            ┌──────────────────────────── Tsudev.Files.Engines ────────────────────────────────────────┐
+            ┌──────────────────────────── TsuFiles.Engines ────────────────────────────────────────┐
             │ Built in: Magick (images, RAW) · PdfSharp · Pdfium · PdfPig · Svg.Skia · ICNS      │
             │ HwpxWriter + DocxWriter over DocumentReaders (DOCX, XLSX, XLS, ODS, PPTX,          │
             │   PDF, HTML, EPUB, MOBI, FB2, HWPX, Markdown) · Spreadsheets · OOXML variants      │
@@ -429,7 +429,7 @@ two). The pieces:
   frame durations (0–10 ms counts as 100 ms, as in browsers) and the loop count. The animation pauses while the
   control is hidden or its window is minimized, shows the first frame with reduced motion (`AutoPlay`), and gives
   the decoder and bitmap back when it leaves the visual tree or its source changes.
-- `SlideShow` is the deck itself (picture, texts, position dots), built in code so `Tsudev.Files.Setup` can link the same
+- `SlideShow` is the deck itself (picture, texts, position dots), built in code so `TsuFiles.Setup` can link the same
   files for a slideshow on its progress page (`AutoAdvance`). All slides' texts sit in one grid cell, only the
   current one visible, so the height is the tallest slide's and the window doesn't jump.
 - `WhatsNewWindow` adds the card, ✕, Previous / Next ("Get started" on the last slide), ←/→ and Esc.
@@ -447,15 +447,15 @@ two). The pieces:
 
 The `<!-- update -->` lines of CHANGELOG.md are the other half: the update card shows them for a version that isn't
 installed yet; the slides introduce the installed one. The demo animations are rendered by
-`tests/Tsudev.Files.App.Tests/WhatsNewMedia.cs` from the real windows (see CONTRIBUTING.md, "Releasing").
+`tests/TsuFiles.App.Tests/WhatsNewMedia.cs` from the real windows (see CONTRIBUTING.md, "Releasing").
 
 ## Command line and watch folders
 
-- `Tsudev.Files.Cli` (`filee-cli.exe`, run as `filee` through `cli\filee.cmd`, which Setup can put on PATH) composes the same
+- `TsuFiles.Cli` (`filee-cli.exe`, run as `filee` through `cli\filee.cmd`, which Setup can put on PATH) composes the same
   pipeline as the app without any UI (`CliHost`: `UserDataStore`, `EngineRegistry`, `ConverterCatalog`, `JobQueue`)
   and reads the app's presets and engine order. It is published into the app folder, so both share one runtime and
   the bundled engines; its name can't be `filee.exe` next to `Filee.exe` on a case-insensitive file system.
-- `Tsudev.Files.Core/Watching/FolderWatcher` watches one `WatchRule` with a `FileSystemWatcher` and converts a file once it
+- `TsuFiles.Core/Watching/FolderWatcher` watches one `WatchRule` with a `FileSystemWatcher` and converts a file once it
   has kept its size and time for a moment, opens without sharing and has data at its start (downloads and copies in
   progress are skipped). A file that didn't convert gets one more turn after 10 seconds. Temporary files, unknown
   formats and dedicated output and originals folders are ignored. Links (junctions, mount points, symbolic links to
@@ -472,8 +472,8 @@ installed yet; the slides introduce the installed one. The demo animations are r
 
 ## Platform code
 
-Everything OS-specific goes through `IPlatformServices` (`Tsudev.Files.Core/Platform`). Windows lives in
-`Tsudev.Files.Platform.Windows`; macOS will get its own project. Global input uses SharpHook on both.
+Everything OS-specific goes through `IPlatformServices` (`TsuFiles.Core/Platform`). Windows lives in
+`TsuFiles.Platform.Windows`; macOS will get its own project. Global input uses SharpHook on both.
 
 Home → Recent conversions opens a result with `OpenFile` (the shell on Windows, `open` on macOS, `xdg-open` on Linux,
 so a file is handed to its app and never started itself; only formats Filee knows are offered) and, where
@@ -539,7 +539,7 @@ applied by `WindowsPlatformServices.SetContextMenu` at start-up and whenever set
   - The package is **unsigned** (publisher contains `OID.2.25.311729368913984317654407730594956997722=1`; Filee has no
     code-signing certificate). Windows only registers an unsigned package with executable content **with
     administrator rights** (it installs it for all users); a per-user attempt fails with 0x80073D2B "an unsigned
-    package cannot include Executable activations". Setup (`src/Tsudev.Files.Setup`) has those rights anyway and
+    package cannot include Executable activations". Setup (`src/TsuFiles.Setup`) has those rights anyway and
     registers it on Windows 11 x64 while its option is ticked. Later the General page offers "Add to the main menu",
     which runs `Add-AppxPackage -Path … -ExternalLocation … -AllowUnsigned` in Windows PowerShell through one UAC
     prompt (`ExplorerMenuRegistration`). A signed package would register per user without a prompt.
@@ -572,7 +572,7 @@ the entry up for new menus; if not, restart Explorer. To remove it by hand:
 
 ## Windows installer
 
-`Filee-<version>-win-Setup.exe` is Filee's own installer, `src/Tsudev.Files.Setup` (it replaced the Inno Setup script of
+`Filee-<version>-win-Setup.exe` is Filee's own installer, `src/TsuFiles.Setup` (it replaced the Inno Setup script of
 1.x). It is an Avalonia program with the app's look and translations: it links `Styles/Soft.axaml` (which therefore
 styles only Avalonia's own controls; Filee's controls are in `Controls.axaml`), `SoftPalette` (accent, radii, font
 order), `AppLanguages` and `Assets/i18n/*.json` (Setup's texts are the `installer.*` keys). To stay small it uses
@@ -590,7 +590,7 @@ have no semibold) instead of the app's embedded Noto fonts.
   update Setup starts Filee with `--background --whats-new`, so the slides show once in the app as well.
 
 - **Build** (`build/build-installer.ps1`): Setup is published as one self-contained, trimmed file
-  (`-p:TsudevFilesSetupPublish=true`), so it runs on Windows 10 1809+ x64 without .NET. `build/tools/make-setup.cs` appends
+  (`-p:TsuFilesSetupPublish=true`), so it runs on Windows 10 1809+ x64 without .NET. `build/tools/make-setup.cs` appends
   the app's publish folder as the payload: `[program][LZMA streams of all files][manifest JSON][72-byte trailer]`
   (`SetupPayload`): ~48 MB segments compressed in parallel with SharpCompress's LZMA (48 MB dictionary), programs
   first through the x86 branch filter (`X86Filter`, from the LZMA SDK) as 7-Zip and Inno Setup do. The manifest lists
@@ -625,12 +625,12 @@ have no semibold) instead of the app's embedded Noto fonts.
   Administrators when elevated), so that Filee would never hear `--quit`. Files in use are moved out and deleted at the
   next restart. Only programs `uninstall.json` lists are ended. A Filee that can't be ended, or a file that can't be
   moved or renamed, fails the uninstall and keeps the key, `uninstall.json` and `uninstall.exe`, so it can be run again;
-  `uninstall.json` itself is never scheduled or renamed. A program without a payload is the uninstaller only as `uninstall.exe`, as `Tsudev.Files.Setup.exe` (a development build) or with `/UNINSTALL`
+  `uninstall.json` itself is never scheduled or renamed. A program without a payload is the uninstaller only as `uninstall.exe`, as `TsuFiles.Setup.exe` (a development build) or with `/UNINSTALL`
   (`SetupStart`); any other name is a Setup.exe whose download didn't finish, and it says so instead (exit code 1).
 - **Command line**: Inno Setup's switches (`SetupOptions`, documented at the top of the file), because Filee 1.x
   updates itself with `/SILENT /NORESTART` and winget passes `/VERYSILENT /SUPPRESSMSGBOXES /NORESTART`. Exit codes as
   Inno Setup's: 0 done, 1 could not start, 2 cancelled before installing (also a declined UAC prompt), 4 failed.
-- **Testing**: `Tsudev.Files.Setup.Tests` runs installs, updates (also over a simulated 1.x installation) and uninstalls
+- **Testing**: `TsuFiles.Setup.Tests` runs installs, updates (also over a simulated 1.x installation) and uninstalls
   against `MemoryRegistry`, a fake `ISetupSystem` and scratch folders, and renders every page. `/SANDBOX=<folder>`
   runs the real Setup with a registry file and all folders inside `<folder>`; `build-installer.ps1 -CheckOnly` (CI)
   installs, updates and uninstalls that way.
@@ -648,7 +648,7 @@ and standalone shell scripts (`install.sh`, `uninstall.sh`).
   installation.
 - **In-app updates** (`UpdateService`): Checks GitHub releases for matching `<rid>.tar.gz` and `<rid>-SHA256SUMS.txt`
   assets. The tarball is verified against SHA-256 before extraction; a build that carries the update key
-  (`TsudevFilesUpdatePublicKey`) first checks the checksum file's signature (`<rid>-SHA256SUMS.txt.sig`, `UpdateSignature`). Archive extraction validates that all entries stay
+  (`TsuFilesUpdatePublicKey`) first checks the checksum file's signature (`<rid>-SHA256SUMS.txt.sig`, `UpdateSignature`). Archive extraction validates that all entries stay
   within the target directory, rejecting absolute paths, directory symlinks, and escaping links, and masks permissions to
   standard rwx bits (excluding setuid/setgid/sticky bits).
 - **Transactional upgrade**: `UpdateAsync` stages the payload in a private directory (`~/.local/share/filee/.update-*`),

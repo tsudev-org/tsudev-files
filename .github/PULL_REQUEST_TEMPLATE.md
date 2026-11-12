@@ -23,10 +23,10 @@
 
 ## Screenshots (UI changes)
 
-<!-- Drag images into this box. Rendered pages are in tests/Tsudev.Files.App.Tests/bin/<config>/net10.0/screenshots -->
+<!-- Drag images into this box. Rendered pages are in tests/TsuFiles.App.Tests/bin/<config>/net10.0/screenshots -->
 
 ## Checklist
 
-- [ ] New UI strings are in all `src/Tsudev.Files.App/Assets/i18n/*.json` files
+- [ ] New UI strings are in all `src/TsuFiles.App/Assets/i18n/*.json` files
 - [ ] New third-party code or binaries are listed in `THIRD-PARTY-NOTICES.md`
 - [ ] The PR does one thing (unrelated changes go in a separate PR)

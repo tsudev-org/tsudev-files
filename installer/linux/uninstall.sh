@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-# tsudev-files: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
+# TsuFiles: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
 say() {
     case "$(printf '%s' "${FILEE_LANG:-}" | tr '[:upper:]' '[:lower:]')" in
         en|en-us|english) shift ;;
@@ -18,7 +18,7 @@ python3 - "$data_dir" "$install_dir" "${FILEE_LANG:-}" <<'PY'
 import pathlib
 import sys
 
-# tsudev-files: tiếng Việt mặc định, FILEE_LANG=en để dùng tiếng Anh.
+# TsuFiles: tiếng Việt mặc định, FILEE_LANG=en để dùng tiếng Anh.
 EN = sys.argv[3].strip().lower() in ('en', 'en-us', 'english')
 
 root, target = map(pathlib.Path, sys.argv[1:3])
@@ -26,7 +26,7 @@ expected = root.resolve() / 'filee' / 'application'
 if target.is_symlink() or target.resolve() != expected:
     raise SystemExit('Refusing to remove an installation outside its expected directory.' if EN else 'Từ chối gỡ: bản cài nằm ngoài thư mục dự kiến.')
 if (target / '.filee-package').read_text(encoding='utf-8').strip() != 'com.filee.app':
-    raise SystemExit('The directory is not an installation created by tsudev-files.' if EN else 'Thư mục này không phải bản cài do tsudev-files tạo.')
+    raise SystemExit('The directory is not an installation created by TsuFiles.' if EN else 'Thư mục này không phải bản cài do TsuFiles tạo.')
 PY
 "$install_dir/Filee" --uninstall-cleanup
 if [ -f "$gnome_extension_dir/.filee-package" ] && [ "$(cat "$gnome_extension_dir/.filee-package")" = 'com.filee.app' ]; then
@@ -42,4 +42,4 @@ if [ -f "$desktop_file" ] && grep -q '^X-Filee-Managed=true$' "$desktop_file"; t
     rm -- "$desktop_file"
 fi
 rm -rf -- "$install_dir"
-say 'Đã gỡ tsudev-files. Cài đặt và các tệp đã chuyển đổi của bạn vẫn được giữ.' 'tsudev-files was removed. Your settings and conversion results were kept.'
+say 'Đã gỡ TsuFiles. Cài đặt và các tệp đã chuyển đổi của bạn vẫn được giữ.' 'TsuFiles was removed. Your settings and conversion results were kept.'

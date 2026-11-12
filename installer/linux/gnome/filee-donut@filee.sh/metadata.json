@@ -1,7 +1,7 @@
 {
   "uuid": "filee-donut@filee.sh",
-  "name": "tsudev-files donut at the cursor",
-  "description": "Enables tsudev-files drag gestures on GNOME Wayland without input-device permissions, and places its conversion menu at the pointer.",
+  "name": "TsuFiles donut at the cursor",
+  "description": "Enables TsuFiles drag gestures on GNOME Wayland without input-device permissions, and places its conversion menu at the pointer.",
   "version": 3,
   "shell-version": [
     "45",

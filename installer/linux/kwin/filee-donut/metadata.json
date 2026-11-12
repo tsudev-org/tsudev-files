@@ -1,8 +1,8 @@
 {
     "KPlugin": {
         "Id": "filee-donut",
-        "Name": "tsudev-files donut at the cursor",
-        "Description": "Moves tsudev-files's donut window to the cursor, which Wayland apps cannot do themselves.",
+        "Name": "TsuFiles donut at the cursor",
+        "Description": "Moves TsuFiles's donut window to the cursor, which Wayland apps cannot do themselves.",
         "License": "MIT",
         "Version": "1.2"
     },

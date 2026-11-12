@@ -1,4 +1,4 @@
-# AGENTS.md - tsudev-files
+# AGENTS.md - TsuFiles (repo TsuFiles)
 
 > **ĐỌC FILE NÀY ĐẦU TIÊN trong mọi phiên làm việc mới.**
 
@@ -46,27 +46,27 @@ xuất tại repo `tsudev-standards` theo `.standards/docs/SYNC.md` mục 1.
 ### B.2. Chạy trong 5 phút
 
 ```bash
-dotnet build tsudev-files.slnx                     # .NET SDK 10 (global.json)
-dotnet test tests/Tsudev.Files.Core.Tests          # và tests/Tsudev.Files.{App,Cli,Setup,Engines,Platform}.Tests
-python3 -I tools/check_i18n_vi.py                  # bản dịch tiếng Việt
-dotnet run --project src/Tsudev.Files.Cli -- help  # FILEE_LANG=en để xem tiếng Anh
+dotnet build TsuFiles.slnx                 # .NET SDK 10 (global.json)
+dotnet test tests/TsuFiles.Core.Tests          # và tests/TsuFiles.{App,Cli,Setup,Engines,Platform}.Tests
+python3 -I tools/check_i18n_vi.py          # bản dịch tiếng Việt
+dotnet run --project src/TsuFiles.Cli -- help # FILEE_LANG=en để xem tiếng Anh
 ```
 
 ### B.3. Ranh giới sở hữu file
 
 | Vùng | Chủ sở hữu |
 | --- | --- |
-| `src/Tsudev.Files.Core/ForkDefaults.cs`, `Directory.Build.props` (URL, khóa) | Chủ dự án - mọi thay đổi cần duyệt |
-| `src/Tsudev.Files.App/Assets/i18n/vi.json` | Agent/người dịch; giữ đồng bộ khóa với `en.json` |
-| `src/Tsudev.Files.Cli/` (chuỗi `CliLanguage.T`) | Agent dòng lệnh |
+| `src/TsuFiles.Core/ForkDefaults.cs`, `Directory.Build.props` (URL, khóa) | Chủ dự án - mọi thay đổi cần duyệt |
+| `src/TsuFiles.App/Assets/i18n/vi.json` | Agent/người dịch; giữ đồng bộ khóa với `en.json` |
+| `src/TsuFiles.Cli/` (chuỗi `CliLanguage.T`) | Agent dòng lệnh |
 | `tools/`, `.github/workflows/security.yml`, `docs/vi/` | Riêng của fork |
-| Phần còn lại của `src/`, `tests/`, `build/` | tsudev-files (kế thừa từ Filee, đã tách hẳn - sửa như mã của mình) |
+| Phần còn lại của `src/`, `tests/`, `build/` | TsuFiles (kế thừa từ Filee, đã tách hẳn - sửa như mã của mình) |
 
 ### B.4. Quy tắc riêng
 
 - Hard fork (ADR-0002): KHÔNG `git merge upstream/main`. Bản vá bảo mật của KnifeLemon/Filee chép thủ công:
   `git format-patch` -> `python3 -I tools/doi-ten-tsudev.py --tep <tệp>` -> `git apply`, ghi nguồn trong commit.
-- Mã mới dùng tên tsudev (`Tsudev.Files.*`, `TsudevFiles*`); `python3 -I tools/doi-ten-tsudev.py --kiem` phải sạch.
+- Mã mới dùng tên TsuFiles (`TsuFiles.*`, `TsuFiles*`, ADR-0003); `python3 -I tools/doi-ten-tsudev.py --kiem` phải sạch.
 - Không đổi khóa JSON đầu ra của dòng lệnh (script bên ngoài phụ thuộc).
 - Không bao giờ đưa khóa bí mật ký cập nhật vào repo; quy trình ở `docs/vi/PHAT-HANH.md`.
 - Em-dash trong mã kế thừa: còn miễn theo dòng (`.standards-upstream`) cho tới khi sửa hết; dòng đã sửa thì phải tuân

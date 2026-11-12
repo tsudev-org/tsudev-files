@@ -30,26 +30,26 @@ const nhom = [
 ];
 const baoMat = [
   { t: 'Tệp không rời khỏi máy', d: 'Không tải tệp lên máy chủ nào, không thu thập dữ liệu, không cần tài khoản. Chuyển đổi chạy được khi không có mạng.' },
-  { t: 'Bản cập nhật có chữ ký riêng', d: 'Danh sách SHA-256 của mỗi bản phát hành được ký ECDSA P-256 bằng khóa riêng của tsudev-files; sai chữ ký thì từ chối.' },
+  { t: 'Bản cập nhật có chữ ký riêng', d: 'Danh sách SHA-256 của mỗi bản phát hành được ký ECDSA P-256 bằng khóa riêng của TsuFiles; sai chữ ký thì từ chối.' },
   { t: 'Chống tệp độc hại', d: 'Chặn giải nén thoát thư mục ("zip slip"), tệp "bom", tài liệu tự tải nội dung từ mạng hay đọc tệp khác trên máy.' },
   { t: 'Kiểm tra liên tục', d: 'Mỗi thay đổi đi qua CodeQL, gitleaks, soát lỗ hổng thư viện và hàng nghìn bài kiểm thử trên Windows, Linux, macOS.' },
 ];
 ---
-<Trang moTa="tsudev-files: chuyển đổi tệp ngoại tuyến bằng kéo thả, hơn 260 định dạng, giao diện tiếng Việt, miễn phí, mã nguồn mở, không tải tệp lên mạng." duongDan="/">
+<Trang moTa="TsuFiles: chuyển đổi tệp ngoại tuyến bằng kéo thả, hơn 260 định dạng, giao diện tiếng Việt, miễn phí, mã nguồn mở, không tải tệp lên mạng." duongDan="/">
   <section class="mo-dau">
     <div class="khung mo-dau__luoi">
       <div>
         <span class="nhan">{ban ? `Phiên bản ${ban.phienBan} · ${ban.ngay}` : 'Sắp có bản phát hành đầu tiên'}</span>
         <h1>Kéo, thả, xong. <span class="chu-tim">Chuyển đổi tệp</span> ngay trên máy bạn</h1>
-        <p class="mo-dau__phu">tsudev-files đổi định dạng ảnh, PDF, tài liệu, video, âm thanh và hơn thế nữa chỉ bằng một cú kéo thả. Miễn phí, mã nguồn mở, giao diện tiếng Việt, và tệp của bạn không bao giờ bị tải lên mạng.</p>
+        <p class="mo-dau__phu">TsuFiles đổi định dạng ảnh, PDF, tài liệu, video, âm thanh và hơn thế nữa chỉ bằng một cú kéo thả. Miễn phí, mã nguồn mở, giao diện tiếng Việt, và tệp của bạn không bao giờ bị tải lên mạng.</p>
         <div class="mo-dau__nut">
-          <a class="nut nut--chinh" href="/tai-ve/">Tải tsudev-files</a>
+          <a class="nut nut--chinh" href="/tai-ve/">Tải TsuFiles</a>
           <a class="nut nut--phu" href="/dinh-dang/">Xem định dạng hỗ trợ</a>
         </div>
         <p class="mo-dau__ghi-chu">Windows 10/11 · macOS 13+ (bản xem trước) · Linux x64 và ARM64 · giấy phép MIT</p>
       </div>
       <figure class="minh-hoa">
-        <img src="/anh/page-home-vi.png" alt="Màn hình Trang chủ của tsudev-files: vùng thả tệp và danh sách chuyển đổi gần đây, menu bên trái bằng tiếng Việt" width="1080" height="820">
+        <img src="/anh/page-home-vi.png" alt="Màn hình Trang chủ của TsuFiles: vùng thả tệp và danh sách chuyển đổi gần đây, menu bên trái bằng tiếng Việt" width="1080" height="820">
         <figcaption>Trang chủ: thả tệp vào đây hoặc giữ Ctrl rồi kéo ở bất kỳ đâu</figcaption>
       </figure>
     </div>
@@ -58,7 +58,7 @@ const baoMat = [
   <section class="muc" aria-labelledby="cach-dung">
     <div class="khung">
       <h2 id="cach-dung">Ba bước, không cần mở ứng dụng</h2>
-      <p class="muc__dan">tsudev-files chạy nền. Bạn làm việc trong trình quản lý tệp như thường lệ, cần đổi định dạng thì kéo.</p>
+      <p class="muc__dan">TsuFiles chạy nền. Bạn làm việc trong trình quản lý tệp như thường lệ, cần đổi định dạng thì kéo.</p>
       <ol class="buoc">
         {buoc.map((x) => <li class="the"><h3>{x.t}</h3><p>{x.d}</p></li>)}
       </ol>
@@ -123,7 +123,7 @@ const baoMat = [
   <section class="muc" aria-labelledby="nguon-goc">
     <div class="khung">
       <h2 id="nguon-goc">Mã nguồn và ghi công</h2>
-      <p class="muc__dan">tsudev-files là bản phái sinh của <a href={UPSTREAM_URL} target="_blank" rel="noopener noreferrer">Filee</a>, tác phẩm của Myeonggu Kim (KnifeLemon) và cộng đồng, phát hành theo giấy phép MIT. tsudev phát triển tiếp độc lập: Việt hóa, gia cố bảo mật và tính năng riêng của hệ sinh thái tsudev. Muốn ủng hộ tsudev-files, xem trang <a href="/ung-ho/">Ủng hộ</a>.</p>
+      <p class="muc__dan">TsuFiles là bản phái sinh của <a href={UPSTREAM_URL} target="_blank" rel="noopener noreferrer">Filee</a>, tác phẩm của Myeonggu Kim (KnifeLemon) và cộng đồng, phát hành theo giấy phép MIT. tsudev phát triển tiếp độc lập: Việt hóa, gia cố bảo mật và tính năng riêng của hệ sinh thái tsudev. Muốn ủng hộ TsuFiles, xem trang <a href="/ung-ho/">Ủng hộ</a>.</p>
       <div class="mo-dau__nut">
         <a class="nut nut--phu" href={REPO_URL} target="_blank" rel="noopener noreferrer">Mã nguồn trên GitHub</a>
         <a class="nut nut--phu" href="/ban-quyen/">Bản quyền</a>

@@ -5,7 +5,7 @@ so the everyday conversions stay easy to find as more arrive. They come from [#8
 [#832](https://github.com/KnifeLemon/Filee/issues/832), [#844](https://github.com/KnifeLemon/Filee/issues/844) and
 [discussion #862](https://github.com/KnifeLemon/Filee/discussions/862).
 
-> **Status:** the fields and grades are in the code (`src/Tsudev.Files.Core/Formats/FormatFields.cs`, tested by
+> **Status:** the fields and grades are in the code (`src/TsuFiles.Core/Formats/FormatFields.cs`, tested by
 > `FormatFieldsTests`). The field switches (Settings → Fields) and the new default donuts are on screen.
 
 ## Formats

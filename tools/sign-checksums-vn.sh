@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# tsudev-files: ký các tệp *SHA256SUMS*.txt bằng khóa cập nhật riêng của bản fork (ECDSA P-256 / SHA-256).
+# TsuFiles: ký các tệp *SHA256SUMS*.txt bằng khóa cập nhật riêng của bản fork (ECDSA P-256 / SHA-256).
 #
 # Thay cho build/sign-checksums.ps1 của upstream khi làm việc trên Linux/WSL. Định dạng chữ ký giống hệt:
 # tệp <tên>.sig chứa base64 của chữ ký 64 byte r||s (IEEE P1363), đúng như UpdateSignature.Verify mong đợi.
@@ -11,7 +11,7 @@
 # An toàn:
 #   - Từ chối khóa nằm trong bất kỳ git working tree nào (một commit là lộ khóa).
 #   - Từ chối khóa có quyền đọc cho group/other.
-#   - Đối chiếu khóa công khai với TsudevFilesUpdatePublicKey trong Directory.Build.props trước khi ký.
+#   - Đối chiếu khóa công khai với TsuFilesUpdatePublicKey trong Directory.Build.props trước khi ký.
 #   - Tự xác minh lại từng chữ ký sau khi ký.
 set -euo pipefail
 
@@ -37,10 +37,10 @@ perm="$(stat -c '%a' "$KEY")"
 [[ "$perm" =~ ^[0-7]00$ ]] || die "khóa có quyền $perm; cần 600 (chmod 600 '$KEY')."
 
 own_pub="$(openssl pkey -in "$KEY" -pubout -outform DER | base64 -w0)"
-build_pub="$(sed -n 's:.*<TsudevFilesUpdatePublicKey>\([^<]*\)</TsudevFilesUpdatePublicKey>.*:\1:p' "$ROOT/Directory.Build.props" | head -1)"
+build_pub="$(sed -n 's:.*<TsuFilesUpdatePublicKey>\([^<]*\)</TsuFilesUpdatePublicKey>.*:\1:p' "$ROOT/Directory.Build.props" | head -1)"
 if [[ "${TSUDEV_FILES_SKIP_PROPS_CHECK:-0}" != 1 ]]; then
-  [[ -n "$build_pub" ]] || die "Directory.Build.props không có TsudevFilesUpdatePublicKey."
-  [[ "$own_pub" == "$build_pub" ]] || die "khóa bí mật KHÔNG khớp TsudevFilesUpdatePublicKey trong Directory.Build.props."
+  [[ -n "$build_pub" ]] || die "Directory.Build.props không có TsuFilesUpdatePublicKey."
+  [[ "$own_pub" == "$build_pub" ]] || die "khóa bí mật KHÔNG khớp TsuFilesUpdatePublicKey trong Directory.Build.props."
 fi
 
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT

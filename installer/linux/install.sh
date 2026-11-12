@@ -5,7 +5,7 @@ set -eu
 # Supports first-time installation and in-place upgrade (--upgrade).
 # Preserves downloaded conversion engines (~/.local/share/Filee/engines) and user settings (~/.config/Filee).
 
-# tsudev-files: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
+# TsuFiles: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
 say() {
     case "$(printf '%s' "${FILEE_LANG:-}" | tr '[:upper:]' '[:lower:]')" in
         en|en-us|english) shift ;;
@@ -104,7 +104,7 @@ PY
 
 # Validate required tools and incoming payload files before doing anything.
 command -v python3 >/dev/null 2>&1 || {
-    say "Cần Python 3 để cài tsudev-files." "Python 3 is required to install tsudev-files." >&2
+    say "Cần Python 3 để cài TsuFiles." "Python 3 is required to install TsuFiles." >&2
     exit 1
 }
 
@@ -122,7 +122,7 @@ fi
 # A first install on GNOME replaces an extension folder only when it carries our marker.
 if [ "$upgrade" -eq 0 ] && [ "$is_gnome" = true ] && [ -d "$source_dir/gnome/$gnome_extension_id" ] \
     && { [ -e "$gnome_extension_dir" ] || [ -L "$gnome_extension_dir" ]; } && ! gnome_extension_is_ours; then
-    say "Đã có một extension GNOME không do tsudev-files cài tại $gnome_extension_dir. Hãy xóa hoặc đổi tên nó trước khi cài tsudev-files." "A GNOME extension that tsudev-files didn't install exists at $gnome_extension_dir. Remove or rename it before installing tsudev-files."
+    say "Đã có một extension GNOME không do TsuFiles cài tại $gnome_extension_dir. Hãy xóa hoặc đổi tên nó trước khi cài TsuFiles." "A GNOME extension that TsuFiles didn't install exists at $gnome_extension_dir. Remove or rename it before installing TsuFiles."
     exit 1
 fi
 
@@ -133,11 +133,11 @@ if [ "$upgrade" -eq 0 ]; then
         exit 1
     fi
     if [ -e "$bin_dir/filee" ] || [ -L "$bin_dir/filee" ]; then
-        say "$bin_dir/filee đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài tsudev-files." "$bin_dir/filee already exists. Remove or rename it before installing tsudev-files."
+        say "$bin_dir/filee đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài TsuFiles." "$bin_dir/filee already exists. Remove or rename it before installing TsuFiles."
         exit 1
     fi
     if [ -e "$desktop_file" ] || [ -L "$desktop_file" ]; then
-        say "$desktop_file đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài tsudev-files." "$desktop_file already exists. Remove or rename it before installing tsudev-files."
+        say "$desktop_file đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài TsuFiles." "$desktop_file already exists. Remove or rename it before installing TsuFiles."
         exit 1
     fi
 
@@ -161,14 +161,14 @@ else
 
     marker=$(tr -d '\r\n' < "$marker_file" 2>/dev/null || true)
     if [ "$marker" != "com.filee.app" ]; then
-        say "Không nâng cấp được: $install_dir không do tsudev-files cài." "Cannot upgrade: $install_dir was not installed by tsudev-files." >&2
+        say "Không nâng cấp được: $install_dir không do TsuFiles cài." "Cannot upgrade: $install_dir was not installed by TsuFiles." >&2
         exit 1
     fi
 
     # Tell running instance to save and exit cleanly before touching files.
     if [ -x "$install_dir/Filee" ]; then
         if ! "$install_dir/Filee" --quit; then
-            say "Không đóng được tsudev-files đang chạy. Hãy thoát tsudev-files rồi thử lại." "Could not gracefully shut down the running tsudev-files instance. Please exit tsudev-files and try again." >&2
+            say "Không đóng được TsuFiles đang chạy. Hãy thoát TsuFiles rồi thử lại." "Could not gracefully shut down the running TsuFiles instance. Please exit TsuFiles and try again." >&2
             exit 1
         fi
     fi
@@ -238,7 +238,7 @@ else
             fi
 
             if [ ! -d "$install_dir" ] && mv "$backup_dir" "$install_dir" 2>/dev/null; then
-                say "Nâng cấp thất bại. Đã khôi phục bản tsudev-files trước đó." "Update failed. Restored the previous tsudev-files installation." >&2
+                say "Nâng cấp thất bại. Đã khôi phục bản TsuFiles trước đó." "Update failed. Restored the previous TsuFiles installation." >&2
                 if [ -d "$failed_dir" ]; then
                     say "Các tệp của lần nâng cấp lỗi được cách ly và giữ lại tại: $failed_dir" "Quarantined failed update files preserved at: $failed_dir" >&2
                 fi
@@ -308,7 +308,7 @@ if [ -d "$install_dir/gnome/$gnome_extension_id" ]; then
     elif [ "$is_gnome" = true ] && [ ! -e "$gnome_extension_dir" ] && [ ! -L "$gnome_extension_dir" ]; then
         gnome_extension_note=added
     elif [ "$is_gnome" = true ]; then
-        say "Giữ nguyên $gnome_extension_dir: thư mục này không do tsudev-files cài." "Left $gnome_extension_dir as it is: tsudev-files didn't install it." >&2
+        say "Giữ nguyên $gnome_extension_dir: thư mục này không do TsuFiles cài." "Left $gnome_extension_dir as it is: TsuFiles didn't install it." >&2
     fi
     if [ -n "$gnome_extension_note" ]; then
         if copy_gnome_extension; then
@@ -338,9 +338,9 @@ def desktop_value(value):
     return str(value).replace('\\', '\\\\').replace('\n', '\\n').replace('\r', '\\r')
 
 desktop.write_text(
-    # tsudev-files: tên hiển thị trong trình đơn ứng dụng.
-    '[Desktop Entry]\nType=Application\nName=tsudev-files\n'
-    'Comment=Convert files with tsudev-files\nComment[vi]=Chuyển đổi tệp bằng tsudev-files\n'
+    # TsuFiles: tên hiển thị trong trình đơn ứng dụng.
+    '[Desktop Entry]\nType=Application\nName=TsuFiles\n'
+    'Comment=Convert files with TsuFiles\nComment[vi]=Chuyển đổi tệp bằng TsuFiles\n'
     f'Exec={quoted_exec(str(app / "Filee"))} --convert %F\n'
     f'Icon={desktop_value(app / "filee.png")}\n'
     'Terminal=false\nCategories=Utility;\nX-Filee-Managed=true\n', encoding='utf-8')
@@ -351,21 +351,21 @@ if command -v update-desktop-database >/dev/null 2>&1; then
 fi
 
 if [ "$upgrade" -eq 1 ]; then
-    say "Đã nâng cấp tsudev-files tại $install_dir." "Upgraded tsudev-files at $install_dir."
+    say "Đã nâng cấp TsuFiles tại $install_dir." "Upgraded TsuFiles at $install_dir."
 else
-    say "Đã cài tsudev-files tại $install_dir" "Installed tsudev-files at $install_dir"
+    say "Đã cài TsuFiles tại $install_dir" "Installed TsuFiles at $install_dir"
     say "Dòng lệnh: $bin_dir/filee (thêm $bin_dir vào PATH nếu cần)." "CLI: $bin_dir/filee (add $bin_dir to PATH if needed)."
 fi
 
 if [ -n "$gnome_extension_note" ] && [ "$upgrade" -eq 0 ] && [ "$is_gnome" = true ]; then
-    say 'GNOME Wayland: hãy bật "tsudev-files donut at the cursor" trong Extensions.' \
-        'GNOME Wayland: enable "tsudev-files donut at the cursor" in Extensions.'
+    say 'GNOME Wayland: hãy bật "TsuFiles donut at the cursor" trong Extensions.' \
+        'GNOME Wayland: enable "TsuFiles donut at the cursor" in Extensions.'
     say 'Đăng xuất rồi đăng nhập lại nếu chưa thấy extension. Sau đó giữ Ctrl và kéo một tệp trong Files.' \
         'Sign out and sign in if the extension is not listed yet. Then hold Ctrl and drag a file in Files.'
     say 'Không cần quyền quản trị hay nhóm input. Xem GNOME-WAYLAND.md.' \
         'No administrator access or input group is required. See GNOME-WAYLAND.md.'
 elif [ "$gnome_extension_note" = added ]; then
-    say 'GNOME Wayland: đã thêm extension "tsudev-files donut at the cursor". Hãy đăng xuất, đăng nhập lại rồi bật nó trong Extensions.' 'GNOME Wayland: added the "tsudev-files donut at the cursor" extension. Sign out and sign in, then enable it in Extensions.'
+    say 'GNOME Wayland: đã thêm extension "TsuFiles donut at the cursor". Hãy đăng xuất, đăng nhập lại rồi bật nó trong Extensions.' 'GNOME Wayland: added the "TsuFiles donut at the cursor" extension. Sign out and sign in, then enable it in Extensions.'
 elif [ "$gnome_extension_note" = updated ]; then
-    say 'GNOME: đã cập nhật extension "tsudev-files donut at the cursor". Hãy đăng xuất, đăng nhập lại để GNOME Shell nạp bản mới.' 'GNOME: updated the "tsudev-files donut at the cursor" extension. Sign out and sign in so GNOME Shell loads it.'
+    say 'GNOME: đã cập nhật extension "TsuFiles donut at the cursor". Hãy đăng xuất, đăng nhập lại để GNOME Shell nạp bản mới.' 'GNOME: updated the "TsuFiles donut at the cursor" extension. Sign out and sign in so GNOME Shell loads it.'
 fi

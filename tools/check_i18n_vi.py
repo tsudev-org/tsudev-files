@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tsudev-files: kiểm tra bản dịch tiếng Việt (chạy trong CI, workflow "Bảo mật").
+"""TsuFiles: kiểm tra bản dịch tiếng Việt (chạy trong CI, workflow "Bảo mật").
 
 Đạt khi:
   1. vi.json và en.json có đúng cùng tập khóa (không thiếu, không thừa).
@@ -17,7 +17,7 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-I18N = ROOT / "src" / "Tsudev.Files.App" / "Assets" / "i18n"
+I18N = ROOT / "src" / "TsuFiles.App" / "Assets" / "i18n"
 PLACEHOLDER = re.compile(r"\{\d+(?:[,:][^}]*)?\}")
 # Chuỗi được phép giống tiếng Anh: tên sản phẩm, đơn vị, chuẩn giấy, codec, ... (không cần dịch).
 ALLOWED_SAME = 30

@@ -81,7 +81,7 @@ jobs:
           while IFS= read -r f; do
             [ -z "$f" ] && continue
             case "$f" in
-              # tsudev-files: trang files.tsudev.com có workflow riêng (website.yml), không cần build .NET.
+              # TsuFiles: trang files.tsudev.com có workflow riêng (website.yml), không cần build .NET.
               website/*|.github/workflows/website.yml)
                 continue ;;
               *.md|docs/*|LICENSE|.mailmap|.github/CODEOWNERS|.github/ISSUE_TEMPLATE/*|.github/labeler.yml|.github/FUNDING.yml|.github/release.yml|.github/PULL_REQUEST_TEMPLATE*|.github/workflows/label-issue.yml|.github/workflows/label-pr.yml)
@@ -91,7 +91,7 @@ jobs:
             code=true
             if [ "$macos" = true ]; then continue; fi
             case "$f" in
-              .github/workflows/*|build/*|installer/macos/*|*MacOS*|*.csproj|*.props|*.targets|*.slnx|global.json|src/Tsudev.Files.Engines/Infrastructure/engines.json)
+              .github/workflows/*|build/*|installer/macos/*|*MacOS*|*.csproj|*.props|*.targets|*.slnx|global.json|src/TsuFiles.Engines/Infrastructure/engines.json)
                 macos=true ;;
               *.cs|*.axaml)
                 # Shared code with a macOS branch. A deleted file has no content and only counts by its name.
@@ -122,10 +122,10 @@ jobs:
           global-json-file: global.json
 
       - name: Restore
-        run: dotnet restore tsudev-files.slnx
+        run: dotnet restore TsuFiles.slnx
 
       - name: Check formatting
-        run: dotnet format tsudev-files.slnx --verify-no-changes --no-restore --severity warn
+        run: dotnet format TsuFiles.slnx --verify-no-changes --no-restore --severity warn
 
       # The release embeds the Noto fonts, so the tests run with them here too: the headless UI tests load them.
       - name: Fonts
@@ -133,7 +133,7 @@ jobs:
         run: ./build/fetch-fonts.ps1
 
       - name: Build
-        run: dotnet build tsudev-files.slnx --no-restore -c Release
+        run: dotnet build TsuFiles.slnx --no-restore -c Release
 
       # Windows 11 Explorer menu (native DLL + unsigned sparse package); its tests load the DLL in-process.
       # The toolchain (~100 MB) is saved right after it is downloaded, even if a later step fails, so it is
@@ -166,15 +166,15 @@ jobs:
       # The UI tests on their own first, as the release runs them (there they crashed with 0xC0000005): a crash
       # names the test that was running and leaves a dump in TestResults.
       - name: Test UI on its own
-        run: dotnet test tests/Tsudev.Files.App.Tests --no-build -c Release --blame-crash --blame-hang-timeout 5m --logger "console;verbosity=normal" --results-directory TestResults/app
+        run: dotnet test tests/TsuFiles.App.Tests --no-build -c Release --blame-crash --blame-hang-timeout 5m --logger "console;verbosity=normal" --results-directory TestResults/app
 
       # FILEE_TEST_EXIFTOOL: the metadata tests write real files, and fail rather than skip if it isn't there.
       - name: Test
         env:
           FILEE_TEST_EXIFTOOL: ${{ github.workspace }}\engines\exiftool\exiftool.exe
-        run: dotnet test tsudev-files.slnx --no-build -c Release --filter "FullyQualifiedName!~Tsudev.Files.App.Tests" --logger "trx" --results-directory TestResults
+        run: dotnet test TsuFiles.slnx --no-build -c Release --filter "FullyQualifiedName!~TsuFiles.App.Tests" --logger "trx" --results-directory TestResults
 
-      # Builds Setup (src/Tsudev.Files.Setup) around a stub app and runs it in a sandbox: install, update and uninstall into a
+      # Builds Setup (src/TsuFiles.Setup) around a stub app and runs it in a sandbox: install, update and uninstall into a
       # scratch folder with a registry file of its own, without administrator rights.
       - name: Check the installer
         shell: pwsh
@@ -194,8 +194,8 @@ jobs:
         with:
           name: ui-screenshots
           path: |
-            tests/Tsudev.Files.App.Tests/bin/Release/net10.0/screenshots/
-            tests/Tsudev.Files.Setup.Tests/bin/Release/net10.0/screenshots/
+            tests/TsuFiles.App.Tests/bin/Release/net10.0/screenshots/
+            tests/TsuFiles.Setup.Tests/bin/Release/net10.0/screenshots/
           if-no-files-found: ignore
 
   # The metadata writer on Linux, with the Perl ExifTool pinned in engines.json (the build above is its Windows side).
@@ -220,7 +220,7 @@ jobs:
       - name: Fetch ExifTool
         run: |
           set -euo pipefail
-          read -r url sha256 < <(jq -r '.platforms."linux-x64".components.exiftool | "\(.url) \(.sha256)"' src/Tsudev.Files.Engines/Infrastructure/engines.json)
+          read -r url sha256 < <(jq -r '.platforms."linux-x64".components.exiftool | "\(.url) \(.sha256)"' src/TsuFiles.Engines/Infrastructure/engines.json)
           curl -fsSL --retry 3 -o "$RUNNER_TEMP/exiftool.tar.gz" "$url"
           echo "$sha256  $RUNNER_TEMP/exiftool.tar.gz" | sha256sum --check
           mkdir "$RUNNER_TEMP/exiftool"
@@ -230,7 +230,7 @@ jobs:
           echo "$RUNNER_TEMP/exiftool" >> "$GITHUB_PATH"
 
       - name: Test
-        run: dotnet test tests/Tsudev.Files.Engines.Tests -c Release --filter "FullyQualifiedName~MetadataTests"
+        run: dotnet test tests/TsuFiles.Engines.Tests -c Release --filter "FullyQualifiedName~MetadataTests"
 
   # Windows on ARM64 (#236), built and tested natively: the Explorer menu DLL, Setup, 7-Zip, rhwp and Unhwp's library
   # are ARM64 builds, the downloaded engines (Pandoc here) x64 ones under emulation. rhwp and Unhwp come from pinned
@@ -239,7 +239,7 @@ jobs:
   build-arm64:
     name: build (win-arm64)
     needs: changes
-    # tsudev-files: runner ARM chỉ miễn phí cho repo công khai; bỏ qua khi repo còn riêng tư.
+    # TsuFiles: runner ARM chỉ miễn phí cho repo công khai; bỏ qua khi repo còn riêng tư.
     if: ${{ !cancelled() && needs.changes.outputs.code != 'false' && !github.event.repository.private }}
     runs-on: windows-11-arm
     timeout-minutes: 120
@@ -263,7 +263,7 @@ jobs:
           "ready=$(([string](-not $missing)).ToLowerInvariant())" >> $env:GITHUB_OUTPUT
 
       - name: Restore
-        run: dotnet restore tsudev-files.slnx
+        run: dotnet restore TsuFiles.slnx
 
       - name: Fonts
         run: ./build/fetch-fonts.ps1
@@ -280,7 +280,7 @@ jobs:
         run: |
           $native = @()
           if ('${{ steps.pins.outputs.ready }}' -eq 'true') { $native = @("-p:UnhwpNativeLibrary=$((Resolve-Path engines/unhwp/unhwp.dll).Path)") }
-          dotnet build tsudev-files.slnx --no-restore -c Release @native
+          dotnet build TsuFiles.slnx --no-restore -c Release @native
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       # The x64 Zig toolchain the build job saves; it cross-compiles the ARM64 DLL under x64 emulation.
@@ -295,10 +295,10 @@ jobs:
         run: ./build/build-explorer-menu.ps1 -Architecture arm64
 
       - name: Test UI on its own
-        run: dotnet test tests/Tsudev.Files.App.Tests --no-build -c Release --blame-crash --blame-hang-timeout 5m --logger "console;verbosity=normal" --results-directory TestResults/app
+        run: dotnet test tests/TsuFiles.App.Tests --no-build -c Release --blame-crash --blame-hang-timeout 5m --logger "console;verbosity=normal" --results-directory TestResults/app
 
       - name: Test
-        run: dotnet test tsudev-files.slnx --no-build -c Release --filter "FullyQualifiedName!~Tsudev.Files.App.Tests" --logger "trx" --results-directory TestResults
+        run: dotnet test TsuFiles.slnx --no-build -c Release --filter "FullyQualifiedName!~TsuFiles.App.Tests" --logger "trx" --results-directory TestResults
 
       - name: Check the installer
         run: ./build/build-installer.ps1 -CheckOnly -Runtime win-arm64

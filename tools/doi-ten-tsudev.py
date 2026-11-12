@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""tsudev-files: đổi tên mã nguồn từ "Filee" sang tsudev (ADR-0002, hard fork) - lặp lại an toàn (idempotent).
+"""TsuFiles: đổi tên mã nguồn sang TsuFiles (ADR-0002 hard fork, ADR-0003 tên sản phẩm) - lặp lại an toàn.
 
-Bước P5a: namespace, project, solution, assembly thư viện, định danh C#/MSBuild. KHÔNG đổi định danh lúc chạy (tệp
+Nhận cả tên upstream (`Filee.*`, `Filee*`) lẫn tên trung gian của P5a (`Tsudev.Files.*`, `TsudevFiles*`,
+`tsudev-files.slnx`) và đổi thẳng sang `TsuFiles.*`, `TsuFiles*`, `TsuFiles.slnx`. KHÔNG đổi định danh lúc chạy (tệp
 chạy Filee.exe/filee-cli, AppGuid, thư mục dữ liệu, biến FILEE_*, COM/Explorer, GNOME, bundle macOS) - các thứ đó cần
-di trú cho bản đã cài, làm ở bước P5b.
+di trú cho bản đã cài, làm ở bước T3 (bản 2.4.1).
 
 Dùng:
   python3 -I tools/doi-ten-tsudev.py            đổi tên cả repo (git mv + sửa nội dung)
@@ -18,9 +19,9 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-# Dự án .NET: Filee.<X> -> Tsudev.Files.<X>
+# Dự án .NET: Filee.<X> / Tsudev.Files.<X> -> TsuFiles.<X>
 PROJECTS = ("App", "Cli", "Core", "Engines", "Platform", "Setup")
-NS = re.compile(r"\bFilee\.(" + "|".join(PROJECTS) + r")\b")
+NS = re.compile(r"\b(?:Filee|Tsudev\.Files)\.(" + "|".join(PROJECTS) + r")\b")
 
 # Định danh C#/MSBuild mang tiền tố Filee (không phải định danh lúc chạy).
 IDENTIFIERS = (
@@ -30,9 +31,10 @@ IDENTIFIERS = (
     "FileeRemoveNativeSymbols", "FileeRaiseTopmostTestWindow", "FileeMoveToActiveSpaceTestWindow",
     "FileeKeyWindowTestWindow", "FileeOnDemand", "FileeGlyphless", "FileeCmyk", "FileeTests",
 )
-IDENT = re.compile(r"\b(" + "|".join(sorted(IDENTIFIERS, key=len, reverse=True)) + r")\b")
+_SUFFIXES = "|".join(sorted((i[len("Filee"):] for i in IDENTIFIERS), key=len, reverse=True))
+IDENT = re.compile(r"\b(?:Filee|TsudevFiles)(" + _SUFFIXES + r")\b")
 
-SOLUTION_OLD, SOLUTION_NEW = "Filee.slnx", "tsudev-files.slnx"
+SOLUTIONS_OLD, SOLUTION_NEW = ("Filee.slnx", "tsudev-files.slnx"), "TsuFiles.slnx"
 
 # Lịch sử và tài liệu bản quyền giữ nguyên chữ cũ.
 SKIP_PREFIXES = (".standards/", "logs/", "docs/adr/", "CHANGELOG.md", "LICENSE", "THIRD-PARTY-NOTICES.md",
@@ -58,15 +60,20 @@ def eligible(path: str) -> bool:
     return p.suffix.lower() in TEXT_SUFFIXES or p.name in (".editorconfig", ".gitattributes", "CODEOWNERS")
 
 
+def solution(text: str) -> str:
+    for old in SOLUTIONS_OLD:
+        text = re.sub(r"(?<![\w.-])" + re.escape(old), SOLUTION_NEW, text)
+    return text
+
+
 def rewrite(text: str) -> str:
-    text = NS.sub(lambda m: "Tsudev.Files." + m.group(1), text)
-    text = IDENT.sub(lambda m: "TsudevFiles" + m.group(1)[len("Filee"):], text)
-    return text.replace(SOLUTION_OLD, SOLUTION_NEW)
+    text = NS.sub(lambda m: "TsuFiles." + m.group(1), text)
+    text = IDENT.sub(lambda m: "TsuFiles" + m.group(1), text)
+    return solution(text)
 
 
 def new_path(path: str) -> str:
-    return NS.sub(lambda m: "Tsudev.Files." + m.group(1), path).replace(SOLUTION_OLD, SOLUTION_NEW).replace(
-        "FileeFontCollectionTests", "TsudevFilesFontCollectionTests")
+    return IDENT.sub(lambda m: "TsuFiles" + m.group(1), solution(NS.sub(lambda m: "TsuFiles." + m.group(1), path)))
 
 
 def fix_content(paths: list[str]) -> int:

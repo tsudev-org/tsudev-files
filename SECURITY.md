@@ -1,4 +1,4 @@
-# Chính sách bảo mật - tsudev-files
+# Chính sách bảo mật - TsuFiles
 
 ## Phiên bản được hỗ trợ
 

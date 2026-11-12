@@ -4,8 +4,8 @@ import { changelogMoiNhat, RELEASES_URL, renderMd } from '../lib/noi-dung';
 // Sáu phiên bản gần nhất; bản đầy đủ ở CHANGELOG.md trên GitHub.
 const { html } = renderMd('CHANGELOG.md', { md: changelogMoiNhat(6), haCap: 0 });
 ---
-<TaiLieu tieuDe="Nhật ký thay đổi" moTa="Nhật ký thay đổi của tsudev-files theo từng phiên bản: tính năng mới, định dạng mới, sửa lỗi và bản vá bảo mật kế thừa từ Filee gốc." duongDan="/nhat-ky/" nguon="CHANGELOG.md">
+<TaiLieu tieuDe="Nhật ký thay đổi" moTa="Nhật ký thay đổi của TsuFiles theo từng phiên bản: tính năng mới, định dạng mới, sửa lỗi và bản vá bảo mật kế thừa từ Filee gốc." duongDan="/nhat-ky/" nguon="CHANGELOG.md">
   <h1>Nhật ký thay đổi</h1>
-  <p>tsudev-files theo sát phiên bản của Filee gốc. Nhật ký dưới đây là của upstream, giữ nguyên tiếng Anh; thay đổi riêng của bản Việt hóa (tiếng Việt, khóa ký cập nhật, gia cố bảo mật) ghi trong ghi chú của từng <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer">bản phát hành trên GitHub</a>.</p>
+  <p>TsuFiles theo sát phiên bản của Filee gốc. Nhật ký dưới đây là của upstream, giữ nguyên tiếng Anh; thay đổi riêng của bản Việt hóa (tiếng Việt, khóa ký cập nhật, gia cố bảo mật) ghi trong ghi chú của từng <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer">bản phát hành trên GitHub</a>.</p>
   <div lang="en"><Fragment set:html={html} /></div>
 </TaiLieu>

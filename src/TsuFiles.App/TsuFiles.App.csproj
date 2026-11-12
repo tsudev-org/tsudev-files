@@ -1,0 +1,106 @@
+<!--
+  TsuFiles.App: the Avalonia desktop application (tray, donut toolbar, settings window).
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Filee</AssemblyName>
+    <RootNamespace>TsuFiles.App</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\Icons\filee.ico</ApplicationIcon>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TsuFiles.Core\TsuFiles.Core.csproj" />
+    <ProjectReference Include="..\TsuFiles.Engines\TsuFiles.Engines.csproj" />
+    <ProjectReference Include="..\TsuFiles.Platform.Windows\TsuFiles.Platform.Windows.csproj" />
+    <ProjectReference Include="..\TsuFiles.Platform.Linux\TsuFiles.Platform.Linux.csproj" />
+    <ProjectReference Include="..\TsuFiles.Platform.MacOS\TsuFiles.Platform.MacOS.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="Avalonia.Controls.ColorPicker" />
+    <PackageReference Include="AvaloniaUI.DiagnosticsSupport">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Markdig" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="SharpHook" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TsuFilesNativeWayland Condition="$(RuntimeIdentifier.StartsWith('linux')) Or ('$(RuntimeIdentifier)' == '' And $([MSBuild]::IsOSPlatform('Linux')))">true</TsuFilesNativeWayland>
+    <DefineConstants Condition="'$(TsuFilesNativeWayland)' == 'true'">$(DefineConstants);FILEE_NATIVE_WAYLAND</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Linux-only Wayland packages to keep Windows and macOS binaries small -->
+  <ItemGroup Condition="'$(TsuFilesNativeWayland)' == 'true'">
+    <PackageReference Include="Avalonia.Wayland" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+    <!-- Shown on the About page. -->
+    <AvaloniaResource Include="..\..\THIRD-PARTY-NOTICES.md" Link="Assets\THIRD-PARTY-NOTICES.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="TsuFiles.App.Tests" />
+  </ItemGroup>
+
+  <!-- Native debug symbols from NuGet packages (SkiaSharp, HarfBuzz: ~100 MB) are useless to users. -->
+  <Target Name="TsuFilesRemoveNativeSymbols" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+    <ItemGroup>
+      <_FileeNativePdb Include="$(PublishDir)lib*.pdb" />
+    </ItemGroup>
+    <Delete Files="@(_FileeNativePdb)" />
+  </Target>
+
+  <!-- Repository URL for the updater / About page, taken from Directory.Build.props. -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>RepositoryUrl</_Parameter1>
+      <_Parameter2>$(TsuFilesRepositoryUrl)</_Parameter2>
+    </AssemblyAttribute>
+    <!-- Published builds (installer, portable zip) set -p:TsuFilesRelease=true: only they register Explorer and startup
+         entries (UpdateService.IsReleaseBuild), so running from source leaves the user's system alone. -->
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute" Condition="'$(TsuFilesRelease)' == 'true'">
+      <_Parameter1>TsuFilesRelease</_Parameter1>
+      <_Parameter2>true</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <!-- How official builds check updates (Directory.Build.props): the update key and the expected publisher. Running
+       from source and the tests keep to today's checks. -->
+  <ItemGroup Condition="'$(TsuFilesRelease)' == 'true'">
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute" Condition="'$(TsuFilesUpdatePublicKey)' != ''">
+      <_Parameter1>TsuFilesUpdatePublicKey</_Parameter1>
+      <_Parameter2>$(TsuFilesUpdatePublicKey)</_Parameter2>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute" Condition="'$(TsuFilesExpectedPublisher)' != ''">
+      <_Parameter1>TsuFilesExpectedPublisher</_Parameter1>
+      <_Parameter2>$(TsuFilesExpectedPublisher)</_Parameter2>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute" Condition="'$(TsuFilesExpectedIssuer)' != ''">
+      <_Parameter1>TsuFilesExpectedIssuer</_Parameter1>
+      <_Parameter2>$(TsuFilesExpectedIssuer)</_Parameter2>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute" Condition="'$(TsuFilesExpectedSignerKeys)' != ''">
+      <_Parameter1>TsuFilesExpectedSignerKeys</_Parameter1>
+      <_Parameter2>$(TsuFilesExpectedSignerKeys)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <!-- A subject alone is only text: an expected publisher needs the certificate authority that issued it. -->
+  <Target Name="TsuFilesCheckExpectedPublisher" BeforeTargets="CoreCompile"
+          Condition="'$(TsuFilesRelease)' == 'true' And '$(TsuFilesExpectedPublisher)' != '' And '$(TsuFilesExpectedIssuer)' == ''">
+    <Error Text="TsuFilesExpectedPublisher is set without TsuFilesExpectedIssuer (Directory.Build.props)." />
+  </Target>
+</Project>

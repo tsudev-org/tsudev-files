@@ -15,35 +15,35 @@
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
 
     <Version>2.4.0</Version>
-    <!-- tsudev-files: tên hiển thị trong thuộc tính tệp (ProductName); tên assembly/tệp chạy vẫn là Filee. -->
-    <Product>tsudev-files</Product>
-    <!-- tsudev-files: siêu dữ liệu nhà phát hành theo ECOSYSTEM_IDENTITY 2.3 (Company, Copyright); vẫn ghi công upstream
+    <!-- TsuFiles: tên hiển thị trong thuộc tính tệp (ProductName); tên assembly/tệp chạy vẫn là Filee. -->
+    <Product>TsuFiles</Product>
+    <!-- TsuFiles: siêu dữ liệu nhà phát hành theo ECOSYSTEM_IDENTITY 2.3 (Company, Copyright); vẫn ghi công upstream
          (giấy phép MIT: thông báo bản quyền gốc giữ nguyên trong LICENSE). -->
     <Company>tsudev</Company>
     <Authors>tsudev; Filee contributors</Authors>
     <Copyright>Copyright (c) 2026 tsudev. Filee: Copyright (c) Filee contributors</Copyright>
 
     <!-- Single source of truth for the GitHub repository (used by the updater and the About page). -->
-    <!-- tsudev-files: bản fork Việt hóa; trình cập nhật chỉ hỏi repo này (không hỏi repo gốc). -->
-    <TsudevFilesRepositoryUrl>https://github.com/tsudev-org/tsudev-files</TsudevFilesRepositoryUrl>
-    <RepositoryUrl>$(TsudevFilesRepositoryUrl)</RepositoryUrl>
+    <!-- TsuFiles: bản fork Việt hóa; trình cập nhật chỉ hỏi repo này (không hỏi repo gốc). -->
+    <TsuFilesRepositoryUrl>https://github.com/tsudev-org/tsudev-files</TsuFilesRepositoryUrl>
+    <RepositoryUrl>$(TsuFilesRepositoryUrl)</RepositoryUrl>
 
-    <!-- What an official build (-p:TsudevFilesRelease=true) checks before it installs an update (UpdateService).
-         TsudevFilesUpdatePublicKey: the public half of Filee's update key (base64; build/new-update-key.ps1 makes the pair,
+    <!-- What an official build (-p:TsuFilesRelease=true) checks before it installs an update (UpdateService).
+         TsuFilesUpdatePublicKey: the public half of Filee's update key (base64; build/new-update-key.ps1 makes the pair,
          build/sign-checksums.ps1 signs every release's SHA256SUMS files with the private half). With a key, an
          update without a valid signature is refused on every platform; empty, the same-release checksum is all.
-         TsudevFilesExpectedPublisher and TsudevFilesExpectedIssuer: the Authenticode certificate every Windows installer must be
+         TsuFilesExpectedPublisher and TsuFilesExpectedIssuer: the Authenticode certificate every Windows installer must be
          signed with, its subject and the certificate authority that issued it. Before a renewed certificate comes
          from another authority, ship a release that lists both issuers ("|" between them).
-         TsudevFilesExpectedSignerKeys: optionally the SHA-256s of the certificate public keys allowed, "|" between them. -->
-    <!-- tsudev-files: khóa công khai RIÊNG của bản fork (khóa bí mật nằm ngoài repo, xem docs/vi/PHAT-HANH.md).
+         TsuFilesExpectedSignerKeys: optionally the SHA-256s of the certificate public keys allowed, "|" between them. -->
+    <!-- TsuFiles: khóa công khai RIÊNG của bản fork (khóa bí mật nằm ngoài repo, xem docs/vi/PHAT-HANH.md).
          Bản phát hành của repo gốc không được ký bằng khóa này nên sẽ bị từ chối - đúng chủ đích. -->
-    <TsudevFilesUpdatePublicKey>MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEd6wff/VGVI01nwgKA80+DWbDGj9hj3sw2n6nBnj6UggzGd99dK7IMLX78y0T3bJHNaapYIw9n0BLcItu4DIKZQ==</TsudevFilesUpdatePublicKey>
-    <!-- tsudev-files: chưa có chứng thư Authenticode riêng; để trống thì trình cập nhật dựa vào chữ ký ECDSA ở trên.
+    <TsuFilesUpdatePublicKey>MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEd6wff/VGVI01nwgKA80+DWbDGj9hj3sw2n6nBnj6UggzGd99dK7IMLX78y0T3bJHNaapYIw9n0BLcItu4DIKZQ==</TsuFilesUpdatePublicKey>
+    <!-- TsuFiles: chưa có chứng thư Authenticode riêng; để trống thì trình cập nhật dựa vào chữ ký ECDSA ở trên.
          Khi có chứng thư, điền subject/issuer của CHÍNH chứng thư đó (không dùng của tác giả gốc). -->
-    <TsudevFilesExpectedPublisher></TsudevFilesExpectedPublisher>
-    <TsudevFilesExpectedIssuer></TsudevFilesExpectedIssuer>
-    <TsudevFilesExpectedSignerKeys></TsudevFilesExpectedSignerKeys>
+    <TsuFilesExpectedPublisher></TsuFilesExpectedPublisher>
+    <TsuFilesExpectedIssuer></TsuFilesExpectedIssuer>
+    <TsuFilesExpectedSignerKeys></TsuFilesExpectedSignerKeys>
   </PropertyGroup>
 
   <!-- Libraries their makers sign: ReadyToRun recompiles an assembly and drops its Authenticode signature, so these

@@ -88,7 +88,7 @@ export function kiemKenh(kenh: unknown[]): KenhUngHo[] {
 
 export const KENH: KenhUngHo[] = kiemKenh(duLieu.kenh);
 
-const nhaTaiTro = JSON.parse(docTep('src/Tsudev.Files.App/Assets/Sponsors/sponsors.json')) as {
+const nhaTaiTro = JSON.parse(docTep('src/TsuFiles.App/Assets/Sponsors/sponsors.json')) as {
   sponsors?: NguoiUngHo[]; backers?: NguoiUngHo[];
 };
 export const NHA_TAI_TRO: NguoiUngHo[] = nhaTaiTro.sponsors ?? [];

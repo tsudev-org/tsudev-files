@@ -28,8 +28,8 @@ Thumbs.db
 .DS_Store
 
 # Fonts are downloaded by build/fetch-fonts.ps1
-src/Tsudev.Files.App/Assets/Fonts/*.ttf
-src/Tsudev.Files.App/Assets/Fonts/*.otf
+src/TsuFiles.App/Assets/Fonts/*.ttf
+src/TsuFiles.App/Assets/Fonts/*.otf
 
 # --- tsudev-standards v3.1.1 (base + dotnet) ---
 .env
@@ -105,7 +105,7 @@ ansible/inventory/production*
 *.retry
 dist/
 build/
-# tsudev-files: /build/ ở gốc chứa script phát hành, phải được theo dõi (đầu ra build nằm ở bin/ obj/ publish/).
+# TsuFiles: /build/ ở gốc chứa script phát hành, phải được theo dõi (đầu ra build nằm ở bin/ obj/ publish/).
 !/build/
 /build/.cache/
 release/

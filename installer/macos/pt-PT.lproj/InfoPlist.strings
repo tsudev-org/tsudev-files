@@ -1,3 +1,3 @@
 /* macOS permission explanations; the operating system chooses the bundle localization. */
-"NSAppleEventsUsageDescription" = "O tsudev-files lê os ficheiros selecionados no Finder quando utilizas um atalho de conversão.";
-"NSInputMonitoringUsageDescription" = "O tsudev-files deteta o atalho de conversão e o gesto de arrastar para mostrar o menu de conversão.";
+"NSAppleEventsUsageDescription" = "O TsuFiles lê os ficheiros selecionados no Finder quando utilizas um atalho de conversão.";
+"NSInputMonitoringUsageDescription" = "O TsuFiles deteta o atalho de conversão e o gesto de arrastar para mostrar o menu de conversão.";

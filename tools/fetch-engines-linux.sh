@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# tsudev-files: tải engine tùy chọn cho Linux/WSL vào engines/<id>/ ở gốc repo, để chạy test giống CI.
+# TsuFiles: tải engine tùy chọn cho Linux/WSL vào engines/<id>/ ở gốc repo, để chạy test giống CI.
 # Tương đương build/fetch-engines.ps1 (chỉ dành cho Windows) của upstream.
 #
-# Nguồn tải, phiên bản và SHA-256 lấy từ src/Tsudev.Files.Engines/Infrastructure/engines.json (cùng danh sách ứng dụng dùng
+# Nguồn tải, phiên bản và SHA-256 lấy từ src/TsuFiles.Engines/Infrastructure/engines.json (cùng danh sách ứng dụng dùng
 # khi tải engine). Sai SHA-256 thì hủy, không giải nén. Giải nén từ chối đường dẫn tuyệt đối và "..".
 #
 # Cách dùng: tools/fetch-engines-linux.sh 7zip [pandoc rhwp ...]   (mặc định: 7zip)
 set -euo pipefail
 die() { echo "LỖI: $*" >&2; exit 1; }
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-JSON="$ROOT/src/Tsudev.Files.Engines/Infrastructure/engines.json"
+JSON="$ROOT/src/TsuFiles.Engines/Infrastructure/engines.json"
 case "$(uname -m)" in x86_64) RID=linux-x64 ;; aarch64) RID=linux-arm64 ;; *) die "kiến trúc $(uname -m) chưa hỗ trợ" ;; esac
 (( $# > 0 )) || set -- 7zip
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT

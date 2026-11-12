@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>TsuFiles.Platform.Linux</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TsuFiles.Core\TsuFiles.Core.csproj" />
+    <InternalsVisibleTo Include="TsuFiles.Platform.Tests" />
+  </ItemGroup>
+</Project>
