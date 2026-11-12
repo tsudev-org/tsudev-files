@@ -180,6 +180,12 @@ public sealed class AppSettings
     [JsonConverter(typeof(IconPreferenceJsonConverter))]
     public bool ShowMenuBarIcon { get; set; } = true;
 
+    /// <summary>
+    /// TsuFiles: "toiThieu" lớn nhất từng đọc được từ phien-ban.json (chỉ tăng, xem Updates/VersionGate). Bản có số build
+    /// thấp hơn bị chặn kể cả khi mất mạng. 0 = chưa từng đọc.
+    /// </summary>
+    public int UpdateMinimumBuild { get; set; }
+
     /// <summary>Newest version the user was already told about, so the update notice shows once per release.</summary>
     public string? NotifiedUpdateVersion { get; set; }
 

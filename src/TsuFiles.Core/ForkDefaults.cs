@@ -43,6 +43,13 @@ public static class ForkDefaults
     /// </summary>
     public const string InstalledName = "tsudev-files";
 
+    /// <summary>
+    /// Số build nguyên, tăng 1 ở MỖI bản phát hành (bắt buộc cập nhật so số này với "moiNhat"/"toiThieu" trong
+    /// files.tsudev.com/phien-ban.json, xem Updates/VersionGate.cs và docs/vi/CAP-NHAT-BAT-BUOC.md).
+    /// 1 = 2.4.0-vn.1 (bản đầu, chưa có cơ chế), 2 = bản phát hành kế tiếp (2.4.1).
+    /// </summary>
+    public const int BuildNumber = 2;
+
     /// <summary>Tên của dự án gốc; vẫn là tên namespace, tệp chạy, thư mục dữ liệu và khóa registry.</summary>
     public const string UpstreamName = "Filee";
 

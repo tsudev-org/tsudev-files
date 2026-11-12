@@ -73,6 +73,7 @@ public static class AppHost
         services.AddSingleton<StagedFiles>();
         services.AddSingleton<TrayService>();
         services.AddSingleton<UpdateService>();
+        services.AddSingleton<ForcedUpdateService>(); // TsuFiles: bắt buộc cập nhật (phien-ban.json)
         services.AddSingleton<MemoryTrimmer>();
         services.AddSingleton<WindowService>();
         services.AddSingleton<WhatsNewService>();
