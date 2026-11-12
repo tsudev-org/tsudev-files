@@ -97,6 +97,17 @@ const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsude
       </ol>
 
       <h2 id="linux">Cài trên Linux x64, ARM64 (Ubuntu 22.04 trở lên)</h2>
+      <h3 id="cai-bang-lenh">Cài bằng lệnh (khuyên dùng)</h3>
+      <p>Gói <code>.deb</code>, <code>.rpm</code> ký GPG trong kho <code>pkg.tsudev.com</code> của tsudev, dựng từ chính tệp Linux của bản phát hành trên GitHub. Cập nhật cùng hệ thống bằng <code>apt upgrade</code> hoặc <code>dnf upgrade</code>. Sau khi cài có hai lệnh <code>tsudev-files</code> và <code>filee</code>.</p>
+      <p>Debian, Ubuntu, Linux Mint:</p>
+      <pre tabindex="0"><code>curl -fsSL https://pkg.tsudev.com/tsudev-archive-keyring.gpg | sudo tee /usr/share/keyrings/tsudev.gpg &gt;/dev/null
+echo "deb [signed-by=/usr/share/keyrings/tsudev.gpg] https://pkg.tsudev.com/apt stable main" | sudo tee /etc/apt/sources.list.d/tsudev.list
+sudo apt update &amp;&amp; sudo apt install tsudev-files</code></pre>
+      <p>Fedora:</p>
+      <pre tabindex="0"><code>sudo curl -fsSLo /etc/yum.repos.d/tsudev.repo https://pkg.tsudev.com/rpm/tsudev.repo
+sudo dnf install tsudev-files</code></pre>
+      <p>Vân tay khóa ký của kho ghi tại <a href="https://tsudev.com/apps" target="_blank" rel="noopener noreferrer">tsudev.com/apps</a>.</p>
+      <h3 id="cai-tu-goi-nen">Cài từ gói nén (không cần quyền root)</h3>
       <pre tabindex="0"><code>tar -xzf tsudev-files-&lt;phiên bản&gt;-linux-x64.tar.gz
 cd tsudev-files-&lt;phiên bản&gt;-linux-x64
 ./install.sh            # không cần quyền root, cần Python 3; FILEE_LANG=en ./install.sh để xem tiếng Anh</code></pre>

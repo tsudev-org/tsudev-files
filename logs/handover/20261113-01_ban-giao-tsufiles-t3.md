@@ -43,6 +43,10 @@
       `packaging/package.json`, website `/tai-ve/`). Khoảng 4600 chỗ `Filee`/`filee`/`FILEE_` trong `src installer build
       packaging .github tests` (nhiều nhất: i18n, `Cli/Help.cs`, `installer/linux/install.sh`). Bước đầu nên khảo sát
       các chỗ đọc thư mục dữ liệu (`UserDataStore`, `Program.cs`, `EngineInstaller`) và viết test di trú trước.
+- [ ] 2.3b. Gói APT/RPM (`pkg.tsudev.com`, kênh đã bật 13/11/2026): khi đổi `name`/`command` sang `tsufiles` ở T3b, khai
+      `"linux": { "formerNames": ["tsudev-files"] }` để kho sinh gói chuyển tiếp (deb) / Provides+Obsoletes (rpm). Tên gói
+      phải đúng khuôn `tsudev-<ten>`; muốn đúng `tsufiles` thì nhắn phiên `linux-packages` TRƯỚC để họ thêm `tenRieng`
+      vào `products.json` (như lotus-share). Sửa cả khối "Cài bằng lệnh" ở `website/src/pages/tai-ve.astro`.
 - [ ] 2.4. Phát hành 2.4.1: `Version` 2.4.1, `ForkDefaults.BuildNumber` đã là 2, mục `## 2.4.1` trong CHANGELOG (ghi
       rõ lệnh `filee` -> `tsufiles` làm gãy script cũ), theo `docs/vi/PHAT-HANH.md`; sau khi công khai sửa
       `phien-ban.json` (`phienBan` 2.4.1, `moiNhat` 2) và nhờ deploy.

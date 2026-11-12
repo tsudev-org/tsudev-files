@@ -45,10 +45,6 @@
       KnifeLemon/Filee PR #1339 - lấy về khi gộp upstream.
 - [ ] Mua/xin chứng thư Authenticode (hoặc SignPath OSS) rồi điền `FileeExpectedPublisher`/`FileeExpectedIssuer`.
 
-- [ ] Chờ phiên đóng gói (`projects-5d`) xử lý `~/projects/logs/handover/20261111-03_yeu-cau-linux-packages-ho-tro-tsudev-files.md`
-      (bộ dựng `linux-packages` hỗ trợ `{tagVersion}`, `sums`/`root` theo tệp, `desktop.exec`, `links`). Xong và CI cài thử
-      đạt thì chuyển `apt`, `rpm` từ `planned` sang `channels` trong `packaging/package.json`, thêm khối "Cài bằng lệnh"
-      trên website (`/tai-ve/`), nhờ chủ dự án deploy.
 - [ ] Tệp `tsudev-files-<ver>-SHA256SUMS.txt` chính chỉ liệt kê tệp Windows (Linux/macOS ở tệp riêng theo nền tảng);
       PACKAGING.md mục 4.1 muốn một SHA256SUMS liệt kê mọi tệp. Không đổi tên/định dạng tệp hiện có vì trình cập nhật
       đọc chúng - nếu làm thì THÊM tệp gộp mới ở bản 2.4.1 và ghi vào `docs/vi/PHAT-HANH.md`.
@@ -59,6 +55,9 @@
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 13/11/2026 - Gói APT/RPM tsudev-files 2.4.0-vn.1 xuất bản trên `pkg.tsudev.com` (linux-packages PR #13, cài thật xanh
+  8 môi trường); `apt`, `rpm` chuyển sang `channels`; khối "Cài bằng lệnh" ở `/tai-ve/`. Phụ thuộc Linux: PR #53.
 
 - 13/11/2026 - ADR-0003 T2 gộp PR #49 (`290456b4`): `Tsudev.Files.*` -> `TsuFiles.*`, `TsuFiles.slnx`, tên hiển thị
   TsuFiles, kiểu giao diện Cú đêm (`ThemeStyle.NightOwl`, mặc định bản cài mới + Tối), logo `tsufiles-mark.*`, og-image.
