@@ -54,6 +54,8 @@ const dangO = (href: string) => duongDan.startsWith(href);
     <meta property="og:url" content={url}>
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.webmanifest">
@@ -63,7 +65,11 @@ const dangO = (href: string) => duongDan.startsWith(href);
     <header class="dau-trang">
       <div class="khung dau-trang__trong">
         <a class="thuong-hieu" href="/" aria-label="tsudev-files - Trang chủ">
-          <img src="/brand/logo-mark.png" alt="" width="34" height="42">
+          <picture>
+            <source srcset="/brand/tsudev-files-mark.avif" type="image/avif">
+            <source srcset="/brand/tsudev-files-mark.webp" type="image/webp">
+            <img src="/brand/tsudev-files-mark.png" alt="" width="32" height="42">
+          </picture>
           <span>tsudev-files</span>
         </a>
         <nav aria-label="Chính">
@@ -105,6 +111,7 @@ const dangO = (href: string) => duongDan.startsWith(href);
             <ul class="chan-trang__lien-ket">
               <li><a href="/nhat-ky/">Nhật ký thay đổi</a></li>
               <li><a href="/ban-quyen/">Bản quyền</a></li>
+              <li><a href="/ung-ho/">Ủng hộ</a></li>
               <li><a href={REPO_URL} target="_blank" rel="noopener noreferrer">Mã nguồn</a></li>
               <li><a href={`${REPO_URL}/issues`} target="_blank" rel="noopener noreferrer">Báo lỗi, góp ý</a></li>
             </ul>

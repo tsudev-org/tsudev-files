@@ -51,7 +51,7 @@ Out of scope:
     both even if the installed copy itself isn't signed. A copy built from source compares with the certificate that
     signed it. An installer signed by anyone else is discarded.
 - **Engines:** every engine comes from the official location pinned in
-  [`engines.json`](src/Filee.Engines/Infrastructure/engines.json), with its SHA-256 and size. A download that doesn't
+  [`engines.json`](src/Tsudev.Files.Engines/Infrastructure/engines.json), with its SHA-256 and size. A download that doesn't
   match is discarded.
 - **Release files:** each release lists the SHA-256 of every package in `Filee-<version>-SHA256SUMS.txt` (the Linux
   and macOS packages in their own `-SHA256SUMS.txt` files), each signed with the update key in a `.sig` file.

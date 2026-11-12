@@ -1,12 +1,12 @@
 # Adding a language
 
-1. Copy `src/Filee.App/Assets/i18n/en.json` to `<code>.json` (e.g. `ja.json`, `de.json`, `zh-TW.json`).
+1. Copy `src/Tsudev.Files.App/Assets/i18n/en.json` to `<code>.json` (e.g. `ja.json`, `de.json`, `zh-TW.json`).
    The file is a flat list of `"key": "text"` pairs.
 2. Translate the values. Keep `{0}`, `{1}` placeholders — a test checks they match English.
    Keep the text short where English is short (buttons, donut labels).
-3. Register the language in `AppLanguages.All` (`src/Filee.App/Services/AppLanguages.cs`) with its native name,
-   e.g. `("ja", "日本語")`; the order there is the order of the language pickers. Setup (`src/Filee.Setup`) offers it
-   too: add the code to the `/LANG` list in `src/Filee.Setup/SetupOptions.cs` and a row to `SetupTextsTests`.
+3. Register the language in `AppLanguages.All` (`src/Tsudev.Files.App/Services/AppLanguages.cs`) with its native name,
+   e.g. `("ja", "日本語")`; the order there is the order of the language pickers. Setup (`src/Tsudev.Files.Setup`) offers it
+   too: add the code to the `/LANG` list in `src/Tsudev.Files.Setup/SetupOptions.cs` and a row to `SetupTextsTests`.
    If the OS culture should pick it automatically, extend `LocalizationService.Resolve`. Match the code itself and
    `<code>-*` only (`"fr"` and `"fr-CA"`, not North Frisian `"frr"`), and add rows for both to
    `LocalizationTests.Auto_follows_the_language_the_user_reads_the_os_in`.
@@ -20,7 +20,7 @@
    Pictures and drawings that must not mirror (the donut, the crop canvas, animated images, logos) set
    `FlowDirection="LeftToRight"` on themselves; custom-drawn text is shaped in the UI culture's direction, as
    `DonutMenu` does.
-6. Run `dotnet test` and look at the screenshots in `tests/Filee.App.Tests/bin/.../screenshots`
+6. Run `dotnet test` and look at the screenshots in `tests/Tsudev.Files.App.Tests/bin/.../screenshots`
    (add your language to `RenderTests.Pages` to render a few pages).
 
 Missing keys fall back to English at runtime, but the test suite requires every language to be complete.
@@ -32,7 +32,7 @@ The UI language changes `CurrentUICulture`; number and date formatting continue 
 `CurrentCulture`. Do not change machine-readable filenames, pattern tokens or command-line switches when translating.
 
 The Windows installer embeds the same JSON files, including the `installer.*` keys. Test the language with
-`Filee.Setup.Tests` as well, and extend `SetupTexts.Resolve` when a region needs a distinct catalog. The CLI
+`Tsudev.Files.Setup.Tests` as well, and extend `SetupTexts.Resolve` when a region needs a distinct catalog. The CLI
 currently has a separate, English-only text provider.
 
 Native macOS text also needs `<language>.lproj/ServicesMenu.strings` and, for permission explanations,
@@ -41,10 +41,8 @@ identifier on the left of `ServicesMenu.strings`; translate its value. The packa
 and validates their strings files with `plutil`. These system texts follow macOS language preferences.
 Keep technical identifiers such as the KWin `Filee Donut` window title stable.
 
-Optional, but welcome in the same or a later pull request: a translated README. Add `docs/readme/README.<code>.md`
-with every section `README.md` has (links to other files in the repository start with `../../`), link it from the
-language line at the top of the other READMEs and add the language to
-their list of UI languages. The maintainers add the language to the website (filee.sh).
+tsudev-files keeps its README in Vietnamese (`README.md`) and English (`README.en.md`) only; there are no other
+translated READMEs to update.
 
 ## Demonstration recordings
 

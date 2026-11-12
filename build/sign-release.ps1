@@ -22,7 +22,7 @@
      Microsoft Store takes Setup.exe from that address, because GitHub's download links redirect;
   7. with -Publish, publishes the release.
 
-  When the tag's Directory.Build.props carries an update key (FileeUpdatePublicKey), its builds refuse an update
+  When the tag's Directory.Build.props carries an update key (TsudevFilesUpdatePublicKey), its builds refuse an update
   without signed checksums: the script then stops early without -UpdateKey, checks that the private key belongs to
   that public key, and doesn't publish while a SHA256SUMS file on the draft has no .sig next to it.
 
@@ -68,10 +68,10 @@ if ($run.status -ne 'completed' -or $run.conclusion -ne 'success') { throw "The 
 # The update key the tag's builds carry: their updater refuses checksum files that aren't signed with it.
 Invoke-Checked 'git fetch' { git -C $root fetch --quiet origin "refs/tags/${tag}:refs/tags/$tag" }
 $props = [xml](git -C $root show "${tag}:Directory.Build.props" | Out-String)
-$publicKey = @($props.Project.PropertyGroup | ForEach-Object { $_.FileeUpdatePublicKey } | Where-Object { $_ -is [string] -and $_.Trim() }) |
+$publicKey = @($props.Project.PropertyGroup | ForEach-Object { $_.TsudevFilesUpdatePublicKey } | Where-Object { $_ -is [string] -and $_.Trim() }) |
     Select-Object -First 1
 if ($publicKey -and -not $UpdateKey) {
-    throw "$tag carries an update key (FileeUpdatePublicKey): pass -UpdateKey <private key file> or set FILEE_UPDATE_KEY."
+    throw "$tag carries an update key (TsudevFilesUpdatePublicKey): pass -UpdateKey <private key file> or set FILEE_UPDATE_KEY."
 }
 if ($UpdateKey -and -not (Test-Path -LiteralPath $UpdateKey -PathType Leaf)) { throw "No private update key at $UpdateKey." }
 
@@ -88,7 +88,7 @@ Invoke-Checked 'git worktree add' { git -C $root worktree add --detach $source $
 try {
     $out = Join-Path $work 'out'
     & (Join-Path $source 'build\build-installer.ps1') -Version $Version -Portable -OutputDir $out `
-        -PublishDir (Join-Path $work 'unsigned\app') -SetupProgram (Join-Path $work 'unsigned\Filee.Setup.exe') `
+        -PublishDir (Join-Path $work 'unsigned\app') -SetupProgram (Join-Path $work 'unsigned\Tsudev.Files.Setup.exe') `
         -CertificateThumbprint $CertificateThumbprint
 }
 finally {

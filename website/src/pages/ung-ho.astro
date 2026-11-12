@@ -1,0 +1,46 @@
+---
+// Trang Ủng hộ: nơi DUY NHẤT liệt kê cách ủng hộ tsudev-files (ứng dụng, README, nút Sponsor GitHub đều trỏ về đây).
+import TaiLieu from '../components/TaiLieu.astro';
+import { REPO_URL } from '../lib/noi-dung';
+import { KENH, NHA_TAI_TRO, NGUOI_UNG_HO } from '../lib/ung-ho';
+---
+<TaiLieu tieuDe="Ủng hộ" moTa="Cách ủng hộ tsudev-files, trình chuyển đổi tệp ngoại tuyến miễn phí của hệ sinh thái tsudev: kênh ủng hộ chính thức và những cách đóng góp không tốn tiền." duongDan="/ung-ho/">
+  <h1>Ủng hộ tsudev-files</h1>
+  <p>tsudev-files miễn phí và sẽ luôn miễn phí, không quảng cáo, không thu thập dữ liệu. Ủng hộ là hoàn toàn tự nguyện, không mở khóa tính năng hay quyền lợi nào; mọi đóng góp đều dành cho việc phát triển tsudev-files và hệ sinh thái <a href="https://tsudev.com" target="_blank" rel="noopener noreferrer">tsudev</a>.</p>
+
+  <h2 id="kenh-ung-ho">Kênh ủng hộ</h2>
+  {KENH.length > 0 ? (
+    <ul class="kenh-ung-ho">
+      {KENH.map((k) => (
+        <li>
+          {k.url ? <a href={k.url} target="_blank" rel="noopener noreferrer"><strong>{k.ten}</strong></a> : <strong>{k.ten}</strong>}
+          <span>{k.moTa}</span>
+          {k.chiTiet.length > 0 && <span class="kenh-ung-ho__chi-tiet">{k.chiTiet.map((d) => <span>{d}</span>)}</span>}
+          {k.anhQr && <img src={k.anhQr} alt={k.vietqr ? `Mã QR chuyển khoản tới tài khoản ${k.vietqr.soTaiKhoan}` : `Mã QR ${k.ten}`} width="200" height="200" loading="lazy">}
+        </li>
+      ))}
+    </ul>
+    <p>Đây là kênh ủng hộ duy nhất của tsudev-files. Trước khi chuyển, hãy kiểm tra tên chủ tài khoản ứng dụng ngân hàng hiển thị khớp với thông tin trên; đừng chuyển tiền theo số tài khoản hay mã QR ở bất kỳ nơi nào khác tự nhận là tsudev.</p>
+  ) : (
+    <p>Kênh ủng hộ tài chính chính thức của tsudev đang được chuẩn bị và sẽ được công bố tại trang này. Trang này là nơi duy nhất công bố kênh ủng hộ: đừng chuyển tiền theo đường dẫn ở bất kỳ nơi nào khác tự nhận là tsudev-files.</p>
+  )}
+
+  <h2 id="khong-ton-tien">Ủng hộ không tốn tiền</h2>
+  <ul>
+    <li>Gắn ⭐ cho <a href={REPO_URL} target="_blank" rel="noopener noreferrer">mã nguồn trên GitHub</a> để nhiều người tìm thấy dự án hơn.</li>
+    <li><a href={`${REPO_URL}/issues`} target="_blank" rel="noopener noreferrer">Báo lỗi hoặc góp ý</a>: một báo cáo kèm tệp mẫu giúp sửa lỗi nhanh hơn nhiều.</li>
+    <li>Góp bản dịch, tài liệu hoặc mã theo <a href={`${REPO_URL}/blob/main/CONTRIBUTING.md`} target="_blank" rel="noopener noreferrer">hướng dẫn đóng góp</a>.</li>
+    <li>Giới thiệu tsudev-files với bạn bè, đồng nghiệp cần chuyển đổi tệp mà không muốn tải tệp lên mạng.</li>
+  </ul>
+
+  {(NHA_TAI_TRO.length > 0 || NGUOI_UNG_HO.length > 0) && (
+    <>
+      <h2 id="loi-cam-on">Lời cảm ơn</h2>
+      <ul>
+        {[...NHA_TAI_TRO, ...NGUOI_UNG_HO].map((n) => (
+          <li>{n.url ? <a href={n.url} target="_blank" rel="noopener noreferrer">{n.name}</a> : n.name}</li>
+        ))}
+      </ul>
+    </>
+  )}
+</TaiLieu>

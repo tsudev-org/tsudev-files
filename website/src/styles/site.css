@@ -58,6 +58,7 @@ pre {
 .thuong-hieu { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--text-primary); text-decoration: none; font-weight: 600; font-size: 1.05rem; }
 .thuong-hieu:hover { color: var(--text-primary); }
 .thuong-hieu img { width: auto; height: 2.2rem; }
+.thuong-hieu picture { display: flex; }
 .thuong-hieu--nho { font-size: 1rem; }
 .thuong-hieu--nho img { height: 1.6rem; }
 .menu { display: flex; gap: 0.15rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
@@ -199,3 +200,9 @@ kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; border-r
   /* Logo và hai nút cùng hàng; điều hướng xuống hàng dưới */
   .dau-trang nav { order: 3; flex-basis: 100%; margin-left: 0; padding-bottom: 0.5rem; }
 }
+
+/* Trang Ủng hộ: mỗi kênh một thẻ */
+.kenh-ung-ho { list-style: none; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+.kenh-ung-ho > li { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem; border: 1px solid var(--border); border-radius: 0.75rem; background: var(--bg-surface); }
+.kenh-ung-ho__chi-tiet { display: flex; flex-direction: column; font-variant-numeric: tabular-nums; color: var(--text-secondary); }
+.kenh-ung-ho img { width: 200px; max-width: 100%; height: auto; border-radius: 0.5rem; background: #fff; padding: 0.5rem; align-self: flex-start; }

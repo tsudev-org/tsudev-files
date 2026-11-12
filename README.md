@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/brand/tsudev-files-mark-512.png" alt="" width="128" height="128"></p>
+
 # tsudev-files
 
 **Trình chuyển đổi tệp ngoại tuyến, miễn phí, mã nguồn mở - bản Việt hóa và gia cố bảo mật của [Filee](https://github.com/KnifeLemon/Filee).**
@@ -14,7 +16,8 @@ máy của bạn**, không tải tệp lên bất kỳ máy chủ nào, không c
 - Tải bản phát hành: <https://github.com/tsudev-org/tsudev-files/releases/latest>
 - Báo lỗi / đề xuất: <https://github.com/tsudev-org/tsudev-files/issues>
 - Báo lỗ hổng bảo mật: xem [SECURITY.md](SECURITY.md) (KHÔNG mở issue công khai)
-- README gốc (tiếng Anh) của upstream: [README.en.md](README.en.md)
+- Ủng hộ dự án: <https://files.tsudev.com/ung-ho/>
+- English: [README.en.md](README.en.md)
 
 ## Khác biệt so với bản gốc
 
@@ -44,10 +47,10 @@ tools/fetch-engines-linux.sh 7zip         # Windows: pwsh build/fetch-engines.ps
 ```
 
 ```bash
-dotnet build Filee.slnx
-dotnet test tests/Filee.Core.Tests        # các bộ test khác: tests/Filee.*.Tests
+dotnet build tsudev-files.slnx
+dotnet test tests/Tsudev.Files.Core.Tests        # các bộ test khác: tests/Tsudev.Files.*.Tests
 # Bộ giao diện chạy riêng, có phát hiện treo (giống CI; khoảng 30-60 phút trên WSL):
-dotnet test tests/Filee.App.Tests --no-build --blame-crash --blame-hang-timeout 5m
+dotnet test tests/Tsudev.Files.App.Tests --no-build --blame-crash --blame-hang-timeout 5m
 python3 -I tools/check_i18n_vi.py         # kiểm tra bản dịch tiếng Việt
 bash scripts/check-standards.sh           # cổng kiểm quy ước tsudev
 ```
@@ -55,38 +58,36 @@ bash scripts/check-standards.sh           # cổng kiểm quy ước tsudev
 Chạy dòng lệnh từ mã nguồn:
 
 ```bash
-dotnet run --project src/Filee.Cli -- help
-FILEE_LANG=en dotnet run --project src/Filee.Cli -- help
+dotnet run --project src/Tsudev.Files.Cli -- help
+FILEE_LANG=en dotnet run --project src/Tsudev.Files.Cli -- help
 ```
 
 Quy ước làm việc (cho người và agent AI): đọc [AGENTS.md](AGENTS.md) trước tiên.
 
-## Đồng bộ với upstream
+## Bản vá từ upstream
+
+tsudev-files đã tách hẳn khỏi Filee ([ADR-0002](docs/adr/0002-hard-fork-doi-ten-toan-bo-tsudev.md)): không gộp
+`upstream/main` nữa. Bản vá bảo mật của upstream được chép thủ công:
 
 ```bash
-git fetch upstream
-git merge upstream/main     # giải quyết xung đột, ưu tiên giữ ForkDefaults.cs và Directory.Build.props của fork
-python3 -I tools/check_i18n_vi.py && dotnet test tests/Filee.App.Tests
+git format-patch -1 <commit> -o /tmp/va                       # từ remote upstream
+python3 -I tools/doi-ten-tsudev.py --tep /tmp/va/*.patch       # đổi tên Filee.* -> Tsudev.Files.*
+git apply /tmp/va/*.patch                                      # ghi nguồn (commit upstream) trong thông điệp commit
 ```
 
 Remote `upstream` đã bị khóa chiều đẩy (`DISABLED`) để không thể vô tình đẩy lên repo gốc.
 
-## Ủng hộ tác giả gốc
+## Ủng hộ
 
-Filee miễn phí và sẽ luôn miễn phí. Nếu muốn ủng hộ, hãy ủng hộ trực tiếp tác giả gốc (Myeonggu Kim - KnifeLemon);
-nhà tài trợ được liệt kê tại đây và trong trang "Giới thiệu" của ứng dụng.
+tsudev-files miễn phí và sẽ luôn miễn phí. Mọi kênh ủng hộ chính thức chỉ được công bố tại
+**<https://files.tsudev.com/ung-ho/>** (dữ liệu: [`website/src/data/ung-ho.json`](website/src/data/ung-ho.json)); nút
+"Ủng hộ" trong ứng dụng và nút "Sponsor" của GitHub đều trỏ về trang đó. Nhà tài trợ được liệt kê tại đây, trên trang
+Ủng hộ và trong trang "Giới thiệu" của ứng dụng.
 
-<!-- sponsors: src/Filee.App/Assets/Sponsors/sponsors.json -->
-
-<p align="center">
-  <a href="https://github.com/sponsors/KnifeLemon"><img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
-  <a href="https://patreon.com/KnifeLemon"><img src="https://img.shields.io/badge/Patreon-000000?style=for-the-badge&logo=patreon&logoColor=white" alt="Patreon"></a>
-  <a href="https://ko-fi.com/knifelemon"><img src="https://img.shields.io/badge/Ko--fi-FF6433?style=for-the-badge&logo=kofi&logoColor=white" alt="Ko-fi"></a>
-  <a href="https://paypal.me/knifelemon"><img src="https://img.shields.io/badge/PayPal-002991?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal"></a>
-</p>
+<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
 
 ## Giấy phép và ghi công
 
 Phát hành theo giấy phép MIT, giữ nguyên [LICENSE](LICENSE) của các tác giả Filee ("Filee contributors").
-Mọi công lao của phần mềm gốc thuộc về [KnifeLemon/Filee](https://github.com/KnifeLemon/Filee) và cộng đồng đóng góp;
-nút "Ủng hộ" trong ứng dụng vẫn trỏ về tác giả gốc. Thành phần bên thứ ba: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+Mọi công lao của phần mềm gốc thuộc về [KnifeLemon/Filee](https://github.com/KnifeLemon/Filee) và cộng đồng đóng góp.
+Thành phần bên thứ ba: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

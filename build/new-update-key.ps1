@@ -4,13 +4,13 @@
 
 .DESCRIPTION
   Writes the private key to -PrivateKeyPath (PKCS#8 PEM, encrypted with a passphrase typed twice) and prints the
-  public key. Put the public key into Directory.Build.props as FileeUpdatePublicKey: official builds then refuse an
+  public key. Put the public key into Directory.Build.props as TsudevFilesUpdatePublicKey: official builds then refuse an
   update whose checksum file is not signed with this key, on every platform. build/sign-release.ps1 signs each release
   with the private key (build/sign-checksums.ps1).
 
   The private key must stay outside the repository, so a path inside a Git working tree is refused. Keep a backup of it
   (and of the passphrase) somewhere only you can reach: without it, copies that carry the public key can't be updated
-  in the app any more, only by downloading a build with a new key from filee.sh.
+  in the app any more, only by downloading a build with a new key from https://files.tsudev.com/tai-ve/.
 
 .PARAMETER NoPassphrase
   Writes the private key unencrypted. Only for a key kept on encrypted storage that nobody else can read.
@@ -76,5 +76,5 @@ finally {
 
 Write-Host "private key: $target (keep it, and a backup, outside the repository)"
 Write-Host ''
-Write-Host 'public key, for <FileeUpdatePublicKey> in Directory.Build.props:'
+Write-Host 'public key, for <TsudevFilesUpdatePublicKey> in Directory.Build.props:'
 Write-Output $publicKey
