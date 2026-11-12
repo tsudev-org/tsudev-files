@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
 """tsudev-files: sinh MỌI biểu tượng/logo/favicon của repo từ một ảnh gốc duy nhất.
 
-Ảnh gốc: assets/brand/source/logo-tsudev-files.png (nền trắng). Không sửa tay tệp sinh ra; đổi logo thì thay ảnh gốc,
-cập nhật SOURCE_SHA256 bên dưới rồi chạy lại script này và commit kết quả. Hướng dẫn: assets/brand/README.md.
+Ảnh gốc: assets/brand/source/tsufiles-1.webp (ảnh bìa TsuFiles; con cú cầm thư mục nằm trong OWL_BOX). Không sửa tay
+tệp sinh ra; đổi logo thì thay ảnh gốc, cập nhật SOURCE_SHA256 (và OWL_BOX) rồi chạy lại script này và commit kết quả.
+Hướng dẫn: assets/brand/README.md.
 
   python3 -m venv /tmp/brand && /tmp/brand/bin/pip install -r tools/thuong-hieu/requirements.txt
   /tmp/brand/bin/python -I tools/thuong-hieu/tao-tai-san.py          sinh lại toàn bộ
   /tmp/brand/bin/python -I tools/thuong-hieu/tao-tai-san.py --kiem   chỉ kiểm (thoát 1 nếu thiếu/sai cỡ)
 
 Các bước:
-1. Tách nền trắng bằng color-to-alpha có ngưỡng: điểm ảnh càng xa màu trắng càng đục (đục hẳn từ khoảng cách HI),
-   màu được "gỡ trộn" khỏi nền trắng nên quầng sáng thành bán trong suốt đúng sắc; nhiễu khối JPEG ở vùng gần trắng
-   được làm mịn trước. Ghép lại lên nền trắng sai lệch trung bình khoảng 1/255 so với ảnh gốc.
+1. Cắt OWL_BOX, ước lượng nền chuyển sắc bằng mặt phẳng khớp với mép khung, tách nền bằng color-to-alpha theo khoảng
+   cách tới nền tại chỗ. Chỉ vùng NỐI với mép mới là nền, nên lòng trắng mắt (gần màu nền) vẫn đục. Bỏ mảnh lạc
+   (chữ "T" cạnh con cú), giữ khối lớn nhất cùng quầng sáng.
 2. Cắt sát, đặt vào khung vuông trong suốt (bản chính). Thu nhỏ bằng LANCZOS trên alpha nhân sẵn (không viền đen).
 3. Cỡ <= 48 px: cắt sát hơn (bỏ quầng mờ) và làm nét nhẹ để hình còn đọc được ở 16 px.
-4. Không phóng to: cỡ lớn nhất sinh ra (512) nhỏ hơn cạnh của bản chính.
+4. Con cú trong ảnh bìa chỉ cao khoảng 160 px: cỡ lớn hơn bản chính được phóng LANCZOS + làm nét. Có ảnh con cú riêng
+   độ phân giải cao (>= 1024 px, hoặc SVG) thì thay ảnh gốc để icon 256/512 nét hẳn.
 """
 from __future__ import annotations
 
@@ -25,8 +27,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT / "assets/brand/source/logo-tsudev-files.png"
-SOURCE_SHA256 = "4fa125994ee807234988b31f5d5493d4fcd361202e2fcc19e456e90b212eab3d"
+SOURCE = ROOT / "assets/brand/source/tsufiles-1.webp"   # ảnh bìa TsuFiles (1024x512), con cú ở góc trái
+SOURCE_SHA256 = "33974eb00c9b72fb7899027bb155662697700f51fc95b743adf9eb32f77bccee"
+OWL_BOX = (20, 20, 212, 240)                            # khung chứa con cú trong ảnh bìa (trái, trên, phải, dưới)
 
 BRAND = ROOT / "assets/brand"
 APP_ICONS = ROOT / "src/Tsudev.Files.App/Assets/Icons"
@@ -107,16 +110,27 @@ def build() -> None:
     if sha256(SOURCE) != SOURCE_SHA256:
         sys.exit("Ảnh gốc khác SOURCE_SHA256: đổi logo thì cập nhật chuỗi băm trong script này (có chủ đích).")
 
-    # 1. Tách nền trắng
-    c = np.asarray(Image.open(SOURCE).convert("RGB")).astype(np.float64)
-    dist = (255 - c).max(axis=2)                       # khoảng cách tới trắng, 0..255
-    solid = dist > 60                                   # vùng hình đặc: giữ nguyên từng điểm, không làm mịn
-    smooth = ndimage.gaussian_filter(dist, 1.6)
-    dist = np.where(solid, dist, smooth)
-    lo, hi = 12, 110
-    alpha = np.clip((dist - lo) / (hi - lo), 0, 1) ** 1.25
-    colour = np.where(solid[..., None], c, ndimage.gaussian_filter(c, (1.2, 1.2, 0)))
-    rgb = np.clip(255 - (255 - colour) / np.maximum(alpha, 1e-6)[..., None], 0, 255)
+    # 1. Cắt con cú khỏi ảnh gốc, tách nền tím nhạt (chuyển sắc) của ảnh
+    src = Image.open(SOURCE).convert("RGB").crop(OWL_BOX)
+    c = np.asarray(src).astype(np.float64)
+    h, w, _ = c.shape
+    ys, xs = np.mgrid[0:h, 0:w]
+    edge = np.zeros((h, w), bool)
+    edge[:4], edge[-4:], edge[:, :4], edge[:, -4:] = True, True, True, True
+    plane = np.c_[xs[edge], ys[edge], np.ones(edge.sum())]
+    grid = np.c_[xs.ravel(), ys.ravel(), np.ones(h * w)]
+    bg = np.stack([(grid @ np.linalg.lstsq(plane, c[..., k][edge], rcond=None)[0]).reshape(h, w) for k in range(3)], -1)
+    dist = np.sqrt(((c - bg) ** 2).sum(axis=2))        # khoảng cách tới nền tại chỗ
+    lo, hi = 8, 40
+    near, _ = ndimage.label(dist < hi)                  # nền = vùng gần màu nền NỐI với mép ảnh
+    outer = np.unique(np.r_[near[0], near[-1], near[:, 0], near[:, -1]])
+    background = np.isin(near, outer[outer > 0])        # (lòng trắng mắt cú gần màu nền nhưng không nối mép -> giữ)
+    alpha = np.where(background, np.clip((dist - lo) / (hi - lo), 0, 1), 1.0)
+    rgb = np.clip((c - bg * (1 - alpha[..., None])) / np.maximum(alpha, 1e-6)[..., None], 0, 255)
+    solid = alpha > 0.3                                 # bỏ mảnh lạc (chữ bên cạnh): giữ khối lớn nhất + quầng 6 px
+    parts, n = ndimage.label(solid)
+    main = 1 + int(np.argmax(ndimage.sum(solid, parts, range(1, n + 1))))
+    alpha = np.where(ndimage.binary_dilation(parts == main, iterations=6), alpha, 0)
     rgba = np.dstack([rgb, alpha * 255]).round().astype(np.uint8)
     rgba[alpha * 255 < 1.5] = 0
     cut = Image.fromarray(rgba, "RGBA")
@@ -142,7 +156,10 @@ def build() -> None:
         if size <= SMALL:
             img = resize(core, (size, size))
             return img.filter(ImageFilter.UnsharpMask(radius=0.6, percent=60, threshold=0))
-        return resize(master, (size, size))
+        img = resize(master, (size, size))
+        if size > master.width:                         # phóng to (xem bước 4)
+            img = img.filter(ImageFilter.UnsharpMask(radius=1.0 * size / master.width, percent=45, threshold=1))
+        return img
 
     def on(bg: tuple[int, int, int], size: int, scale: float) -> Image.Image:
         out = Image.new("RGBA", (size, size), bg + (255,))

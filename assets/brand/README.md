@@ -5,7 +5,8 @@ Một ảnh gốc, một script, mọi biểu tượng/logo/favicon sinh ra từ
 
 | Tệp | Là gì |
 | --- | --- |
-| `source/logo-tsudev-files.png` | **Ảnh gốc** (976x878, nền trắng). SHA-256 ghi trong `tools/thuong-hieu/tao-tai-san.py` |
+| `source/tsufiles-1.webp` | **Ảnh gốc của icon**: ảnh bìa TsuFiles 1024x512; script cắt con cú trong `OWL_BOX`. SHA-256 ghi trong `tools/thuong-hieu/tao-tai-san.py` |
+| `source/tsufiles-2.webp` | Ảnh giới thiệu TsuFiles 845x752 (WebP lossless, giống từng điểm ảnh bản PNG chủ dự án gửi). Chưa dùng trong tệp sinh ra |
 | `tsudev-files-mark.{png,webp,avif}` | Bản chính đã tách nền, vuông, nền trong suốt (813x813) - dùng cho tài liệu, bài viết, ảnh ghép |
 | `tsudev-files-mark-512.png` | Bản 512 px cho README |
 
@@ -27,8 +28,8 @@ trang cho liên kết về hệ sinh thái tsudev.com - script này không đụ
 ## Đổi logo
 
 ```bash
-cp <ảnh mới>.png assets/brand/source/logo-tsudev-files.png      # PNG, nền trắng hoặc trong suốt, cạnh ngắn >= 512
-sha256sum assets/brand/source/logo-tsudev-files.png            # chép vào SOURCE_SHA256 trong script
+cp <ảnh mới>.webp assets/brand/source/tsufiles-1.webp          # WebP/PNG lossless; sửa OWL_BOX nếu bố cục khác
+sha256sum assets/brand/source/tsufiles-1.webp                  # chép vào SOURCE_SHA256 trong script
 python3 -m venv /tmp/brand && /tmp/brand/bin/pip install -r tools/thuong-hieu/requirements.txt
 /tmp/brand/bin/python -I tools/thuong-hieu/tao-tai-san.py      # sinh lại tất cả, cuối cùng tự kiểm (ĐẠT)
 dotnet test tests/Tsudev.Files.App.Tests --filter "FullyQualifiedName~BrandAssetsTests"
@@ -38,10 +39,12 @@ Rồi xem bằng mắt: icon 16/24/32 px trên nền sáng và tối, `og-image.
 
 ## Cách script xử lý ảnh
 
-- **Tách nền trắng** bằng color-to-alpha có ngưỡng: điểm càng xa màu trắng càng đục, màu được gỡ trộn khỏi nền nên
-  quầng sáng thành bán trong suốt đúng sắc (đặt lên nền tối vẫn tự nhiên); vùng hình đặc giữ nguyên từng điểm ảnh,
-  nhiễu khối JPEG ở vùng gần trắng được làm mịn. Ghép lại lên nền trắng lệch trung bình khoảng 1/255 so với ảnh gốc.
-- **Thu nhỏ** bằng LANCZOS trên alpha nhân sẵn (không viền tối quanh hình). Không phóng to.
+- **Tách nền**: cắt `OWL_BOX`, ước lượng nền tím nhạt chuyển sắc bằng mặt phẳng khớp với mép khung, rồi color-to-alpha
+  theo khoảng cách tới nền tại chỗ. Chỉ vùng nối với mép khung mới là nền, nên lòng trắng mắt con cú vẫn đục; mảnh
+  lạc (chữ "T" của dòng TsuFiles bên cạnh) bị bỏ, quầng sáng tím giữ dạng bán trong suốt.
+- **Đổi cỡ** bằng LANCZOS trên alpha nhân sẵn (không viền tối quanh hình). Con cú trong ảnh bìa chỉ cao khoảng 160 px,
+  nên cỡ 192/256/512 là phóng to + làm nét: đủ dùng nhưng chưa nét tuyệt đối. Có ảnh con cú riêng >= 1024 px (hoặc SVG)
+  thì thay ảnh gốc, sửa `OWL_BOX`, chạy lại.
 - **Cỡ nhỏ (<= 48 px)** cắt sát phần hình đặc, bỏ quầng mờ và làm nét nhẹ, để 16 px vẫn nhận ra hình.
 - `.ico` có đủ lớp 16/20/24/32/40/48/64/96/128/256 (Windows chọn đúng lớp ở mọi mức phóng 100-250 %).
 - Ảnh gốc là ảnh bitmap có hiệu ứng quầng sáng và chuyển màu, nên không có bản SVG: vector hóa tự động sẽ làm mất
