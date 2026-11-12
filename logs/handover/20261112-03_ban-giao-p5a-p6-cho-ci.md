@@ -54,8 +54,13 @@
       chủ dự án tạo repo `tsudev-org/tsudev-files-assets`; #44 chờ khóa dự phòng.
 - [ ] 2.6. P5b (bản 2.4.1, ADR-0002 mục 3): định danh lúc chạy + di trú; gom luôn tài nguyên upstream còn lại (STATE:
       GNOME `filee-donut@filee.sh`, `build/sign-release.ps1` + CONTRIBUTING gương R2, Help CLI "KnifeLemon/Filee").
-- [ ] 2.7. Chủ dự án duyệt (ghi STATE): đổi chữ gói Pro của `app-la-ban` (phiếu `20261112-02` hệ sinh thái mục 3);
-      bật "Require review from Code Owners" trong ruleset để `CODEOWNERS` của tệp Ủng hộ có hiệu lực chặn.
+- [x] 2.7. Chủ dự án ĐÃ DUYỆT (12/11/2026) đổi chữ gói Pro của `app-la-ban` - ghi ở
+      `~/projects/logs/handover/20261112-02_quyet-dinh-ung-ho-theo-nen-tang.md` mục 3 cho phiên app-la-ban.
+- [ ] 2.8. "Require review from Code Owners": chủ dự án tự bật trong ruleset "Bảo vệ main" **SAU khi gộp #47** (trên
+      `main` CODEOWNERS còn `* @KnifeLemon` tới lúc đó). Khi đã bật: PR do `tsudev-tsudev` mở không tự duyệt được, nên
+      gộp bằng `gh pr merge <n> -R tsudev-org/tsudev-files --merge --admin` (vai trò Admin được bỏ qua khi gộp PR -
+      `bypass_actors` RepositoryRole 5, mode `pull_request`); PR của Dependabot/người khác cần chủ dự án Approve.
+      Kiểm: `gh api repos/tsudev-org/tsudev-files/rulesets/26937532 -q '.rules[]|select(.type=="pull_request").parameters.require_code_owner_review'` = `true`.
 
 ## 3. File đang khóa
 
