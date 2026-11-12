@@ -62,7 +62,7 @@
     },
     "icon": "filee.png",
     "desktop": {
-      "name": "tsudev Files",
+      "name": "TsuFiles",
       "exec": "Filee --convert %F",
       "genericName": {
         "vi": "Chuyển đổi tệp",
@@ -91,7 +91,12 @@
         "libfontconfig1",
         "libx11-6",
         "libice6",
-        "libsm6"
+        "libsm6",
+        "libxt6 | libxt6t64",
+        "libxtst6",
+        "libxrandr2",
+        "libinput10",
+        "libwayland-client0"
       ],
       "section": "utils"
     },
@@ -103,7 +108,12 @@
         "libfontconfig.so.1()(64bit)",
         "libX11.so.6()(64bit)",
         "libICE.so.6()(64bit)",
-        "libSM.so.6()(64bit)"
+        "libSM.so.6()(64bit)",
+        "libXt.so.6()(64bit)",
+        "libXtst.so.6()(64bit)",
+        "libXrandr.so.2()(64bit)",
+        "libinput.so.10()(64bit)",
+        "libwayland-client.so.0()(64bit)"
       ],
       "group": "Applications/File"
     }
