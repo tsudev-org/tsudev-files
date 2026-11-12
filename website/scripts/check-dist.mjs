@@ -61,6 +61,27 @@ for (const [ten, duong] of lienKet) {
   const dich = join(dist, decodeURI(duong));
   if (!existsSync(dich) && !existsSync(join(dich, 'index.html'))) loi.push(`${ten}: liên kết nội bộ gãy: ${duong}`);
 }
+// Bắt buộc cập nhật (phiếu hệ sinh thái 20261112-04, docs/vi/CAP-NHAT-BAT-BUOC.md): phien-ban.json đúng khuôn và
+// 1 <= toiThieu <= moiNhat <= ForkDefaults.BuildNumber của mã nguồn (không đẩy bản đang có lên "bắt buộc" nhầm).
+{
+  const tep = join(dist, 'phien-ban.json');
+  const nguon = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../../src/TsuFiles.Core/ForkDefaults.cs'), 'utf8');
+  const build = Number(nguon.match(/public const int BuildNumber = (\d+);/)?.[1] ?? NaN);
+  let pb = null;
+  try { pb = JSON.parse(readFileSync(tep, 'utf8')); } catch (e) { loi.push(`phien-ban.json: không đọc được (${e.message})`); }
+  if (pb) {
+    const khoa = Object.keys(pb).sort().join(',');
+    if (khoa !== 'moiNhat,phienBan,schema,toiThieu') loi.push(`phien-ban.json: khóa sai: ${khoa}`);
+    if (pb.schema !== 1) loi.push('phien-ban.json: schema phải là 1');
+    if (!/^\d+\.\d+\.\d+$/.test(String(pb.phienBan))) loi.push(`phien-ban.json: phienBan sai: ${pb.phienBan}`);
+    if (!Number.isInteger(pb.moiNhat) || !Number.isInteger(pb.toiThieu)) loi.push('phien-ban.json: moiNhat/toiThieu phải là số nguyên');
+    else if (!Number.isInteger(build)) loi.push('ForkDefaults.cs: không thấy BuildNumber');
+    else if (!(1 <= pb.toiThieu && pb.toiThieu <= pb.moiNhat && pb.moiNhat <= build))
+      loi.push(`phien-ban.json: cần 1 <= toiThieu (${pb.toiThieu}) <= moiNhat (${pb.moiNhat}) <= BuildNumber (${build})`);
+  }
+  const headers = readFileSync(join(dist, '_headers'), 'utf8');
+  if (!/\/phien-ban\.json\n(?:  .+\n)*  Cache-Control: public, max-age=300/.test(headers)) loi.push('_headers: phien-ban.json cần Cache-Control max-age=300');
+}
 for (const l of loi) console.error('[check-dist] LỖI', l);
 console.log(`[check-dist] ${loi.length} lỗi`);
 process.exit(loi.length ? 1 : 0);

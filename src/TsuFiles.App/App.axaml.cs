@@ -217,6 +217,7 @@ public partial class App : Application
                     });
             };
         WatchForUpdates(store);
+        CheckMinimumVersion();
         // Started to the tray (at sign-in): no job or window would ask for a trim, however long Filee waits there (#957).
         if (AppHost.Get<WindowService>().Main is null)
             AppHost.Get<MemoryTrimmer>().Request();
@@ -305,6 +306,22 @@ public partial class App : Application
             Dispatcher.UIThread.Post(async () => await AppHost.Get<WindowService>().ShowUpdateRolledBackAsync(updates.LastFailureLogPath));
         updates.StartPeriodicChecks(() => store.Settings.CheckForUpdates, TimeSpan.FromSeconds(20));
         DispatcherTimer.RunOnce(() => NotifyEngineUpdates(store), TimeSpan.FromSeconds(25));
+    }
+
+    /// <summary>
+    /// TsuFiles: bắt buộc cập nhật (phien-ban.json, xem ForcedUpdateService). Bản quá cũ dừng trình kích hoạt và thư mục
+    /// theo dõi rồi chỉ còn "Tải bản mới" hoặc "Thoát".
+    /// </summary>
+    private static void CheckMinimumVersion()
+    {
+        var gate = AppHost.Get<ForcedUpdateService>();
+        gate.Quit = Quit;
+        gate.StopBackgroundServices = () =>
+        {
+            AppHost.Get<TriggerService>().Dispose();
+            _ = AppHost.Get<WatchFolderService>().DisposeAsync().AsTask();
+        };
+        Dispatcher.UIThread.Post(async () => await gate.CheckAsync());
     }
 
     /// <summary>

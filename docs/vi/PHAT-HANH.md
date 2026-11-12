@@ -22,10 +22,12 @@
   phát hành.
 - Khi gộp upstream lên phiên bản mới, lấy theo số của upstream; bản sửa riêng của fork giữa hai lần gộp tăng số vá
   (ví dụ 2.4.0 -> 2.4.1).
+- **Số build** `ForkDefaults.BuildNumber` tăng 1 ở MỖI bản phát hành (1 = 2.4.0-vn.1, 2 = 2.4.1, ...): bắt buộc cập
+  nhật so số này, không so chuỗi phiên bản ([CAP-NHAT-BAT-BUOC.md](CAP-NHAT-BAT-BUOC.md)).
 
 ## 3. Các bước phát hành (chưa có chứng thư Authenticode)
 
-1. Cập nhật `Version`, `CHANGELOG.md`; chạy đủ kiểm tra cục bộ:
+1. Cập nhật `Version`, `ForkDefaults.BuildNumber` (+1 so với bản trước), `CHANGELOG.md`; chạy đủ kiểm tra cục bộ:
    `dotnet test`, `python3 -I tools/check_i18n_vi.py`.
 2. Mở PR vào `main`, chờ CI + workflow "Bảo mật" xanh, merge.
 3. Gắn nhãn và đẩy: `git tag v2.4.1 && git push origin v2.4.1`.
@@ -51,6 +53,9 @@
    `gh release edit "v$V" -R tsudev-org/tsudev-files --draft=false --latest`.
 6. Bản cài cũ sẽ nhận cập nhật: tải SHA256SUMS -> kiểm chữ ký ECDSA -> kiểm số phiên bản mới hơn -> tải bộ cài ->
    kiểm SHA-256 -> cài. Sai bất kỳ bước nào thì từ chối và mở trang phát hành.
+7. **Sau khi** bản phát hành đã công khai: sửa `website/public/phien-ban.json` (`phienBan`, `moiNhat` = số build vừa
+   phát hành; `toiThieu` chỉ nâng khi chủ dự án duyệt), PR, gộp, rồi chủ dự án deploy website
+   (`cd website && npm run deploy`). Chi tiết: [CAP-NHAT-BAT-BUOC.md](CAP-NHAT-BAT-BUOC.md).
 
 ## 4. Khi có chứng thư Authenticode
 
