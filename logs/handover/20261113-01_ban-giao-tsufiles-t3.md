@@ -29,7 +29,7 @@
 
 ## 2. Việc tiếp theo
 
-- [ ] 2.1. Gộp #50 khi CI xanh (nếu phiên này chưa gộp - xem mục 5).
+- [x] 2.1. Gộp #50 - xong (mục 5).
 - [ ] 2.2. **Chủ dự án deploy website** sau khi #49/#50 gộp: `! cd website && npm run deploy`. Nghiệm thu: tiêu đề
       "TsuFiles | tsudev", logo/og-image con cú, `https://files.tsudev.com/phien-ban.json` trả
       `{"schema":1,"phienBan":"2.4.0","moiNhat":1,"toiThieu":1}`. Đổi og-image thì tải lại Social preview của repo
@@ -60,4 +60,8 @@
 
 ## 5. Kết quả xử lý
 
-- (phiên tsudev-files-b3 điền CI/gộp #50 bên dưới nếu kịp)
+- #50: 20/20 check xanh (CodeQL cũng xanh), gộp 13/11/2026, `main` @ `3f3e6fca`.
+- Phiếu `20261113-02` (phiên linux-packages): thêm phụ thuộc deb/rpm (libXt, libXtst, libXrandr, libinput,
+  libwayland-client) + tên `.desktop` TsuFiles - PR #53. Sau khi gộp đã nhắn phiên `linux-packages-1e`; khi kho cài
+  thật xanh và xuất bản thì chuyển `apt`, `rpm` từ `planned` sang `channels` trong `packaging/package.json` + khối
+  "Cài bằng lệnh" ở `/tai-ve/` (việc trong hàng đợi STATE). T3b đổi `name`/`command`/tên tệp thì báo phiên đó.
