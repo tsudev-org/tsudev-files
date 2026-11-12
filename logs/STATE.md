@@ -5,8 +5,9 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261112-03_ban-giao-p5a-p6-cho-ci.md` (sửa thứ tự using -> gộp #46, #47 ->
-      deploy website -> PR nhật ký). Phiếu `20261111-04` mục 2.1-2.4 vẫn còn hiệu lực.
+- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261112-05_ban-giao-tsufiles-t2.md` - đổi tên sản phẩm thành **TsuFiles**
+      (ADR-0003): T2 mã nguồn + hiển thị + kiểu giao diện Cú đêm -> T3 bản 2.4.1 (định danh lúc chạy, di trú, bắt buộc
+      cập nhật) -> T4 đổi tên repo. Phiếu `20261112-03` mục 2.5, 2.8 vẫn còn hiệu lực.
 
 - [ ] Kế hoạch gia cố + hard fork (11/11/2026), mỗi phase một PR, làm theo thứ tự:
   - P1 PR #42 tải tệp build từ `tsudev-org/tsudev-files-assets` - CHỜ chủ dự án tạo repo assets (job win-arm64 đỏ tới lúc đó).
@@ -59,6 +60,11 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 12/11/2026 - Phiếu `20261112-03` mục 2.1-2.2: sửa thứ tự `using` (`2d02d52b`), gộp PR #46 (P5a) và #47 (P6, thêm
+  logo cú TsuFiles - T1 của ADR-0003), `main` @ `39af4028`. CodeQL báo 4 `cs/cleartext-storage` ở `Program.cs` là cảnh
+  báo cũ của `main` (đổi đường dẫn), dương tính giả (ghi log `IntegrityLevel`). Chủ dự án chốt tên TsuFiles, lệnh
+  `tsufiles` không bí danh, namespace `TsuFiles.*`, đổi tên repo ở phase cuối (ADR-0003).
+
 - 12/11/2026 - Gộp #45 (P4 fuzz), #43 (P2 SBOM). Mở #46 (P5a), #47 (P6 logo + Ủng hộ VietQR VIB). Phiếu Ủng hộ cho
   cả hệ sinh thái + phiếu lựa chọn theo nền tảng (`~/projects/logs/handover/20261112-0{1,2}_*`). Bàn giao: `20261112-03`.
 - 11/11/2026 - Phiếu `20261111-02`: thêm `packaging/package.json` (schema 1, khớp tên tệp Release `v2.4.0-vn.1`;
@@ -107,6 +113,10 @@
 - 09/11/2026 - Khởi tạo fork từ `KnifeLemon/Filee@64890f1e` (v2.4.0): rà soát an toàn, tiếng Việt mặc định (GUI, Setup, CLI), trình cập nhật trỏ về repo riêng + khóa ký riêng, ghim action theo SHA, thêm CodeQL/gitleaks/Dependabot/kiểm tra bản dịch.
 
 ## Quyết định quan trọng
+
+- 12/11/2026 - Tên sản phẩm **TsuFiles**, logo con cú, lệnh `tsufiles` (bỏ `filee` không bí danh), namespace
+  `TsuFiles.*`, kiểu giao diện Cú đêm mặc định, repo đổi thành `tsudev-org/tsufiles` ở phase cuối:
+  `docs/adr/0003-ten-san-pham-tsufiles.md`. Thay thế các quyết định "giữ tên lệnh `filee`" và tên đích `Tsudev.Files.*`.
 
 - 12/11/2026 - **Ủng hộ theo nền tảng** (chủ dự án ủy quyền; đối chiếu chính sách Google Play/App Store 12/11/2026):
   web hiện đầy đủ; desktop/Android chỉ nút mở trang web ("tự nguyện, 100% tới nhà phát triển, không mở khóa gì");
