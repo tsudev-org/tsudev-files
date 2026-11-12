@@ -5,7 +5,35 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261111-04_ban-giao-packaging-va-chung-thuc.md`.
+- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261112-05_ban-giao-tsufiles-t2.md` - đổi tên sản phẩm thành **TsuFiles**
+      (ADR-0003): T2 mã nguồn + hiển thị + kiểu giao diện Cú đêm -> T3 bản 2.4.1 (định danh lúc chạy, di trú, bắt buộc
+      cập nhật) -> T4 đổi tên repo. Phiếu `20261112-03` mục 2.5, 2.8 vẫn còn hiệu lực.
+
+- [ ] Kế hoạch gia cố + hard fork (11/11/2026), mỗi phase một PR, làm theo thứ tự:
+  - P1 PR #42 tải tệp build từ `tsudev-org/tsudev-files-assets` - CHỜ chủ dự án tạo repo assets (job win-arm64 đỏ tới lúc đó).
+  - P2 PR #43 SBOM CycloneDX + chứng thực - ĐÃ GỘP 12/11/2026 (`70768d88`).
+  - P3 PR #44 (nháp) vòng khóa ký - CHỜ chủ dự án tạo khóa dự phòng.
+  - P4 PR #45 fuzz bộ đọc tự viết - ĐÃ GỘP 12/11/2026 (`4e2dfd8a`).
+  - P5a đổi tên mã nguồn `Filee.*` -> `Tsudev.Files.*` (ADR-0002) bằng `tools/doi-ten-tsudev.py`, nhánh
+    `feat/p5a-doi-ten-ma-nguon` - PR #46 (đã dựng lại trên `main` sau P2/P4; CI đỏ thứ tự using, phiếu 20261112-03). P1/P3 gộp sau
+    thì rebase rồi chạy lại script. Sửa tay chỉ 4 tệp: AGENTS.md, CONTRIBUTING.md, LICENSE, ADR-0002.
+  - P5b định danh lúc chạy + di trú bản đã cài (ADR-0002 mục 3) - bản 2.4.1.
+  - **P6 thương hiệu + Ủng hộ** (yêu cầu chủ dự án 11/11/2026), PR #47 trên nhánh `feat/p6-thuong-hieu-va-ung-ho` xếp sau P5a:
+    logo riêng `assets/brand/source/logo-tsudev-files.png` + dây chuyền `tools/thuong-hieu/tao-tai-san.py` (thay
+    `filee.svg`, `website/scripts/brand_assets.py`, `DonutLogo` vẽ bằng mã -> `AppLogo`); trang `/ung-ho/` (dữ liệu
+    `website/src/data/ung-ho.json`) là nơi duy nhất liệt kê kênh ủng hộ - app, README, `FUNDING.yml` trỏ về đó; bỏ
+    README dịch của upstream (`docs/readme/`) và ảnh quảng bá Filee (`docs/media/`). Chỉ áp cho tsudev-files (lotus
+    là dự án riêng - phiếu gửi nhầm đã rút, đã nhắn `tsudev-lotus-0e`).
+  - 12/11/2026: kênh duy nhất VIB `056485506` (NGUYEN TRANG TINH SU). QR sinh lại dạng SVG từ chuỗi VietQR đã đối chiếu
+    từng byte với mã của ứng dụng VIB (`tools/ung-ho/tao-vietqr.py`); build kiểm CRC/BIN/số tài khoản + ghim SHA-256;
+    CODEOWNERS riêng cho tệp ủng hộ. Phiếu đồng bộ cho cả hệ sinh thái: `~/projects/logs/handover/20261112-01_*`
+    (+ phiếu con ở tsudev, lotus, trafficmonitor, cwico, swico, contact; đề xuất quy ước `20261112-02`).
+  - Sau khi gộp PR P6: chủ dự án deploy website (`cd website && npm run deploy`).
+  - Còn tài nguyên upstream, xử lý ở phase sau: `dl.filee.sh` (P1 #42), tiện ích GNOME `filee-donut@filee.sh`, chữ ký
+    Authenticode `/du filee.sh` (P1), `build/sign-release.ps1` + CONTRIBUTING (gương R2 của upstream), Help CLI "bản
+    Việt hóa của KnifeLemon/Filee" (P5b); liên kết issue upstream trong `docs/FORMAT-RULES.md` là trích dẫn lịch sử.
+  - (Xong 11/11/2026) Chủ dự án đã tải `website/public/og-image.png` làm Social preview của repo GitHub; đổi logo thì
+    tải lại ảnh này (chỉ làm được qua giao diện web).
 
 - [ ] Dọn nhánh đã gộp trên `origin` (agent bị chặn xóa nhánh từ xa): chủ dự án chạy lệnh trong phiếu
       `20261111-01` mục 2.1 (+ `feat/packaging-package-json` sau khi gộp) và bật "Automatically delete head branches".
@@ -32,6 +60,13 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 12/11/2026 - Phiếu `20261112-03` mục 2.1-2.2: sửa thứ tự `using` (`2d02d52b`), gộp PR #46 (P5a) và #47 (P6, thêm
+  logo cú TsuFiles - T1 của ADR-0003), `main` @ `39af4028`. CodeQL báo 4 `cs/cleartext-storage` ở `Program.cs` là cảnh
+  báo cũ của `main` (đổi đường dẫn), dương tính giả (ghi log `IntegrityLevel`). Chủ dự án chốt tên TsuFiles, lệnh
+  `tsufiles` không bí danh, namespace `TsuFiles.*`, đổi tên repo ở phase cuối (ADR-0003).
+
+- 12/11/2026 - Gộp #45 (P4 fuzz), #43 (P2 SBOM). Mở #46 (P5a), #47 (P6 logo + Ủng hộ VietQR VIB). Phiếu Ủng hộ cho
+  cả hệ sinh thái + phiếu lựa chọn theo nền tảng (`~/projects/logs/handover/20261112-0{1,2}_*`). Bàn giao: `20261112-03`.
 - 11/11/2026 - Phiếu `20261111-02`: thêm `packaging/package.json` (schema 1, khớp tên tệp Release `v2.4.0-vn.1`;
   `revision` = `vn.1`); gửi phiếu sửa bộ dựng cho `linux-packages`. Phiếu `20261111-03` (tài khoản gh): đã đọc, dùng
   mục 2. `release.yml`: thêm bước `actions/attest-build-provenance` v4.2.2 (PACKAGING.md mục 4.1) - có hiệu lực từ bản
@@ -79,6 +114,23 @@
 
 ## Quyết định quan trọng
 
+- 12/11/2026 - Tên sản phẩm **TsuFiles**, logo con cú, lệnh `tsufiles` (bỏ `filee` không bí danh), namespace
+  `TsuFiles.*`, kiểu giao diện Cú đêm mặc định, repo đổi thành `tsudev-org/tsufiles` ở phase cuối:
+  `docs/adr/0003-ten-san-pham-tsufiles.md`. Thay thế các quyết định "giữ tên lệnh `filee`" và tên đích `Tsudev.Files.*`.
+
+- 12/11/2026 - **Ủng hộ theo nền tảng** (chủ dự án ủy quyền; đối chiếu chính sách Google Play/App Store 12/11/2026):
+  web hiện đầy đủ; desktop/Android chỉ nút mở trang web ("tự nguyện, 100% tới nhà phát triển, không mở khóa gì");
+  iOS App Store ẩn hoàn toàn. tsudev-files chỉ phát hành desktop -> nút mở `files.tsudev.com/ung-ho/`. Chi tiết và
+  việc của các repo khác: `~/projects/logs/handover/20261112-02_quyet-dinh-ung-ho-theo-nen-tang.md`.
+- 11/11/2026 - **Logo riêng của tsudev-files** (chủ dự án): mọi icon/favicon/logo sinh từ
+  `assets/brand/source/logo-tsudev-files.png` (SHA-256 `4fa125994ee807234988b31f5d5493d4fcd361202e2fcc19e456e90b212eab3d`)
+  bằng `tools/thuong-hieu/tao-tai-san.py`; không sửa tay tệp sinh ra (`assets/brand/README.md`). Cú tsudev chỉ còn ở
+  chân trang website (liên kết hệ sinh thái). Lệch `BRAND_ASSETS.md` mục 12.3 - đã đề xuất ngoại lệ: phiếu `20261111-05`.
+- 11/11/2026 - **Ủng hộ chỉ trỏ về tsudev** (chủ dự án; thay quyết định 09/11/2026 "giữ nút tài trợ KnifeLemon"): kênh
+  ủng hộ khai DUY NHẤT ở `website/src/data/ung-ho.json`, hiện ở `files.tsudev.com/ung-ho/`; build website từ chối URL
+  không https hoặc trỏ về dự án gốc; test `SponsorTests` chặn URL ngoài `files.tsudev.com`/`github.com/tsudev-org`.
+  Ghi công tác giả gốc và giấy phép MIT giữ nguyên (nghĩa vụ giấy phép, không phải kênh ủng hộ).
+
 - 11/11/2026 - Tài khoản `gh` active là chung cho mọi phiên trên máy (phiên b4djl1h-cmdb hay đổi qua lại). Từ
   11/11/2026 chủ dự án thêm `b4djl1h` làm Owner `tsudev-org` (đã kiểm: org admin, repo admin) - cả `tsudev-tsudev` và
   `b4djl1h` đều ghi được, đổi tài khoản không còn chặn việc. Chỉ tránh đổi đúng lúc phiên khác đang push/merge; lệnh
@@ -107,8 +159,7 @@
 - 09/11/2026 - Không sửa em-dash trong mã kế thừa từ upstream (48 file, gồm dữ liệu test cố ý chứa ký tự ngoài Latin-1): sửa sẽ gây xung đột khi gộp và làm yếu test. Mã MỚI của fork tuân thủ mục 7.1. Từ 10/11/2026 các dòng đó được miễn theo dòng qua `.standards-upstream` (quy ước v3.3.0); khi gộp upstream mới thì cập nhật `ref` trong file đó.
 - 09/11/2026 - Khóa ký cập nhật ECDSA P-256 riêng; khóa bí mật ở `~/.config/tsudev-files/keys/update-key.pem` (0600, ngoài repo). Bản phát hành của upstream KHÔNG được bản fork chấp nhận.
 
-- 09/11/2026 - Giữ nút tài trợ trỏ về tác giả gốc KnifeLemon (`SponsorLinks.cs`, `.github/FUNDING.yml`, README): ghi công
-  upstream, tránh xung đột khi gộp. Đổi thì hỏi chủ dự án.
+- 09/11/2026 - ~~Giữ nút tài trợ trỏ về tác giả gốc KnifeLemon~~ - THAY bằng quyết định 11/11/2026 "Ủng hộ chỉ trỏ về tsudev".
 - 09/11/2026 - Repo chuyển sang `tsudev-org` và thành Public (Actions miễn phí, CodeQL, Secret Scanning, runner Windows ARM).
   Hạng sản phẩm: C - Ngoại tuyến.
 
