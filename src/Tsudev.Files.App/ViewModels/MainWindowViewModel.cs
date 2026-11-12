@@ -6,11 +6,11 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels.Pages;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Tsudev.Files.App.ViewModels;
 

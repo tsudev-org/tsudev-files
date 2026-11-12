@@ -12,9 +12,9 @@
 // Files that say ROWORDER = 'BOTTOM-UP' are turned upright; others are taken as stored top-down, as capture programs
 // write them.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Magick;
 

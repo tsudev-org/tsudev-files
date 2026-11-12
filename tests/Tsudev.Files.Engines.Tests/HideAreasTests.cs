@@ -3,10 +3,10 @@
 // pixel, the parts land on the picture as it is seen (EXIF orientation), the format stays, and the previews a file
 // carries of the uncovered picture go.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

@@ -1,11 +1,11 @@
 // Tajima DST embroidery designs (issue #397): the stitch records decoded, drawn as SVG and rendered to PNG through the
 // vector engine. The test designs are written here record by record, as embroidery software writes them.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Vector;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

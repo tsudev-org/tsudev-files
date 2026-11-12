@@ -1,9 +1,9 @@
 // Rotate and flip presets: the image turns and mirrors the way the preset names say.
 
-using Tsudev.Files.Core.Conversion;
-using Tsudev.Files.Core.Presets;
 using ImageMagick;
 using ImageMagick.Drawing;
+using Tsudev.Files.Core.Conversion;
+using Tsudev.Files.Core.Presets;
 
 namespace Tsudev.Files.Engines.Tests;
 

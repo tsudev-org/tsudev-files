@@ -19,6 +19,7 @@
 using System.ComponentModel;
 using Avalonia;
 using Avalonia.Threading;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.Controls;
 using Tsudev.Files.App.Services.Triggers;
 using Tsudev.Files.App.ViewModels;
@@ -29,7 +30,6 @@ using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Profiles;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Core.Web;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

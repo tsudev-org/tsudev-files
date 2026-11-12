@@ -4,15 +4,15 @@
 // (fixed layout) or CBZ; PDF becomes CBZ by rendering its pages with PDFium.
 
 using System.IO.Compression;
-using Tsudev.Files.Core.Conversion;
-using Tsudev.Files.Core.Platform;
-using Tsudev.Files.Engines.Pdf;
 using ImageMagick;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PDFtoImage;
 using SharpCompress.Archives;
 using SkiaSharp;
+using Tsudev.Files.Core.Conversion;
+using Tsudev.Files.Core.Platform;
+using Tsudev.Files.Engines.Pdf;
 
 // PDFtoImage marks its API for the platforms PDFium ships for (Windows, macOS, Linux, mobile); Filee only targets
 // desktop platforms that are all covered.

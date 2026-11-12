@@ -6,9 +6,9 @@ using Avalonia;
 using Avalonia.Headless.XUnit;
 using Avalonia.Logging;
 using Avalonia.Platform;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.Platform.Windows;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Tests;
 

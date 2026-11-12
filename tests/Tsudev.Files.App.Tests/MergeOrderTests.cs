@@ -7,15 +7,15 @@ using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using Avalonia.Threading;
+using ImageMagick;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
 using Tsudev.Files.App.Views;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Settings;
-using ImageMagick;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
 
 namespace Tsudev.Files.App.Tests;
 

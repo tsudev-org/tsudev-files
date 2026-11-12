@@ -2,11 +2,11 @@
 // encodes it as HEVC tiles and HeifFile puts them into the HEIC container with the colour profile and Exif.
 
 using System.Globalization;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Magick;
 using Tsudev.Files.Engines.Media;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Heic;
 

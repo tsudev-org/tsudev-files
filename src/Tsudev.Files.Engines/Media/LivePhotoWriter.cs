@@ -3,10 +3,10 @@
 // and moved into place at the end, the pair together.
 
 using System.Globalization;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Heic;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Media;
 

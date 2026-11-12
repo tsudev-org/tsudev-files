@@ -2,10 +2,10 @@
 // Krita lays the file out.
 
 using System.IO.Compression;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

@@ -1,8 +1,8 @@
 // "Put every file into one multi-page TIFF": the real ImageMagick merge, end to end through the job queue.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

@@ -1,8 +1,8 @@
 // "Trim transparent borders" (issue #332): a copy cropped to the visible pixels, run through the real image engine.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

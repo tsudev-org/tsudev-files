@@ -3,10 +3,10 @@
 
 using System.IO.Compression;
 using System.Text;
-using Tsudev.Files.Core.Conversion;
-using Tsudev.Files.Core.Presets;
 using ImageMagick;
 using MimeKit;
+using Tsudev.Files.Core.Conversion;
+using Tsudev.Files.Core.Presets;
 
 namespace Tsudev.Files.Engines.Tests;
 

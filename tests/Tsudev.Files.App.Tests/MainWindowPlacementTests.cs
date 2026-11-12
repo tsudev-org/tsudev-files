@@ -6,9 +6,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
 using Avalonia.Threading;
+using Microsoft.Extensions.DependencyInjection;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.DependencyInjection;
 using Placement = Tsudev.Files.App.Services.WindowService.MainWindowPlacement;
 
 namespace Tsudev.Files.App.Tests;

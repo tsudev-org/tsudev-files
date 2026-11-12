@@ -4,10 +4,10 @@
 
 using System.IO.Compression;
 using System.Text;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Office;
-using ImageMagick;
 using UglyToad.PdfPig;
 
 namespace Tsudev.Files.Engines.Tests;

@@ -11,6 +11,8 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Threading;
+using ImageMagick;
+using ImageMagick.Drawing;
 using Tsudev.Files.App.Controls;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
@@ -19,8 +21,6 @@ using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Engines.Media;
-using ImageMagick;
-using ImageMagick.Drawing;
 using static Tsudev.Files.App.Tests.RenderTests;
 
 namespace Tsudev.Files.App.Tests;

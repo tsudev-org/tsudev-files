@@ -12,11 +12,11 @@
 // - The edge is DirectOnly: only a PDF becomes picture slides, and a picture deck is never a step towards another
 //   format (ODP, PPSX, ...).
 
-using Tsudev.Files.Core.Conversion;
-using Tsudev.Files.Engines.Infrastructure;
 using PDFtoImage;
 using PDFtoImage.Exceptions;
 using SkiaSharp;
+using Tsudev.Files.Core.Conversion;
+using Tsudev.Files.Engines.Infrastructure;
 
 // PDFtoImage marks its API for the platforms PDFium ships for; Filee only targets desktop platforms, all covered.
 #pragma warning disable CA1416

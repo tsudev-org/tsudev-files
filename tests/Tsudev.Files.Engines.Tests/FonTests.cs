@@ -6,10 +6,10 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using SkiaSharp;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Fonts;
-using SkiaSharp;
 
 namespace Tsudev.Files.Engines.Tests;
 

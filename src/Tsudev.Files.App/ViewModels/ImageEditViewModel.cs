@@ -3,12 +3,12 @@
 // in the tool and starts ordinary conversions (ImageEditTool), so the toast, cancelling and the output rules work as usual.
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Engines.Magick;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.ViewModels;
 

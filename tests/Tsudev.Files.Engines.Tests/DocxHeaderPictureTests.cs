@@ -1,9 +1,9 @@
 // A floating logo in the header of a Word document, through rhwp to PDF (issue #1152).
 
 using System.IO.Compression;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
-using ImageMagick;
 using UglyToad.PdfPig;
 using static Tsudev.Files.Engines.Tests.DocxBuilder;
 

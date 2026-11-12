@@ -2,12 +2,12 @@
 // a bitmap for raster targets.
 
 using System.IO.Compression;
-using Tsudev.Files.Core.Presets;
 using ImageMagick;
 using SkiaSharp;
 using Svg;
 using Svg.Model;
 using Svg.Skia;
+using Tsudev.Files.Core.Presets;
 
 namespace Tsudev.Files.Engines.Vector;
 

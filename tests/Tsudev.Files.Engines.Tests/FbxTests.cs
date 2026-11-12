@@ -2,12 +2,12 @@
 // with plain and compressed arrays, and ASCII; then converted through the job queue or read directly.
 
 using System.Numerics;
+using ImageMagick;
+using SharpGLTF.Schema2;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Models3D;
-using ImageMagick;
-using SharpGLTF.Schema2;
 using static Tsudev.Files.Engines.Tests.FbxBuilder;
 
 namespace Tsudev.Files.Engines.Tests;

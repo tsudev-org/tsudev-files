@@ -1,9 +1,9 @@
 // Shared ImageMagick logic: applies preset ImageOptions and writes frames in the requested format.
 // Used by MagickImageConverter and by PdfiumConverter (PDF pages → images).
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Magick;
 

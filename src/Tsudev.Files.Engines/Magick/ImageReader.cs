@@ -6,9 +6,9 @@
 // that takes a raster image as input.
 
 using System.Buffers.Binary;
-using Tsudev.Files.Core.Presets;
 using ImageMagick;
 using ImageMagick.Formats;
+using Tsudev.Files.Core.Presets;
 
 namespace Tsudev.Files.Engines.Magick;
 

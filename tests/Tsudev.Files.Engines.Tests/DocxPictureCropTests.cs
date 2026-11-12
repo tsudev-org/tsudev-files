@@ -1,8 +1,8 @@
 // A picture cropped in Word or WPS (a:srcRect): the file keeps the whole picture (issue #280).
 
+using ImageMagick;
 using Tsudev.Files.Engines.Hwp.Hwpx;
 using Tsudev.Files.Engines.Hwp.Hwpx.Docx;
-using ImageMagick;
 using static Tsudev.Files.Engines.Tests.DocxBuilder;
 
 namespace Tsudev.Files.Engines.Tests;

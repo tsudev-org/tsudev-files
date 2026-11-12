@@ -1,13 +1,13 @@
 using Avalonia.Headless.XUnit;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
 using Tsudev.Files.App.Views;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
 
 namespace Tsudev.Files.App.Tests;
 

@@ -5,11 +5,11 @@
 
 using System.IO.Compression;
 using System.Text;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Email;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

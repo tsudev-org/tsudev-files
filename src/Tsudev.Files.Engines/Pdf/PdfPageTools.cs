@@ -1,13 +1,13 @@
 // Lossless PDF page tools used by the interactive editor: PDFium supplies previews, while PDFsharp changes page
 // boxes or copies pages without rasterising their text and drawings.
 
-using Tsudev.Files.Core.Platform;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using PDFtoImage;
 using PDFtoImage.Exceptions;
 using SkiaSharp;
+using Tsudev.Files.Core.Platform;
 
 #pragma warning disable CA1416 // PDFium ships for every desktop platform Filee targets.
 

@@ -1,10 +1,10 @@
 // Raster image ↔ raster image conversion with ImageMagick (Magick.NET, Apache-2.0). Animations → AVIF are encoded by
 // FFmpeg when it is installed (Media/AvifSequenceWriter), much faster than ImageMagick's own AVIF sequence writer.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Media;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Magick;
 

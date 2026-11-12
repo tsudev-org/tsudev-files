@@ -6,6 +6,8 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
 using Tsudev.Files.App.ViewModels.Pages;
@@ -14,8 +16,6 @@ using Tsudev.Files.App.Views.Pages;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.App.Tests;
 

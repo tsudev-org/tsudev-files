@@ -1,8 +1,8 @@
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Platform.Linux;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

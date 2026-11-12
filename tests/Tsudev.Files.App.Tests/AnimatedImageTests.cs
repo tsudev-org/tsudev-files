@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
 using Avalonia.Threading;
-using Tsudev.Files.App.Controls;
 using ImageMagick;
+using Tsudev.Files.App.Controls;
 
 namespace Tsudev.Files.App.Tests;
 

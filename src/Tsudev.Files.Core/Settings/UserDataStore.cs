@@ -3,12 +3,12 @@
 
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.History;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Profiles;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.Core.Settings;
 

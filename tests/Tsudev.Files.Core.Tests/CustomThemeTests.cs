@@ -1,7 +1,7 @@
 // theme.json: reading, dropping what Filee cannot use, and leaving the user's file alone.
 
-using Tsudev.Files.Core.Settings;
 using Microsoft.Extensions.Logging;
+using Tsudev.Files.Core.Settings;
 
 namespace Tsudev.Files.Core.Tests;
 

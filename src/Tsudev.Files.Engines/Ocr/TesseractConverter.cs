@@ -11,16 +11,16 @@
 // downloaded the first time a language is used, and is copied into the job's folder so Tesseract reads only it. A
 // preset can name several languages (#1123): each one's data is there, and Tesseract gets them all (-l chi_sim+eng).
 
-using Tsudev.Files.Core.Conversion;
-using Tsudev.Files.Core.Presets;
-using Tsudev.Files.Engines.Infrastructure;
-using Tsudev.Files.Engines.Pdf;
 using ImageMagick;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using PDFtoImage;
 using SkiaSharp;
+using Tsudev.Files.Core.Conversion;
+using Tsudev.Files.Core.Presets;
+using Tsudev.Files.Engines.Infrastructure;
+using Tsudev.Files.Engines.Pdf;
 using UglyToad.PdfPig.Core;
 using UglyToad.PdfPig.Exceptions;
 

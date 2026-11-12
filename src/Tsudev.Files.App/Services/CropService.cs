@@ -2,14 +2,14 @@
 
 using System.IO;
 using Avalonia.Media.Imaging;
+using ImageMagick;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.Controls;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Engines.Magick;
 using Tsudev.Files.Engines.Pdf;
-using ImageMagick;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

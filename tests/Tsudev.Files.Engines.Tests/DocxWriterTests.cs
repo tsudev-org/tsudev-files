@@ -4,11 +4,11 @@
 // the layout the model carries survives (page setup, sections, headers, tables, objects, notes, formatting).
 
 using System.IO.Compression;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Hwp.Hwpx;
 using Tsudev.Files.Engines.Hwp.Hwpx.Docx;
-using ImageMagick;
 using static Tsudev.Files.Engines.Tests.DocxAssert;
 using static Tsudev.Files.Engines.Tests.DocxBuilder;
 

@@ -10,9 +10,9 @@
 // A JPEG picture goes into the PDF as it is; other pictures (and a JPEG turned by its EXIF orientation) as PNG, every
 // page of a TIFF.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Engines.Pdf;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Ocr;
 

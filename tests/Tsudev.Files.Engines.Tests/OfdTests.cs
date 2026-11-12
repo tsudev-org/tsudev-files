@@ -7,11 +7,11 @@ using System.Globalization;
 using System.IO.Compression;
 using System.Text;
 using System.Xml.Linq;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Hwp.Hwpx;
 using Tsudev.Files.Engines.Ofd;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

@@ -10,8 +10,8 @@ using System.Runtime.Versioning;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using Tsudev.Files.Platform.Windows;
 using Microsoft.Extensions.Logging;
+using Tsudev.Files.Platform.Windows;
 
 namespace Tsudev.Files.App.Services;
 

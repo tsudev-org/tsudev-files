@@ -2,15 +2,15 @@
 // the converter around a stand-in recognizer run everywhere; AppleVisionTests read real pictures on macOS only.
 
 using System.Collections.Concurrent;
+using ImageMagick;
+using ImageMagick.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Ocr;
-using ImageMagick;
-using ImageMagick.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
 using UglyToad.PdfPig.Core;
 
 namespace Tsudev.Files.Engines.Tests;

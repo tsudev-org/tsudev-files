@@ -9,10 +9,10 @@ using System.ComponentModel;
 using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using SkiaSharp;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Engines.Media;
-using SkiaSharp;
 
 namespace Tsudev.Files.App.Services;
 

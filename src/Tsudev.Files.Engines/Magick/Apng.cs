@@ -6,9 +6,9 @@
 
 using System.Buffers.Binary;
 using System.Text;
-using Tsudev.Files.Engines.Archives;
 using ImageMagick;
 using ImageMagick.Formats;
+using Tsudev.Files.Engines.Archives;
 
 namespace Tsudev.Files.Engines.Magick;
 

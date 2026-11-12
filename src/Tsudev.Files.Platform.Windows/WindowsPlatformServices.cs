@@ -3,8 +3,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
-using Tsudev.Files.Core.Platform;
 using Microsoft.Win32;
+using Tsudev.Files.Core.Platform;
 
 namespace Tsudev.Files.Platform.Windows;
 

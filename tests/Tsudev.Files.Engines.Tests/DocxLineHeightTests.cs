@@ -1,8 +1,8 @@
 // Word's "multiple" line spacing is of the line height the fonts have, 한글's of the font size (issue #510).
 
+using ImageMagick;
 using Tsudev.Files.Engines.Hwp.Hwpx;
 using Tsudev.Files.Engines.Hwp.Hwpx.Docx;
-using ImageMagick;
 using static Tsudev.Files.Engines.Tests.DocxBuilder;
 
 namespace Tsudev.Files.Engines.Tests;

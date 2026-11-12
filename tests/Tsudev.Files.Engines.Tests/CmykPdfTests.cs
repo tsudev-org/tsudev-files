@@ -2,12 +2,12 @@
 // page shows the picture's colours; read back with PDFsharp, the image is CMYK with the source's samples.
 
 using System.IO.Compression;
-using Tsudev.Files.Core.Conversion;
-using Tsudev.Files.Core.Presets;
 using ImageMagick;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Advanced;
 using PdfSharp.Pdf.IO;
+using Tsudev.Files.Core.Conversion;
+using Tsudev.Files.Core.Presets;
 
 namespace Tsudev.Files.Engines.Tests;
 

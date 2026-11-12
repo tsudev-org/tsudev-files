@@ -6,6 +6,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.ViewModels;
 using Tsudev.Files.App.Views;
 using Tsudev.Files.Core.Conversion;
@@ -13,8 +15,6 @@ using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

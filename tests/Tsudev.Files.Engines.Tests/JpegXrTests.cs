@@ -1,10 +1,10 @@
 // JPEG XR (.jxr) through the Windows Imaging Component: 8-bit pictures and HDR screenshots (half-float scRGB, tone-mapped
 // to SDR). The pictures are written in the tests with Windows' own JPEG XR encoder.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Wic;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

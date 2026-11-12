@@ -4,8 +4,8 @@
 // (which it couldn't, being refused by an elevated process anyway), then quits this Filee.
 
 using CommunityToolkit.Mvvm.ComponentModel;
-using Tsudev.Files.Core.Platform;
 using Microsoft.Extensions.Logging;
+using Tsudev.Files.Core.Platform;
 
 namespace Tsudev.Files.App.Services;
 

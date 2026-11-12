@@ -20,9 +20,9 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Platform.Windows;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

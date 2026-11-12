@@ -2,9 +2,9 @@
 // colour between them. The layout is worked out from the pictures' sizes first, so only one picture at a time (and the
 // merged image) is in memory.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Magick;
 

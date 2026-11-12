@@ -6,13 +6,13 @@
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
+using ImageMagick;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Media;
-using ImageMagick;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
 
 namespace Tsudev.Files.Engines.Tests;
 
