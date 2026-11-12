@@ -14,7 +14,6 @@
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
         <ResourceInclude Source="avares://Filee/Styles/Icons.axaml" />
-        <ResourceInclude Source="avares://Filee/Styles/Brands.axaml" />
       </ResourceDictionary.MergedDictionaries>
       <!-- The Theme page's colour picker shows only the spectrum: no empty tab strip above it. Set here because its
            flyout looks resources up outside the page. -->

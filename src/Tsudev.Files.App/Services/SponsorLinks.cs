@@ -1,30 +1,25 @@
-// Where "Sponsor" can lead: the sidebar button and the About page open a window with these, the way that suits the
-// language first (Korean cards and easy-pay through Fairy in Korean, GitHub Sponsors otherwise).
+// Where "Sponsor" leads: the sidebar button and the About page open a window with these. The ways to support
+// tsudev-files are listed in one place only, the support page of files.tsudev.com (website/src/data/ung-ho.json), so
+// new ways are added there without a new release of the app.
+
+using Tsudev.Files.Core;
 
 namespace Tsudev.Files.App.Services;
 
-/// <summary>One way to support Filee.</summary>
+/// <summary>One way to support tsudev-files.</summary>
 /// <param name="Id">Also the suffix of its description string, <c>sponsor.note.{Id}</c>.</param>
-/// <param name="Icon">Key of the logo geometry (Styles/Brands.axaml, or Icon.Heart).</param>
-/// <param name="Color">Brand colour behind the white logo.</param>
+/// <param name="Icon">Key of the icon geometry (Styles/Icons.axaml).</param>
+/// <param name="Color">Colour behind the white icon.</param>
 public sealed record SponsorLink(string Id, string Name, string Url, string Icon, string Color);
 
 public static class SponsorLinks
 {
-    public const string GitHubSponsorsUrl = "https://github.com/sponsors/KnifeLemon";
-    public const string FairyUrl = "https://fairy.hada.io/@filee";
-    public const string PatreonUrl = "https://patreon.com/KnifeLemon";
-    public const string KoFiUrl = "https://ko-fi.com/knifelemon";
-    public const string PayPalUrl = "https://paypal.me/knifelemon";
+    /// <summary>The support page: every way to support tsudev-files, kept up to date without a new release.</summary>
+    public const string SupportPageUrl = ForkDefaults.SupportPageUrl;
 
-    private static readonly SponsorLink GitHub = new("github", "GitHub Sponsors", GitHubSponsorsUrl, "Brand.GitHubSponsors", "#BF3989");
-    private static readonly SponsorLink Fairy = new("fairy", "Fairy", FairyUrl, "Icon.Heart", "#2E9E6B");
-    private static readonly SponsorLink Patreon = new("patreon", "Patreon", PatreonUrl, "Brand.Patreon", "#141518");
-    private static readonly SponsorLink KoFi = new("kofi", "Ko-fi", KoFiUrl, "Brand.KoFi", "#FF5E5B");
-    private static readonly SponsorLink PayPal = new("paypal", "PayPal", PayPalUrl, "Brand.PayPal", "#003087");
+    private static readonly SponsorLink Page = new("page", "files.tsudev.com/ung-ho", SupportPageUrl, "Icon.Heart", "#7C3AED");
+    private static readonly SponsorLink Star = new("star", "GitHub", ForkDefaults.RepositoryUrl, "Icon.GitHub", "#24292F");
 
-    /// <summary>Every way, the one that suits <paramref name="language"/> first.</summary>
-    public static IReadOnlyList<SponsorLink> For(string language) => language == "ko"
-        ? [Fairy, GitHub, Patreon, KoFi, PayPal]
-        : [GitHub, Patreon, KoFi, PayPal, Fairy];
+    /// <summary>Every way, the same in every language (the support page itself is where the choice is made).</summary>
+    public static IReadOnlyList<SponsorLink> For(string language) => [Page, Star];
 }

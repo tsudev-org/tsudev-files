@@ -41,10 +41,8 @@ identifier on the left of `ServicesMenu.strings`; translate its value. The packa
 and validates their strings files with `plutil`. These system texts follow macOS language preferences.
 Keep technical identifiers such as the KWin `Filee Donut` window title stable.
 
-Optional, but welcome in the same or a later pull request: a translated README. Add `docs/readme/README.<code>.md`
-with every section `README.md` has (links to other files in the repository start with `../../`), link it from the
-language line at the top of the other READMEs and add the language to
-their list of UI languages. The maintainers add the language to the website (filee.sh).
+tsudev-files keeps its README in Vietnamese (`README.md`) and English (`README.en.md`) only; there are no other
+translated READMEs to update.
 
 ## Demonstration recordings
 

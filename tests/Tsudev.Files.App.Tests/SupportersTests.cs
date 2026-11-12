@@ -9,15 +9,8 @@ namespace Tsudev.Files.App.Tests;
 
 public class SupportersTests
 {
-    private static readonly string RepoRoot = FindRepoRoot();
+    private static readonly string RepoRoot = TestPaths.RepoRoot;
 
-    private static string FindRepoRoot()
-    {
-        var dir = new DirectoryInfo(AppContext.BaseDirectory);
-        while (dir is not null && !File.Exists(Path.Combine(dir.FullName, "tsudev-files.slnx")))
-            dir = dir.Parent;
-        return dir?.FullName ?? throw new DirectoryNotFoundException("tsudev-files.slnx");
-    }
 
     [Fact]
     public void The_list_reads_logos_and_names_and_skips_unnamed_entries()
@@ -41,7 +34,7 @@ public class SupportersTests
         var folder = Path.Combine(RepoRoot, "src", "Tsudev.Files.App", "Assets", "Sponsors");
         var list = Supporters.Parse(File.ReadAllText(Path.Combine(folder, "sponsors.json")));
 
-        foreach (var readme in new[] { "README.md", "docs/readme/README.ko.md", "docs/readme/README.zh-CN.md", "docs/readme/README.pt-BR.md", "docs/readme/README.fr.md" })
+        foreach (var readme in new[] { "README.md", "README.en.md" })
         {
             var text = File.ReadAllText(Path.Combine(RepoRoot, readme));
             Assert.Contains("<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->", text);

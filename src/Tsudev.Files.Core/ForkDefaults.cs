@@ -31,6 +31,9 @@ public static class ForkDefaults
     /// <summary>Trang sản phẩm (thư mục website/ của repo).</summary>
     public const string ProductPageUrl = "https://files.tsudev.com";
 
+    /// <summary>Trang Ủng hộ: nơi duy nhất liệt kê cách ủng hộ (website/src/data/ung-ho.json); nút "Tài trợ" của ứng dụng trỏ về đây.</summary>
+    public const string SupportPageUrl = ProductPageUrl + "/ung-ho/";
+
     /// <summary>Tên hiển thị của ứng dụng (quyết định 09/11/2026: "Filee" -> "tsudev-files").</summary>
     public const string DisplayName = "tsudev-files";
 
