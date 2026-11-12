@@ -14,4 +14,4 @@ documentation:
 translation:
   - changed-files:
       - all-globs-to-all-files:
-          - src/Tsudev.Files.App/Assets/i18n/**
+          - src/TsuFiles.App/Assets/i18n/**

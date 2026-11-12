@@ -1,6 +1,6 @@
-<p align="center"><img src="assets/brand/tsudev-files-mark-512.png" alt="" width="128" height="128"></p>
+<p align="center"><img src="assets/brand/tsufiles-mark-512.png" alt="" width="128" height="128"></p>
 
-# tsudev-files
+# TsuFiles
 
 **Trình chuyển đổi tệp ngoại tuyến, miễn phí, mã nguồn mở - bản Việt hóa và gia cố bảo mật của [Filee](https://github.com/KnifeLemon/Filee).**
 
@@ -21,12 +21,12 @@ máy của bạn**, không tải tệp lên bất kỳ máy chủ nào, không c
 
 ## Khác biệt so với bản gốc
 
-| Hạng mục | Bản gốc Filee | tsudev-files |
+| Hạng mục | Bản gốc Filee | TsuFiles |
 | --- | --- | --- |
 | Ngôn ngữ mặc định | Theo ngôn ngữ hệ điều hành, dự phòng tiếng Anh | **Tiếng Việt** cho giao diện, trình cài đặt và dòng lệnh; đổi được trong Cài đặt (`auto`, `en`, ...) |
 | Dòng lệnh `filee` | Chỉ tiếng Anh | Tiếng Việt mặc định, `FILEE_LANG=en` để dùng tiếng Anh; khóa JSON giữ nguyên cho script |
 | Kiểm tra cập nhật | `KnifeLemon/Filee` + khóa ký của tác giả gốc | `tsudev-org/tsudev-files` + **khóa ký ECDSA P-256 riêng**; bản phát hành của repo khác bị từ chối |
-| Tên hiển thị | Filee | **tsudev-files** (giao diện, trình cài đặt, lối tắt, tệp phát hành); tệp chạy, lệnh `filee` và thư mục dữ liệu giữ tên cũ - xem [ADR-0001](docs/adr/0001-doi-ten-hien-thi-tsudev-files.md) |
+| Tên sản phẩm | Filee | **TsuFiles** - logo con cú, kiểu giao diện Cú đêm ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)); tệp chạy, lệnh `filee`, thư mục dữ liệu, lối tắt và tệp phát hành đổi sang `tsufiles` ở bản 2.4.1 kèm di trú |
 | Trang tải khi cập nhật lỗi | filee.sh | Trang phát hành của repo này |
 | GitHub Actions | Ghim theo tag | **Ghim theo SHA commit** (chống tag bị sửa) |
 | Cổng kiểm bảo mật | CI + test | Thêm CodeQL (security-extended), gitleaks, soát lỗ hổng NuGet, kiểm tra bản dịch, Dependabot |
@@ -47,10 +47,10 @@ tools/fetch-engines-linux.sh 7zip         # Windows: pwsh build/fetch-engines.ps
 ```
 
 ```bash
-dotnet build tsudev-files.slnx
-dotnet test tests/Tsudev.Files.Core.Tests        # các bộ test khác: tests/Tsudev.Files.*.Tests
+dotnet build TsuFiles.slnx
+dotnet test tests/TsuFiles.Core.Tests    # các bộ test khác: tests/TsuFiles.*.Tests
 # Bộ giao diện chạy riêng, có phát hiện treo (giống CI; khoảng 30-60 phút trên WSL):
-dotnet test tests/Tsudev.Files.App.Tests --no-build --blame-crash --blame-hang-timeout 5m
+dotnet test tests/TsuFiles.App.Tests --no-build --blame-crash --blame-hang-timeout 5m
 python3 -I tools/check_i18n_vi.py         # kiểm tra bản dịch tiếng Việt
 bash scripts/check-standards.sh           # cổng kiểm quy ước tsudev
 ```
@@ -58,20 +58,20 @@ bash scripts/check-standards.sh           # cổng kiểm quy ước tsudev
 Chạy dòng lệnh từ mã nguồn:
 
 ```bash
-dotnet run --project src/Tsudev.Files.Cli -- help
-FILEE_LANG=en dotnet run --project src/Tsudev.Files.Cli -- help
+dotnet run --project src/TsuFiles.Cli -- help
+FILEE_LANG=en dotnet run --project src/TsuFiles.Cli -- help
 ```
 
 Quy ước làm việc (cho người và agent AI): đọc [AGENTS.md](AGENTS.md) trước tiên.
 
 ## Bản vá từ upstream
 
-tsudev-files đã tách hẳn khỏi Filee ([ADR-0002](docs/adr/0002-hard-fork-doi-ten-toan-bo-tsudev.md)): không gộp
+TsuFiles đã tách hẳn khỏi Filee ([ADR-0002](docs/adr/0002-hard-fork-doi-ten-toan-bo-tsudev.md)): không gộp
 `upstream/main` nữa. Bản vá bảo mật của upstream được chép thủ công:
 
 ```bash
 git format-patch -1 <commit> -o /tmp/va                       # từ remote upstream
-python3 -I tools/doi-ten-tsudev.py --tep /tmp/va/*.patch       # đổi tên Filee.* -> Tsudev.Files.*
+python3 -I tools/doi-ten-tsudev.py --tep /tmp/va/*.patch       # đổi tên Filee.* -> TsuFiles.*
 git apply /tmp/va/*.patch                                      # ghi nguồn (commit upstream) trong thông điệp commit
 ```
 
@@ -79,12 +79,12 @@ Remote `upstream` đã bị khóa chiều đẩy (`DISABLED`) để không thể
 
 ## Ủng hộ
 
-tsudev-files miễn phí và sẽ luôn miễn phí. Mọi kênh ủng hộ chính thức chỉ được công bố tại
+TsuFiles miễn phí và sẽ luôn miễn phí. Mọi kênh ủng hộ chính thức chỉ được công bố tại
 **<https://files.tsudev.com/ung-ho/>** (dữ liệu: [`website/src/data/ung-ho.json`](website/src/data/ung-ho.json)); nút
 "Ủng hộ" trong ứng dụng và nút "Sponsor" của GitHub đều trỏ về trang đó. Nhà tài trợ được liệt kê tại đây, trên trang
 Ủng hộ và trong trang "Giới thiệu" của ứng dụng.
 
-<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/TsuFiles.App/Assets/Sponsors/sponsors.json -->
 
 ## Giấy phép và ghi công
 

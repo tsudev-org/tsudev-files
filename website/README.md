@@ -1,27 +1,27 @@
 # Website files.tsudev.com
 
-Trang sản phẩm của tsudev-files: [Astro](https://astro.build) dựng trang tĩnh; JavaScript phía trình duyệt chỉ có
+Trang sản phẩm của TsuFiles: [Astro](https://astro.build) dựng trang tĩnh; JavaScript phía trình duyệt chỉ có
 `public/theme.js` (bộ chọn giao diện Sáng/Tối/Hệ thống ở chân trang, mặc định Tối, khóa `tsudev-theme` như tsudev.com; nạp chặn trong `<head>`
 để không nháy màu, CSP `script-src 'self'`, không script nội tuyến),
-host trên Cloudflare Workers Static Assets (Worker `tsudev-files`, không có mã chạy; tên miền con `files.tsudev.com` của
+host trên Cloudflare Workers Static Assets (Worker `TsuFiles`, không có mã chạy; tên miền con `files.tsudev.com` của
 hệ tsudev.com, cấu hình ở `wrangler.jsonc`).
 
 * Tài liệu lấy trực tiếp từ tệp của repo (`SECURITY.md`, `docs/vi/KIEN-TRUC-BAO-MAT.md`, `CHANGELOG.md`, `LICENSE`,
   `THIRD-PARTY-NOTICES.md`) - sửa ở đó, không sửa trong `website/`. Trang Hướng dẫn, Định dạng, Dòng lệnh viết tay
-  trong `src/pages/`; đổi tùy chọn dòng lệnh (`src/Tsudev.Files.Cli`) thì cập nhật `src/pages/dong-lenh.astro`.
+  trong `src/pages/`; đổi tùy chọn dòng lệnh (`src/TsuFiles.Cli`) thì cập nhật `src/pages/dong-lenh.astro`.
 * Bản phát hành (phiên bản, liên kết, SHA-256) lấy từ GitHub Releases lúc build; repo chưa có bản phát hành thì trang
   Tải về hiện thông báo "đang chuẩn bị" thay vì danh sách gói.
 * Ảnh chụp `public/anh/page-*-vi.png` sinh từ test giao diện (giao diện tiếng Việt thật, không cắt tay):
 
   ```bash
-  dotnet test tests/Tsudev.Files.App.Tests --filter "FullyQualifiedName~RenderTests.Main_window_pages_render"
+  dotnet test tests/TsuFiles.App.Tests --filter "FullyQualifiedName~RenderTests.Main_window_pages_render"
   for f in home toolbar presets watch engines; do
-    cp tests/Tsudev.Files.App.Tests/bin/Debug/net10.0/screenshots/page-$f-vi.png website/public/anh/
+    cp tests/TsuFiles.App.Tests/bin/Debug/net10.0/screenshots/page-$f-vi.png website/public/anh/
   done
   ```
 
 * Tài sản thương hiệu (`public/favicon*`, `android-chrome-*`, `apple-touch-icon.png`, `og-image.png`,
-  `brand/tsudev-files-mark.*`) sinh bằng `tools/thuong-hieu/tao-tai-san.py` ở gốc repo - xem `assets/brand/README.md`;
+  `brand/tsufiles-mark.*`) sinh bằng `tools/thuong-hieu/tao-tai-san.py` ở gốc repo - xem `assets/brand/README.md`;
   không sửa tay. Riêng `brand/logo-mark.png` (cú tsudev, chân trang) lấy từ dây chuyền của repo `tsudev-org/tsudev`.
 * Kênh ủng hộ ở trang `/ung-ho/`: sửa `src/data/ung-ho.json` (build từ chối URL không https hoặc trỏ về dự án gốc).
 * Font Be Vietnam Pro tự host (SIL OFL 1.1), token màu sao nguyên văn từ `.standards/tokens/tokens.css`.

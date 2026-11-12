@@ -1,4 +1,4 @@
-# Kiến trúc bảo mật tsudev-files
+# Kiến trúc bảo mật TsuFiles
 
 > Phạm vi: ứng dụng desktop chuyển đổi tệp ngoại tuyến (Windows/Linux/macOS), dòng lệnh `filee`, trình cài đặt và
 > trình cập nhật. Không có máy chủ, không có tài khoản người dùng.
@@ -37,7 +37,7 @@
 
 ## 4. Nguyên tắc khi sửa mã
 
-1. Mọi khác biệt của fork gom vào `src/Tsudev.Files.Core/ForkDefaults.cs` (giá trị lúc chạy) và `Directory.Build.props`
+1. Mọi khác biệt của fork gom vào `src/TsuFiles.Core/ForkDefaults.cs` (giá trị lúc chạy) và `Directory.Build.props`
    (giá trị lúc build). Không rải URL/khóa khắp mã.
 2. Không thêm bất kỳ lệnh gọi mạng nào trong luồng chuyển đổi. Tính năng cần mạng (cập nhật, tải engine, Ollama cục
    bộ) phải có kiểm tra toàn vẹn và mặc định an toàn.
@@ -60,5 +60,5 @@
 - [x] SBOM (CycloneDX 1.7) + GitHub artifact attestation (nguồn gốc build + SBOM) cho mỗi bản phát hành (11/11/2026).
 - [ ] Bật branch protection cho `main`: yêu cầu PR + các check `ci` và `Bảo mật`.
 - [x] Fuzz đột biến cho bộ đọc tự viết (MOBI/PalmDOC/HUFF-CDIC, ICNS, OFD) + kiểm thuộc tính ArchiveSafety: 200 vòng mỗi CI, 20.000 vòng hằng tuần (`fuzz.yml`). Lượt đầu 5.000 vòng/mục tiêu: không lỗi (11/11/2026). Còn HWP/HWPX.
-- [x] Đổi tên hiển thị "Filee" -> "tsudev-files" (09/11/2026, [ADR-0001](../adr/0001-doi-ten-hien-thi-tsudev-files.md)).
+- [x] Đổi tên hiển thị "Filee" -> "tsudev-files" (09/11/2026, [ADR-0001](../adr/0001-doi-ten-hien-thi-tsudev-files.md)), rồi -> "TsuFiles" (12/11/2026, [ADR-0003](../adr/0003-ten-san-pham-tsufiles.md)).
 - [ ] Cài song song với Filee gốc: hiện dùng chung `AppGuid`, khóa registry và thư mục dữ liệu (ADR-0001 mục 4).

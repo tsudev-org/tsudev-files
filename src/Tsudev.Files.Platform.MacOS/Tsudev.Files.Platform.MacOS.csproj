@@ -1,9 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <RootNamespace>Tsudev.Files.Platform.MacOS</RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tsudev.Files.Core\Tsudev.Files.Core.csproj" />
-    <InternalsVisibleTo Include="Tsudev.Files.Platform.Tests" />
-  </ItemGroup>
-</Project>

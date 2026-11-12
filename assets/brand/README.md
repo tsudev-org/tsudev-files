@@ -1,4 +1,4 @@
-# Tài sản thương hiệu tsudev-files
+# Tài sản thương hiệu TsuFiles
 
 Một ảnh gốc, một script, mọi biểu tượng/logo/favicon sinh ra từ đó (`.standards/docs/BRAND_ASSETS.md` mục 7).
 **Không sửa tay tệp sinh ra** - lần chạy sau sẽ ghi đè.
@@ -7,19 +7,19 @@ Một ảnh gốc, một script, mọi biểu tượng/logo/favicon sinh ra từ
 | --- | --- |
 | `source/tsufiles-1.webp` | **Ảnh gốc của icon**: ảnh bìa TsuFiles 1024x512; script cắt con cú trong `OWL_BOX`. SHA-256 ghi trong `tools/thuong-hieu/tao-tai-san.py` |
 | `source/tsufiles-2.webp` | Ảnh giới thiệu TsuFiles 845x752 (WebP lossless, giống từng điểm ảnh bản PNG chủ dự án gửi). Chưa dùng trong tệp sinh ra |
-| `tsudev-files-mark.{png,webp,avif}` | Bản chính đã tách nền, vuông, nền trong suốt (813x813) - dùng cho tài liệu, bài viết, ảnh ghép |
-| `tsudev-files-mark-512.png` | Bản 512 px cho README |
+| `tsufiles-mark.{png,webp,avif}` | Bản chính đã tách nền, vuông, nền trong suốt (813x813) - dùng cho tài liệu, bài viết, ảnh ghép |
+| `tsufiles-mark-512.png` | Bản 512 px cho README |
 
 Script còn sinh (cùng nguồn):
 
 | Tệp | Dùng cho |
 | --- | --- |
-| `src/Tsudev.Files.App/Assets/Icons/filee.png` (512) | Trang Giới thiệu, đầu cửa sổ chính, hộp thoại, logo động của Setup (`AppLogo`), icon gói Linux, icon macOS (`build/build-portable.ps1` dựng `.icns`), logo gói menu Explorer |
-| `src/Tsudev.Files.App/Assets/Icons/filee.ico` | Icon cửa sổ, thanh tác vụ, khay hệ thống; icon `.exe` của ứng dụng, Setup, CLI |
+| `src/TsuFiles.App/Assets/Icons/filee.png` (512) | Trang Giới thiệu, đầu cửa sổ chính, hộp thoại, logo động của Setup (`AppLogo`), icon gói Linux, icon macOS (`build/build-portable.ps1` dựng `.icns`), logo gói menu Explorer |
+| `src/TsuFiles.App/Assets/Icons/filee.ico` | Icon cửa sổ, thanh tác vụ, khay hệ thống; icon `.exe` của ứng dụng, Setup, CLI |
 | `website/public/favicon.ico`, `favicon-{16,32,96}.png` | Favicon files.tsudev.com |
 | `website/public/apple-touch-icon.png` | iOS (180, nền `#0A0A0A`) |
 | `website/public/android-chrome-*.png` | PWA 192/512, bản `maskable` có nền và vùng an toàn |
-| `website/public/brand/tsudev-files-mark.{avif,webp,png}` | Logo đầu trang website (AVIF -> WebP -> PNG qua `<picture>`) |
+| `website/public/brand/tsufiles-mark.{avif,webp,png}` | Logo đầu trang website (AVIF -> WebP -> PNG qua `<picture>`) |
 | `website/public/og-image.png` | Ảnh chia sẻ 1200x630 (màu theo token chế độ Tối) |
 
 `website/public/brand/logo-mark.png` là **con cú tsudev** (dây chuyền của repo `tsudev-org/tsudev`), chỉ dùng ở chân
@@ -32,7 +32,7 @@ cp <ảnh mới>.webp assets/brand/source/tsufiles-1.webp          # WebP/PNG lo
 sha256sum assets/brand/source/tsufiles-1.webp                  # chép vào SOURCE_SHA256 trong script
 python3 -m venv /tmp/brand && /tmp/brand/bin/pip install -r tools/thuong-hieu/requirements.txt
 /tmp/brand/bin/python -I tools/thuong-hieu/tao-tai-san.py      # sinh lại tất cả, cuối cùng tự kiểm (ĐẠT)
-dotnet test tests/Tsudev.Files.App.Tests --filter "FullyQualifiedName~BrandAssetsTests"
+dotnet test tests/TsuFiles.App.Tests --filter "FullyQualifiedName~BrandAssetsTests"
 ```
 
 Rồi xem bằng mắt: icon 16/24/32 px trên nền sáng và tối, `og-image.png`, đầu trang website (`cd website && npm run dev`).

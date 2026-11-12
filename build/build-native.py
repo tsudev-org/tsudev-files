@@ -50,7 +50,7 @@ UNHWP_VERSION = "0.13.0"
 UNHWP_REPOSITORY = "https://github.com/iyulab/unhwp"
 UNHWP_COMMIT = "405b17e137b3ca06299dcbc8a156599ac7027e91"
 
-# Visual C++ runtime DLLs, as src/Tsudev.Files.Setup/Installation/RuntimeCheck.cs matches them.
+# Visual C++ runtime DLLs, as src/TsuFiles.Setup/Installation/RuntimeCheck.cs matches them.
 VC_RUNTIME_DLL = re.compile(r"^(vcruntime|msvcp|concrt|vcomp|vccorlib|mfc|mfcm)140[a-z0-9_]*\.dll$", re.IGNORECASE)
 PE_MACHINES = {0x8664: "x64", 0xAA64: "arm64"}
 
@@ -69,7 +69,7 @@ def run(command, cwd=None, env=None, capture=False):
 
 
 def pinned_rhwp_versions():
-    path = os.path.join(ROOT, "src", "Tsudev.Files.Engines", "Infrastructure", "engines.json")
+    path = os.path.join(ROOT, "src", "TsuFiles.Engines", "Infrastructure", "engines.json")
     with open(path, encoding="utf-8") as stream:
         manifest = json.load(stream)
     versions = {rid: manifest["platforms"][rid]["components"]["rhwp"]["version"] for rid in ("linux-x64", "linux-arm64")}

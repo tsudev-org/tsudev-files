@@ -5,8 +5,8 @@
     <key>CFBundleDevelopmentRegion</key><string>en</string>
     <key>CFBundleLocalizations</key><array><string>en</string><string>ko</string><string>zh-Hans</string><string>zh-Hant</string><string>pt-PT</string><string>pt-BR</string><string>de</string><string>it</string><string>id</string><string>vi</string><string>fa</string></array>
     <key>CFBundleIdentifier</key><string>com.filee.app</string>
-    <key>CFBundleName</key><string>tsudev-files</string>
-    <key>CFBundleDisplayName</key><string>tsudev-files</string>
+    <key>CFBundleName</key><string>TsuFiles</string>
+    <key>CFBundleDisplayName</key><string>TsuFiles</string>
     <key>CFBundleExecutable</key><string>Filee</string>
     <key>CFBundlePackageType</key><string>APPL</string>
     <key>CFBundleShortVersionString</key><string>__VERSION__</string>
@@ -14,7 +14,7 @@
     <key>CFBundleIconFile</key><string>filee.icns</string>
     <key>LSMinimumSystemVersion</key><string>13.0</string>
     <key>NSHighResolutionCapable</key><true/>
-    <!-- tsudev-files: CFBundleName, CFBundleDisplayName và lời giải thích quyền mang tên hiển thị tsudev-files;
+    <!-- TsuFiles: CFBundleName, CFBundleDisplayName và lời giải thích quyền mang tên hiển thị TsuFiles;
          CFBundleIdentifier, CFBundleExecutable, NSPortName và khóa dịch "Convert with Filee" giữ nguyên (định danh). -->
     <!-- "Convert with Filee" in Finder's right-click menu, answered by the running Filee (MacOSServicesProvider).
          ServicesMenu.strings in each .lproj folder translates the title. An empty NSRequiredContext keeps
@@ -29,7 +29,7 @@
             <key>NSSendFileTypes</key><array><string>public.item</string></array>
         </dict>
     </array>
-    <key>NSAppleEventsUsageDescription</key><string>tsudev-files reads selected Finder files when you use a conversion shortcut.</string>
-    <key>NSInputMonitoringUsageDescription</key><string>tsudev-files detects your conversion shortcut and drag gesture to show the conversion menu.</string>
+    <key>NSAppleEventsUsageDescription</key><string>TsuFiles reads selected Finder files when you use a conversion shortcut.</string>
+    <key>NSInputMonitoringUsageDescription</key><string>TsuFiles detects your conversion shortcut and drag gesture to show the conversion menu.</string>
 </dict>
 </plist>

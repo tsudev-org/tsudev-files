@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tsudev-files: sinh mã VietQR (SVG vector) cho trang Ủng hộ từ mã BIN ngân hàng + số tài khoản, có kiểm chéo.
+"""TsuFiles: sinh mã VietQR (SVG vector) cho trang Ủng hộ từ mã BIN ngân hàng + số tài khoản, có kiểm chéo.
 
 Không đăng ảnh chụp mã QR của ứng dụng ngân hàng: ảnh chụp mờ khi phóng to, nặng, và không ai kiểm được nó có thật sự
 chuyển tiền tới đúng tài khoản ghi bên cạnh hay không. Script này dựng chuỗi VietQR (chuẩn EMVCo/NAPAS) từ dữ liệu, sinh

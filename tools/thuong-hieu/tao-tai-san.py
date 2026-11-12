@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""tsudev-files: sinh MỌI biểu tượng/logo/favicon của repo từ một ảnh gốc duy nhất.
+"""TsuFiles: sinh MỌI biểu tượng/logo/favicon của repo từ một ảnh gốc duy nhất.
 
 Ảnh gốc: assets/brand/source/tsufiles-1.webp (ảnh bìa TsuFiles; con cú cầm thư mục nằm trong OWL_BOX). Không sửa tay
 tệp sinh ra; đổi logo thì thay ảnh gốc, cập nhật SOURCE_SHA256 (và OWL_BOX) rồi chạy lại script này và commit kết quả.
@@ -32,7 +32,7 @@ SOURCE_SHA256 = "33974eb00c9b72fb7899027bb155662697700f51fc95b743adf9eb32f77bcce
 OWL_BOX = (20, 20, 212, 240)                            # khung chứa con cú trong ảnh bìa (trái, trên, phải, dưới)
 
 BRAND = ROOT / "assets/brand"
-APP_ICONS = ROOT / "src/Tsudev.Files.App/Assets/Icons"
+APP_ICONS = ROOT / "src/TsuFiles.App/Assets/Icons"
 WEB = ROOT / "website/public"
 WEB_FONTS = WEB / "fonts"
 
@@ -42,10 +42,10 @@ WEB_DARK = (10, 10, 10)  # --bg-base của chế độ Tối (website/src/styles
 
 # Tệp sinh ra -> (rộng, cao). --kiem đối chiếu đúng bảng này.
 OUTPUTS: dict[Path, tuple[int, int] | None] = {
-    BRAND / "tsudev-files-mark.png": None,
-    BRAND / "tsudev-files-mark.webp": None,
-    BRAND / "tsudev-files-mark.avif": None,
-    BRAND / "tsudev-files-mark-512.png": (512, 512),
+    BRAND / "tsufiles-mark.png": None,
+    BRAND / "tsufiles-mark.webp": None,
+    BRAND / "tsufiles-mark.avif": None,
+    BRAND / "tsufiles-mark-512.png": (512, 512),
     APP_ICONS / "filee.png": (512, 512),
     APP_ICONS / "filee.ico": (256, 256),
     WEB / "favicon.ico": (256, 256),
@@ -57,9 +57,9 @@ OUTPUTS: dict[Path, tuple[int, int] | None] = {
     WEB / "android-chrome-512x512.png": (512, 512),
     WEB / "android-chrome-maskable-192x192.png": (192, 192),
     WEB / "android-chrome-maskable-512x512.png": (512, 512),
-    WEB / "brand/tsudev-files-mark.png": None,
-    WEB / "brand/tsudev-files-mark.webp": None,
-    WEB / "brand/tsudev-files-mark.avif": None,
+    WEB / "brand/tsufiles-mark.png": None,
+    WEB / "brand/tsufiles-mark.webp": None,
+    WEB / "brand/tsufiles-mark.avif": None,
     WEB / "og-image.png": (1200, 630),
 }
 
@@ -184,10 +184,10 @@ def build() -> None:
         print(f"  {path.relative_to(ROOT)} lớp {ico_sizes(path.read_bytes())}")
 
     print("Bản chính:", master.size)
-    save(master, BRAND / "tsudev-files-mark.png")
-    save(master, BRAND / "tsudev-files-mark.webp")
-    save(master, BRAND / "tsudev-files-mark.avif")
-    save(icon(512), BRAND / "tsudev-files-mark-512.png")
+    save(master, BRAND / "tsufiles-mark.png")
+    save(master, BRAND / "tsufiles-mark.webp")
+    save(master, BRAND / "tsufiles-mark.avif")
+    save(icon(512), BRAND / "tsufiles-mark-512.png")
 
     # Ứng dụng desktop, Setup, CLI, gói Linux/macOS, gói menu Explorer (đều đọc hai tệp này)
     save(icon(512), APP_ICONS / "filee.png")
@@ -203,7 +203,7 @@ def build() -> None:
         save(on(WEB_DARK, s, 0.62), WEB / f"android-chrome-maskable-{s}x{s}.png")  # trong vùng an toàn 80 %
     header = resize(tight, (round(tight.width * 168 / tight.height), 168))         # đầu trang: cao 42 px, 4x
     for ext in ("png", "webp", "avif"):
-        save(header, WEB / f"brand/tsudev-files-mark.{ext}")
+        save(header, WEB / f"brand/tsufiles-mark.{ext}")
     save(og_image(tight, resize, Image, ImageDraw), WEB / "og-image.png")
 
 
@@ -247,7 +247,7 @@ def og_image(tight, resize, Image, ImageDraw):
     mark = resize(tight, (round(tight.width * mh / tight.height), mh))
     og.paste(mark, (120, (H - mh) // 2), mark)
     x = 120 + mark.width + 56
-    Font(700, 64).draw(d, (x, 250), "tsudev-files", TEXT)
+    Font(700, 64).draw(d, (x, 250), "TsuFiles", TEXT)
     reg = Font(400, 30)
     reg.draw(d, (x, 312), "Chuyển đổi tệp ngoại tuyến, kéo thả là xong", TEXT2)
     reg.draw(d, (x, 356), "Hơn 260 định dạng - tiếng Việt, mã nguồn mở", TEXT2)

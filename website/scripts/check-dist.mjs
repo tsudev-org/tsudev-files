@@ -19,7 +19,7 @@ function duyet(thuMuc) {
 function kiemTra(tep, html) {
   const ten = tep.slice(dist.length);
   const title = html.match(/<title>([^<]*)<\/title>/)?.[1] ?? '';
-  if (!/^(.+ - )?tsudev-files \| tsudev$/.test(title)) loi.push(`${ten}: title sai khuôn: ${title}`);
+  if (!/^(.+ - )?TsuFiles \| tsudev$/.test(title)) loi.push(`${ten}: title sai khuôn: ${title}`);
   if (!html.includes('<meta property="og:site_name" content="tsudev">')) loi.push(`${ten}: thiếu og:site_name tsudev`);
   if (!/<link rel="canonical" href="https:\/\/files\.tsudev\.com\//.test(html)) loi.push(`${ten}: thiếu canonical`);
   const mota = html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '';

@@ -63,7 +63,7 @@ if ($Version -notmatch '^\d+\.\d+\.\d+(?:-[0-9A-Za-z][0-9A-Za-z.-]*)?$') {
     throw 'Version must be a three-part version with an optional prerelease suffix.'
 }
 $bundleVersion = ($Version -split '-')[0]
-# tsudev-files: tệp phát hành mang tên hiển thị (ForkDefaults.ReleaseFilePrefix).
+# TsuFiles: tệp phát hành mang tên hiển thị (ForkDefaults.ReleaseFilePrefix).
 $packageName = "tsudev-files-$Version-$Runtime"
 New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 $OutputDir = (Resolve-Path -LiteralPath $OutputDir).Path
@@ -85,10 +85,10 @@ function Invoke-Checked([string]$name, [scriptblock]$command) {
 }
 
 if (-not $SkipFonts) { & (Join-Path $PSScriptRoot 'fetch-fonts.ps1') }
-foreach ($project in @('Tsudev.Files.App', 'Tsudev.Files.Cli')) {
+foreach ($project in @('TsuFiles.App', 'TsuFiles.Cli')) {
     Invoke-Checked "Publish $project" {
         dotnet publish (Join-Path $root "src/$project/$project.csproj") -c Release -r $Runtime --self-contained true `
-            "-p:Version=$Version" -p:TsudevFilesRelease=true -p:PublishReadyToRun=false @native -o $publish
+            "-p:Version=$Version" -p:TsuFilesRelease=true -p:PublishReadyToRun=false @native -o $publish
     }
 }
 $engines = Join-Path $publish 'engines'
@@ -133,7 +133,7 @@ if ($Runtime.StartsWith('osx-')) {
     Invoke-Checked 'Validate Info.plist' { plutil -lint (Join-Path $contents 'Info.plist') }
     $iconset = Join-Path $stage 'filee.iconset'
     New-Item -ItemType Directory -Path $iconset | Out-Null
-    $sourceIcon = Join-Path $root 'src/Tsudev.Files.App/Assets/Icons/filee.png'
+    $sourceIcon = Join-Path $root 'src/TsuFiles.App/Assets/Icons/filee.png'
     foreach ($size in @(16, 32, 128, 256, 512)) {
         foreach ($scale in @(1, 2)) {
             $pixels = $size * $scale
@@ -167,15 +167,15 @@ if ($Runtime.StartsWith('osx-')) {
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/install.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/uninstall.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/INSTALL.txt') -Destination $package
-    # tsudev-files: kèm hướng dẫn cài đặt tiếng Việt.
+    # TsuFiles: kèm hướng dẫn cài đặt tiếng Việt.
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/HUONG-DAN-CAI-DAT.txt') -Destination $package
 }
 else {
-    Copy-Item -LiteralPath (Join-Path $root 'src/Tsudev.Files.App/Assets/Icons/filee.png') -Destination $package
+    Copy-Item -LiteralPath (Join-Path $root 'src/TsuFiles.App/Assets/Icons/filee.png') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/install.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/uninstall.sh') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/INSTALL.txt') -Destination $package
-    # tsudev-files: kèm hướng dẫn cài đặt tiếng Việt.
+    # TsuFiles: kèm hướng dẫn cài đặt tiếng Việt.
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/HUONG-DAN-CAI-DAT.txt') -Destination $package
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/kwin') -Destination $package -Recurse
     Copy-Item -LiteralPath (Join-Path $root 'installer/linux/gnome') -Destination $package -Recurse
@@ -195,7 +195,7 @@ if ($Runtime.StartsWith('osx-')) {
     Invoke-Checked 'Copy app for the disk image' { ditto $appBundle (Join-Path $volume 'Filee.app') }
     Invoke-Checked 'Applications link' { ln -s /Applications (Join-Path $volume 'Applications') }
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/INSTALL.txt') -Destination $volume
-    # tsudev-files: kèm hướng dẫn cài đặt tiếng Việt.
+    # TsuFiles: kèm hướng dẫn cài đặt tiếng Việt.
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/HUONG-DAN-CAI-DAT.txt') -Destination $volume
     $temporaryImage = "$diskImage.$([Guid]::NewGuid().ToString('N')).partial.dmg"
     Invoke-Checked 'Create dmg' { hdiutil create -volname Filee -srcfolder $volume -fs HFS+ -format UDZO -ov $temporaryImage | Out-Null }

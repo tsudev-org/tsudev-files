@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-# tsudev-files: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
+# TsuFiles: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
 say() {
     case "$(printf '%s' "${FILEE_LANG:-}" | tr '[:upper:]' '[:lower:]')" in
         en|en-us|english) shift ;;
@@ -25,7 +25,7 @@ if [ -L "$bin_dir/filee" ] && [ ! -e "$bin_dir/filee" ]; then
     esac
 fi
 if [ "$stale_link" = false ] && { [ -e "$bin_dir/filee" ] || [ -L "$bin_dir/filee" ]; }; then
-    say "$bin_dir/filee đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài tsudev-files." "$bin_dir/filee already exists. Remove or rename it before installing tsudev-files."
+    say "$bin_dir/filee đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài TsuFiles." "$bin_dir/filee already exists. Remove or rename it before installing TsuFiles."
     exit 1
 fi
 test -x "$source_dir/Filee.app/Contents/MacOS/Filee"
@@ -41,5 +41,5 @@ fi
 ln -s "$install_dir/Contents/MacOS/filee-cli" "$bin_dir/filee"
 say "Đã cài $install_dir" "Installed $install_dir"
 say "Dòng lệnh: $bin_dir/filee (thêm $bin_dir vào PATH nếu cần)." "CLI: $bin_dir/filee (add $bin_dir to PATH if needed)."
-say 'Mở tsudev-files từ Applications. Cấp quyền Accessibility và Finder Automation khi được hỏi.' 'Open tsudev-files from Applications. Grant Accessibility and Finder Automation access when requested.'
-say 'Nếu tsudev-files đã có sẵn và đang bật trong Accessibility, hãy xóa nó bằng nút - rồi thêm lại bằng nút +.' 'If tsudev-files is already listed and switched on under Accessibility, remove it with the - button and add it again with +.'
+say 'Mở TsuFiles từ Applications. Cấp quyền Accessibility và Finder Automation khi được hỏi.' 'Open TsuFiles from Applications. Grant Accessibility and Finder Automation access when requested.'
+say 'Nếu TsuFiles đã có sẵn và đang bật trong Accessibility, hãy xóa nó bằng nút - rồi thêm lại bằng nút +.' 'If TsuFiles is already listed and switched on under Accessibility, remove it with the - button and add it again with +.'

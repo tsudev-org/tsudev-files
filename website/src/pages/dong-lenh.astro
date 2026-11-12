@@ -1,7 +1,7 @@
 ---
 import TaiLieu from '../components/TaiLieu.astro';
 
-// Nội dung theo `filee help <lệnh>` (src/Tsudev.Files.Cli, chuỗi CliLanguage.T). Đổi tùy chọn ở đó thì cập nhật trang này.
+// Nội dung theo `filee help <lệnh>` (src/TsuFiles.Cli, chuỗi CliLanguage.T). Đổi tùy chọn ở đó thì cập nhật trang này.
 const mucLuc = [
   { id: 'cai-dat', ten: 'Cài lệnh filee' },
   { id: 'convert', ten: 'filee convert' },
@@ -36,7 +36,7 @@ const watch: [string, string][] = [
   ['--keep-dates, --zip, --json, --quiet', 'Như ở filee convert'],
 ];
 ---
-<TaiLieu tieuDe="Dòng lệnh" moTa="Dùng lệnh filee của tsudev-files để chuyển đổi tệp từ terminal và script: convert, watch, formats, presets, engines, đầu ra JSON và mã thoát." duongDan="/dong-lenh/" mucLuc={mucLuc}>
+<TaiLieu tieuDe="Dòng lệnh" moTa="Dùng lệnh filee của TsuFiles để chuyển đổi tệp từ terminal và script: convert, watch, formats, presets, engines, đầu ra JSON và mã thoát." duongDan="/dong-lenh/" mucLuc={mucLuc}>
   <h1>Dòng lệnh filee</h1>
   <p>Lệnh <code>filee</code> dùng chung engine và cấu hình sẵn với ứng dụng, chạy được trong script, tác vụ định kỳ hay máy chủ không có màn hình. Thông báo mặc định bằng tiếng Việt; đặt <code>FILEE_LANG=en</code> để dùng tiếng Anh. Tên khóa trong đầu ra JSON giữ nguyên như Filee gốc nên script viết cho Filee vẫn chạy.</p>
   <pre tabindex="0"><code>filee convert anh.heic --to jpg
@@ -50,7 +50,7 @@ filee engines install pandoc</code></pre>
 
   <h2 id="convert">filee convert</h2>
   <pre tabindex="0"><code>filee convert &lt;tệp hoặc thư mục...&gt; (--to &lt;định dạng&gt; | --preset &lt;preset&gt;) [tùy chọn]</code></pre>
-  <p>Tệp có thể dùng ký tự đại diện (<code>*.heic</code>). Với thư mục, tsudev-files chuyển các tệp bên trong mà nó nhận diện được.</p>
+  <p>Tệp có thể dùng ký tự đại diện (<code>*.heic</code>). Với thư mục, TsuFiles chuyển các tệp bên trong mà nó nhận diện được.</p>
   <div class="bang" tabindex="0" role="region" aria-label="Tùy chọn của filee convert, cuộn ngang được">
     <table>
       <thead><tr><th scope="col">Tùy chọn</th><th scope="col">Ý nghĩa</th></tr></thead>
@@ -76,7 +76,7 @@ filee presets [--json]                   # cấu hình sẵn đã lưu (có sẵ
   <pre tabindex="0"><code>filee engines [--json]
 filee engines install &lt;engine&gt; [--json] [--quiet]
 filee engines remove &lt;engine&gt; [--json] [--quiet]</code></pre>
-  <p>Liệt kê engine tùy chọn (LibreOffice, Pandoc, FFmpeg...), hoặc cài, gỡ một engine với cùng nguồn tải và cùng bước kiểm SHA-256 như ứng dụng. <code>remove</code> chỉ gỡ những gì tsudev-files đã tải; bản riêng của bạn và bản tìm thấy trên máy được giữ nguyên.</p>
+  <p>Liệt kê engine tùy chọn (LibreOffice, Pandoc, FFmpeg...), hoặc cài, gỡ một engine với cùng nguồn tải và cùng bước kiểm SHA-256 như ứng dụng. <code>remove</code> chỉ gỡ những gì TsuFiles đã tải; bản riêng của bạn và bản tìm thấy trên máy được giữ nguyên.</p>
 
   <h2 id="json">Đầu ra JSON cho script</h2>
   <p>Với <code>--json</code>, <code>filee convert</code> in một tài liệu JSON ra stdout khi xong việc. Trong lúc chạy, stderr nhận mỗi dòng một đối tượng JSON:</p>

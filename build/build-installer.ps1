@@ -1,15 +1,15 @@
 <#
 .SYNOPSIS
-  Builds the Windows installer Filee-<version>-win-Setup.exe (Filee's own, src/Tsudev.Files.Setup) and, with -Portable, the
+  Builds the Windows installer Filee-<version>-win-Setup.exe (Filee's own, src/TsuFiles.Setup) and, with -Portable, the
   portable zip, into -OutputDir.
 
 .DESCRIPTION
-  Without -PublishDir the app is published first (Release, self-contained, -p:TsudevFilesRelease=true) into
+  Without -PublishDir the app is published first (Release, self-contained, -p:TsuFilesRelease=true) into
   publish/win-x64, together with the Windows 11 Explorer menu extension (build-explorer-menu.ps1), the bundled
   small engines rhwp and 7-Zip and the Microsoft C++ runtime DLLs next to rhwp.exe and Filee.exe
   (fetch-engines.ps1); the large engines are downloaded by the app (engines.json).
 
-  Setup itself (src/Tsudev.Files.Setup) is published as one self-contained, trimmed program (no .NET needed on the PC);
+  Setup itself (src/TsuFiles.Setup) is published as one self-contained, trimmed program (no .NET needed on the PC);
   build/tools/make-setup.cs appends the publish folder to it as an LZMA payload with a SHA-256 manifest, and the
   engines Setup offers from EngineDownloads. The portable zip is the publish folder as it is: without Setup's
   uninstall.exe next to Filee.exe, Filee knows it is a portable copy.
@@ -32,7 +32,7 @@
 .EXAMPLE
   pwsh build/build-installer.ps1
   pwsh build/build-installer.ps1 -Version 2.0.0 -Portable
-  pwsh build/build-installer.ps1 -Version 2.0.0 -Portable -PublishDir app -SetupProgram Tsudev.Files.Setup.exe -CertificateThumbprint <sha1>
+  pwsh build/build-installer.ps1 -Version 2.0.0 -Portable -PublishDir app -SetupProgram TsuFiles.Setup.exe -CertificateThumbprint <sha1>
   pwsh build/build-installer.ps1 -CheckOnly
 #>
 [CmdletBinding()]
@@ -41,7 +41,7 @@ param(
     [string]$Version,
     # A finished publish folder (Filee.exe, FileeExplorerMenu.dll/.msix, engines\); skips publishing.
     [string]$PublishDir,
-    # A finished Setup program (Tsudev.Files.Setup.exe from an earlier run); skips publishing src/Tsudev.Files.Setup.
+    # A finished Setup program (TsuFiles.Setup.exe from an earlier run); skips publishing src/TsuFiles.Setup.
     [string]$SetupProgram,
     [string]$OutputDir = (Join-Path $PSScriptRoot '..\Releases'),
     [switch]$Portable,
@@ -87,17 +87,17 @@ elseif (-not $PublishDir) {
         $native = @("-p:UnhwpNativeLibrary=$(Join-Path $natives 'unhwp\unhwp.dll')")
     }
     Invoke-Checked 'dotnet publish' {
-        dotnet publish (Join-Path $root 'src\Tsudev.Files.App\Tsudev.Files.App.csproj') -c Release -r $Runtime --self-contained `
-            "-p:Version=$Version" -p:PublishReadyToRun=true -p:TsudevFilesRelease=true @native -o $PublishDir
+        dotnet publish (Join-Path $root 'src\TsuFiles.App\TsuFiles.App.csproj') -c Release -r $Runtime --self-contained `
+            "-p:Version=$Version" -p:PublishReadyToRun=true -p:TsuFilesRelease=true @native -o $PublishDir
     }
     # The command line, in the same folder so it shares the runtime and the engines (filee-cli.exe). Its name can't
     # be filee.exe next to Filee.exe, so the "filee" command is cli\filee.cmd, which Setup can put on PATH.
     Invoke-Checked 'dotnet publish (cli)' {
-        dotnet publish (Join-Path $root 'src\Tsudev.Files.Cli\Tsudev.Files.Cli.csproj') -c Release -r $Runtime --self-contained `
-            "-p:Version=$Version" -p:PublishReadyToRun=true -p:TsudevFilesRelease=true @native -o $PublishDir
+        dotnet publish (Join-Path $root 'src\TsuFiles.Cli\TsuFiles.Cli.csproj') -c Release -r $Runtime --self-contained `
+            "-p:Version=$Version" -p:PublishReadyToRun=true -p:TsuFilesRelease=true @native -o $PublishDir
     }
     # Native debug symbols from NuGet packages (libSkiaSharp.pdb, libHarfBuzzSharp.pdb: ~105 MB) are useless to users.
-    # Tsudev.Files.App's publish removes them, but publishing the command line into the same folder brings them back.
+    # TsuFiles.App's publish removes them, but publishing the command line into the same folder brings them back.
     Get-ChildItem $PublishDir -Filter 'lib*.pdb' | Remove-Item
     New-Item -ItemType Directory -Force -Path (Join-Path $PublishDir 'cli') | Out-Null
     Set-Content (Join-Path $PublishDir 'cli\filee.cmd') "@`"%~dp0..\filee-cli.exe`" %*" -Encoding ascii
@@ -126,15 +126,15 @@ if (-not $CheckOnly) {
     }
 }
 
-# Setup: one self-contained, trimmed program (src/Tsudev.Files.Setup).
+# Setup: one self-contained, trimmed program (src/TsuFiles.Setup).
 if (-not $SetupProgram) {
     $setupFolder = Join-Path $cache 'setup'
     Remove-Item $setupFolder -Recurse -Force -ErrorAction SilentlyContinue
     Invoke-Checked 'dotnet publish (setup)' {
-        dotnet publish (Join-Path $root 'src\Tsudev.Files.Setup\Tsudev.Files.Setup.csproj') -c Release -r $Runtime -p:TsudevFilesSetupPublish=true `
+        dotnet publish (Join-Path $root 'src\TsuFiles.Setup\TsuFiles.Setup.csproj') -c Release -r $Runtime -p:TsuFilesSetupPublish=true `
             "-p:Version=$Version" -o $setupFolder
     }
-    $SetupProgram = Join-Path $setupFolder 'Tsudev.Files.Setup.exe'
+    $SetupProgram = Join-Path $setupFolder 'TsuFiles.Setup.exe'
 }
 $SetupProgram = (Resolve-Path $SetupProgram).Path
 
@@ -146,7 +146,7 @@ if ($sign) {
 }
 
 # The x64 names are the ones Filee's updater looks for (-win-Setup.exe, -SHA256SUMS.txt).
-# tsudev-files: tệp phát hành mang tên hiển thị (ForkDefaults.ReleaseFilePrefix).
+# TsuFiles: tệp phát hành mang tên hiển thị (ForkDefaults.ReleaseFilePrefix).
 $prefix = if ($Runtime -eq 'win-x64') { "tsudev-files-$Version-win" } else { "tsudev-files-$Version-$Runtime" }
 $setupExe = Join-Path $OutputDir "$prefix-Setup.exe"
 Write-Host "pack installer $Version"
@@ -180,7 +180,7 @@ if ($CheckOnly) {
     }
     $registry = Get-Content (Join-Path $sandbox 'registry.json') -Raw
     if ($registry -notmatch 'C8686E06-8327-40A2-B0F7-3DEDD61D9248\}_is1' -or $registry -notmatch 'uninstall\.exe') { throw 'Setup did not write the uninstall entry' }
-    # tsudev-files: lối tắt mang tên hiển thị (SetupNames.ShortcutName, ADR-0001).
+    # TsuFiles: lối tắt mang tên hiển thị (SetupNames.ShortcutName, ADR-0001).
     if (-not (Test-Path (Join-Path $sandbox 'Public\Desktop\tsudev-files.lnk'))) { throw 'Setup did not create the desktop shortcut' }
     Invoke-Setup $setupExe @()
     Invoke-Setup (Join-Path $installed 'uninstall.exe') @()

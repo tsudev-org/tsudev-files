@@ -1,4 +1,4 @@
-# tsudev-files: tự động đề xuất PR nâng cấp phụ thuộc (bản vá bảo mật).
+# TsuFiles: tự động đề xuất PR nâng cấp phụ thuộc (bản vá bảo mật).
 # Mỗi tháng một lần, gom MỌI gói của một hệ sinh thái vào một PR: mỗi PR chạy CI đầy đủ (Windows + macOS)
 # để tiết kiệm phút Actions; spending limit giữ 0 USD (quyết định 09/11/2026; repo nay Public).
 version: 2
@@ -34,7 +34,7 @@ updates:
     groups:
       github-actions:
         patterns: ["*"]
-  # tsudev-files: phụ thuộc của trang files.tsudev.com (website/).
+  # TsuFiles: phụ thuộc của trang files.tsudev.com (website/).
   - package-ecosystem: npm
     directory: /website
     schedule: { interval: monthly, timezone: Asia/Ho_Chi_Minh }

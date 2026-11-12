@@ -1,23 +1,23 @@
 // Makes Filee-<version>-win-Setup.exe: appends the published app (an LZMA payload with a SHA-256 manifest, see
-// src/Tsudev.Files.Setup/Payload/SetupPayload.cs) to the published Setup program. The engines Setup offers on a fresh install
+// src/TsuFiles.Setup/Payload/SetupPayload.cs) to the published Setup program. The engines Setup offers on a fresh install
 // come from EngineDownloads (engines.json), so Setup offers exactly what Settings → Engines offers.
 // Run by build/build-installer.ps1:
-//   dotnet run build/tools/make-setup.cs -- <Tsudev.Files.Setup.exe> <publish folder> <version> <output .exe> [--fast]
+//   dotnet run build/tools/make-setup.cs -- <TsuFiles.Setup.exe> <publish folder> <version> <output .exe> [--fast]
 // LZMA with a 48 MB dictionary, programs through the x86 branch filter; --fast uses a small dictionary, for checks.
-#:project ../../src/Tsudev.Files.Setup/Tsudev.Files.Setup.csproj
-#:project ../../src/Tsudev.Files.Engines/Tsudev.Files.Engines.csproj
+#:project ../../src/TsuFiles.Setup/TsuFiles.Setup.csproj
+#:project ../../src/TsuFiles.Engines/TsuFiles.Engines.csproj
 #:property PublishAot=false
 
 using System.Diagnostics;
 using System.Reflection;
-using Tsudev.Files.Engines.Infrastructure;
-using Tsudev.Files.Setup.Payload;
+using TsuFiles.Engines.Infrastructure;
+using TsuFiles.Setup.Payload;
 
 var fast = args.Contains("--fast");
 var positional = args.Where(a => a != "--fast").ToArray();
 if (positional.Length != 4)
 {
-    Console.Error.WriteLine("usage: dotnet run build/tools/make-setup.cs -- <Tsudev.Files.Setup.exe> <publish folder> <version> <output .exe> [--fast]");
+    Console.Error.WriteLine("usage: dotnet run build/tools/make-setup.cs -- <TsuFiles.Setup.exe> <publish folder> <version> <output .exe> [--fast]");
     return 2;
 }
 var (program, app, version, output) = (positional[0], positional[1], positional[2], positional[3]);

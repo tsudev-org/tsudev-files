@@ -57,6 +57,7 @@
 
 | Task | Agent | Bắt đầu |
 | --- | --- | --- |
+| T2 TsuFiles (mã nguồn + hiển thị + Cú đêm), nhánh `feat/t2-tsufiles-ma-nguon` | tsudev-files-b3 | 12/11/2026 |
 
 ## Đã hoàn thành (mới nhất trên cùng)
 

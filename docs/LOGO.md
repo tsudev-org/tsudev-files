@@ -4,4 +4,4 @@ All icons, the logo and the favicons are generated from one source image by `too
 Do not edit the generated files by hand. Where everything lives and how to change the logo:
 [`assets/brand/README.md`](../assets/brand/README.md) (Vietnamese).
 
-The folder `src/Tsudev.Files.App/Assets` is embedded into the app, so keep other files (notes, working files) out of it.
+The folder `src/TsuFiles.App/Assets` is embedded into the app, so keep other files (notes, working files) out of it.

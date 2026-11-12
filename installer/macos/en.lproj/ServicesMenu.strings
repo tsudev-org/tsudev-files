@@ -1,2 +1,2 @@
 /* Finder's right-click menu: the title of Filee's service (NSServices in Info.plist). */
-"Convert with Filee" = "Convert with tsudev-files";
+"Convert with Filee" = "Convert with TsuFiles";

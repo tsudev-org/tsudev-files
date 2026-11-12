@@ -155,7 +155,7 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: build/.cache/portable-downloads
-          key: portable-engines-${{ matrix.rid }}-${{ hashFiles('src/Tsudev.Files.Engines/Infrastructure/engines.json') }}
+          key: portable-engines-${{ matrix.rid }}-${{ hashFiles('src/TsuFiles.Engines/Infrastructure/engines.json') }}
 
       # linux-arm64: Unhwp from linux-native (see the top), so its tests run there too.
       - name: Build and test native projects
@@ -165,7 +165,7 @@ jobs:
           if ('${{ matrix.rid }}' -eq 'linux-arm64') {
             $native = @("-p:UnhwpNativeLibrary=$(Join-Path $env:RUNNER_TEMP 'linux-native/unhwp/libunhwp.so')")
           }
-          dotnet build tsudev-files.slnx -c Release @native
+          dotnet build TsuFiles.slnx -c Release @native
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           # Magick.NET 15 has no ImageMagick library for Intel Macs: the one the package gets goes next to each build.
           if ('${{ matrix.rid }}' -eq 'osx-x64') {
@@ -173,12 +173,12 @@ jobs:
               Where-Object { $_.DirectoryName -match '[\\/]bin[\\/]Release[\\/]' } | ForEach-Object DirectoryName | Sort-Object -Unique
             ./build/fetch-magick-native.ps1 -Runtime osx-x64 -Destination $builds
           }
-          $projects = @('Tsudev.Files.Core.Tests', 'Tsudev.Files.Platform.Tests', 'Tsudev.Files.Engines.Tests', 'Tsudev.Files.Cli.Tests', 'Tsudev.Files.App.Tests')
+          $projects = @('TsuFiles.Core.Tests', 'TsuFiles.Platform.Tests', 'TsuFiles.Engines.Tests', 'TsuFiles.Cli.Tests', 'TsuFiles.App.Tests')
           foreach ($project in $projects) {
             $testArguments = @('test', "tests/$project/$project.csproj", '--no-build', '-c', 'Release', '--logger', 'trx', '--results-directory', "TestResults/${{ matrix.rid }}",
-              '--filter', 'FullyQualifiedName!=Tsudev.Files.App.Tests.ExplorerMenuTests.Every_native_import_exists_in_the_dll_it_names&FullyQualifiedName!=Tsudev.Files.App.Tests.ExplorerMenuTests.Reading_the_registered_package_never_throws')
+              '--filter', 'FullyQualifiedName!=TsuFiles.App.Tests.ExplorerMenuTests.Every_native_import_exists_in_the_dll_it_names&FullyQualifiedName!=TsuFiles.App.Tests.ExplorerMenuTests.Reading_the_registered_package_never_throws')
             # As on Windows, capture the running UI test and a dump if it stalls. A job timeout alone loses both.
-            if ($project -eq 'Tsudev.Files.App.Tests') {
+            if ($project -eq 'TsuFiles.App.Tests') {
               $testArguments += @('--blame-crash', '--blame-hang-timeout', '5m', '--logger', 'console;verbosity=normal')
             }
             if ($IsLinux) {
@@ -241,7 +241,7 @@ jobs:
           name: unix-test-results-${{ matrix.rid }}
           path: |
             TestResults/${{ matrix.rid }}/
-            tests/Tsudev.Files.App.Tests/bin/Release/net10.0/screenshots/
+            tests/TsuFiles.App.Tests/bin/Release/net10.0/screenshots/
             ${{ runner.temp }}/filee-startup.log
             ${{ runner.temp }}/filee-screens/
           if-no-files-found: ignore

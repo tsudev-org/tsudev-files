@@ -1,6 +1,6 @@
-<p align="center"><img src="assets/brand/tsudev-files-mark-512.png" alt="" width="128" height="128"></p>
+<p align="center"><img src="assets/brand/tsufiles-mark-512.png" alt="" width="128" height="128"></p>
 
-# tsudev-files
+# TsuFiles
 
 **An offline, free and open-source file converter - a Vietnamese-first, security-hardened fork of
 [Filee](https://github.com/KnifeLemon/Filee).**
@@ -18,10 +18,11 @@ runs **on your computer**: no file is uploaded anywhere, and Microsoft Office is
 
 ## How it differs from Filee
 
-| Area | Filee | tsudev-files |
+| Area | Filee | TsuFiles |
 | --- | --- | --- |
 | Default language | The operating system's, English as fallback | **Vietnamese** for the app, the installer and the CLI; changeable in Settings |
 | `filee` command line | English only | Vietnamese by default, `FILEE_LANG=en` for English; JSON keys unchanged for scripts |
+| Product name | Filee | **TsuFiles**, owl logo, Night Owl theme ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)); executable, `filee` command, data folder, shortcuts and release files move to `tsufiles` in 2.4.1 with migration |
 | Updates | `KnifeLemon/Filee` and its author's signing key | `tsudev-org/tsudev-files` and **its own ECDSA P-256 signing key**; releases of other repositories are refused |
 | GitHub Actions | Pinned by tag | **Pinned by commit SHA** |
 | Security gates | CI + tests | Also CodeQL (security-extended), gitleaks, NuGet vulnerability audit, SBOM and build provenance, Dependabot |
@@ -34,21 +35,21 @@ Requirements: .NET SDK 10 (`global.json`) and Git. Builds on Windows, Linux and 
 on Windows ([docs/vi/PHAT-HANH.md](docs/vi/PHAT-HANH.md)). More in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```bash
-dotnet build tsudev-files.slnx
-dotnet test tests/Tsudev.Files.Core.Tests        # and tests/Tsudev.Files.*.Tests
-python3 -I tools/check_i18n_vi.py                # Vietnamese translation check
-dotnet run --project src/Tsudev.Files.Cli -- help
+dotnet build TsuFiles.slnx
+dotnet test tests/TsuFiles.Core.Tests    # and tests/TsuFiles.*.Tests
+python3 -I tools/check_i18n_vi.py        # Vietnamese translation check
+dotnet run --project src/TsuFiles.Cli -- help
 ```
 
 Working conventions (for people and AI agents): read [AGENTS.md](AGENTS.md) first.
 
 ## Support
 
-tsudev-files is free and will stay free. Every official way to support it is published only at
+TsuFiles is free and will stay free. Every official way to support it is published only at
 **<https://files.tsudev.com/ung-ho/>**; the app's "Sponsor" button and GitHub's "Sponsor" button both lead there.
 Sponsors are listed here, on that page and on the app's About page.
 
-<!-- sponsors: src/Tsudev.Files.App/Assets/Sponsors/sponsors.json -->
+<!-- sponsors: src/TsuFiles.App/Assets/Sponsors/sponsors.json -->
 
 ## License and credits
 

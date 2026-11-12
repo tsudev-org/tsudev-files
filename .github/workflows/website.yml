@@ -1,4 +1,4 @@
-# tsudev-files: build trang files.tsudev.com và kiểm tra nhận diện, CSP, khả năng truy cập cho mỗi PR có thay đổi liên quan.
+# TsuFiles: build trang files.tsudev.com và kiểm tra nhận diện, CSP, khả năng truy cập cho mỗi PR có thay đổi liên quan.
 # Đưa lên Cloudflare (Workers Static Assets) do chủ repo chạy: cd website && npm ci && npm run deploy (xem website/README.md).
 name: Website
 
