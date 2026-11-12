@@ -8,6 +8,7 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using PdfSharp.Pdf;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
 using Tsudev.Files.App.ViewModels.Pages;
@@ -15,7 +16,6 @@ using Tsudev.Files.App.Views;
 using Tsudev.Files.App.Views.Pages;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Settings;
-using PdfSharp.Pdf;
 
 namespace Tsudev.Files.App.Tests;
 

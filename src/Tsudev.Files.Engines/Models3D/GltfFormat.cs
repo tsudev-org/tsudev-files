@@ -7,11 +7,11 @@
 
 using System.Numerics;
 using System.Text.Json.Nodes;
-using Tsudev.Files.Engines.Magick;
 using ImageMagick;
 using SharpGLTF.Memory;
 using SharpGLTF.Schema2;
 using SharpGLTF.Validation;
+using Tsudev.Files.Engines.Magick;
 
 namespace Tsudev.Files.Engines.Models3D;
 

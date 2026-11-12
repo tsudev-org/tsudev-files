@@ -7,8 +7,8 @@
 using System.Collections.Concurrent;
 using System.Runtime.Versioning;
 using System.Security;
-using Tsudev.Files.Core.Settings;
 using Microsoft.Win32;
+using Tsudev.Files.Core.Settings;
 
 namespace Tsudev.Files.Engines.Infrastructure;
 

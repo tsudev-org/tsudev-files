@@ -13,11 +13,11 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels.Pages;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Core.Web;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Views.Pages;
 

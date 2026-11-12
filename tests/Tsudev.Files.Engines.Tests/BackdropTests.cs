@@ -2,11 +2,11 @@
 // the corners are cut round (the background shows there), the shadow falls below the picture, a gradient runs from
 // one colour to the other, a picture of one's own covers the canvas, and the tool runs as an ordinary conversion.
 
+using ImageMagick;
+using ImageMagick.Drawing;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
-using ImageMagick.Drawing;
 
 namespace Tsudev.Files.Engines.Tests;
 

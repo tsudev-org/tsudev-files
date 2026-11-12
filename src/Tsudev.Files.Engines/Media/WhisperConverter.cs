@@ -3,11 +3,11 @@
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Engines.Infrastructure;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.Engines.Media;
 

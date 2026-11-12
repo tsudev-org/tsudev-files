@@ -2,10 +2,10 @@
 // are laid over the picture, only over the part the marks cover and a band at a time, so a huge picture needs no second
 // copy of itself. The picture as it is seen: before it is turned or resized.
 
-using Tsudev.Files.Core.Presets;
-using Tsudev.Files.Engines.Magick;
 using ImageMagick;
 using SkiaSharp;
+using Tsudev.Files.Core.Presets;
+using Tsudev.Files.Engines.Magick;
 
 namespace Tsudev.Files.Engines.Annotations;
 

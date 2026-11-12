@@ -10,10 +10,10 @@ using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
-using Tsudev.Files.App.Controls;
-using Tsudev.Files.App.Services;
 using ImageMagick;
 using Microsoft.Extensions.Logging.Abstractions;
+using Tsudev.Files.App.Controls;
+using Tsudev.Files.App.Services;
 
 namespace Tsudev.Files.App.Tests;
 

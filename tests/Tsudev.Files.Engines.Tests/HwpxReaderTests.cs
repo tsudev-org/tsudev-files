@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO.Compression;
 using System.Text;
 using System.Xml.Linq;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Hwp.Hwpx;
@@ -14,7 +15,6 @@ using Tsudev.Files.Engines.Hwp.Hwpx.Docx;
 using Tsudev.Files.Engines.Hwp.Hwpx.Pptx;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Office.Sheets;
-using ImageMagick;
 using static Tsudev.Files.Engines.Tests.DocxBuilder;
 
 namespace Tsudev.Files.Engines.Tests;

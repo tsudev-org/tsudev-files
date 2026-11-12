@@ -1,10 +1,10 @@
 // A keyboard shortcut goes by the window in front, a mouse gesture by the window under the pointer (#450): with
 // Explorer focused and the pointer resting on the taskbar or another window, the shortcut was ignored.
 
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.App.Services.Triggers;
 using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.App.Tests;
 

@@ -3,10 +3,10 @@
 // gesture came with an empty log; these lines are what tells such cases apart.
 
 using System.Runtime.InteropServices;
-using Tsudev.Files.Core.Platform;
-using Tsudev.Files.Core.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Tsudev.Files.Core.Platform;
+using Tsudev.Files.Core.Settings;
 
 namespace Tsudev.Files.App.Services;
 

@@ -4,12 +4,12 @@
 using System.Diagnostics;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.ViewModels;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Office;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

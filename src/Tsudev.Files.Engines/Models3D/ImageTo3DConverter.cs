@@ -2,11 +2,11 @@
 // brightness, on a flat base.
 
 using System.Numerics;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Models3D;
 

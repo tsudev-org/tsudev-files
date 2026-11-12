@@ -5,6 +5,10 @@ using System.IO;
 using Avalonia;
 using Avalonia.Headless.XUnit;
 using Avalonia.Threading;
+using ImageMagick;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 using Tsudev.Files.App.Controls;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
@@ -12,10 +16,6 @@ using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
-using ImageMagick;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
 
 namespace Tsudev.Files.App.Tests;
 

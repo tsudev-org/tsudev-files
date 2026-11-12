@@ -4,8 +4,8 @@ using System.Net;
 using System.Text;
 using System.Text.Json;
 using Avalonia.Headless.XUnit;
-using Tsudev.Files.App.Services;
 using Microsoft.Extensions.Logging.Abstractions;
+using Tsudev.Files.App.Services;
 
 namespace Tsudev.Files.App.Tests;
 

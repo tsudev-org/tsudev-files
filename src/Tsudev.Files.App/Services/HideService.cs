@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using ImageMagick;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
 
 namespace Tsudev.Files.App.Services;
 

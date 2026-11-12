@@ -3,11 +3,11 @@
 
 using System.Buffers.Binary;
 using System.Text;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Magick;
 using Tsudev.Files.Engines.Media;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

@@ -3,13 +3,13 @@
 // document; what it would write otherwise than asked fails the copy instead. Its converter is the only engine a
 // conversion with changes takes. The ExifTool tests need one on this computer (PATH or FILEE_TEST_EXIFTOOL).
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Media;
 using Tsudev.Files.Engines.Metadata;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

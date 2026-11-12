@@ -6,8 +6,8 @@
 // FFmpeg's APNG demuxer hands on frame for frame. Without FFmpeg, ImageEncoder.Write writes the sequence as before.
 
 using System.Globalization;
-using Tsudev.Files.Engines.Magick;
 using ImageMagick;
+using Tsudev.Files.Engines.Magick;
 
 namespace Tsudev.Files.Engines.Media;
 

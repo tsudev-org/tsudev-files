@@ -1,9 +1,9 @@
 // A watch folder's recent results: converted and failed files from the history, and moving originals after a retry.
 
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.Core.History;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Watching;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.Core.Tests;
 

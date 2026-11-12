@@ -5,13 +5,13 @@
 
 using Avalonia.Headless.XUnit;
 using Avalonia.Threading;
-using Tsudev.Files.App.Services.Triggers;
-using Tsudev.Files.Core.Platform;
-using Tsudev.Files.Core.Settings;
 using Microsoft.Extensions.Logging.Abstractions;
 using SharpHook;
 using SharpHook.Data;
 using SharpHook.Providers;
+using Tsudev.Files.App.Services.Triggers;
+using Tsudev.Files.Core.Platform;
+using Tsudev.Files.Core.Settings;
 
 namespace Tsudev.Files.App.Tests;
 

@@ -3,8 +3,8 @@
 // part of the picture's shorter side, so marks look the same on a small preview and the full-size file.
 
 using System.Globalization;
-using Tsudev.Files.Core.Presets;
 using SkiaSharp;
+using Tsudev.Files.Core.Presets;
 
 namespace Tsudev.Files.Engines.Annotations;
 

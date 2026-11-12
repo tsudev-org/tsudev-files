@@ -4,10 +4,10 @@
 // brush and drop shadow are Skia's), so the file looks like the preview.
 
 using System.Runtime.InteropServices;
-using Tsudev.Files.Core.Conversion;
-using Tsudev.Files.Core.Presets;
 using ImageMagick;
 using SkiaSharp;
+using Tsudev.Files.Core.Conversion;
+using Tsudev.Files.Core.Presets;
 
 namespace Tsudev.Files.Engines.Magick;
 

@@ -4,12 +4,12 @@
 
 using System.Diagnostics;
 using Avalonia.Threading;
-using Tsudev.Files.Core.Platform;
-using Tsudev.Files.Core.Settings;
-using Tsudev.Files.Core.Web;
 using Microsoft.Extensions.Logging;
 using SharpHook;
 using SharpHook.Data;
+using Tsudev.Files.Core.Platform;
+using Tsudev.Files.Core.Settings;
+using Tsudev.Files.Core.Web;
 
 namespace Tsudev.Files.App.Services.Triggers;
 

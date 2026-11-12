@@ -5,6 +5,7 @@
 using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
 using Avalonia.Input;
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.App.Controls;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.Services.Triggers;
@@ -13,7 +14,6 @@ using Tsudev.Files.App.Views;
 using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.App.Tests;
 

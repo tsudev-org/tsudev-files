@@ -6,11 +6,11 @@
 
 using System.Collections.Concurrent;
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Platform;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.Core.Watching;
 

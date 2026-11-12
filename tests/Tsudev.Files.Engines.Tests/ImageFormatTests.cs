@@ -1,11 +1,11 @@
 // The less common raster formats ImageMagick (Magick.NET Q8) reads and writes for Filee: every one is checked against
 // the coders the bundled build really has, then converted there and back. Inputs are generated in the tests.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

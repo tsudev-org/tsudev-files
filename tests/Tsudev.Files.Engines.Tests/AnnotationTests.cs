@@ -2,10 +2,10 @@
 // follows the picture's size; a highlight lets the picture show through; text and numbers draw (Korean too); the rest
 // of the picture keeps its pixels; and the tool runs as an ordinary conversion in the picture's own format.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Annotations;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

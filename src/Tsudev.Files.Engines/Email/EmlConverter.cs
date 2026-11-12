@@ -13,9 +13,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
+using MimeKit;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Engines.Infrastructure;
-using MimeKit;
 
 namespace Tsudev.Files.Engines.Email;
 

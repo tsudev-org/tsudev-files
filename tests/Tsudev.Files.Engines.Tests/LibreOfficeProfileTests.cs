@@ -8,10 +8,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Xml.Linq;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Office;
-using ImageMagick;
 using UglyToad.PdfPig;
 
 namespace Tsudev.Files.Engines.Tests;

@@ -1,10 +1,10 @@
 // "Merge images" (#645) with ImageMagick: generated pictures merged one under another and side by side, with a gap,
 // pictures of different sizes, a background colour or transparency, and the limit on the merged image's size.
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

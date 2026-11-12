@@ -6,11 +6,11 @@ using System.Buffers.Binary;
 using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Media;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

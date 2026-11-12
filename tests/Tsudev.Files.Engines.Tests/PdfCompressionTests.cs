@@ -3,14 +3,14 @@
 // files refused like the other PDF conversions, and Ghostscript's rewrite when it is installed. The PDFs are built in
 // the tests: photos (noise, so they don't compress to nothing) drawn small at a high resolution, and Helvetica text.
 
-using Tsudev.Files.Core.Conversion;
-using Tsudev.Files.Core.Presets;
-using Tsudev.Files.Engines.Pdf;
-using Tsudev.Files.Engines.Vector;
 using ImageMagick;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
+using Tsudev.Files.Core.Conversion;
+using Tsudev.Files.Core.Presets;
+using Tsudev.Files.Engines.Pdf;
+using Tsudev.Files.Engines.Vector;
 using PigDocument = UglyToad.PdfPig.PdfDocument;
 
 namespace Tsudev.Files.Engines.Tests;

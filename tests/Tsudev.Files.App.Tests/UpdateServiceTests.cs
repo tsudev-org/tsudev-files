@@ -9,9 +9,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Avalonia.Headless.XUnit;
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.Platform.Windows;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.App.Tests;
 

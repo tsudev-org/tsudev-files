@@ -3,11 +3,11 @@
 
 using System.Collections.Concurrent;
 using System.Threading.Channels;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Core.Presets;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.Core.Conversion;
 

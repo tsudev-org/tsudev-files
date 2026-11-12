@@ -1,8 +1,8 @@
 using System.IO;
+using ImageMagick;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Magick;
 using Tsudev.Files.Engines.Upscale;
-using ImageMagick;
 using Xunit;
 
 namespace Tsudev.Files.Engines.Tests;

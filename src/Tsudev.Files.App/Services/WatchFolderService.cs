@@ -3,9 +3,9 @@
 // the toast and the history like any other.
 
 using Avalonia.Threading;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Core.Watching;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

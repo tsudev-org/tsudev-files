@@ -9,9 +9,9 @@
 // settings say: they may have been deleted, or come from a Filee older than the first-run flag.
 
 using Avalonia.Threading;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.Controls;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

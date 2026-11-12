@@ -6,13 +6,13 @@
 // drawings stay as they are. A picture is changed only when the result is smaller.
 
 using System.IO.Compression;
-using Tsudev.Files.Core.Presets;
 using ImageMagick;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Advanced;
 using PdfSharp.Pdf.Content;
 using PdfSharp.Pdf.Content.Objects;
 using PdfSharp.Pdf.IO;
+using Tsudev.Files.Core.Presets;
 
 namespace Tsudev.Files.Engines.Pdf;
 

@@ -9,6 +9,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Microsoft.Extensions.Logging.Abstractions;
 using Tsudev.Files.App.Controls;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
@@ -21,7 +22,6 @@ using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Profiles;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Tsudev.Files.App.Tests;
 

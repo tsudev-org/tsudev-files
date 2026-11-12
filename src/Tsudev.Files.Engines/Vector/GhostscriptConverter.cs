@@ -5,12 +5,12 @@
 // (PdfSharpConverter calls CompressPdfAsync; there is no PDF → PDF edge here, so routes don't change), and
 // PdfiumConverter has CMYK pages rendered here for a CMYK JPG or TIFF (RenderCmykAsync).
 
+using ImageMagick;
+using PdfSharp.Pdf.IO;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
-using PdfSharp.Pdf.IO;
 
 namespace Tsudev.Files.Engines.Vector;
 

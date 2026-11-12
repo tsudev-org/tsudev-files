@@ -22,14 +22,14 @@
 //    which the profile doesn't stop everywhere. A document with macros gets a notice that they weren't run.
 //  * Its DOCX import moves a footnote's number out of the text around it ("(1)" → "1()", issue #620): DocxNoteMarks.
 
-using Tsudev.Files.Core.Conversion;
-using Tsudev.Files.Core.Formats;
-using Tsudev.Files.Engines.Infrastructure;
-using Tsudev.Files.Engines.Pdf;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
+using Tsudev.Files.Core.Conversion;
+using Tsudev.Files.Core.Formats;
+using Tsudev.Files.Engines.Infrastructure;
+using Tsudev.Files.Engines.Pdf;
 
 namespace Tsudev.Files.Engines.Office;
 

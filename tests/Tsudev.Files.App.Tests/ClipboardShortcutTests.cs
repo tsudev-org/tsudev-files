@@ -5,6 +5,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Headless.XUnit;
 using Avalonia.VisualTree;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.Services.Triggers;
 using Tsudev.Files.App.ViewModels.Pages;
@@ -14,7 +15,6 @@ using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Core.Web;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Tests;
 

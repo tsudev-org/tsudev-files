@@ -1,9 +1,9 @@
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Engines;
 using Tsudev.Files.Engines.Infrastructure;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

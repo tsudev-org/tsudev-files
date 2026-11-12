@@ -1,10 +1,10 @@
 // "Remove background": signatures, stamps and logos on paper or a plain backdrop become transparent PNGs.
 
+using ImageMagick;
+using ImageMagick.Drawing;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
-using ImageMagick.Drawing;
 
 namespace Tsudev.Files.Engines.Tests;
 

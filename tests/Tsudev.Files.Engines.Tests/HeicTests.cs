@@ -2,11 +2,11 @@
 // libheif, an independent decoder. The real conversions run only when Filee's FFmpeg is installed
 // (`pwsh build/fetch-engines.ps1 -Only ffmpeg`).
 
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Heic;
 using Tsudev.Files.Engines.Media;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

@@ -1,7 +1,7 @@
-using Tsudev.Files.App.Services.Triggers;
-using Tsudev.Files.App.ViewModels.Pages;
 using SharpHook;
 using SharpHook.Data;
+using Tsudev.Files.App.Services.Triggers;
+using Tsudev.Files.App.ViewModels.Pages;
 
 namespace Tsudev.Files.App.Tests;
 

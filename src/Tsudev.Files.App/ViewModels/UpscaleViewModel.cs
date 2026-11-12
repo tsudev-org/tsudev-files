@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Localization;
@@ -11,7 +12,6 @@ using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Upscale;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.ViewModels;
 

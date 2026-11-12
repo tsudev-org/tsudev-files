@@ -4,14 +4,14 @@
 
 using System.Globalization;
 using System.Text;
+using ImageMagick;
+using ImageMagick.Drawing;
+using PdfSharp.Pdf.IO;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Magick;
 using Tsudev.Files.Engines.Media;
-using ImageMagick;
-using ImageMagick.Drawing;
-using PdfSharp.Pdf.IO;
 
 namespace Tsudev.Files.Engines.Tests;
 

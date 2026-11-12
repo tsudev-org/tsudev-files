@@ -4,8 +4,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-using Tsudev.Files.Core.Conversion;
 using Microsoft.Win32.SafeHandles;
+using Tsudev.Files.Core.Conversion;
 
 namespace Tsudev.Files.Engines.Infrastructure;
 

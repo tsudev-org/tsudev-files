@@ -12,8 +12,8 @@
 using System.Globalization;
 using System.IO.Compression;
 using System.Text;
-using Tsudev.Files.Engines.Magick;
 using ImageMagick;
+using Tsudev.Files.Engines.Magick;
 
 namespace Tsudev.Files.Engines.Hwp.Hwpx.Docx;
 

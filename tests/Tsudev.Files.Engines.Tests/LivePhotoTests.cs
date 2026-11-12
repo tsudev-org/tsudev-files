@@ -4,12 +4,12 @@
 using System.Buffers.Binary;
 using System.IO.Compression;
 using System.Text;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Media;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

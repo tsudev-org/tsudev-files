@@ -2,12 +2,12 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.ViewModels.Pages;
 

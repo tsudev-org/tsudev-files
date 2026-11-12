@@ -2,14 +2,14 @@
 // multi-page TIFF or GIF, or (PdfOptions.CombinePages) the pages stacked into one tall image. PDFium renders RGB: a
 // document drawn in CMYK (a print file, issue #1027) is rendered by Ghostscript instead when the target holds CMYK.
 
+using ImageMagick;
+using PDFtoImage;
+using SkiaSharp;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Magick;
 using Tsudev.Files.Engines.Vector;
-using ImageMagick;
-using PDFtoImage;
-using SkiaSharp;
 
 // PDFtoImage marks its API for the platforms PDFium ships for (Windows, macOS, Linux, mobile).
 // Filee only targets desktop platforms that are all covered.

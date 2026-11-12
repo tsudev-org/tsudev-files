@@ -4,11 +4,11 @@
 
 using System.IO.Compression;
 using System.Text;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
 using Tsudev.Files.Engines.Hwp.Hwpx;
-using ImageMagick;
 using Unhwp;
 using static Tsudev.Files.Engines.Tests.HwpxAssert;
 

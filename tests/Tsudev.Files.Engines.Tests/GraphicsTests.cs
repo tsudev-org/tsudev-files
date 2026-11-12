@@ -3,15 +3,15 @@
 
 using System.IO.Compression;
 using System.Text;
+using ImageMagick;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
+using SkiaSharp;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Icns;
 using Tsudev.Files.Engines.Magick;
 using Tsudev.Files.Engines.Vector;
-using ImageMagick;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
-using SkiaSharp;
 
 namespace Tsudev.Files.Engines.Tests;
 

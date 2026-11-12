@@ -1,5 +1,7 @@
 // Composition root: every long-lived service is created here. Views get services through AppHost.Get<T>().
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.App.Services.Triggers;
 using Tsudev.Files.App.ViewModels;
 using Tsudev.Files.Core.Conversion;
@@ -12,8 +14,6 @@ using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Platform.Linux;
 using Tsudev.Files.Platform.MacOS;
 using Tsudev.Files.Platform.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

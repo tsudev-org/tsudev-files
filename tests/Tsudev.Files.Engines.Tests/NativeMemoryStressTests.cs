@@ -5,10 +5,10 @@
 // FILEE_STRESS_SECONDS runs it longer (the default keeps CI time low).
 
 using System.Runtime;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Infrastructure;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Tests;
 

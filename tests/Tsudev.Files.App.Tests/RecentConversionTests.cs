@@ -5,6 +5,7 @@ using Avalonia;
 using Avalonia.Headless.XUnit;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using SkiaSharp;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
 using Tsudev.Files.App.ViewModels.Pages;
@@ -14,7 +15,6 @@ using Tsudev.Files.Core.History;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Core.Settings;
-using SkiaSharp;
 
 namespace Tsudev.Files.App.Tests;
 

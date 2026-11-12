@@ -3,15 +3,15 @@
 // It also finishes every PDF a job writes with a watermark, page numbers or a password (PdfFinishing).
 
 using System.Runtime.ExceptionServices;
+using ImageMagick;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Magick;
 using Tsudev.Files.Engines.Vector;
-using ImageMagick;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
 
 namespace Tsudev.Files.Engines.Pdf;
 

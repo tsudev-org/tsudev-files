@@ -11,6 +11,8 @@ using Avalonia.Input.Raw;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Microsoft.Extensions.Logging.Abstractions;
+using SharpHook.Data;
 using Tsudev.Files.App.Controls;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
@@ -22,8 +24,6 @@ using Tsudev.Files.Core.Platform;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Profiles;
 using Tsudev.Files.Core.Settings;
-using Microsoft.Extensions.Logging.Abstractions;
-using SharpHook.Data;
 
 namespace Tsudev.Files.App.Tests;
 

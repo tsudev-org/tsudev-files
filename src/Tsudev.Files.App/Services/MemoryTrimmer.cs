@@ -3,11 +3,11 @@
 // keeps that memory committed for the next allocation, so Filee stayed hundreds of MB above its idle size.
 
 using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Platform.Linux;
 using Tsudev.Files.Platform.Windows;
-using Microsoft.Extensions.Logging;
 
 namespace Tsudev.Files.App.Services;
 

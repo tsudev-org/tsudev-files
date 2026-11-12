@@ -2,9 +2,9 @@
 // upright, in sRGB), reduces very large pictures, traces them and writes the SVG at the picture's own pixel size.
 
 using System.Globalization;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Vector.Tracing;
 

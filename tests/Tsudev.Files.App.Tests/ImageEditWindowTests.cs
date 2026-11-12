@@ -9,13 +9,13 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using ImageMagick;
 using Tsudev.Files.App.Services;
 using Tsudev.Files.App.ViewModels;
 using Tsudev.Files.App.Views;
 using Tsudev.Files.Core.Localization;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Core.Settings;
-using ImageMagick;
 using static Tsudev.Files.App.Tests.RenderTests;
 
 namespace Tsudev.Files.App.Tests;

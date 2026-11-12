@@ -13,13 +13,13 @@
 // another computer), and the result is written from the AST with those pictures alone.
 
 using System.Text.Json.Nodes;
+using ImageMagick;
 using Tsudev.Files.Core.Conversion;
 using Tsudev.Files.Core.Formats;
 using Tsudev.Files.Core.Presets;
 using Tsudev.Files.Engines.Hwp.Hwpx;
 using Tsudev.Files.Engines.Infrastructure;
 using Tsudev.Files.Engines.Magick;
-using ImageMagick;
 
 namespace Tsudev.Files.Engines.Office;
 
