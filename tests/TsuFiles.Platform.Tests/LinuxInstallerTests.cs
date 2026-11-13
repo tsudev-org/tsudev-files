@@ -243,6 +243,7 @@ exec ""$REAL_MV"" ""$@""
     [Fact]
     public void Upgrade_from_2_4_0_replaces_the_filee_command_with_tsufiles()
     {
+        Assert.SkipUnless(OperatingSystem.IsLinux(), "Requires Linux.");
         // TsuFiles 2.4.0-vn.* linked ~/.local/bin/filee to filee-cli; 2.4.1 has only "tsufiles" (ADR-0003, no alias).
         var env = CreateEnvironment();
         CreateMockPayload(env.SourceDir, "v1.0.0");
@@ -265,6 +266,7 @@ exec ""$REAL_MV"" ""$@""
     [Fact]
     public void Upgrade_keeps_a_filee_command_that_is_not_ours()
     {
+        Assert.SkipUnless(OperatingSystem.IsLinux(), "Requires Linux.");
         var env = CreateEnvironment();
         CreateMockPayload(env.SourceDir, "v1.0.0");
         Assert.Equal(0, RunInstaller(env.SourceDir, env.DataDir, env.HomeDir).ExitCode);
