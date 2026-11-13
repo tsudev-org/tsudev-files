@@ -114,8 +114,8 @@ if [ ! -f "$source_dir/Filee" ] || [ ! -x "$source_dir/Filee" ]; then
     exit 1
 fi
 
-if [ ! -f "$source_dir/filee-cli" ] || [ ! -x "$source_dir/filee-cli" ]; then
-    say "Gói cài không hợp lệ: thiếu $source_dir/filee-cli hoặc tệp không chạy được." "Payload validation failed: $source_dir/filee-cli is missing or not executable." >&2
+if [ ! -f "$source_dir/tsufiles-cli" ] || [ ! -x "$source_dir/tsufiles-cli" ]; then
+    say "Gói cài không hợp lệ: thiếu $source_dir/tsufiles-cli hoặc tệp không chạy được." "Payload validation failed: $source_dir/tsufiles-cli is missing or not executable." >&2
     exit 1
 fi
 
@@ -132,8 +132,8 @@ if [ "$upgrade" -eq 0 ]; then
         say "Đã có bản cài tại $install_dir. Hãy chạy uninstall.sh của bản đó trước." "An installation already exists at $install_dir. Run its uninstall.sh first."
         exit 1
     fi
-    if [ -e "$bin_dir/filee" ] || [ -L "$bin_dir/filee" ]; then
-        say "$bin_dir/filee đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài TsuFiles." "$bin_dir/filee already exists. Remove or rename it before installing TsuFiles."
+    if [ -e "$bin_dir/tsufiles" ] || [ -L "$bin_dir/tsufiles" ]; then
+        say "$bin_dir/tsufiles đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài TsuFiles." "$bin_dir/tsufiles already exists. Remove or rename it before installing TsuFiles."
         exit 1
     fi
     if [ -e "$desktop_file" ] || [ -L "$desktop_file" ]; then
@@ -145,7 +145,7 @@ if [ "$upgrade" -eq 0 ]; then
     cp -R "$source_dir" "$install_dir"
     printf '%s\n' 'com.filee.app' > "$install_dir/.filee-package"
     rm -f "$install_dir/.filee-upgrade-token"
-    ln -s "$install_dir/filee-cli" "$bin_dir/filee"
+    ln -s "$install_dir/tsufiles-cli" "$bin_dir/tsufiles"
 else
     # Upgrade existing installation: verify it is genuine and safely swap in place.
     if [ ! -d "$install_dir" ] || [ -L "$install_dir" ]; then
@@ -196,10 +196,10 @@ else
     cp -R "$source_dir/." "$staging_dir/"
     printf '%s\n' 'com.filee.app' > "$staging_dir/.filee-package"
     printf '%s\n' "$upgrade_token" > "$staging_dir/.filee-upgrade-token"
-    chmod +x "$staging_dir/Filee" "$staging_dir/filee-cli"
+    chmod +x "$staging_dir/Filee" "$staging_dir/tsufiles-cli"
 
     # Validate the staged files before moving the existing installation aside.
-    if [ ! -x "$staging_dir/Filee" ] || [ ! -x "$staging_dir/filee-cli" ]; then
+    if [ ! -x "$staging_dir/Filee" ] || [ ! -x "$staging_dir/tsufiles-cli" ]; then
         rm -rf "$staging_dir"
         say "Bản chuẩn bị nâng cấp không hợp lệ." "Staged payload validation failed." >&2
         exit 1
@@ -285,7 +285,7 @@ else
     activated=1
 
     # Post-swap validation: ensure new installation is active and healthy.
-    if [ ! -x "$install_dir/Filee" ] || [ ! -x "$install_dir/filee-cli" ] || [ ! -f "$install_dir/.filee-package" ]; then
+    if [ ! -x "$install_dir/Filee" ] || [ ! -x "$install_dir/tsufiles-cli" ] || [ ! -f "$install_dir/.filee-package" ]; then
         say "Bản vừa thay thế không vượt qua kiểm tra. Đang khôi phục..." "Activated installation failed post-swap validation. Rolling back..." >&2
         exit 1
     fi
@@ -296,7 +296,12 @@ else
     rm -f "$install_dir/.filee-upgrade-token"
 
     # Refresh launcher symlink (using -f to overwrite existing link atomically).
-    ln -sf "$install_dir/filee-cli" "$bin_dir/filee"
+    ln -sf "$install_dir/tsufiles-cli" "$bin_dir/tsufiles"
+    # TsuFiles 2.4.1 (ADR-0003): the command is "tsufiles" now, with no "filee" alias. Remove the old link, only when
+    # it is ours (it pointed at this installation's filee-cli, which the upgrade just replaced).
+    if [ -L "$bin_dir/filee" ] && [ "$(readlink "$bin_dir/filee")" = "$install_dir/filee-cli" ]; then
+        rm -f -- "$bin_dir/filee"
+    fi
 fi
 
 # GNOME Shell extension. A first install puts it in place on GNOME and asks GNOME to enable it. An upgrade refreshes
@@ -354,7 +359,7 @@ if [ "$upgrade" -eq 1 ]; then
     say "Đã nâng cấp TsuFiles tại $install_dir." "Upgraded TsuFiles at $install_dir."
 else
     say "Đã cài TsuFiles tại $install_dir" "Installed TsuFiles at $install_dir"
-    say "Dòng lệnh: $bin_dir/filee (thêm $bin_dir vào PATH nếu cần)." "CLI: $bin_dir/filee (add $bin_dir to PATH if needed)."
+    say "Dòng lệnh: $bin_dir/tsufiles (thêm $bin_dir vào PATH nếu cần)." "CLI: $bin_dir/tsufiles (add $bin_dir to PATH if needed)."
 fi
 
 if [ -n "$gnome_extension_note" ] && [ "$upgrade" -eq 0 ] && [ "$is_gnome" = true ]; then

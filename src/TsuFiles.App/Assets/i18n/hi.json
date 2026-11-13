@@ -1305,7 +1305,7 @@
   "installer.options.later": "आप इन्हें बाद में Filee में सेटिंग्स → सामान्य में बदल सकते हैं।",
   "installer.options.update_note": "Filee की बाकी सेटिंग्स वैसी ही रहेंगी। उन्हें कभी भी Filee में सेटिंग्स → सामान्य में बदलें।",
   "installer.task.modern_menu": "Windows 11 मेनू में सबसे ऊपर भी दिखाएँ, सिर्फ़ “और विकल्प दिखाएँ” में नहीं",
-  "installer.task.cli": "“filee” कमांड को PATH में जोड़ें (कमांड लाइन से कन्वर्ट करें)",
+  "installer.task.cli": "“tsufiles” कमांड को PATH में जोड़ें (कमांड लाइन से कन्वर्ट करें)",
   "installer.task.desktop_icon": "डेस्कटॉप शॉर्टकट बनाएँ",
   "installer.engines.when": "Filee शुरू होने पर आपके चुने इंजन उनके आधिकारिक स्रोतों से डाउनलोड करता है।",
   "installer.progress.install": "Filee इंस्टॉल हो रहा है",
@@ -1447,7 +1447,7 @@
   "watch.status_watching": "देख रहा है",
   "watch.status_starting": "शुरू हो रहा है…",
   "watch.status_error": "इस फ़ोल्डर को नहीं देखा जा सकता: {0}",
-  "watch.cli_hint": "कमांड लाइन पर भी: filee watch <folder> --to <format>",
+  "watch.cli_hint": "कमांड लाइन पर भी: tsufiles watch <folder> --to <format>",
 
   "preset.sheet_studio": "PDF + संपादित करें",
   "sheet_studio.title": "स्प्रेडशीट प्रिंट स्टूडियो",

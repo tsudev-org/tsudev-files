@@ -36,7 +36,7 @@ public static class SetupNames
     /// <summary>The list of installed files next to Filee.exe: what the uninstaller removes and an update replaces.</summary>
     public const string InstallRecordFile = "uninstall.json";
 
-    /// <summary>The "filee" command (cli\filee.cmd), the folder Setup puts on PATH.</summary>
+    /// <summary>The "tsufiles" command (cli\tsufiles.cmd; 2.4.0-vn.*: "filee", cli\filee.cmd), the folder Setup puts on PATH.</summary>
     public const string CliFolder = "cli";
 
     /// <summary>Inno Setup's uninstaller files, removed when Setup takes over a 1.x installation.</summary>

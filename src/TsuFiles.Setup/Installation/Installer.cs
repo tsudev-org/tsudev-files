@@ -212,7 +212,7 @@ public sealed class Installer(SetupContext context, SetupPayload payload)
 
     /// <summary>
     /// Asks Filee to exit (it saves first and waits for running conversions to stop), then ends whatever still runs
-    /// from the install folder (filee-cli, an engine), like Inno Setup's CloseApplications did.
+    /// from the install folder (tsufiles-cli, an engine), like Inno Setup's CloseApplications did.
     /// </summary>
     private void CloseFilee(string folder, bool force, bool velopack)
     {

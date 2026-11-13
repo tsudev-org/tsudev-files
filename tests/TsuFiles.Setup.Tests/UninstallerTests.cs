@@ -114,7 +114,7 @@ public class UninstallerTests
     {
         var (bench, record) = Installed();
         using var _ = bench;
-        bench.System.Running.Add(new RunningProgram(11, Path.Combine(bench.InstallFolder, "filee-cli.exe")));
+        bench.System.Running.Add(new RunningProgram(11, Path.Combine(bench.InstallFolder, "tsufiles-cli.exe")));
         bench.System.Running.Add(new RunningProgram(12, Path.Combine(bench.InstallFolder, "uninstall.exe")));
         new Uninstaller(bench.Context).Run(bench.InstallFolder, record, deleteSettings: false, bench.Temp.Sub("trash"));
         Assert.Contains("kill 11", bench.System.Calls);
@@ -355,7 +355,7 @@ public class UninstallerTests
     {
         var (bench, record) = Installed();
         using var _ = bench;
-        var names = new[] { "Filee.dll", "filee-cli.exe", "FileeExplorerMenu.dll", "FileeExplorerMenu.msix", @"cli\filee.cmd", @"engines\rhwp\rhwp.exe" };
+        var names = new[] { "Filee.dll", "tsufiles-cli.exe", "FileeExplorerMenu.dll", "FileeExplorerMenu.msix", @"cli\tsufiles.cmd", @"engines\rhwp\rhwp.exe" };
         var locks = names.Select(f => new FileStream(Path.Combine(bench.InstallFolder, f), FileMode.Open, FileAccess.Read, FileShare.None)).ToList();
         try
         {
@@ -460,7 +460,7 @@ public class UninstallerTests
     public void Install_record_round_trip_and_bad_records()
     {
         using var temp = new TempFolder();
-        var record = new InstallRecord("2.0.0", InstallScope.User, ["Filee.exe", @"cli\filee.cmd"]);
+        var record = new InstallRecord("2.0.0", InstallScope.User, ["Filee.exe", @"cli\tsufiles.cmd"]);
         File.WriteAllBytes(InstallRecord.PathIn(temp.Path), record.ToJson());
         var read = InstallRecord.Read(temp.Path)!;
         Assert.Equal(record.Version, read.Version);

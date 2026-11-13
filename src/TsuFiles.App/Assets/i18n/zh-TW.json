@@ -1325,7 +1325,7 @@
   "installer.options.later": "之後可以在 Filee 的 設定 → 一般 中變更。",
   "installer.options.update_note": "Filee 的其他設定保持不變，可隨時在 Filee 的 設定 → 一般 中變更。",
   "installer.task.modern_menu": "也顯示在 Windows 11 主選單中，而不僅是「顯示更多選項」裡",
-  "installer.task.cli": "將「filee」命令新增到 PATH（在命令列中轉換）",
+  "installer.task.cli": "將「tsufiles」命令新增到 PATH（在命令列中轉換）",
   "installer.task.desktop_icon": "建立桌面捷徑",
   "installer.engines.when": "Filee 啟動後會從官方來源下載你選擇的引擎。",
   "installer.progress.install": "正在安裝 Filee",
@@ -1467,7 +1467,7 @@
   "watch.status_watching": "正在監視",
   "watch.status_starting": "正在啟動…",
   "watch.status_error": "無法監視此資料夾：{0}",
-  "watch.cli_hint": "也可以在命令列中使用：filee watch <資料夾> --to <格式>",
+  "watch.cli_hint": "也可以在命令列中使用：tsufiles watch <資料夾> --to <格式>",
 
   "preset.sheet_studio": "PDF + 編輯",
   "sheet_studio.title": "試算表列印工作室",

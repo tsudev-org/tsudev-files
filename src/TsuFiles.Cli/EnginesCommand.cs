@@ -1,4 +1,4 @@
-// "filee engines": the optional engines of Settings → Engines, listed, installed and removed with the app's own
+// "tsufiles engines": the optional engines of Settings → Engines, listed, installed and removed with the app's own
 // installer (EngineInstaller), so the CLI downloads, verifies and unpacks exactly as the app does. Results go to
 // stdout (one JSON document with --json, errors included); progress goes to stderr (one JSON object per line with
 // --json, so stderr stays readable line by line).
@@ -19,7 +19,7 @@ internal static class EnginesCommand
         var id = options.Inputs[1];
         if (EngineDownloads.Packages.FirstOrDefault(p => string.Equals(p.Id, id, StringComparison.OrdinalIgnoreCase)) is not { } package)
         {
-            errors.WriteLine(CliLanguage.T($"filee: engine không xác định '{id}'. Chạy 'filee engines' để xem danh sách.", $"filee: unknown engine '{id}'. Run 'filee engines' for the list."));
+            errors.WriteLine(CliLanguage.T($"tsufiles: engine không xác định '{id}'. Chạy 'tsufiles engines' để xem danh sách.", $"tsufiles: unknown engine '{id}'. Run 'tsufiles engines' for the list."));
             return Cli.UsageError;
         }
         var result = options.Inputs[0].Equals("install", StringComparison.OrdinalIgnoreCase)
@@ -56,7 +56,7 @@ internal static class EnginesCommand
             });
         }
         else if (failed)
-            errors.WriteLine($"filee: {result.Message}");
+            errors.WriteLine($"tsufiles: {result.Message}");
         else if (!options.Quiet)
             output.WriteLine(result.Message);
     }
@@ -107,7 +107,7 @@ internal static class EnginesCommand
         foreach (var line in lines)
             output.WriteLine($"{line.Id.PadRight(idWidth)}  {line.Status.PadRight(statusWidth)}  {line.Version.PadRight(versionWidth)}  {line.Size}");
         output.WriteLine();
-        output.WriteLine(CliLanguage.T("Cài một engine bằng: filee engines install <id>", "Install one with: filee engines install <id>"));
+        output.WriteLine(CliLanguage.T("Cài một engine bằng: tsufiles engines install <id>", "Install one with: tsufiles engines install <id>"));
         return Cli.Success;
     }
 

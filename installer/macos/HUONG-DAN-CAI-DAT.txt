@@ -7,7 +7,7 @@ Yêu cầu macOS 13 trở lên. Gói có bản riêng cho Apple Silicon hoặc I
 
 Cài đặt:
 - Chạy ./install.sh để chép Filee.app vào ~/Applications và tạo lệnh
-  ~/.local/bin/filee.
+  ~/.local/bin/tsufiles.
 - Từ tệp .dmg: kéo Filee.app thả vào Applications (cách này không có lệnh filee).
 - Có thể tự chuyển Filee.app vào Applications. Hãy giữ nguyên vị trí của nó để
   quyền Accessibility và Finder Automation tiếp tục nhận đúng ứng dụng.

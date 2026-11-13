@@ -126,7 +126,7 @@ the runtime next to every program that needs it and does not ship it (`Infrastru
 | Binary | Runtime |
 |---|---|
 | `engines/rhwp/rhwp.exe` (bundled) | `vcruntime` component copied next to it by `fetch-engines.ps1` (#248) |
-| `unhwp.dll` (NuGet, loaded into Filee.exe and filee-cli.exe) | `vcruntime` component copied next to `Filee.exe` (`build-installer.ps1` → `fetch-engines.ps1 -RuntimeTo`) |
+| `unhwp.dll` (NuGet, loaded into Filee.exe and tsufiles-cli.exe) | `vcruntime` component copied next to `Filee.exe` (`build-installer.ps1` → `fetch-engines.ps1 -RuntimeTo`) |
 | Ghostscript (download) | `vcruntime` component copied next to `gswin64c.exe` (`EngineInstaller`, `fetch-engines.ps1`) |
 | LibreOffice (download) | its own copy, which the administrative install leaves in `System64`, copied into `program/` (`EngineInstaller`, `fetch-engines.ps1`; `LibreOfficeConverter` also repairs a copy installed by an earlier Filee) |
 | calibre, Java (downloads) | ship their own next to their programs (`app/bin`, `bin`) |
@@ -865,7 +865,7 @@ PDFsharp and Magick.NET; nothing has to be installed.
   is; a page range or single pages are first copied into new PDFs, as without compression (which leaves bookmarks and
   form fields behind), and so is a PDF locked only against changes.
 - **Never bigger**: when nothing gets smaller (a PDF of text only, one compressed before), the PDF is written as it was
-  and the toast (and `filee convert`) says that it couldn't be made smaller. Password-protected PDFs fail with the same
+  and the toast (and `tsufiles convert`) says that it couldn't be made smaller. Password-protected PDFs fail with the same
   message as the other PDF conversions.
 - **Ghostscript** (optional, *Also try Ghostscript* in the preset): when it is installed, the PDF is also run through
   `pdfwrite` with `-dPDFSETTINGS=/screen`, `/ebook` or `/printer` (the same 72, 150 and 300 dpi) and
@@ -1532,7 +1532,7 @@ Archives donut; it is not on that donut by default. Supported archives can also 
 safely extracts them into its temporary work folder, then writes their contents into the image.
 Password-protected archives fail with a clear message.
 
-CLI: `filee convert "path/to/folder" --to iso` or `filee convert "backup.zip" --to iso`.
+CLI: `tsufiles convert "path/to/folder" --to iso` or `tsufiles convert "backup.zip" --to iso`.
 DiscUtils.Iso9660 writes ISO 9660 with Joliet in-process, preserving Unicode BMP names and empty directories.
 There are no filesystem or compression options. ISO writing needs no external program; archive reading uses
 the existing extraction engine. Images are data discs, not bootable clones. UDF is not included.

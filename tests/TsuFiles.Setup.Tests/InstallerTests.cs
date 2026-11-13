@@ -20,7 +20,7 @@ public class InstallerTests
         Assert.True(result.Succeeded, result.Error?.ToString());
         var folder = bench.InstallFolder;
 
-        foreach (var file in new[] { "Filee.exe", "Filee.dll", @"cli\filee.cmd", @"engines\rhwp\rhwp.exe", "uninstall.exe", "uninstall.json" })
+        foreach (var file in new[] { "Filee.exe", "Filee.dll", @"cli\tsufiles.cmd", @"engines\rhwp\rhwp.exe", "uninstall.exe", "uninstall.json" })
             Assert.True(File.Exists(Path.Combine(folder, file)), file);
         Assert.Empty(Directory.EnumerateDirectories(folder, FileSwap.WorkFolderPrefix + "*"));
         var record = InstallRecord.Read(folder)!;
@@ -112,7 +112,7 @@ public class InstallerTests
         // Filee 1.12.0 as Inno Setup installed it: its files, unins000.*, the key with Inno's values, its PATH entry,
         // the desktop shortcut and the registered top menu.
         var temp = bench.Temp;
-        foreach (var file in new[] { "Filee.exe", "Filee.dll", "OldOnly.dll", @"cli\filee.cmd", @"runtimes\win-x64\native\old.dll", "unins000.exe", "unins000.dat", "unins000.msg" })
+        foreach (var file in new[] { "Filee.exe", "Filee.dll", "OldOnly.dll", @"cli\tsufiles.cmd", @"runtimes\win-x64\native\old.dll", "unins000.exe", "unins000.dat", "unins000.msg" })
             temp.Write(Path.Combine(Path.GetRelativePath(temp.Path, folder), file), "1.12");
         var registry = bench.Registry;
         registry.SetString(Hive.LocalMachine, Key, "Inno Setup: Setup Version", "7.1.0");
@@ -126,7 +126,7 @@ public class InstallerTests
         temp.Write(Path.Combine(Path.GetRelativePath(temp.Path, bench.Paths.CommonDesktop), "Filee.lnk"), "old shortcut");
         bench.System.ExplorerMenuSupported = true;
         bench.System.MenuRegistered = true;
-        bench.System.Running.Add(new RunningProgram(4242, Path.Combine(folder, "filee-cli.exe")));
+        bench.System.Running.Add(new RunningProgram(4242, Path.Combine(folder, "tsufiles-cli.exe")));
 
         var previous = PreviousInstall.Find(registry, InstallScope.Machine)!;
         Assert.True(previous.ByInno);

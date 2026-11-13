@@ -1305,7 +1305,7 @@
   "installer.options.later": "คุณสามารถเปลี่ยนการตั้งค่าเหล่านี้ได้ในภายหลังใน Filee ที่ การตั้งค่า → ทั่วไป",
   "installer.options.update_note": "Filee จะคงการตั้งค่าอื่นๆ ไว้ เปลี่ยนแปลงได้ตลอดเวลาใน Filee ที่ การตั้งค่า → ทั่วไป",
   "installer.task.modern_menu": "แสดงที่ด้านบนของเมนู Windows 11 ด้วย ไม่ใช่แค่ใน “แสดงตัวเลือกเพิ่มเติม”",
-  "installer.task.cli": "เพิ่มคำสั่ง “filee” ใน PATH (แปลงไฟล์ผ่านบรรทัดคำสั่ง)",
+  "installer.task.cli": "เพิ่มคำสั่ง “tsufiles” ใน PATH (แปลงไฟล์ผ่านบรรทัดคำสั่ง)",
   "installer.task.desktop_icon": "สร้างทางลัดบนเดสก์ท็อป",
   "installer.engines.when": "Filee จะดาวน์โหลดเครื่องมือที่คุณเลือกจากแหล่งต้นทางที่เป็นทางการเมื่อเปิดโปรแกรม",
   "installer.progress.install": "กำลังติดตั้ง Filee",
@@ -1447,7 +1447,7 @@
   "watch.status_watching": "กำลังเฝ้าติดตาม",
   "watch.status_starting": "กำลังเริ่มต้น…",
   "watch.status_error": "ไม่สามารถเฝ้าติดตามโฟลเดอร์นี้ได้: {0}",
-  "watch.cli_hint": "ใช้งานผ่านบรรทัดคำสั่งได้เช่นกัน: filee watch <โฟลเดอร์> --to <ฟอร์แมต>",
+  "watch.cli_hint": "ใช้งานผ่านบรรทัดคำสั่งได้เช่นกัน: tsufiles watch <โฟลเดอร์> --to <ฟอร์แมต>",
 
   "preset.sheet_studio": "PDF + แก้ไข",
   "sheet_studio.title": "สตูดิโอพิมพ์สเปรดชีต",

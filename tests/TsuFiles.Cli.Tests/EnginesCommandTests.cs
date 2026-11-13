@@ -1,4 +1,4 @@
-// "filee engines" without the network: the installer gets a temporary engines folder and a fake server whose
+// "tsufiles engines" without the network: the installer gets a temporary engines folder and a fake server whose
 // downloads stand in for engines.json.
 
 using System.IO.Compression;
@@ -109,7 +109,7 @@ public sealed class EnginesCommandTests : IDisposable
         (code, output, _) = await Run("engines");
         Assert.Equal(0, code);
         Assert.Contains(output.Split('\n'), l => l.StartsWith("pandoc ", StringComparison.Ordinal) && l.Contains("not installed") && l.Contains("1.0"));
-        Assert.Contains("filee engines install <id>", output);
+        Assert.Contains("tsufiles engines install <id>", output);
     }
 
     [Fact]
@@ -189,7 +189,7 @@ public sealed class EnginesCommandTests : IDisposable
             (code, output, errors) = await Run("engines", "install", "pandoc");
             Assert.Equal(1, code);
             Assert.Empty(output);
-            Assert.Equal("filee: pandoc is being installed by another Filee. Try again when it has finished.", errors.Trim());
+            Assert.Equal("tsufiles: pandoc is being installed by another Filee. Try again when it has finished.", errors.Trim());
         }
         Assert.Empty(_server.Requests);
         Assert.Equal(0, (await Run("engines", "install", "pandoc")).Code);
@@ -277,7 +277,7 @@ public sealed class EnginesCommandTests : IDisposable
         var (code, output, errors) = await Run(args);
         Assert.Equal(2, code);
         Assert.Empty(output);
-        Assert.StartsWith("filee: ", errors);
+        Assert.StartsWith("tsufiles: ", errors);
         Assert.Empty(_server.Requests);
     }
 

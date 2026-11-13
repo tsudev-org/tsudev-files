@@ -996,9 +996,13 @@ public sealed partial class UpdateService : ObservableObject
         {
             EnsureExecutable(installSh);
             EnsureExecutable(fileeExe);
-            var cli = Path.Combine(payloadDir, "filee-cli");
-            if (File.Exists(cli))
-                EnsureExecutable(cli);
+            // TsuFiles 2.4.1 (ADR-0003): tsufiles-cli; filee-cli in packages of 2.4.0-vn.*.
+            foreach (var cliName in new[] { "tsufiles-cli", "filee-cli" })
+            {
+                var cli = Path.Combine(payloadDir, cliName);
+                if (File.Exists(cli))
+                    EnsureExecutable(cli);
+            }
             var uninstall = Path.Combine(payloadDir, "uninstall.sh");
             if (File.Exists(uninstall))
                 EnsureExecutable(uninstall);

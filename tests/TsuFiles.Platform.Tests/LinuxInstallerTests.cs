@@ -154,7 +154,7 @@ exec ""$REAL_MV"" ""$@""
 
         var installDir = Path.Combine(env.DataDir, "filee", "application");
         Assert.True(File.Exists(Path.Combine(installDir, "Filee")));
-        Assert.True(File.Exists(Path.Combine(installDir, "filee-cli")));
+        Assert.True(File.Exists(Path.Combine(installDir, "tsufiles-cli")));
         Assert.Equal("v1.0.0", File.ReadAllText(Path.Combine(installDir, "version.txt")).Trim());
 
         var markerPath = Path.Combine(installDir, ".filee-package");
@@ -162,9 +162,9 @@ exec ""$REAL_MV"" ""$@""
         Assert.Equal("com.filee.app", File.ReadAllText(markerPath).Trim());
         Assert.False(File.Exists(Path.Combine(installDir, ".filee-upgrade-token")));
 
-        var launcherPath = Path.Combine(env.HomeDir, ".local", "bin", "filee");
+        var launcherPath = Path.Combine(env.HomeDir, ".local", "bin", "tsufiles");
         Assert.True(File.Exists(launcherPath));
-        Assert.Equal(Path.Combine(installDir, "filee-cli"), File.ResolveLinkTarget(launcherPath, true)?.FullName);
+        Assert.Equal(Path.Combine(installDir, "tsufiles-cli"), File.ResolveLinkTarget(launcherPath, true)?.FullName);
 
         var desktopPath = Path.Combine(env.DataDir, "applications", "com.filee.app.desktop");
         Assert.True(File.Exists(desktopPath));
@@ -234,10 +234,50 @@ exec ""$REAL_MV"" ""$@""
         Assert.Equal("{\"custom\": true}", File.ReadAllText(mockSettings));
 
         // Verify launcher symlink, package marker, and token cleanup
-        var launcherPath = Path.Combine(env.HomeDir, ".local", "bin", "filee");
-        Assert.Equal(Path.Combine(installDir, "filee-cli"), File.ResolveLinkTarget(launcherPath, true)?.FullName);
+        var launcherPath = Path.Combine(env.HomeDir, ".local", "bin", "tsufiles");
+        Assert.Equal(Path.Combine(installDir, "tsufiles-cli"), File.ResolveLinkTarget(launcherPath, true)?.FullName);
         Assert.Equal("com.filee.app", File.ReadAllText(Path.Combine(installDir, ".filee-package")).Trim());
         Assert.False(File.Exists(Path.Combine(installDir, ".filee-upgrade-token")));
+    }
+
+    [Fact]
+    public void Upgrade_from_2_4_0_replaces_the_filee_command_with_tsufiles()
+    {
+        Assert.SkipUnless(OperatingSystem.IsLinux(), "Requires Linux.");
+        // TsuFiles 2.4.0-vn.* linked ~/.local/bin/filee to filee-cli; 2.4.1 has only "tsufiles" (ADR-0003, no alias).
+        var env = CreateEnvironment();
+        CreateMockPayload(env.SourceDir, "v1.0.0");
+        Assert.Equal(0, RunInstaller(env.SourceDir, env.DataDir, env.HomeDir).ExitCode);
+        var installDir = Path.Combine(env.DataDir, "filee", "application");
+        var bin = Path.Combine(env.HomeDir, ".local", "bin");
+        var oldLink = Path.Combine(bin, "filee");
+        File.CreateSymbolicLink(oldLink, Path.Combine(installDir, "filee-cli"));
+
+        var v2Source = Path.Combine(_root, "source-v2");
+        CreateMockPayload(v2Source, "v2.0.0");
+        var (exitCode, output, error) = RunInstaller(v2Source, env.DataDir, env.HomeDir, "--upgrade");
+
+        Assert.True(exitCode == 0, $"Upgrade failed with code {exitCode}. Output: {output}. Error: {error}");
+        Assert.False(new FileInfo(oldLink).Exists || new FileInfo(oldLink).LinkTarget is not null);
+        Assert.Equal(Path.Combine(installDir, "tsufiles-cli"),
+            File.ResolveLinkTarget(Path.Combine(bin, "tsufiles"), true)?.FullName);
+    }
+
+    [Fact]
+    public void Upgrade_keeps_a_filee_command_that_is_not_ours()
+    {
+        Assert.SkipUnless(OperatingSystem.IsLinux(), "Requires Linux.");
+        var env = CreateEnvironment();
+        CreateMockPayload(env.SourceDir, "v1.0.0");
+        Assert.Equal(0, RunInstaller(env.SourceDir, env.DataDir, env.HomeDir).ExitCode);
+        var mine = Path.Combine(env.HomeDir, ".local", "bin", "filee");
+        File.WriteAllText(mine, "#!/bin/sh\necho someone else's filee\n");
+
+        var v2Source = Path.Combine(_root, "source-v2");
+        CreateMockPayload(v2Source, "v2.0.0");
+        Assert.Equal(0, RunInstaller(v2Source, env.DataDir, env.HomeDir, "--upgrade").ExitCode);
+
+        Assert.Contains("someone else's filee", File.ReadAllText(mine));
     }
 
     [Fact]
@@ -289,10 +329,10 @@ exec ""$REAL_MV"" ""$@""
 
         var installDir = Path.Combine(env.DataDir, "filee", "application");
 
-        // Broken v2 source: missing filee-cli
+        // Broken v2 source: missing tsufiles-cli
         var v2Source = Path.Combine(_root, "source-v2");
         CreateMockPayload(v2Source, "v2.0.0");
-        File.Delete(Path.Combine(v2Source, "filee-cli"));
+        File.Delete(Path.Combine(v2Source, "tsufiles-cli"));
 
         var (exitCode, output, error) = RunInstaller(v2Source, env.DataDir, env.HomeDir, "--upgrade");
         Assert.NotEqual(0, exitCode);
@@ -740,7 +780,7 @@ exec ""$REAL_MV"" ""$@""
     {
         Directory.CreateDirectory(dir);
         var filee = Path.Combine(dir, "Filee");
-        var cli = Path.Combine(dir, "filee-cli");
+        var cli = Path.Combine(dir, "tsufiles-cli");
         var icon = Path.Combine(dir, "filee.png");
         var ver = Path.Combine(dir, "version.txt");
         var script = Path.Combine(dir, "install.sh");

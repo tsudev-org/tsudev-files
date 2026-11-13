@@ -7,7 +7,7 @@ namespace TsuFiles.Setup.Installation;
 /// <param name="ContextMenu">"Convert with Filee" in the Explorer menu (a Filee setting, applied by Filee).</param>
 /// <param name="ModernMenu">Also at the top of the Windows 11 menu: the sparse package, registered by Setup.</param>
 /// <param name="Startup">Start Filee at sign-in (a Filee setting).</param>
-/// <param name="Cli">The <c>filee</c> command on PATH.</param>
+/// <param name="Cli">The <c>tsufiles</c> command on PATH.</param>
 /// <param name="DesktopIcon">A desktop shortcut.</param>
 public sealed record SetupTasks(bool ContextMenu, bool ModernMenu, bool Startup, bool Cli, bool DesktopIcon)
 {

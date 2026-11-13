@@ -197,7 +197,7 @@ public class PortugueseLocalizationTests
         Assert.Matches(@"\boriginals\b", translated["watch.originals_move"]);
         Assert.Matches(@"\bconverted\b", translated["watch.output_placeholder"]);
         // Argument descriptions may be translated; the command and option are literal.
-        Assert.Matches(@"filee watch <[^>]+> --to <[^>]+>", translated["watch.cli_hint"]);
+        Assert.Matches(@"tsufiles watch <[^>]+> --to <[^>]+>", translated["watch.cli_hint"]);
         Assert.Contains(@"IMG_(\d+)", translated["watch.rename_find"]);
         Assert.Contains("$1", translated["watch.rename_replace"]);
     }

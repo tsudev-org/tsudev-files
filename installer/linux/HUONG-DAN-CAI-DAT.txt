@@ -2,10 +2,10 @@ HƯỚNG DẪN CÀI ĐẶT TSUDEV-FILES TRÊN LINUX (bản Việt hóa của Fil
 Bản tiếng Anh đầy đủ: INSTALL.txt. Thông báo của install.sh/uninstall.sh mặc định
 là tiếng Việt; đặt TSUFILES_LANG=en để xem tiếng Anh.
 
-Chạy thử ngay không cần cài: ./Filee (giao diện) hoặc ./filee-cli help (dòng lệnh).
+Chạy thử ngay không cần cài: ./Filee (giao diện) hoặc ./tsufiles-cli help (dòng lệnh).
 
 Cài cho người dùng hiện tại: ./install.sh
-- Cần Python 3. Tạo biểu tượng trong trình đơn ứng dụng và lệnh ~/.local/bin/filee.
+- Cần Python 3. Tạo biểu tượng trong trình đơn ứng dụng và lệnh ~/.local/bin/tsufiles.
 - Không cần quyền root.
 - Nếu đã có bản cài, install.sh từ chối ghi đè.
 

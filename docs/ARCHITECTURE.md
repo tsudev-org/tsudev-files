@@ -238,7 +238,7 @@ without touching the file's content.
   Retry for it: a Filee from before it would re-encode the file without the changes.
 - Only an engine that writes metadata and nothing else takes such a conversion: `ConversionEdge.Metadata`, never part
   of an ordinary route, and with `RoutePlanner.Plan(metadata: true)` the whole route or none. Without one the file
-  fails (`error.no_route`, with the route asked for, so `filee` can name the package), never re-encoded instead.
+  fails (`error.no_route`, with the route asked for, so `tsufiles` can name the package), never re-encoded instead.
 - Remove location takes what ExifTool can write. What it can't reach is said, not hidden: a place kept whole with a
   block (a camera's maker notes, a C2PA manifest; `ExifTool.LocationOutOfReach`) is named in the window, and a video
   always says its tracks can hold location (an action camera's or a drone's route), which ExifTool can't remove.
@@ -451,7 +451,7 @@ installed yet; the slides introduce the installed one. The demo animations are r
 
 ## Command line and watch folders
 
-- `TsuFiles.Cli` (`filee-cli.exe`, run as `filee` through `cli\filee.cmd`, which Setup can put on PATH) composes the same
+- `TsuFiles.Cli` (`tsufiles-cli.exe`, run as `tsufiles` through `cli\tsufiles.cmd`, which Setup can put on PATH) composes the same
   pipeline as the app without any UI (`CliHost`: `UserDataStore`, `EngineRegistry`, `ConverterCatalog`, `JobQueue`)
   and reads the app's presets and engine order. It is published into the app folder, so both share one runtime and
   the bundled engines; its name can't be `filee.exe` next to `Filee.exe` on a case-insensitive file system.
@@ -468,7 +468,7 @@ installed yet; the slides introduce the installed one. The demo animations are r
   file with an old output name is accepted again. A failure to save this state is logged because results may be
   retried after restart. Removing a rule's state file also forgets its results.
   The tray app runs one per rule (`WatchFolderService`, Settings → Watch folders, conversions in the toast and
-  history); `filee watch` runs one on its own, with a stable `cli` rule identity across command restarts.
+  history); `tsufiles watch` runs one on its own, with a stable `cli` rule identity across command restarts.
 
 ## Platform code
 
@@ -642,7 +642,7 @@ On Linux, Filee is distributed as a self-contained archive (`Filee-<version>-<ri
 and standalone shell scripts (`install.sh`, `uninstall.sh`).
 
 - **Installation**: `install.sh` installs for the current user into `~/.local/share/filee/application` without root,
-  creating a launcher symlink at `~/.local/bin/filee` and desktop registration at
+  creating a launcher symlink at `~/.local/bin/tsufiles` and desktop registration at
   `~/.local/share/applications/com.filee.app.desktop`. A `.filee-package` marker containing `com.filee.app` identifies
   the directory as an authentic managed installation. Running without `--upgrade` refuses to overwrite an existing
   installation.
@@ -657,5 +657,5 @@ and standalone shell scripts (`install.sh`, `uninstall.sh`).
   new files, and rolls back on failure or signal interruption), and restarts Filee with `--background --whats-new`.
   Output and rollback diagnostics are appended to Filee's daily log (`~/.config/TsuFiles/logs/`). Downloaded conversion engines
   (`~/.local/share/Filee/engines`) and user settings (`~/.config/TsuFiles`) remain untouched.
-- **Uninstallation**: `uninstall.sh` removes the application directory, desktop launcher, and `~/.local/bin/filee` symlink
+- **Uninstallation**: `uninstall.sh` removes the application directory, desktop launcher, and `~/.local/bin/tsufiles` symlink
   after verifying the `.filee-package` marker. User settings and converted files are kept.

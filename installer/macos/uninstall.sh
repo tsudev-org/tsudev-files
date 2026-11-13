@@ -26,6 +26,10 @@ if [ "$bundle_id" != 'com.filee.app' ]; then
     exit 1
 fi
 "$install_dir/Contents/MacOS/Filee" --uninstall-cleanup
+if [ -L "$HOME/.local/bin/tsufiles" ] && [ "$(readlink "$HOME/.local/bin/tsufiles")" = "$install_dir/Contents/MacOS/tsufiles-cli" ]; then
+    rm -- "$HOME/.local/bin/tsufiles"
+fi
+# TsuFiles 2.4.0-vn.*: the command was "filee".
 if [ -L "$HOME/.local/bin/filee" ] && [ "$(readlink "$HOME/.local/bin/filee")" = "$install_dir/Contents/MacOS/filee-cli" ]; then
     rm -- "$HOME/.local/bin/filee"
 fi

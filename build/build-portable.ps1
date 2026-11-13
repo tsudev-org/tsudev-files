@@ -101,7 +101,7 @@ if ($RhwpOverride) {
 else {
     & (Join-Path $PSScriptRoot 'fetch-portable-engines.ps1') -Runtime $Runtime -Destination $engines
 }
-foreach ($name in @('Filee', 'filee-cli')) {
+foreach ($name in @('Filee', 'tsufiles-cli')) {
     $executable = Join-Path $publish $name
     if (-not (Test-Path -LiteralPath $executable -PathType Leaf)) { throw "Publish did not produce $name" }
     Invoke-Checked 'Executable permissions' { chmod +x $executable }
@@ -189,7 +189,7 @@ Move-Item -LiteralPath $temporaryArchive -Destination $archive
 $packages = @($archive)
 if ($Runtime.StartsWith('osx-')) {
     # The same signed Filee.app, next to a link to /Applications to drag it onto. ditto keeps the signature's
-    # extended attributes. install.sh (in the tar.gz) is still the way to get the filee command.
+    # extended attributes. install.sh (in the tar.gz) is still the way to get the tsufiles command.
     $volume = Join-Path $stage 'dmg'
     New-Item -ItemType Directory -Path $volume | Out-Null
     Invoke-Checked 'Copy app for the disk image' { ditto $appBundle (Join-Path $volume 'Filee.app') }

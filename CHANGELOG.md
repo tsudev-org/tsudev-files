@@ -22,8 +22,10 @@ change, a language may repeat; a language without lines shows the English ones):
 level: recommended
 vi: Đổi tên thành TsuFiles: logo con cú, kiểu giao diện Cú đêm, thư mục dữ liệu TsuFiles (tự chuyển từ thư mục cũ)
 vi: Biến môi trường đổi sang TSUFILES_* (ví dụ TSUFILES_LANG=en), tên FILEE_* không còn tác dụng
+vi: Lệnh dòng lệnh đổi thành tsufiles (không còn lệnh filee): sửa script đang gọi filee
 en: Renamed to TsuFiles: owl logo, Night Owl theme, TsuFiles data folder (moved from the old one automatically)
 en: Environment variables are now TSUFILES_* (for example TSUFILES_LANG=en); the FILEE_* names no longer work
+en: The command line is now tsufiles (filee is gone): update scripts that call filee
 -->
 
 Sản phẩm đổi tên thành **TsuFiles** ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)).
@@ -35,6 +37,10 @@ Sản phẩm đổi tên thành **TsuFiles** ([ADR-0003](docs/adr/0003-ten-san-p
 - **Biến môi trường đổi tên (gãy tương thích):** `FILEE_LANG` -> `TSUFILES_LANG`, `FILEE_DATA_DIR` -> `TSUFILES_DATA_DIR`,
   `FILEE_USE_WAYLAND` -> `TSUFILES_USE_WAYLAND`, `FILEE_WAYLAND_GESTURES` -> `TSUFILES_WAYLAND_GESTURES`,
   `FILEE_RENDERING` -> `TSUFILES_RENDERING`. Tên cũ không còn được đọc: sửa script, `~/.config/environment.d/*.conf`.
+- **Lệnh `filee` đổi thành `tsufiles` (gãy tương thích, không có bí danh):** Windows `cli\tsufiles.cmd` (Setup cập
+  nhật xóa `cli\filee.cmd`, thư mục `cli` trên PATH giữ nguyên), Linux/macOS `~/.local/bin/tsufiles` (nâng cấp gỡ liên
+  kết `filee` cũ nếu nó trỏ vào bản cài TsuFiles). Tệp chạy dòng lệnh `tsufiles-cli`. Tham số và khóa JSON đầu ra giữ
+  nguyên: chỉ cần đổi tên lệnh trong script.
 
 ## 2.4.0-vn.1
 

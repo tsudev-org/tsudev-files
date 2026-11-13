@@ -33,7 +33,8 @@ public sealed class ForkLanguageTests
         var text = Help.Text(null, language);
         Assert.StartsWith("TsuFiles (", text.TrimStart());
         Assert.Contains("KnifeLemon/Filee", text);
-        Assert.Contains("filee ", text); // lệnh dòng lệnh giữ tên cũ
+        Assert.Contains("tsufiles ", text); // ADR-0003: lệnh đổi thành tsufiles, không bí danh filee
+        Assert.DoesNotContain("filee ", text);
         Assert.DoesNotMatch(@"(?<![\\/.])\bFilee\b(?![./\\])", text.Replace("KnifeLemon/Filee", ""));
     }
 

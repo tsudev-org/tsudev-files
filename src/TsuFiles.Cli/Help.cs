@@ -1,4 +1,4 @@
-// Usage text of the "filee" command.
+// Usage text of the "tsufiles" command.
 
 using System.Reflection;
 using TsuFiles.Core.Watching;
@@ -20,9 +20,9 @@ internal static class Help
     {
         "convert" => Convert,
         "watch" => Watch,
-        "formats" => "Usage: filee formats [<format>] [--json]\n\nLists every format, or what one format converts to.\n" +
+        "formats" => "Usage: tsufiles formats [<format>] [--json]\n\nLists every format, or what one format converts to.\n" +
                      "With --json, prints the same as JSON (for scripts and other programs).\n",
-        "presets" => "Usage: filee presets [--json]\n\nLists the presets saved in Filee (built-in and your own).\n" +
+        "presets" => "Usage: tsufiles presets [--json]\n\nLists the presets saved in Filee (built-in and your own).\n" +
                      "With --json, prints the same as JSON (for scripts and other programs).\n",
         "engines" => Engines,
         _ => General,
@@ -32,9 +32,9 @@ internal static class Help
     {
         "convert" => ConvertVi,
         "watch" => WatchVi,
-        "formats" => "Cách dùng: filee formats [<định dạng>] [--json]\n\nLiệt kê mọi định dạng, hoặc một định dạng chuyển được sang những định dạng nào.\n" +
+        "formats" => "Cách dùng: tsufiles formats [<định dạng>] [--json]\n\nLiệt kê mọi định dạng, hoặc một định dạng chuyển được sang những định dạng nào.\n" +
                      "Với --json, in cùng nội dung dưới dạng JSON (cho script và chương trình khác).\n",
-        "presets" => "Cách dùng: filee presets [--json]\n\nLiệt kê các preset đã lưu trong Filee (có sẵn và do bạn tạo).\n" +
+        "presets" => "Cách dùng: tsufiles presets [--json]\n\nLiệt kê các preset đã lưu trong Filee (có sẵn và do bạn tạo).\n" +
                      "Với --json, in cùng nội dung dưới dạng JSON (cho script và chương trình khác).\n",
         "engines" => EnginesVi,
         _ => GeneralVi,
@@ -44,22 +44,22 @@ internal static class Help
         TsuFiles (bản Việt hóa của KnifeLemon/Filee): chuyển đổi tệp ngoại tuyến từ dòng lệnh.
 
         Cách dùng:
-          filee convert <tệp hoặc thư mục...> --to <định dạng> [tùy chọn]
-          filee convert <tệp hoặc thư mục...> --preset <preset> [tùy chọn]
-          filee watch <thư mục> --to <định dạng> [tùy chọn]
-          filee formats [<định dạng>] [--json]
-          filee presets [--json]
-          filee engines [--json]
-          filee engines (install | remove) <engine> [--json]
-          filee help [<lệnh>]
-          filee version
+          tsufiles convert <tệp hoặc thư mục...> --to <định dạng> [tùy chọn]
+          tsufiles convert <tệp hoặc thư mục...> --preset <preset> [tùy chọn]
+          tsufiles watch <thư mục> --to <định dạng> [tùy chọn]
+          tsufiles formats [<định dạng>] [--json]
+          tsufiles presets [--json]
+          tsufiles engines [--json]
+          tsufiles engines (install | remove) <engine> [--json]
+          tsufiles help [<lệnh>]
+          tsufiles version
 
         Ví dụ:
-          filee convert anh.heic --to jpg
-          filee convert *.png --to webp --quality 80 -o da-chuyen
-          filee convert D:\BanScan --recursive --preset to-pdf
-          filee watch D:\HopThuDen --to pdf --move-originals
-          filee engines install pandoc
+          tsufiles convert anh.heic --to jpg
+          tsufiles convert *.png --to webp --quality 80 -o da-chuyen
+          tsufiles convert D:\BanScan --recursive --preset to-pdf
+          tsufiles watch D:\HopThuDen --to pdf --move-originals
+          tsufiles engines install pandoc
 
         Preset và engine dùng chung với ứng dụng Filee. Mã thoát: 0 không có lỗi (kể cả tệp bị bỏ qua),
         1 có tệp lỗi hoặc bị hủy, 2 sai tham số hoặc thiếu đầu vào, 3 không có gì để chuyển đổi.
@@ -69,9 +69,9 @@ internal static class Help
         """;
 
     private const string EnginesVi = """
-        Cách dùng: filee engines [--json]
-                   filee engines install <engine> [--json] [--quiet]
-                   filee engines remove <engine> [--json] [--quiet]
+        Cách dùng: tsufiles engines [--json]
+                   tsufiles engines install <engine> [--json] [--quiet]
+                   tsufiles engines remove <engine> [--json] [--quiet]
 
         Liệt kê các engine tùy chọn trong Cài đặt → Engine (LibreOffice, Pandoc, FFmpeg, …), hoặc cài/gỡ một engine
         với cùng nguồn tải và cùng bước kiểm tra (SHA-256) như ứng dụng. 'remove' chỉ gỡ những gì Filee đã tải;
@@ -87,13 +87,13 @@ internal static class Help
         """;
 
     private const string ConvertVi = """
-        Cách dùng: filee convert <tệp hoặc thư mục...> (--to <định dạng> | --preset <preset>) [tùy chọn]
+        Cách dùng: tsufiles convert <tệp hoặc thư mục...> (--to <định dạng> | --preset <preset>) [tùy chọn]
 
         Tệp có thể dùng ký tự đại diện (*.heic). Với thư mục, Filee chuyển đổi các tệp bên trong mà nó nhận diện được.
 
         Tùy chọn:
-          -t, --to <định dạng>   Định dạng đích, ví dụ jpg, png, pdf, docx, mp4 (xem 'filee formats')
-          -p, --preset <preset>  Một preset của ứng dụng, theo id hoặc tên (xem 'filee presets')
+          -t, --to <định dạng>   Định dạng đích, ví dụ jpg, png, pdf, docx, mp4 (xem 'tsufiles formats')
+          -p, --preset <preset>  Một preset của ứng dụng, theo id hoặc tên (xem 'tsufiles presets')
           -o, --output <thư mục> Lưu vào thư mục này thay vì cạnh tệp nguồn
           -r, --recursive        Bao gồm thư mục con
               --sort <thứ tự>    Thứ tự ghép tệp: name, name-desc, modified, modified-desc, created hoặc
@@ -116,7 +116,7 @@ internal static class Help
         """;
 
     private static string WatchVi => FormattableString.Invariant($$"""
-        Cách dùng: filee watch <thư mục> (--to <định dạng> | --preset <preset>) [tùy chọn]
+        Cách dùng: tsufiles watch <thư mục> (--to <định dạng> | --preset <preset>) [tùy chọn]
 
         Chuyển đổi các tệp được đưa vào thư mục cho đến khi nhấn Ctrl+C. Tệp chỉ được chuyển đổi khi đã hoàn chỉnh
         (không còn tăng dung lượng hay đang mở bởi chương trình khác). Kết quả lưu vào thư mục "converted" bên trong,
@@ -136,7 +136,7 @@ internal static class Help
               --quiet            Chỉ in lỗi
 
         Với --json, stdout chỉ nhận sự kiện: {"event":"started",…} kèm thư mục, preset, định dạng đích và thư mục kết quả,
-        {"event":"file",…} khi từng tệp xong (các trường của 'filee convert --json'), và {"event":"stopped"} khi nhấn Ctrl+C.
+        {"event":"file",…} khi từng tệp xong (các trường của 'tsufiles convert --json'), và {"event":"stopped"} khi nhấn Ctrl+C.
 
         """);
 
@@ -144,22 +144,22 @@ internal static class Help
         TsuFiles (a fork of KnifeLemon/Filee): convert files offline from the command line.
 
         Usage:
-          filee convert <files or folders...> --to <format> [options]
-          filee convert <files or folders...> --preset <preset> [options]
-          filee watch <folder> --to <format> [options]
-          filee formats [<format>] [--json]
-          filee presets [--json]
-          filee engines [--json]
-          filee engines (install | remove) <engine> [--json]
-          filee help [<command>]
-          filee version
+          tsufiles convert <files or folders...> --to <format> [options]
+          tsufiles convert <files or folders...> --preset <preset> [options]
+          tsufiles watch <folder> --to <format> [options]
+          tsufiles formats [<format>] [--json]
+          tsufiles presets [--json]
+          tsufiles engines [--json]
+          tsufiles engines (install | remove) <engine> [--json]
+          tsufiles help [<command>]
+          tsufiles version
 
         Examples:
-          filee convert photo.heic --to jpg
-          filee convert *.png --to webp --quality 80 -o converted
-          filee convert D:\Scans --recursive --preset to-pdf
-          filee watch D:\Inbox --to pdf --move-originals
-          filee engines install pandoc
+          tsufiles convert photo.heic --to jpg
+          tsufiles convert *.png --to webp --quality 80 -o converted
+          tsufiles convert D:\Scans --recursive --preset to-pdf
+          tsufiles watch D:\Inbox --to pdf --move-originals
+          tsufiles engines install pandoc
 
         Presets and engines are the ones in the Filee app. Exit codes: 0 nothing failed (skipped
         files included), 1 some failed or were cancelled, 2 wrong arguments or a missing input, 3 nothing to
@@ -168,9 +168,9 @@ internal static class Help
         """;
 
     private const string Engines = """
-        Usage: filee engines [--json]
-               filee engines install <engine> [--json] [--quiet]
-               filee engines remove <engine> [--json] [--quiet]
+        Usage: tsufiles engines [--json]
+               tsufiles engines install <engine> [--json] [--quiet]
+               tsufiles engines remove <engine> [--json] [--quiet]
 
         Lists the optional engines of Settings → Engines (LibreOffice, Pandoc, FFmpeg, …), or installs or removes
         one with the same download and checks as the app. 'remove' only removes what Filee downloaded; your own copy
@@ -186,13 +186,13 @@ internal static class Help
         """;
 
     private const string Convert = """
-        Usage: filee convert <files or folders...> (--to <format> | --preset <preset>) [options]
+        Usage: tsufiles convert <files or folders...> (--to <format> | --preset <preset>) [options]
 
         Files can be wildcards (*.heic). Folders convert the files in them that Filee knows.
 
         Options:
-          -t, --to <format>      Target format, e.g. jpg, png, pdf, docx, mp4 (see 'filee formats')
-          -p, --preset <preset>  A preset from the app, by id or name (see 'filee presets')
+          -t, --to <format>      Target format, e.g. jpg, png, pdf, docx, mp4 (see 'tsufiles formats')
+          -p, --preset <preset>  A preset from the app, by id or name (see 'tsufiles presets')
           -o, --output <folder>  Save there instead of next to the sources
           -r, --recursive        Include sub folders
               --sort <order>     The order files merge in: name, name-desc, modified, modified-desc, created or
@@ -215,7 +215,7 @@ internal static class Help
         """;
 
     private static string Watch => FormattableString.Invariant($$"""
-        Usage: filee watch <folder> (--to <format> | --preset <preset>) [options]
+        Usage: tsufiles watch <folder> (--to <format> | --preset <preset>) [options]
 
         Converts files that land in the folder until Ctrl+C. Files are converted once they are complete (no
         longer growing or open in another program). Output goes to a "converted" folder inside it unless -o is given.
@@ -234,7 +234,7 @@ internal static class Help
               --quiet            Print nothing but errors
 
         With --json, stdout gets nothing but events: {"event":"started",…} with the folder, preset, target and output
-        folder, {"event":"file",…} as each file is done (the fields of 'filee convert --json'), and
+        folder, {"event":"file",…} as each file is done (the fields of 'tsufiles convert --json'), and
         {"event":"stopped"} on Ctrl+C.
 
         """);
