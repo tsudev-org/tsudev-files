@@ -198,7 +198,7 @@ kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; border-r
   .tai-lieu__menu ul { display: flex; flex-wrap: wrap; gap: 0.25rem; }
   .goi__muc { grid-template-columns: 1fr; }
   /* Logo và hai nút cùng hàng; điều hướng xuống hàng dưới */
-  .dau-trang nav { order: 3; flex-basis: 100%; margin-left: 0; padding-bottom: 0.5rem; }
+  .dau-trang nav { order: 3; flex-basis: 100%; min-width: 0; margin-left: 0; padding-bottom: 0.5rem; }
   /* Bốn mục điều hướng trên MỘT hàng (trước đây "Bảo mật" rơi xuống hàng riêng ở khổ 390); khổ hẹp hơn thì cuộn ngang
      trong thanh, không làm trang cuộn ngang. */
   .menu { flex-wrap: nowrap; justify-content: space-between; overflow-x: auto; scrollbar-width: none; }
