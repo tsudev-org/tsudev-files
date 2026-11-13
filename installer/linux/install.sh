@@ -3,7 +3,7 @@ set -eu
 
 # Filee Linux standalone installer.
 # Supports first-time installation and in-place upgrade (--upgrade).
-# Preserves downloaded conversion engines (~/.local/share/Filee/engines) and user settings (~/.config/Filee).
+# Preserves downloaded conversion engines (~/.local/share/TsuFiles/engines) and user settings (~/.config/TsuFiles; 2.4.0-vn.*: Filee, moved by the app).
 
 # TsuFiles: thông báo tiếng Việt mặc định; TSUFILES_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
 say() {

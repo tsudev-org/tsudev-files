@@ -34,7 +34,7 @@ internal sealed class CliHost : IAsyncDisposable
     /// </summary>
     public EngineInstaller Engines => _engines ??= new EngineInstaller(EngineInstaller.CreateHttpClient(Timeout.InfiniteTimeSpan));
 
-    /// <param name="dataDirectory">Settings folder; the app's (%APPDATA%\Filee) when null.</param>
+    /// <param name="dataDirectory">Settings folder; the app's (%APPDATA%\TsuFiles) when null.</param>
     /// <param name="engines">Installer of the optional engines (tests pass one with their own folder and downloads).</param>
     public static CliHost Create(string? dataDirectory = null, EngineInstaller? engines = null)
     {

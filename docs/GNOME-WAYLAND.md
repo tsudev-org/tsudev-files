@@ -80,7 +80,7 @@ To check the communication socket:
 ls -l "$XDG_RUNTIME_DIR/filee-gnome/pointer.sock"
 ```
 
-When connected successfully, Filee's log (`~/.config/Filee/logs/`) contains:
+When connected successfully, Filee's log (`~/.config/TsuFiles/logs/`) contains:
 
 ```text
 GNOME pointer extension connected

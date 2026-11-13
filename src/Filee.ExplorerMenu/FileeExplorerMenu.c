@@ -26,11 +26,11 @@ static const KNOWNFOLDERID kFolderRoamingAppData = {0x3eb685db, 0x65f9, 0x4cf6, 
 // TsuFiles: tiêu đề dự phòng tiếng Việt "Chuyển đổi bằng TsuFiles" (general.context_menu_label trong vi.json
 // sau ForkDefaults.Brand), viết bằng mã điểm để không phụ thuộc bảng mã của tệp nguồn khi biên dịch.
 #define DEFAULT_TITLE L"Chuy\x1EC3n \x0111\x1ED5i b\x1EB1ng TsuFiles"
-// Written by the app into its data folder (%APPDATA%\Filee, which survives app updates) while the Explorer menu
+// Written by the app into its data folder (%APPDATA%\TsuFiles, which survives app updates) while the Explorer menu
 // setting is on; first line = the title in the UI language. No file = the entry is hidden, so the setting can switch
 // the entry off and on again without re-registering the package (which needs administrator rights).
 // Must match ExplorerMenuPackage.TitleFileName.
-#define TITLE_FILE L"Filee\\explorer-menu.txt"
+#define TITLE_FILE L"TsuFiles\\explorer-menu.txt"  // TsuFiles 2.4.1: ForkDefaults.DataFolderName
 #define APP_EXE L"Filee.exe"
 #define LIST_PREFIX L"Filee-convert-"       // CommandLine.ListFilePrefix in the app
 // CreateProcess accepts at most 32767 characters; longer selections go through a list file.

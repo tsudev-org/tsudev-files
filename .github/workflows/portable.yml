@@ -220,7 +220,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/filee-screens"
-          for logs in "$HOME/Library/Application Support/Filee/logs" "$HOME/.config/Filee/logs"; do
+          for logs in "$HOME/Library/Application Support/TsuFiles/logs" "$HOME/.config/TsuFiles/logs"; do
             if [ -d "$logs" ]; then cp -R "$logs" "$RUNNER_TEMP/filee-screens/"; fi
           done
 
@@ -298,7 +298,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/filee-screens"
-          if [ -d "$HOME/.config/Filee/logs" ]; then cp -R "$HOME/.config/Filee/logs" "$RUNNER_TEMP/filee-screens/"; fi
+          if [ -d "$HOME/.config/TsuFiles/logs" ]; then cp -R "$HOME/.config/TsuFiles/logs" "$RUNNER_TEMP/filee-screens/"; fi
 
       - name: Upload diagnostics
         if: always()
