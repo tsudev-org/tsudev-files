@@ -73,8 +73,8 @@ libudev1, libwayland-client0). Cách bật:
    bạn chấp nhận điều đó.
      sudo usermod -aG input "$USER"
 3. KDE Plasma: cài và bật KWin script để nó chạy mỗi lần đăng nhập:
-     kpackagetool6 --type=KWin/Script --install "${XDG_DATA_HOME:-$HOME/.local/share}/filee/application/kwin/filee-donut"
-     kwriteconfig6 --file kwinrc --group Plugins --key filee-donutEnabled true
+     kpackagetool6 --type=KWin/Script --install "${XDG_DATA_HOME:-$HOME/.local/share}/filee/application/kwin/tsufiles-donut"
+     kwriteconfig6 --file kwinrc --group Plugins --key tsufiles-donutEnabled true
      qdbus6 org.kde.KWin /KWin reconfigure
    Lệnh qdbus có thể tên là qdbus6, qdbus-qt6 hoặc qdbus tùy bản phân phối.
    Sau khi cập nhật TsuFiles, chạy lại lệnh kpackagetool6 với --upgrade thay cho
@@ -84,7 +84,7 @@ libudev1, libwayland-client0). Cách bật:
    Hyprland: thêm luật cửa sổ cho donut (nổi, căn giữa tại con trỏ, không viền,
    không bóng, không làm mờ). Cú pháp tùy phiên bản (xem hyprctl version); các mẫu
    cấu hình cho hyprland.lua và hyprland.conf có trong INSTALL.txt, và tệp dựng
-   sẵn ở ~/.local/share/filee/application/hyprland/filee-donut.conf.
+   sẵn ở ~/.local/share/filee/application/hyprland/tsufiles-donut.conf.
    Nếu dùng dòng "source = ..." trỏ tới tệp đó, hãy xóa dòng này trước khi chạy
    uninstall.sh, nếu không Hyprland sẽ báo thiếu tệp.
 

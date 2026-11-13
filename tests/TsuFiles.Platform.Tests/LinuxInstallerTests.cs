@@ -166,9 +166,10 @@ exec ""$REAL_MV"" ""$@""
         Assert.True(File.Exists(launcherPath));
         Assert.Equal(Path.Combine(installDir, "tsufiles-cli"), File.ResolveLinkTarget(launcherPath, true)?.FullName);
 
-        var desktopPath = Path.Combine(env.DataDir, "applications", "com.filee.app.desktop");
+        var desktopPath = Path.Combine(env.DataDir, "applications", "com.tsudev.tsufiles.desktop");
         Assert.True(File.Exists(desktopPath));
         Assert.Contains("X-Filee-Managed=true", File.ReadAllText(desktopPath));
+        Assert.Contains("StartupWMClass=TsuFiles", File.ReadAllText(desktopPath));
     }
 
     [Fact]
@@ -276,6 +277,8 @@ exec ""$REAL_MV"" ""$@""
         var quitLog = Path.Combine(env.DataDir, "quit.log");
         var old = Path.Combine(installDir, "Filee");
         File.WriteAllText(old, $"#!/bin/sh\nif [ \"$1\" = \"--quit\" ]; then echo quit >> \"{quitLog}\"; fi\nexit 0\n");
+        var applications = Path.Combine(env.DataDir, "applications");
+        File.Move(Path.Combine(applications, "com.tsudev.tsufiles.desktop"), Path.Combine(applications, "com.filee.app.desktop"));
 
         var v2Source = Path.Combine(_root, "source-v2");
         CreateMockPayload(v2Source, "v2.0.0");
@@ -287,7 +290,39 @@ exec ""$REAL_MV"" ""$@""
         // The 2.4.0-vn.1 updater starts <install folder>/Filee after install.sh: the package's launcher is there.
         Assert.True(File.Exists(old));
         Assert.Contains($"Exec=\"{Path.Combine(installDir, "TsuFiles")}\" --convert %F",
-            File.ReadAllText(Path.Combine(env.DataDir, "applications", "com.filee.app.desktop")));
+            File.ReadAllText(Path.Combine(env.DataDir, "applications", "com.tsudev.tsufiles.desktop")));
+        Assert.False(File.Exists(Path.Combine(env.DataDir, "applications", "com.filee.app.desktop")));
+    }
+
+    [Fact]
+    public void Upgrade_replaces_the_gnome_extension_of_2_4_0_with_the_renamed_one()
+    {
+        Assert.SkipUnless(OperatingSystem.IsLinux(), "Requires Linux.");
+        // TsuFiles 2.4.0-vn.* installed the GNOME extension as filee-donut@filee.sh (the upstream's domain).
+        var env = CreateEnvironment();
+        CreateMockPayload(env.SourceDir, "v1.0.0");
+        Assert.Equal(0, RunInstaller(env.SourceDir, env.DataDir, env.HomeDir).ExitCode);
+        var extensions = Path.Combine(env.DataDir, "gnome-shell", "extensions");
+        var legacy = Path.Combine(extensions, "filee-donut@filee.sh");
+        Directory.CreateDirectory(legacy);
+        File.WriteAllText(Path.Combine(legacy, "metadata.json"), "{}");
+        File.WriteAllText(Path.Combine(legacy, ".filee-package"), "com.filee.app\n");
+        var foreign = Path.Combine(extensions, "someone-else@example.com");
+        Directory.CreateDirectory(foreign);
+
+        var v2Source = Path.Combine(_root, "source-v2");
+        CreateMockPayload(v2Source, "v2.0.0");
+        var extension = Path.Combine(v2Source, "gnome", "tsufiles-donut@tsudev.com");
+        Directory.CreateDirectory(extension);
+        File.WriteAllText(Path.Combine(extension, "metadata.json"), "{\"uuid\": \"tsufiles-donut@tsudev.com\"}");
+        var (exitCode, output, error) = RunInstaller(v2Source, env.DataDir, env.HomeDir, "--upgrade");
+
+        Assert.True(exitCode == 0, $"Upgrade failed with code {exitCode}. Output: {output}. Error: {error}");
+        Assert.False(Directory.Exists(legacy));
+        Assert.True(Directory.Exists(foreign));
+        var renamed = Path.Combine(extensions, "tsufiles-donut@tsudev.com");
+        Assert.True(File.Exists(Path.Combine(renamed, "metadata.json")));
+        Assert.Equal("com.filee.app", File.ReadAllText(Path.Combine(renamed, ".filee-package")).Trim());
     }
 
     [Fact]

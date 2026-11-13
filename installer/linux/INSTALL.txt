@@ -74,8 +74,8 @@ libwayland-client0 on Ubuntu). To turn it on:
    this only if you accept that. You may already be in it for other tools.
      sudo usermod -aG input "$USER"
 3. For KDE Plasma: Install the KWin script and enable it, so it loads at every login:
-     kpackagetool6 --type=KWin/Script --install "${XDG_DATA_HOME:-$HOME/.local/share}/filee/application/kwin/filee-donut"
-     kwriteconfig6 --file kwinrc --group Plugins --key filee-donutEnabled true
+     kpackagetool6 --type=KWin/Script --install "${XDG_DATA_HOME:-$HOME/.local/share}/filee/application/kwin/tsufiles-donut"
+     kwriteconfig6 --file kwinrc --group Plugins --key tsufiles-donutEnabled true
      qdbus6 org.kde.KWin /KWin reconfigure
    The qdbus tool is qdbus6, qdbus-qt6 or plain qdbus depending on the
    distribution; use whichever one you have.
@@ -90,8 +90,8 @@ libwayland-client0 on Ubuntu). To turn it on:
    hyprland.lua if it exists and hyprland.conf otherwise.
    In hyprland.lua (Hyprland 0.55 and newer):
      hl.window_rule({
-         name        = "filee-donut",
-         match       = { title = "^(Filee Donut)$" },
+         name        = "tsufiles-donut",
+         match       = { title = "^(TsuFiles Donut)$" },
          float       = true,
          move        = { "cursor_x-(window_w*0.5)", "cursor_y-(window_h*0.5)" },
          border_size = 0,
@@ -99,13 +99,13 @@ libwayland-client0 on Ubuntu). To turn it on:
          no_blur     = true,
      })
    In hyprland.conf (Hyprland 0.53 to 0.56): Include the packaged rules file:
-     source = ~/.local/share/filee/application/hyprland/filee-donut.conf
+     source = ~/.local/share/filee/application/hyprland/tsufiles-donut.conf
      (Remove this source line before running uninstall.sh, otherwise Hyprland
       shows a missing-file error.)
      Or add the rule directly:
      windowrule {
-         name = filee-donut
-         match:title = ^(Filee Donut)$
+         name = tsufiles-donut
+         match:title = ^(TsuFiles Donut)$
          float = on
          move = (cursor_x-(window_w*0.5)) (cursor_y-(window_h*0.5))
          border_size = 0
@@ -113,11 +113,11 @@ libwayland-client0 on Ubuntu). To turn it on:
          no_blur = on
      }
    In hyprland.conf (Hyprland older than 0.53, which still uses windowrulev2):
-     windowrulev2 = float, title:^(Filee Donut)$
-     windowrulev2 = move cursor -50% -50%, title:^(Filee Donut)$
-     windowrulev2 = noborder, title:^(Filee Donut)$
-     windowrulev2 = noshadow, title:^(Filee Donut)$
-     windowrulev2 = noblur, title:^(Filee Donut)$
+     windowrulev2 = float, title:^(TsuFiles Donut)$
+     windowrulev2 = move cursor -50% -50%, title:^(TsuFiles Donut)$
+     windowrulev2 = noborder, title:^(TsuFiles Donut)$
+     windowrulev2 = noshadow, title:^(TsuFiles Donut)$
+     windowrulev2 = noblur, title:^(TsuFiles Donut)$
    Hyprland reloads its config when the file changes; hyprctl reload forces it.
 
 Native Wayland Backend (experimental, off by default):

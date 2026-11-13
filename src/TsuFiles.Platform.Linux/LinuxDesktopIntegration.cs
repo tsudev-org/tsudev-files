@@ -90,7 +90,11 @@ internal sealed class LinuxDesktopIntegration(string configHome, string dataHome
 
     public void SetAutostart(bool enabled, string executablePath)
     {
-        var path = Path.Combine(configHome, "autostart", "filee.desktop");
+        var path = Path.Combine(configHome, "autostart", TsuFiles.Core.ForkDefaults.UnixFolderName + ".desktop");
+        // TsuFiles 2.4.1: the autostart entry of 2.4.0-vn.* (filee.desktop) starts an executable renamed since.
+        var legacy = Path.Combine(configHome, "autostart", "filee.desktop");
+        if (File.Exists(legacy))
+            File.Delete(legacy);
         if (!enabled)
         {
             File.Delete(path);
@@ -105,12 +109,24 @@ internal sealed class LinuxDesktopIntegration(string configHome, string dataHome
         var thunarPath = Path.Combine(configHome, "Thunar", "uca.xml");
         var menuPaths = new[]
         {
-            Path.Combine(dataHome, "Thunar", "sendto", "filee.desktop"),
+            Path.Combine(dataHome, "Thunar", "sendto", "tsufiles.desktop"),
             // TsuFiles: Nautilus hiện đúng tên tệp script trong trình đơn Scripts.
-            Path.Combine(dataHome, "nautilus", "scripts", TsuFiles.Core.ForkDefaults.InstalledName),
-            Path.Combine(dataHome, "nemo", "actions", "filee.nemo_action"),
-            Path.Combine(dataHome, "kio", "servicemenus", "filee.desktop"),
+            Path.Combine(dataHome, "nautilus", "scripts", TsuFiles.Core.ForkDefaults.DisplayName),
+            Path.Combine(dataHome, "nemo", "actions", "tsufiles.nemo_action"),
+            Path.Combine(dataHome, "kio", "servicemenus", "tsufiles.desktop"),
         };
+        // TsuFiles 2.4.1: the entries of 2.4.0-vn.* (and Filee) under the old names go, on or off.
+        foreach (var legacy in new[]
+                 {
+                     Path.Combine(dataHome, "Thunar", "sendto", "filee.desktop"),
+                     Path.Combine(dataHome, "nautilus", "scripts", TsuFiles.Core.ForkDefaults.LegacyInstalledName),
+                     Path.Combine(dataHome, "nemo", "actions", "filee.nemo_action"),
+                     Path.Combine(dataHome, "kio", "servicemenus", "filee.desktop"),
+                 })
+        {
+            if (File.Exists(legacy))
+                File.Delete(legacy);
+        }
         var thunar = LoadThunarActions(thunarPath);
         UpdateThunarAction(thunar, enabled, executablePath, label);
         // TsuFiles: bỏ script mang tên cũ "Filee" (bản cài Filee gốc), bật hay tắt đều vậy.

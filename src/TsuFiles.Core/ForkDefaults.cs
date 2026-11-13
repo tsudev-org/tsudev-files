@@ -38,10 +38,10 @@ public static class ForkDefaults
     public const string DisplayName = "TsuFiles";
 
     /// <summary>
-    /// Tên mà bản 2.4.0-vn.* đã cài và trình cập nhật của nó dựa vào: lối tắt (tsudev-files.lnk), script Nautilus,
-    /// tiền tố tệp phát hành. Đổi sang "tsufiles" ở bản 2.4.1 kèm di trú (ADR-0003 bước T3), không đổi riêng lẻ.
+    /// Tên bản 2.4.0-vn.* dùng cho lối tắt (tsudev-files.lnk) và script Nautilus: bản 2.4.1 dọn chúng và dùng
+    /// <see cref="DisplayName"/> (ADR-0003 T3b-4).
     /// </summary>
-    public const string InstalledName = "tsudev-files";
+    public const string LegacyInstalledName = "tsudev-files";
 
     /// <summary>
     /// Số build nguyên, tăng 1 ở MỖI bản phát hành (bắt buộc cập nhật so số này với "moiNhat"/"toiThieu" trong
@@ -63,11 +63,20 @@ public static class ForkDefaults
     /// <summary>Tên thư mục dữ liệu của bản 2.4.0-vn.* và Filee gốc.</summary>
     public const string LegacyDataFolderName = UpstreamName;
 
+    /// <summary>Định danh bundle macOS từ bản 2.4.1 (ADR-0003 T3b-4): TsuFiles.app, LaunchAgent, dịch vụ Finder.</summary>
+    public const string BundleIdentifier = "com.tsudev.tsufiles";
+
+    /// <summary>Định danh bundle của Filee.app (2.4.0-vn.* và Filee gốc): bộ cài macOS gỡ bản đó, ứng dụng dọn LaunchAgent cũ.</summary>
+    public const string LegacyBundleIdentifier = "com.filee.app";
+
     /// <summary>Tên thư mục chữ thường kiểu Unix: ~/.cache/tsufiles (bản cũ: ~/.cache/filee).</summary>
     public const string UnixFolderName = "tsufiles";
 
-    /// <summary>Tiền tố tên tệp phát hành: tsudev-files-&lt;phiên bản&gt;-win-Setup.exe, ...</summary>
-    public const string ReleaseFilePrefix = InstalledName;
+    /// <summary>
+    /// Tiền tố tên tệp phát hành: tsudev-files-&lt;phiên bản&gt;-win-Setup.exe, ... GIỮ NGUYÊN: trình cập nhật của bản
+    /// 2.4.0-vn.1 đã cài chỉ nhận tiền tố này (ADR-0003 mục 5).
+    /// </summary>
+    public const string ReleaseFilePrefix = "tsudev-files";
 
     /// <summary>
     /// Đổi tên hiển thị trong một đoạn văn bản cho người dùng (bản dịch, tiêu đề cửa sổ, thông báo dòng lệnh).

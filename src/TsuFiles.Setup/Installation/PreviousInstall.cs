@@ -81,7 +81,7 @@ public sealed record PreviousInstall(
         RecordedTasks?.Startup ?? true,
         PathVariable.IsOnPath(registry, Scope, Path.Combine(Folder, SetupNames.CliFolder)),
         File.Exists(Path.Combine(paths.Desktop(Scope), SetupNames.ShortcutName))
-        || File.Exists(Path.Combine(paths.Desktop(Scope), SetupNames.LegacyShortcutName))); // TsuFiles: lối tắt của Filee gốc
+        || SetupNames.LegacyShortcutNames.Any(name => File.Exists(Path.Combine(paths.Desktop(Scope), name)))); // TsuFiles: lối tắt của bản cũ
 }
 
 /// <summary>Filee 1.1 and earlier, installed by Velopack into %LocalAppData%\Filee for one user.</summary>

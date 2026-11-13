@@ -19,7 +19,7 @@ import tempfile
 import time
 
 
-UUID = "filee-donut@filee.sh"
+UUID = "tsufiles-donut@tsudev.com"
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -51,7 +51,7 @@ def inside(output, extension):
     shutil.copytree(extension, output / "data/gnome-shell/extensions" / UUID)
     subprocess.run(["gsettings", "set", "org.gnome.shell", "enabled-extensions", f"['{UUID}']"], check=True)
     version = subprocess.check_output(["gnome-shell", "--version"], text=True).strip()
-    address = runtime / "filee-gnome/pointer.sock"
+    address = runtime / "tsufiles-gnome/pointer.sock"
     with (output / "gnome-shell.log").open("w") as log:
         shell = subprocess.Popen(
             ["gnome-shell", "--headless", "--wayland", "--virtual-monitor", "1280x720",

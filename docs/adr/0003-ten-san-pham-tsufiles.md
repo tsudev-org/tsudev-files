@@ -64,6 +64,18 @@ Hệ quả (thay dòng "Tệp phát hành" ở bảng mục 2): **tiền tố t�
 `Filee` (lối chuyển tiếp gọi sang `TsuFiles`) và `install.sh` để lại lối chuyển tiếp ở thư mục cài cũ cho lần chạy lại
 đầu tiên. Thư mục dữ liệu và biến môi trường không bị ràng buộc này (T3b-1, `Settings/LegacyDataMigration.cs`).
 
+## 6. Bổ sung 13/11/2026 - T3b-4 (chủ dự án duyệt đổi bundle macOS, repo và thư mục)
+
+- macOS: `TsuFiles.app`, `com.tsudev.tsufiles` (chấp nhận người dùng cấp lại quyền). Linux: extension
+  `tsufiles-donut@tsudev.com`, KWin `tsufiles-donut`, WM_CLASS `TsuFiles`, `com.tsudev.tsufiles.desktop`. Windows: giá trị
+  Run và khóa `*\shell\TsuFiles`, lối tắt `TsuFiles.lnk`.
+- **Giữ có chủ đích** (bản 2.4.0-vn.1 đã cài hoặc dữ liệu người dùng phụ thuộc, không hiển thị cho người dùng):
+  tiền tố tệp phát hành `tsudev-files-` và launcher `Filee` (mục 5); thư mục cài Linux `~/.local/share/filee/application`
+  và tệp đánh dấu `.filee-package` = `com.filee.app` (trình cập nhật 2.4.0 dùng nó tìm thư mục cài); khóa
+  `X-Filee-Managed`; AppGuid Inno Setup và các giá trị `Filee Setup: *` (Setup đọc lựa chọn cũ); định danh gói MSIX
+  `Filee.ExplorerMenu` / `CN=Filee` (đổi phải tính lại FamilyName và gỡ gói cũ - tên hiển thị đã là TsuFiles); marker
+  engine `.filee-component` (đổi thì engine đã tải bị coi là chưa cài); id hành động Thunar `filee-convert`.
+
 ## 7. Bổ sung 13/11/2026 - T4 đổi tên repo
 
 - 13/11/2026: `tsudev-org/tsudev-files` đổi thành **`tsudev-org/tsufiles`** (`gh repo rename`). Secret scanning, push

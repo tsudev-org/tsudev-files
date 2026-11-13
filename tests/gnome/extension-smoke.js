@@ -8,7 +8,7 @@ let pointer = [500, 400, 0];
 let map;
 let moves = [];
 const window = {
-    get_title: () => 'Filee Donut', get_wm_class: () => 'Filee', get_wm_class_instance: () => 'Filee',
+    get_title: () => 'TsuFiles Donut', get_wm_class: () => 'TsuFiles', get_wm_class_instance: () => 'TsuFiles',
     get_gtk_application_id: () => null, get_frame_rect: () => ({x: 0, y: 0, width: 400, height: 400}),
     get_pid: () => new Gio.Credentials().get_unix_pid(), get_window_type: () => Meta.WindowType.NORMAL,
     showing_on_its_workspace: () => true, make_above() {}, raise() {}, move_frame: (_user, x, y) => moves.push([x, y]),
@@ -24,10 +24,10 @@ const [ok, bytes] = GLib.file_get_contents(path);
 assert(ok, 'read extension');
 const source = new TextDecoder().decode(bytes).replace(/^import .*;\n/gm, '').replace('export default class', 'class');
 const ExtensionClass = new Function('Clutter', 'Gio', 'GLib', 'Meta', 'Extension', 'Main', 'global',
-    `${source}\nreturn FileeDonutExtension;`)(Clutter, Gio, GLib, Meta, class {}, Main, shell);
+    `${source}\nreturn TsuFilesDonutExtension;`)(Clutter, Gio, GLib, Meta, class {}, Main, shell);
 const loop = new GLib.MainLoop(null, false);
 const extension = new ExtensionClass();
-const socketPath = `${GLib.get_user_runtime_dir()}/filee-gnome/pointer.sock`;
+const socketPath = `${GLib.get_user_runtime_dir()}/tsufiles-gnome/pointer.sock`;
 let connection;
 function settle(ms) {
     return new Promise(resolve => GLib.timeout_add(GLib.PRIORITY_DEFAULT, ms, () => { resolve(); return GLib.SOURCE_REMOVE; }));

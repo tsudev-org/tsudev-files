@@ -1,4 +1,4 @@
-HƯỚNG DẪN CÀI ĐẶT TSUDEV-FILES TRÊN macOS (bản Việt hóa của Filee)
+HƯỚNG DẪN CÀI ĐẶT TSUFILES TRÊN macOS (bản Việt hóa của Filee)
 Bản tiếng Anh: INSTALL.txt. Thông báo của install.sh/uninstall.sh mặc định là
 tiếng Việt; đặt TSUFILES_LANG=en để xem tiếng Anh.
 
@@ -6,10 +6,10 @@ Yêu cầu macOS 13 trở lên. Gói có bản riêng cho Apple Silicon hoặc I
 .NET runtime.
 
 Cài đặt:
-- Chạy ./install.sh để chép Filee.app vào ~/Applications và tạo lệnh
+- Chạy ./install.sh để chép TsuFiles.app vào ~/Applications và tạo lệnh
   ~/.local/bin/tsufiles.
-- Từ tệp .dmg: kéo Filee.app thả vào Applications (cách này không có lệnh filee).
-- Có thể tự chuyển Filee.app vào Applications. Hãy giữ nguyên vị trí của nó để
+- Từ tệp .dmg: kéo TsuFiles.app thả vào Applications (cách này không có lệnh tsufiles).
+- Có thể tự chuyển TsuFiles.app vào Applications. Hãy giữ nguyên vị trí của nó để
   quyền Accessibility và Finder Automation tiếp tục nhận đúng ứng dụng.
 
 Gói thử nghiệm chỉ được ký ad-hoc, chưa notarize. Với bản tải từ .dmg hoặc tự
@@ -22,7 +22,7 @@ Quyền cần cấp:
   chỉ toàn cục. TsuFiles hỏi một lần; trước khi được phép, trang Home sẽ báo.
 - Sau khi cập nhật hoặc cài lại, macOS có thể vẫn hiện TsuFiles đang bật nhưng cử
   chỉ vẫn chờ quyền: mục đó thuộc bản cũ (ký khác). Chọn TsuFiles, xóa bằng nút -,
-  rồi thêm lại Filee.app bằng nút + và bật lên.
+  rồi thêm lại TsuFiles.app bằng nút + và bật lên.
 - Cho phép Finder trong Automation nếu dùng phím tắt theo vùng chọn.
 - Bật Finder Quick Action trong Cài đặt của TsuFiles. Có thể quản lý Services ở
   System Settings > Keyboard > Keyboard Shortcuts > Services.
@@ -31,7 +31,7 @@ Gỡ cài đặt: ./uninstall.sh
 - Xóa bản cài trong ~/Applications, phần tích hợp hệ thống và các engine do
   TsuFiles tải về. Cài đặt và các tệp đã chuyển đổi của bạn được giữ lại.
 - Nếu bước dọn tích hợp lỗi, bản cài được giữ để bạn sửa lỗi rồi chạy lại.
-- Bản tự đặt trong /Applications: chạy tệp thực thi Filee.app/Contents/MacOS/TsuFiles (bản 2.4.0: .../MacOS/Filee) của nó với
+- Bản tự đặt trong /Applications: chạy tệp thực thi TsuFiles.app/Contents/MacOS/TsuFiles của nó với
   --uninstall-cleanup rồi xóa ứng dụng.
 
 Engine: rhwp và 7-Zip có sẵn. Engine khác cài trong Cài đặt của TsuFiles hoặc dùng

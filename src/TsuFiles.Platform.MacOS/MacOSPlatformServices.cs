@@ -82,7 +82,11 @@ public sealed class MacOSPlatformServices : IPlatformServices
 
     public void SetStartWithSystem(bool enabled, string executablePath)
     {
-        var path = Path.Combine(UserLibrary, "LaunchAgents", "com.filee.app.plist");
+        var path = Path.Combine(UserLibrary, "LaunchAgents", TsuFiles.Core.ForkDefaults.BundleIdentifier + ".plist");
+        // TsuFiles 2.4.1: the agent of Filee.app (2.4.0-vn.*) starts an app that is gone after the update.
+        var legacy = Path.Combine(UserLibrary, "LaunchAgents", TsuFiles.Core.ForkDefaults.LegacyBundleIdentifier + ".plist");
+        if (File.Exists(legacy))
+            File.Delete(legacy);
         if (!enabled)
         {
             File.Delete(path);

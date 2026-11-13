@@ -10,29 +10,40 @@ say() {
 }
 
 source_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
-install_dir="$HOME/Applications/Filee.app"
+install_dir="$HOME/Applications/TsuFiles.app"
 bin_dir="$HOME/.local/bin"
 if [ -e "$install_dir" ] || [ -L "$install_dir" ]; then
     say "Đã có bản cài tại $install_dir. Hãy chạy uninstall.sh trước." "An installation already exists at $install_dir. Run uninstall.sh first."
     exit 1
+fi
+# TsuFiles 2.4.0-vn.* was ~/Applications/Filee.app (bundle com.filee.app): replaced by TsuFiles.app. Its settings and
+# downloaded engines stay; TsuFiles moves them to its own folders when it starts. macOS asks for the Accessibility and
+# Finder Automation permissions again, since the bundle identifier changed.
+legacy_dir="$HOME/Applications/Filee.app"
+if [ -d "$legacy_dir" ] && [ ! -L "$legacy_dir" ] \
+    && [ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$legacy_dir/Contents/Info.plist" 2>/dev/null)" = 'com.filee.app' ]; then
+    if [ -x "$legacy_dir/Contents/MacOS/Filee" ]; then "$legacy_dir/Contents/MacOS/Filee" --quit >/dev/null 2>&1 || true; fi
+    rm -rf -- "$legacy_dir"
+    rm -f -- "$HOME/Library/LaunchAgents/com.filee.app.plist"
+    say "Đã gỡ Filee.app của bản cũ; cài đặt và engine đã tải được giữ." "Removed the Filee.app of the earlier version; settings and downloaded engines were kept."
 fi
 # A tsufiles link left by an earlier TsuFiles whose app is gone (moved to the Trash instead of uninstall.sh) is
 # replaced. Anything else at that path isn't ours and stays.
 stale_link=false
 if [ -L "$bin_dir/tsufiles" ] && [ ! -e "$bin_dir/tsufiles" ]; then
     case $(readlink "$bin_dir/tsufiles") in
-        */Filee.app/Contents/MacOS/tsufiles-cli) stale_link=true ;;
+        */TsuFiles.app/Contents/MacOS/tsufiles-cli) stale_link=true ;;
     esac
 fi
 if [ "$stale_link" = false ] && { [ -e "$bin_dir/tsufiles" ] || [ -L "$bin_dir/tsufiles" ]; }; then
     say "$bin_dir/tsufiles đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài TsuFiles." "$bin_dir/tsufiles already exists. Remove or rename it before installing TsuFiles."
     exit 1
 fi
-test -x "$source_dir/Filee.app/Contents/MacOS/TsuFiles"
+test -x "$source_dir/TsuFiles.app/Contents/MacOS/TsuFiles"
 mkdir -p "$HOME/Applications" "$bin_dir"
-/usr/bin/ditto "$source_dir/Filee.app" "$install_dir"
-# ditto keeps the download's quarantine flag: macOS would then start Filee from a translocated copy and could stop
-# the filee command without a word (#316).
+/usr/bin/ditto "$source_dir/TsuFiles.app" "$install_dir"
+# ditto keeps the download's quarantine flag: macOS would then start TsuFiles from a translocated copy and could stop
+# the tsufiles command without a word (#316).
 /usr/bin/xattr -dr com.apple.quarantine "$install_dir" 2>/dev/null || true
 if [ "$stale_link" = true ]; then
     rm -f -- "$bin_dir/tsufiles"

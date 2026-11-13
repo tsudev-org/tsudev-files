@@ -47,7 +47,16 @@ Sản phẩm đổi tên thành **TsuFiles** ([ADR-0003](docs/adr/0003-ten-san-p
 - **Tệp chạy ứng dụng `TsuFiles`:** Windows `TsuFiles.exe` (cài mới vào thư mục `TsuFiles`; cập nhật giữ thư mục cũ,
   Setup đóng `Filee.exe` của bản 2.4.0 rồi thay bằng `TsuFiles.exe`, lối tắt Gửi tới đổi thành `TsuFiles`), Linux
   `TsuFiles` (gói vẫn kèm tệp khởi chạy `Filee` để trình cập nhật của bản 2.4.0-vn.1 cập nhật được), macOS
-  `Filee.app/Contents/MacOS/TsuFiles`.
+  `TsuFiles.app/Contents/MacOS/TsuFiles`.
+- **macOS: `TsuFiles.app`, định danh `com.tsudev.tsufiles`** (thay `Filee.app`, `com.filee.app`). `install.sh` gỡ
+  `~/Applications/Filee.app` của bản cũ (cài đặt, engine giữ nguyên). macOS sẽ hỏi lại quyền Accessibility và Finder
+  Automation một lần; mục dịch vụ Finder thành "Chuyển đổi bằng TsuFiles".
+- **Linux:** extension GNOME đổi thành `tsufiles-donut@tsudev.com` (nâng cấp gỡ `filee-donut@filee.sh` và giữ trạng
+  thái bật), script KWin `tsufiles-donut`, luật Hyprland `hyprland/tsufiles-donut.conf` (tệp `filee-donut.conf` còn giữ
+  để cấu hình cũ không lỗi), lớp cửa sổ `TsuFiles`, tiêu đề donut "TsuFiles Donut", trình đơn ứng dụng
+  `com.tsudev.tsufiles.desktop`. Người tự cài script KWin cần cài lại theo `INSTALL.txt`.
+- **Windows:** mục khởi động và menu chuột phải cổ điển mang tên `TsuFiles` (giá trị `Filee` cũ được dọn), lối tắt
+  `TsuFiles.lnk` (dọn `tsudev-files.lnk`, `Filee.lnk`).
 
 ## 2.4.0-vn.1
 

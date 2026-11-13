@@ -1,6 +1,6 @@
 # GNOME Wayland
 
-Filee supports drag gestures on GNOME Wayland through the **Filee donut at the cursor** GNOME Shell extension.
+TsuFiles supports drag gestures on GNOME Wayland through the **TsuFiles donut at the cursor** GNOME Shell extension.
 
 The extension provides the pointer state required by Filee without access to `/dev/input`, membership in the `input` group, or running Filee as root.
 
@@ -16,10 +16,10 @@ Install Filee normally:
 ./install.sh
 ```
 
-On a GNOME session, `install.sh` puts the extension in `~/.local/share/gnome-shell/extensions/filee-donut@filee.sh` and asks GNOME to enable it. Then:
+On a GNOME session, `install.sh` puts the extension in `~/.local/share/gnome-shell/extensions/tsufiles-donut@tsudev.com` and asks GNOME to enable it. Then:
 
 1. Open the **Extensions** application.
-2. Enable **Filee donut at the cursor**.
+2. Enable **TsuFiles donut at the cursor**.
 3. Log out and back in if the extension does not appear.
 4. Start Filee and make sure gesture detection is enabled under **Triggers**.
 
@@ -63,7 +63,7 @@ If the wheel does not appear:
 
 - Make sure Filee is not paused.
 - Check that the drag gesture is enabled under **Triggers**.
-- Make sure **Filee donut at the cursor** is enabled. If Extensions reports **Out of date**, use an extension release that declares support for your GNOME major version, then sign out and sign in.
+- Make sure **TsuFiles donut at the cursor** is enabled. If Extensions reports **Out of date**, use an extension release that declares support for your GNOME major version, then sign out and sign in.
 - Make sure Files / Nautilus is not excluded.
 - Do not run Filee with `sudo`.
 - If the extension was installed or updated recently, log out and back in.
@@ -71,13 +71,13 @@ If the wheel does not appear:
 To check the extension:
 
 ```sh
-gnome-extensions info filee-donut@filee.sh
+gnome-extensions info tsufiles-donut@tsudev.com
 ```
 
 To check the communication socket:
 
 ```sh
-ls -l "$XDG_RUNTIME_DIR/filee-gnome/pointer.sock"
+ls -l "$XDG_RUNTIME_DIR/tsufiles-gnome/pointer.sock"
 ```
 
 When connected successfully, Filee's log (`~/.config/TsuFiles/logs/`) contains:
@@ -105,8 +105,8 @@ GNOME Shell 51.1 still reported the cached version 2 after the files were replac
 method returned `NotSupported`. **Sign out and sign in again**, then check the extension and Filee:
 
 ```sh
-gnome-extensions info filee-donut@filee.sh
-ls -l "$XDG_RUNTIME_DIR/filee-gnome/pointer.sock"
+gnome-extensions info tsufiles-donut@tsudev.com
+ls -l "$XDG_RUNTIME_DIR/tsufiles-gnome/pointer.sock"
 ```
 
 The extension should report version **3** and state **ACTIVE**. Filee should show gesture detection running and
@@ -147,7 +147,7 @@ filee_runtime_test=$(mktemp -d /tmp/filee-gjs-XXXXXX)
 XDG_RUNTIME_DIR="$filee_runtime_test" \
 GI_TYPELIB_PATH=/usr/lib64/mutter-51 \
 LD_LIBRARY_PATH=/usr/lib64/mutter-51 \
-gjs tests/gnome/extension-smoke.js "$PWD/installer/linux/gnome/filee-donut@filee.sh/extension.js"
+gjs tests/gnome/extension-smoke.js "$PWD/installer/linux/gnome/tsufiles-donut@tsudev.com/extension.js"
 ```
 
 Adjust the typelib and library paths for a different distribution or Mutter version.

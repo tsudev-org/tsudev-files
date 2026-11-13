@@ -21,7 +21,10 @@ public static class SetupNames
     /// <summary>Filee's startup entry is the value <see cref="AppName"/> here (HKCU; WindowsPlatformServices writes it).</summary>
     public const string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
-    public const string AppName = "Filee";
+    public const string AppName = TsuFiles.Core.ForkDefaults.DisplayName;
+
+    /// <summary>TsuFiles 2.4.0-vn.* (and Filee): the startup value's name before 2.4.1.</summary>
+    public const string LegacyAppName = "Filee";
 
     /// <summary>TsuFiles: tên hiển thị trong Apps &amp; Features (AppName vẫn là tên giá trị registry nội bộ).</summary>
     public const string DisplayName = TsuFiles.Core.ForkDefaults.DisplayName;
@@ -55,10 +58,14 @@ public static class SetupNames
 
     /// <summary>Start menu and desktop shortcut name.</summary>
     // TsuFiles: lối tắt mang tên hiển thị; lối tắt "Filee.lnk" của bản cài cũ (Filee gốc, 1.x) được dọn khi cài/gỡ.
-    public const string ShortcutName = TsuFiles.Core.ForkDefaults.InstalledName + ".lnk";
+    public const string ShortcutName = TsuFiles.Core.ForkDefaults.DisplayName + ".lnk";
 
     /// <summary>TsuFiles: tên lối tắt của Filee gốc (Velopack 1.1, Inno Setup 1.x và Setup 2.x của upstream).</summary>
     public const string LegacyShortcutName = "Filee.lnk";
+
+    /// <summary>TsuFiles: lối tắt của các bản cũ, dọn khi cài/gỡ: Filee gốc và TsuFiles 2.4.0-vn.* (tsudev-files.lnk).</summary>
+    public static readonly IReadOnlyList<string> LegacyShortcutNames =
+        [LegacyShortcutName, TsuFiles.Core.ForkDefaults.LegacyInstalledName + ".lnk"];
 
     /// <summary>Registry values Setup adds to the uninstall key (Inno Setup kept the same in "Inno Setup: …").</summary>
     public const string TasksValue = "Filee Setup: Tasks";
