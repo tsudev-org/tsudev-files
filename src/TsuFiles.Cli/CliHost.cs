@@ -29,12 +29,12 @@ internal sealed class CliHost : IAsyncDisposable
     public ILocalizer Texts { get; } = new CliTexts();
 
     /// <summary>
-    /// The installer Settings → Engines uses, on EngineEnvironment.DownloadRoot (the engines folder in FILEE_DATA_DIR
+    /// The installer Settings → Engines uses, on EngineEnvironment.DownloadRoot (the engines folder in TSUFILES_DATA_DIR
     /// when that is set). Created when 'filee engines' first needs it.
     /// </summary>
     public EngineInstaller Engines => _engines ??= new EngineInstaller(EngineInstaller.CreateHttpClient(Timeout.InfiniteTimeSpan));
 
-    /// <param name="dataDirectory">Settings folder; the app's (%APPDATA%\Filee) when null.</param>
+    /// <param name="dataDirectory">Settings folder; the app's (%APPDATA%\TsuFiles) when null.</param>
     /// <param name="engines">Installer of the optional engines (tests pass one with their own folder and downloads).</param>
     public static CliHost Create(string? dataDirectory = null, EngineInstaller? engines = null)
     {

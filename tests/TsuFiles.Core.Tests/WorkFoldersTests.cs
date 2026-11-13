@@ -17,7 +17,7 @@ public class WorkFoldersTests
         Assert.Equal(WorkFolders.Root, JobQueue.DefaultWorkRoot);
         Assert.Equal(Path.Combine(WorkFolders.Root, "web"), WebDrop.DefaultWorkRoot);
         if (OperatingSystem.IsWindows())
-            Assert.Equal(Path.Combine(Path.GetTempPath(), "Filee"), WorkFolders.Root); // as before: %TEMP% is the user's
+            Assert.Equal(Path.Combine(Path.GetTempPath(), "TsuFiles"), WorkFolders.Root); // as before: %TEMP% is the user's
     }
 
     [Fact]
@@ -26,10 +26,10 @@ public class WorkFoldersTests
         var home = OperatingSystem.IsWindows() ? @"C:\Users\someone" : "/home/someone";
         var cache = OperatingSystem.IsWindows() ? @"D:\cache" : "/srv/cache/someone";
 
-        Assert.Equal(Path.Combine(home, ".cache", "filee"), WorkFolders.UnixRoot(null, home, macOS: false));
-        Assert.Equal(Path.Combine(cache, "filee"), WorkFolders.UnixRoot(cache, home, macOS: false));
-        Assert.Equal(Path.Combine(home, ".cache", "filee"), WorkFolders.UnixRoot("relative/cache", home, macOS: false)); // ignored, as XDG says
-        Assert.Equal(Path.Combine(home, "Library", "Caches", "Filee"), WorkFolders.UnixRoot(cache, home, macOS: true));
+        Assert.Equal(Path.Combine(home, ".cache", "tsufiles"), WorkFolders.UnixRoot(null, home, macOS: false));
+        Assert.Equal(Path.Combine(cache, "tsufiles"), WorkFolders.UnixRoot(cache, home, macOS: false));
+        Assert.Equal(Path.Combine(home, ".cache", "tsufiles"), WorkFolders.UnixRoot("relative/cache", home, macOS: false)); // ignored, as XDG says
+        Assert.Equal(Path.Combine(home, "Library", "Caches", "TsuFiles"), WorkFolders.UnixRoot(cache, home, macOS: true));
         Assert.Null(WorkFolders.UnixRoot(null, "", macOS: false));
         Assert.Null(WorkFolders.UnixRoot("", null, macOS: true));
     }

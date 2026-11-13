@@ -314,7 +314,7 @@ public class PortugueseRenderTests
     // Geometry assertions always run; PNG encoding is opt-in for a visual review.
     private static void Capture(TopLevel window, string name)
     {
-        if (Environment.GetEnvironmentVariable("FILEE_LOCALIZATION_SCREENSHOTS") == "1")
+        if (Environment.GetEnvironmentVariable("TSUFILES_LOCALIZATION_SCREENSHOTS") == "1")
             RenderTests.Save(window, name);
     }
 

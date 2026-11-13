@@ -49,7 +49,7 @@ translated READMEs to update.
 A slide may supply `localizedMedia` entries, for example
 `"pt-PT": { "media": "pt-PT/crop.webp", "poster": 57 }`. The code uses the exact UI language, otherwise the shared
 recording; regional variants do not borrow each other's recordings. Poster indices belong to each recording.
-The optional `FILEE_WHATSNEW_LANGUAGE` environment variable makes `WhatsNewMedia.Generate_2_0_0` generate a
+The optional `TSUFILES_WHATSNEW_LANGUAGE` environment variable makes `WhatsNewMedia.Generate_2_0_0` generate a
 language's recordings and register them in the shared manifest. Rebuild App and Setup after generating them.
 The language-showcase slide intentionally demonstrates several languages and stays shared. Browser and flip
 are desktop recordings made outside the headless generator: retain the shared recordings until localized desktop
@@ -64,6 +64,6 @@ choices, whose group supplies additional context (Rotate → Left), and is a sep
 Add the key to **all** language files in the same pull request. In XAML use
 `Text="{DynamicResource my.key}"`; in code use `ILocalizer["my.key"]` or `ILocalizer.Format("my.key", arg)`.
 
-Set `FILEE_LOCALIZATION_SCREENSHOTS=1` for PNG captures in `PortugueseRenderTests`. Geometry assertions
+Set `TSUFILES_LOCALIZATION_SCREENSHOTS=1` for PNG captures in `PortugueseRenderTests`. Geometry assertions
 always run. Dispose directly created `MainWindowViewModel` fixtures: production `WindowService` owns their lifetime,
 but a window constructed directly in a test does not automatically unsubscribe its model.

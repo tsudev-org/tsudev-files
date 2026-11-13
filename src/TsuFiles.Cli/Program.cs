@@ -3,8 +3,12 @@
 
 using System.Text;
 using TsuFiles.Cli;
+using TsuFiles.Core.Settings;
 
 Console.OutputEncoding = Encoding.UTF8;
+// TsuFiles (ADR-0003 T3b): dữ liệu của bản 2.4.0-vn.* nằm ở thư mục "Filee"; chuyển một lần (không ghi gì ra màn hình,
+// đầu ra của lệnh có thể đang được script đọc).
+LegacyDataMigration.Run();
 using var cancel = new CancellationTokenSource();
 Console.CancelKeyPress += (_, e) =>
 {

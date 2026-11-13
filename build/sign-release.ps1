@@ -37,10 +37,10 @@
 param(
     [Parameter(Mandatory)]
     [string]$Version,
-    # Defaults to $env:FILEE_SIGNING_CERT (see sign-windows.ps1).
-    [string]$CertificateThumbprint = $env:FILEE_SIGNING_CERT,
-    # The private update key (build/new-update-key.ps1). Defaults to $env:FILEE_UPDATE_KEY (the path, not the key).
-    [string]$UpdateKey = $env:FILEE_UPDATE_KEY,
+    # Defaults to $env:TSUFILES_SIGNING_CERT (see sign-windows.ps1).
+    [string]$CertificateThumbprint = $env:TSUFILES_SIGNING_CERT,
+    # The private update key (build/new-update-key.ps1). Defaults to $env:TSUFILES_UPDATE_KEY (the path, not the key).
+    [string]$UpdateKey = $env:TSUFILES_UPDATE_KEY,
     [switch]$Publish,
     # Skips the copy to the download mirror (dl.filee.sh).
     [switch]$NoMirror
@@ -48,7 +48,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 if (-not $IsWindows) { throw 'Windows releases are signed on Windows.' }
-if (-not $CertificateThumbprint) { throw 'Pass -CertificateThumbprint or set FILEE_SIGNING_CERT.' }
+if (-not $CertificateThumbprint) { throw 'Pass -CertificateThumbprint or set TSUFILES_SIGNING_CERT.' }
 $root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $Version = $Version.TrimStart('v')
 $tag = "v$Version"
@@ -71,7 +71,7 @@ $props = [xml](git -C $root show "${tag}:Directory.Build.props" | Out-String)
 $publicKey = @($props.Project.PropertyGroup | ForEach-Object { $_.TsuFilesUpdatePublicKey } | Where-Object { $_ -is [string] -and $_.Trim() }) |
     Select-Object -First 1
 if ($publicKey -and -not $UpdateKey) {
-    throw "$tag carries an update key (TsuFilesUpdatePublicKey): pass -UpdateKey <private key file> or set FILEE_UPDATE_KEY."
+    throw "$tag carries an update key (TsuFilesUpdatePublicKey): pass -UpdateKey <private key file> or set TSUFILES_UPDATE_KEY."
 }
 if ($UpdateKey -and -not (Test-Path -LiteralPath $UpdateKey -PathType Leaf)) { throw "No private update key at $UpdateKey." }
 

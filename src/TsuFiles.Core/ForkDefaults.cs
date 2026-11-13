@@ -50,8 +50,21 @@ public static class ForkDefaults
     /// </summary>
     public const int BuildNumber = 2;
 
-    /// <summary>Tên của dự án gốc; vẫn là tên namespace, tệp chạy, thư mục dữ liệu và khóa registry.</summary>
+    /// <summary>Tên của dự án gốc; còn là tên tệp chạy và khóa registry tới khi T3b đổi xong (ADR-0003).</summary>
     public const string UpstreamName = "Filee";
+
+    /// <summary>
+    /// Tên thư mục dữ liệu từ bản 2.4.1 (ADR-0003 T3b): %APPDATA%\TsuFiles (cài đặt, nhật ký), %LOCALAPPDATA%\TsuFiles
+    /// (engine đã tải), %TEMP%\TsuFiles và ~/Library/Caches/TsuFiles (tệp làm việc). Bản cũ dùng
+    /// <see cref="LegacyDataFolderName"/>; Settings/LegacyDataMigration.cs chuyển sang một lần.
+    /// </summary>
+    public const string DataFolderName = "TsuFiles";
+
+    /// <summary>Tên thư mục dữ liệu của bản 2.4.0-vn.* và Filee gốc.</summary>
+    public const string LegacyDataFolderName = UpstreamName;
+
+    /// <summary>Tên thư mục chữ thường kiểu Unix: ~/.cache/tsufiles (bản cũ: ~/.cache/filee).</summary>
+    public const string UnixFolderName = "tsufiles";
 
     /// <summary>Tiền tố tên tệp phát hành: tsudev-files-&lt;phiên bản&gt;-win-Setup.exe, ...</summary>
     public const string ReleaseFilePrefix = InstalledName;

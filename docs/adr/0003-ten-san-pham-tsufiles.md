@@ -47,3 +47,19 @@ Giữ nguyên: thông báo bản quyền MIT của Myeonggu Kim (KnifeLemon) và
 - Script gọi `filee` phải sửa thành `tsufiles` (ghi rõ trong CHANGELOG 2.4.1).
 - Ảnh bìa `tsufiles-1.webp` có chữ "tsufiles.io" và "for the web" không đúng sự thật (sản phẩm là ứng dụng desktop,
   tên miền là files.tsudev.com): chỉ dùng phần con cú, không đăng nguyên ảnh.
+
+## 5. Bổ sung 13/11/2026 - ràng buộc của trình cập nhật bản 2.4.0-vn.1 (khảo sát T3b)
+
+Trình cập nhật trong bản 2.4.0-vn.1 đã cài (`v2.4.0-vn.1:src/Filee.App/Services/UpdateService.cs`) là thứ duy nhất đưa
+người dùng hiện có lên bản mới (bản đó chưa có cơ chế bắt buộc cập nhật). Nó đòi:
+
+1. Tên tệp cài khớp `^(?:Filee|tsudev-files)-(\d+\.\d+\.\d+)-` và hậu tố `-win-Setup.exe` / `-linux-<rid>.tar.gz`,
+   tệp tổng kiểm `-SHA256SUMS.txt` / `-linux-<rid>-SHA256SUMS.txt` ký bằng khóa cập nhật hiện tại.
+2. Linux: gói tar.gz có đúng một thư mục chứa `install.sh` VÀ tệp chạy tên `Filee`; sau `install.sh --upgrade` nó chạy
+   lại `<thư mục cài cũ>/Filee --background --whats-new` (thư mục cài cũ: `~/.local/share/filee/application`).
+3. Windows: chạy Setup mới; Setup phải tự tiếp quản bản cài dưới AppGuid cũ.
+
+Hệ quả (thay dòng "Tệp phát hành" ở bảng mục 2): **tiền tố tệp phát hành giữ `tsudev-files-`** chừng nào còn cần đưa bản
+2.4.0-vn.1 lên bản mới (đổi sang `tsufiles-` sẽ làm các bản đó im lặng không bao giờ cập nhật). Gói Linux giữ tệp
+`Filee` (lối chuyển tiếp gọi sang `TsuFiles`) và `install.sh` để lại lối chuyển tiếp ở thư mục cài cũ cho lần chạy lại
+đầu tiên. Thư mục dữ liệu và biến môi trường không bị ràng buộc này (T3b-1, `Settings/LegacyDataMigration.cs`).

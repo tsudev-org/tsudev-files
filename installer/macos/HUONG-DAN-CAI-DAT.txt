@@ -1,6 +1,6 @@
 HƯỚNG DẪN CÀI ĐẶT TSUDEV-FILES TRÊN macOS (bản Việt hóa của Filee)
 Bản tiếng Anh: INSTALL.txt. Thông báo của install.sh/uninstall.sh mặc định là
-tiếng Việt; đặt FILEE_LANG=en để xem tiếng Anh.
+tiếng Việt; đặt TSUFILES_LANG=en để xem tiếng Anh.
 
 Yêu cầu macOS 13 trở lên. Gói có bản riêng cho Apple Silicon hoặc Intel, đã kèm
 .NET runtime.

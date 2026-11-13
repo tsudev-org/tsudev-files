@@ -35,7 +35,7 @@ public sealed class SingleInstance : IDisposable
     public static SingleInstance Acquire() => Acquire(DefaultName);
 
     /// <summary>
-    /// The mutex and pipe name for a user. A copy started with FILEE_DATA_DIR (<paramref name="dataDirectoryOverride"/>)
+    /// The mutex and pipe name for a user. A copy started with TSUFILES_DATA_DIR (<paramref name="dataDirectoryOverride"/>)
     /// gets a name of its own, so it neither forwards to nor receives from the Filee the user runs.
     /// </summary>
     internal static string NameFor(string userName, string? dataDirectoryOverride)

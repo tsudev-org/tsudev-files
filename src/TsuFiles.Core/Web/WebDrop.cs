@@ -126,7 +126,7 @@ public sealed class WebDrop : IDisposable
     }
 
     /// <summary>
-    /// %TEMP%\Filee\web (~/.cache/filee/web on Linux, in <see cref="WorkFolders.Root"/>): originals that aren't kept
+    /// %TEMP%\TsuFiles\web (~/.cache/tsufiles/web on Linux, in <see cref="WorkFolders.Root"/>): originals that aren't kept
     /// are saved here and deleted after their conversion.
     /// </summary>
     public static string DefaultWorkRoot => Path.Combine(WorkFolders.Root, "web");

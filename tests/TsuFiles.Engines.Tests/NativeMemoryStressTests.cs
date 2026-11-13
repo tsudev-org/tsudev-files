@@ -2,7 +2,7 @@
 // threads while another thread keeps compacting the managed heap and a third drops the engines' caches the way the
 // idle memory trim does. Native code that keeps a pointer into an unpinned managed buffer, a callback whose delegate
 // was collected, or a cache release that frees something still in use crashes the test host or corrupts the output.
-// FILEE_STRESS_SECONDS runs it longer (the default keeps CI time low).
+// TSUFILES_STRESS_SECONDS runs it longer (the default keeps CI time low).
 
 using System.Runtime;
 using ImageMagick;
@@ -17,7 +17,7 @@ public class NativeMemoryStressTests(EngineFixture fx) : IClassFixture<EngineFix
     private const int Workers = 3;
 
     private static TimeSpan Duration =>
-        TimeSpan.FromSeconds(int.TryParse(Environment.GetEnvironmentVariable("FILEE_STRESS_SECONDS"), out var s) && s > 0 ? s : 6);
+        TimeSpan.FromSeconds(int.TryParse(Environment.GetEnvironmentVariable("TSUFILES_STRESS_SECONDS"), out var s) && s > 0 ? s : 6);
 
     [Fact]
     public async Task Native_conversions_survive_a_compacting_collector_and_cache_releases()

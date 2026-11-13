@@ -25,7 +25,7 @@
 | Chuỗi cung ứng CI | Tag action bị sửa, workflow bị lạm dụng | Action ghim SHA commit, `permissions` tối thiểu, `persist-credentials: false` ở workflow mới, `pull_request_target` không checkout mã PR |
 | Lộ bí mật trong repo | Commit nhầm khóa/token | gitleaks trong CI, `.gitignore` chuẩn tsudev, cổng kiểm `scripts/check-standards.sh` |
 | Phụ thuộc có lỗ hổng | Gói NuGet | Quản lý phiên bản tập trung (`Directory.Packages.props`), Dependabot hằng tuần, CI chặn gói High/Critical |
-| Đầu vào dòng lệnh | Biến môi trường `FILEE_LANG` | Danh sách trắng `vi`/`en`, giá trị lạ quay về mặc định |
+| Đầu vào dòng lệnh | Biến môi trường `TSUFILES_LANG` | Danh sách trắng `vi`/`en`, giá trị lạ quay về mặc định |
 
 ## 3. Cổng kiểm tự động
 

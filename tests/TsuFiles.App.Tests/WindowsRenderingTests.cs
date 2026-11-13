@@ -1,4 +1,4 @@
-// How Filee draws its transparent windows on Windows (issue #269): the FILEE_RENDERING escape hatch, the log line
+// How Filee draws its transparent windows on Windows (issue #269): the TSUFILES_RENDERING escape hatch, the log line
 // describing what Avalonia picked, Avalonia's own graphics errors in Filee's log, and backdrops Filee never asked for.
 
 using System.Runtime.InteropServices;
@@ -176,10 +176,10 @@ public class WindowsRenderingTests
     public void The_log_line_says_what_was_asked()
     {
         Assert.StartsWith("Rendering: ", WindowsRendering.Describe(null));
-        Assert.EndsWith("(FILEE_RENDERING not set)", WindowsRendering.Describe(null));
-        Assert.EndsWith("(FILEE_RENDERING=software)", WindowsRendering.Describe(" Software"));
-        Assert.EndsWith("(FILEE_RENDERING=vulkan)", WindowsRendering.Describe("Vulkan"));
-        Assert.EndsWith("(FILEE_RENDERING=opengl is unknown and ignored)", WindowsRendering.Describe("opengl"));
+        Assert.EndsWith("(TSUFILES_RENDERING not set)", WindowsRendering.Describe(null));
+        Assert.EndsWith("(TSUFILES_RENDERING=software)", WindowsRendering.Describe(" Software"));
+        Assert.EndsWith("(TSUFILES_RENDERING=vulkan)", WindowsRendering.Describe("Vulkan"));
+        Assert.EndsWith("(TSUFILES_RENDERING=opengl is unknown and ignored)", WindowsRendering.Describe("opengl"));
     }
 }
 

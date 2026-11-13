@@ -13,7 +13,7 @@
 
 .PARAMETER CertificateThumbprint
   SHA-1 thumbprint of the certificate ("Cert Hash(sha1)" in certutil -user -store My). Defaults to
-  $env:FILEE_SIGNING_CERT.
+  $env:TSUFILES_SIGNING_CERT.
 
 .EXAMPLE
   pwsh build/sign-windows.ps1 -Path publish\win-x64 -CertificateThumbprint <sha1>
@@ -22,12 +22,12 @@
 param(
     [Parameter(Mandatory)]
     [string[]]$Path,
-    [string]$CertificateThumbprint = $env:FILEE_SIGNING_CERT
+    [string]$CertificateThumbprint = $env:TSUFILES_SIGNING_CERT
 )
 
 $ErrorActionPreference = 'Stop'
 if (-not $IsWindows) { throw 'Authenticode signing needs Windows.' }
-if (-not $CertificateThumbprint) { throw 'Pass -CertificateThumbprint or set FILEE_SIGNING_CERT.' }
+if (-not $CertificateThumbprint) { throw 'Pass -CertificateThumbprint or set TSUFILES_SIGNING_CERT.' }
 $CertificateThumbprint = $CertificateThumbprint -replace '\s', ''
 
 $certificate = Get-Item "Cert:\CurrentUser\My\$CertificateThumbprint" -ErrorAction SilentlyContinue

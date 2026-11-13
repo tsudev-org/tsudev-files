@@ -53,7 +53,7 @@ body:
       label: Log
       description: |
         The last lines of the newest `filee-<date>.log`.
-        Windows: `%APPDATA%\Filee\logs`
-        macOS: `~/Library/Application Support/Filee/logs`
-        Linux: `~/.config/Filee/logs`
+        Windows: `%APPDATA%\TsuFiles\logs`
+        macOS: `~/Library/Application Support/TsuFiles/logs`
+        Linux: `~/.config/TsuFiles/logs`
       render: text

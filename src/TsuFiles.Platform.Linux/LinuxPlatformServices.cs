@@ -28,17 +28,17 @@ public sealed class LinuxPlatformServices : IPlatformServices
     // Enabling the Shell extension opts in; no /dev/input permission or environment setup is needed on GNOME.
     // Keep KDE's existing libinput opt-in independent. A value of 0 explicitly disables the GNOME bridge too.
     public static bool UsesGnomePointerBridge => IsGnomeWaylandSession
-        && Environment.GetEnvironmentVariable("FILEE_WAYLAND_GESTURES") != "0";
+        && Environment.GetEnvironmentVariable("TSUFILES_WAYLAND_GESTURES") != "0";
 
     public string? GnomePointerProcess { get; set; }
     public bool GnomePointerIsDesktop { get; set; }
 
-    // Wayland gestures (experimental) are opt-in: FILEE_WAYLAND_GESTURES=1 on KDE Plasma and Hyprland.
+    // Wayland gestures (experimental) are opt-in: TSUFILES_WAYLAND_GESTURES=1 on KDE Plasma and Hyprland.
     // libuiohook's libinput backend reads /dev/input, so /dev/input is only probed once the switch is set,
     // and it works once the user is in the `input` group. Presses carry no position and a mouse only moves
     // relatively there; a KWin script or Hyprland window rule places the donut at the cursor.
     private static readonly bool WaylandGestures = IsWaylandSession
-        && Environment.GetEnvironmentVariable("FILEE_WAYLAND_GESTURES") == "1"
+        && Environment.GetEnvironmentVariable("TSUFILES_WAYLAND_GESTURES") == "1"
         && WaylandSupport.IsSupportedCompositor(
             Environment.GetEnvironmentVariable("XDG_CURRENT_DESKTOP"),
             Environment.GetEnvironmentVariable("HYPRLAND_INSTANCE_SIGNATURE"))

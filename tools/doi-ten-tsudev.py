@@ -2,9 +2,9 @@
 """TsuFiles: đổi tên mã nguồn sang TsuFiles (ADR-0002 hard fork, ADR-0003 tên sản phẩm) - lặp lại an toàn.
 
 Nhận cả tên upstream (`Filee.*`, `Filee*`) lẫn tên trung gian của P5a (`Tsudev.Files.*`, `TsudevFiles*`,
-`tsudev-files.slnx`) và đổi thẳng sang `TsuFiles.*`, `TsuFiles*`, `TsuFiles.slnx`. KHÔNG đổi định danh lúc chạy (tệp
-chạy Filee.exe/filee-cli, AppGuid, thư mục dữ liệu, biến FILEE_*, COM/Explorer, GNOME, bundle macOS) - các thứ đó cần
-di trú cho bản đã cài, làm ở bước T3 (bản 2.4.1).
+`tsudev-files.slnx`) và đổi thẳng sang `TsuFiles.*`, `TsuFiles*`, `TsuFiles.slnx`. Từ T3b-1 (bản 2.4.1) đổi cả biến
+môi trường `FILEE_*` -> `TSUFILES_*` (không giữ tên cũ, ADR-0003). Các định danh lúc chạy khác (tệp chạy
+Filee.exe/filee-cli, AppGuid, COM/Explorer, GNOME, bundle macOS) cần di trú cho bản đã cài, đổi tay ở các PR T3b.
 
 Dùng:
   python3 -I tools/doi-ten-tsudev.py            đổi tên cả repo (git mv + sửa nội dung)
@@ -33,6 +33,9 @@ IDENTIFIERS = (
 )
 _SUFFIXES = "|".join(sorted((i[len("Filee"):] for i in IDENTIFIERS), key=len, reverse=True))
 IDENT = re.compile(r"\b(?:Filee|TsudevFiles)(" + _SUFFIXES + r")\b")
+
+# Biến môi trường (T3b-1): FILEE_DATA_DIR -> TSUFILES_DATA_DIR, ...
+ENV = re.compile(r"\b_?FILEE_(?=[A-Z0-9])")
 
 SOLUTIONS_OLD, SOLUTION_NEW = ("Filee.slnx", "tsudev-files.slnx"), "TsuFiles.slnx"
 
@@ -69,6 +72,7 @@ def solution(text: str) -> str:
 def rewrite(text: str) -> str:
     text = NS.sub(lambda m: "TsuFiles." + m.group(1), text)
     text = IDENT.sub(lambda m: "TsuFiles" + m.group(1), text)
+    text = ENV.sub(lambda m: m.group(0).replace("FILEE_", "TSUFILES_"), text)
     return solution(text)
 
 

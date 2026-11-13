@@ -10,7 +10,7 @@
  context    │ Home drop zone ─────────────────────────────┘                                      │
  menu       │                                              ▼                                      │
             │                                    ConversionService ──► ToastWindow (progress)     │
-            │ MainWindow (settings pages) ◄──► UserDataStore (JSON in %APPDATA%\Filee)            │
+            │ MainWindow (settings pages) ◄──► UserDataStore (JSON in %APPDATA%\TsuFiles)            │
             └──────────────────────────────────────────────┬──────────────────────────────────────┘
                                                            ▼
             ┌──────────────────────────── TsuFiles.Core ───────────────────────────────────────────┐
@@ -46,8 +46,8 @@
    it: its engine (`IEnvelopeOpener`) names that file's format, and the route opens it first, then goes on from there
    (`RoutePlanner.PlanThrough`: P7M → PDF → PNG).
 5. **Run** – `JobQueue` runs steps with per-engine concurrency limits. Intermediate files live in a work folder only
-   the user can open (`WorkFolders.Root`: `%TEMP%\Filee` on Windows; `~/.cache/filee` on Linux and
-   `~/Library/Caches/Filee` on macOS, mode 700, because `/tmp` is shared by every user); final outputs are named by `OutputPathResolver` (pattern, folder, conflict policy; the source is never overwritten).
+   the user can open (`WorkFolders.Root`: `%TEMP%\TsuFiles` on Windows; `~/.cache/tsufiles` on Linux and
+   `~/Library/Caches/TsuFiles` on macOS, mode 700, because `/tmp` is shared by every user); final outputs are named by `OutputPathResolver` (pattern, folder, conflict policy; the source is never overwritten).
    Each name stays reserved while a conversion holds it. A conversion that fails or is cancelled deletes what it began
    writing, but only at a path that was its alone: nothing was there before and no other conversion was handed the
    same name ("Overwrite"). It frees its names and removes an output folder it made if that is left empty.
@@ -98,7 +98,7 @@ that is one `<img>` and no text, or a Firefox file promise); a `DownloadURL` a p
 ends in an extension Filee converts and isn't a web page (`.html`, `.php`, none); last, picture pixels for a `blob:`
 picture. Plain text is never read. `data:` addresses are decoded.
 
-Until the conversion runs, the files stand as **placeholders** (`WebDrop`): paths in `%TEMP%\Filee\web\<drop>\drop\<n>\`
+Until the conversion runs, the files stand as **placeholders** (`WebDrop`): paths in `%TEMP%\TsuFiles\web\<drop>\drop\<n>\`
 (`web/` in the work root on Linux and macOS) named like the file will be, so the donut picks the profile by extension without touching the network. No HEAD request
 is made: a picture without an extension stands as `.jpg` and a link without one isn't offered. `ConversionService.Start`
 gives the job a `WebDropFetcher` (`ISourceFetcher`): `JobQueue` saves every source first (half of its progress), then
@@ -511,7 +511,7 @@ starting the GPU paths (`AvaloniaLogForwarder`), and describes each kind of tran
 shows (`TransparentWindows`). A system backdrop (Acrylic, Mica) or an accent blur on such a window turns its
 transparent area into a blurred rectangle (issue #269). Filee sets neither, so one found there came from another
 program: each time the window shows, a backdrop is set back to none and the accent (which can't be read back) is
-turned off. For a report that still shows the wrong thing, the `FILEE_RENDERING` environment variable picks another
+turned off. For a report that still shows the wrong thing, the `TSUFILES_RENDERING` environment variable picks another
 way to draw (`WindowsRendering`): `dcomp` (skip WinUI composition), `redirection` (Direct3D into the redirection
 surface) or `software` (no GPU); unset or `auto` keeps the defaults. Filee reads it at start. On ARM64, Avalonia's
 Adreno blocklist draws on the CPU through the Microsoft Basic Render Driver (issue #236), and three values try the GPU
@@ -547,11 +547,11 @@ applied by `WindowsPlatformServices.SetContextMenu` at start-up and whenever set
     don't need a new prompt: the DLL is loaded from the install folder and updated with the app. Bump it only when the
     manifest changes; the page then offers to add the entry again ("Outdated").
   - The DLL shows the entry only for files (not folders or items inside ZIP folders) and only while
-    `%APPDATA%\Filee\explorer-menu.txt` exists. The app writes the title in the UI language there while the setting is
+    `%APPDATA%\TsuFiles\explorer-menu.txt` exists. The app writes the title in the UI language there while the setting is
     on and deletes it when the setting is off, so switching the setting takes effect without re-registering. While the
     package is registered the classic verb is removed (Windows lists packaged commands under "Show more options" too).
   - Invoke starts `Filee.exe --convert "<path>"…` next to the DLL and returns at once. Selections longer than a
-    command line go through `%TEMP%\Filee-convert-*.txt` (`--convert-list`, one path per line), which the app deletes.
+    command line go through `%TEMP%\TsuFiles-convert-*.txt` (`--convert-list`, one path per line), which the app deletes.
   - Updates: Setup asks the running Filee to exit (`Filee.exe --quit`), then renames a `FileeExplorerMenu.dll` that
     Explorer still has loaded into its backup folder (Windows allows renaming a loaded DLL, not replacing or deleting
     it) and has Windows delete the old copy at the next restart, so updating needs no restart. An update keeps the
@@ -655,7 +655,7 @@ and standalone shell scripts (`install.sh`, `uninstall.sh`).
   spawns a detached `/bin/sh` helper, and requests application shutdown (`App.Quit`). Once the old process exits, the
   helper executes `install.sh --upgrade` (which safely moves the existing installation to a backup directory, validates the
   new files, and rolls back on failure or signal interruption), and restarts Filee with `--background --whats-new`.
-  Output and rollback diagnostics are appended to Filee's daily log (`~/.config/Filee/logs/`). Downloaded conversion engines
-  (`~/.local/share/Filee/engines`) and user settings (`~/.config/Filee`) remain untouched.
+  Output and rollback diagnostics are appended to Filee's daily log (`~/.config/TsuFiles/logs/`). Downloaded conversion engines
+  (`~/.local/share/Filee/engines`) and user settings (`~/.config/TsuFiles`) remain untouched.
 - **Uninstallation**: `uninstall.sh` removes the application directory, desktop launcher, and `~/.local/bin/filee` symlink
   after verifying the `.filee-package` marker. User settings and converted files are kept.

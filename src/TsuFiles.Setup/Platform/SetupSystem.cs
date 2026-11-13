@@ -328,7 +328,7 @@ public class WindowsSetupSystem(SetupLog log, bool seeOtherAccounts = false) : I
 
 /// <summary>
 /// /SANDBOX: no Explorer menu, no PATH broadcast, nothing scheduled for the next restart, and Filee's installer
-/// commands run with FILEE_DATA_DIR in the sandbox, which gives that Filee its own data and single instance: it never
+/// commands run with TSUFILES_DATA_DIR in the sandbox, which gives that Filee its own data and single instance: it never
 /// reaches (or quits) the Filee the user runs.
 /// </summary>
 [SupportedOSPlatform("windows")]
@@ -356,7 +356,7 @@ public sealed class SandboxSetupSystem(SetupLog log, string dataFolder) : Window
         return true;
     }
 
-    // Keeps FILEE_DATA_DIR, which the signed-in user's own start of a program wouldn't have.
+    // Keeps TSUFILES_DATA_DIR, which the signed-in user's own start of a program wouldn't have.
     public override int RunAsSignedInUser(string executable, string arguments, TimeSpan timeout) => RunAndWait(executable, arguments, timeout);
 
     public override bool RunsOutOfSight(string programName) => false;
@@ -364,7 +364,7 @@ public sealed class SandboxSetupSystem(SetupLog log, string dataFolder) : Window
     protected override ProcessStartInfo CreateStartInfo(string executable, string arguments)
     {
         var info = base.CreateStartInfo(executable, arguments);
-        info.Environment["FILEE_DATA_DIR"] = dataFolder;
+        info.Environment["TSUFILES_DATA_DIR"] = dataFolder;
         return info;
     }
 }

@@ -1,4 +1,4 @@
-// Minimal file logger: %APPDATA%\Filee\logs\filee-yyyyMMdd.log, keeps the last 7 days.
+// Minimal file logger: %APPDATA%\TsuFiles\logs\tsufiles-yyyyMMdd.log, keeps the last 7 days.
 
 using Microsoft.Extensions.Logging;
 
@@ -10,11 +10,15 @@ public sealed class FileLoggerProvider : ILoggerProvider
     private static readonly Lock WriteLock = new();
     private readonly string _directory;
 
+    /// <summary>Tên tệp nhật ký: tsufiles-yyyyMMdd.log (TsuFiles 2.4.0-vn.* ghi filee-yyyyMMdd.log, dọn cùng).</summary>
+    internal const string Prefix = TsuFiles.Core.ForkDefaults.UnixFolderName + "-";
+
     public FileLoggerProvider(string directory)
     {
         _directory = directory;
         Directory.CreateDirectory(directory);
-        foreach (var old in Directory.EnumerateFiles(directory, "filee-*.log")
+        foreach (var old in Directory.EnumerateFiles(directory, Prefix + "*.log")
+                     .Concat(Directory.EnumerateFiles(directory, "filee-*.log"))
                      .Where(f => File.GetLastWriteTime(f) < DateTime.Now.AddDays(-7)))
         {
             try { File.Delete(old); } catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
@@ -31,7 +35,7 @@ public sealed class FileLoggerProvider : ILoggerProvider
         {
             try
             {
-                File.AppendAllText(Path.Combine(_directory, $"filee-{DateTime.Now:yyyyMMdd}.log"), line + Environment.NewLine);
+                File.AppendAllText(Path.Combine(_directory, $"{FileLoggerProvider.Prefix}{DateTime.Now:yyyyMMdd}.log"), line + Environment.NewLine);
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
         }

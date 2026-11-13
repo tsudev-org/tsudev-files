@@ -452,7 +452,7 @@ public sealed partial class UpdateService : ObservableObject
             var currentPid = Environment.ProcessId;
             var logDir = Path.Combine(UserDataStore.DefaultDirectory, "logs");
             Directory.CreateDirectory(logDir);
-            var logFile = Path.Combine(logDir, $"filee-{DateTime.Now:yyyyMMdd}.log");
+            var logFile = Path.Combine(logDir, $"{FileLoggerProvider.Prefix}{DateTime.Now:yyyyMMdd}.log");
             var markerFile = FailureMarkerPathOverride ?? Path.Combine(UserDataStore.DefaultDirectory, ".update-failed");
 
             Process? helper;

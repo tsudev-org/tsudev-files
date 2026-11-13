@@ -28,12 +28,12 @@ public sealed class TriggerService : IDisposable
     private HashSet<string> _excluded = new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
-    /// FILEE_TRACE_GESTURES=1 logs each mouse press and scope decision, to find why a gesture doesn't fire, each
+    /// TSUFILES_TRACE_GESTURES=1 logs each mouse press and scope decision, to find why a gesture doesn't fire, each
     /// release with how far the mouse went while held, each drag gesture that fired and each time the gestures are set
     /// again (a press waiting to become a drag is dropped then, #739), and on Windows each mouse move that reached
     /// Filee late (a stuck cursor, #511).
     /// </summary>
-    private static readonly bool Trace = Environment.GetEnvironmentVariable("FILEE_TRACE_GESTURES") == "1";
+    private static readonly bool Trace = Environment.GetEnvironmentVariable("TSUFILES_TRACE_GESTURES") == "1";
 
     /// <summary>A mouse move this late (ms) goes to the trace: the clock itself is only 16 ms exact.</summary>
     private const long LateMove = 50;

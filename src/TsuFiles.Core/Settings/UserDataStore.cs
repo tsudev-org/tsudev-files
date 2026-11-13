@@ -31,17 +31,17 @@ public sealed class UserDataStore
     /// folder and gives that copy its own single instance: a development or test copy then never touches, or talks
     /// to, the Filee the user runs. A copy started with it also leaves the system integration alone.
     /// </summary>
-    public const string DirectoryVariable = "FILEE_DATA_DIR";
+    public const string DirectoryVariable = "TSUFILES_DATA_DIR";
 
     /// <summary>The folder <see cref="DirectoryVariable"/> points to (full path), or null when it is not set.</summary>
     public static string? OverrideDirectory => DirectoryFrom(Environment.GetEnvironmentVariable(DirectoryVariable));
 
     /// <summary>
-    /// Default data directory: %APPDATA%\Filee on Windows, ~/Library/Application Support/Filee on macOS, or the
-    /// folder in <see cref="DirectoryVariable"/>.
+    /// Default data directory: %APPDATA%\TsuFiles on Windows, ~/Library/Application Support/TsuFiles on macOS, or the
+    /// folder in <see cref="DirectoryVariable"/>. TsuFiles 2.4.0-vn.* used "Filee" (see LegacyDataMigration).
     /// </summary>
     public static string DefaultDirectory =>
-        OverrideDirectory ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Filee");
+        OverrideDirectory ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ForkDefaults.DataFolderName);
 
     internal static string? DirectoryFrom(string? value) =>
         string.IsNullOrWhiteSpace(value) ? null : Path.TrimEndingDirectorySeparator(Path.GetFullPath(value.Trim()));

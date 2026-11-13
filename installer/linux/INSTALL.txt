@@ -47,13 +47,13 @@ includes the “TsuFiles donut at the cursor” Shell extension. install.sh inst
 it for the current user on GNOME and requests activation. Open Extensions and
 enable it. If it is missing or still running an older version, sign out and
 sign in again, then start TsuFiles and hold Ctrl while dragging a file in Files.
-No input group, sudo, or FILEE_WAYLAND_GESTURES setting is required on GNOME.
+No input group, sudo, or TSUFILES_WAYLAND_GESTURES setting is required on GNOME.
 The Triggers page says when TsuFiles is waiting for the extension. The extension
 provides pointer state over a private local socket and places the menu once
 per opening; TsuFiles respects its configured gestures, Pause and excluded apps.
 It does not collect typed keys. Global selection/hold gestures and Tab/wheel
 flipping during a drag are not supplied by this integration. Disabling the
-extension stops detection; FILEE_WAYLAND_GESTURES=0 opts out on GNOME too.
+extension stops detection; TSUFILES_WAYLAND_GESTURES=0 opts out on GNOME too.
 Updating TsuFiles (in the app or with --upgrade) also updates the extension if
 TsuFiles installed it; sign out and sign in afterwards so GNOME Shell loads it.
 The Triggers page says when the running extension doesn't match TsuFiles.
@@ -66,8 +66,8 @@ the mouse and keyboard from /dev/input through libinput, and a KWin script or Hy
 window rule places the donut at the cursor because Wayland apps cannot place windows.
 It needs libinput, libudev and libwayland-client (libinput10, libudev1 and
 libwayland-client0 on Ubuntu). To turn it on:
-1. Start TsuFiles with FILEE_WAYLAND_GESTURES=1 in its environment, for example
-   with the line FILEE_WAYLAND_GESTURES=1 in ~/.config/environment.d/filee.conf
+1. Start TsuFiles with TSUFILES_WAYLAND_GESTURES=1 in its environment, for example
+   with the line TSUFILES_WAYLAND_GESTURES=1 in ~/.config/environment.d/filee.conf
    (takes effect after you sign in again).
 2. Add yourself to the input group, then sign out and in. Members of that group
    can read all keyboard and mouse input from any program they run, so enable
@@ -123,8 +123,8 @@ libwayland-client0 on Ubuntu). To turn it on:
 Native Wayland Backend (experimental, off by default):
 By default, TsuFiles runs through XWayland on Wayland desktops for maximum compatibility.
 To opt into the native Wayland backend (Avalonia.Wayland):
-  Start TsuFiles with FILEE_USE_WAYLAND=1 in its environment.
-  (e.g., export FILEE_USE_WAYLAND=1 or set in ~/.config/environment.d/filee.conf).
+  Start TsuFiles with TSUFILES_USE_WAYLAND=1 in its environment.
+  (e.g., export TSUFILES_USE_WAYLAND=1 or set in ~/.config/environment.d/filee.conf).
 Limits: Wayland cannot say which window is under the cursor, so a Ctrl+drag in
 any app opens an invisible donut window. It only shows when files are dragged
 onto it, but it rejects drops that are not files, so Ctrl+drag to copy text in an

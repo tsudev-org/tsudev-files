@@ -2,10 +2,10 @@
 
 Filee's own colours can be replaced with a `theme.json` file in the folder that holds `settings.json`:
 
-- Windows: `%APPDATA%\Filee\theme.json`
-- Linux: `~/.config/Filee/theme.json`
-- macOS: `~/Library/Application Support/Filee/theme.json`
-- With `FILEE_DATA_DIR` set: `theme.json` in that folder
+- Windows: `%APPDATA%\TsuFiles\theme.json`
+- Linux: `~/.config/TsuFiles/theme.json`
+- macOS: `~/Library/Application Support/TsuFiles/theme.json`
+- With `TSUFILES_DATA_DIR` set: `theme.json` in that folder
 
 ```jsonc
 {

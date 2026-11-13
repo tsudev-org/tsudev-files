@@ -36,7 +36,7 @@ public class SpreadsheetPrintStudioTests
             window = new SpreadsheetPrintStudioWindow { DataContext = vm, Width = 1040, Height = 860 };
             window.Show();
             RenderTests.Pump();
-            if (Environment.GetEnvironmentVariable("FILEE_LOCALIZATION_SCREENSHOTS") == "1")
+            if (Environment.GetEnvironmentVariable("TSUFILES_LOCALIZATION_SCREENSHOTS") == "1")
                 RenderTests.Save(window, $"spreadsheet-studio-{language}-1040.png");
             var labels = window.GetVisualDescendants().OfType<TextBlock>()
                 .Where(text => text.IsEffectivelyVisible && !string.IsNullOrWhiteSpace(text.Text));

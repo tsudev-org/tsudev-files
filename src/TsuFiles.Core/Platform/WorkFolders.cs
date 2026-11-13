@@ -14,7 +14,7 @@ public static class WorkFolders
     private static readonly Lazy<string> RootFolder = new(FindRoot);
 
     /// <summary>
-    /// %TEMP%\Filee on Windows; on Linux $XDG_CACHE_HOME/filee (~/.cache/filee), on macOS ~/Library/Caches/Filee,
+    /// %TEMP%\TsuFiles on Windows; on Linux $XDG_CACHE_HOME/tsufiles (~/.cache/tsufiles), on macOS ~/Library/Caches/TsuFiles,
     /// made with mode 700 the first time it is asked for.
     /// </summary>
     public static string Root => RootFolder.Value;
@@ -22,7 +22,7 @@ public static class WorkFolders
     private static string FindRoot()
     {
         if (OperatingSystem.IsWindows())
-            return Path.Combine(Path.GetTempPath(), "Filee");
+            return Path.Combine(Path.GetTempPath(), ForkDefaults.DataFolderName);
 
         var root = UnixRoot(Environment.GetEnvironmentVariable("XDG_CACHE_HOME"),
             Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), OperatingSystem.IsMacOS());
@@ -42,12 +42,12 @@ public static class WorkFolders
         // aren't swept at the next start; the system empties its temp folder.
         try
         {
-            return Directory.CreateTempSubdirectory("Filee-").FullName;
+            return Directory.CreateTempSubdirectory(ForkDefaults.DataFolderName + "-").FullName;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             // Nowhere to write: the jobs fail when they make their folders, with the reason.
-            return root ?? Path.Combine(Path.GetTempPath(), "Filee-" + Guid.NewGuid().ToString("N"));
+            return root ?? Path.Combine(Path.GetTempPath(), ForkDefaults.DataFolderName + "-" + Guid.NewGuid().ToString("N"));
         }
     }
 
@@ -56,10 +56,10 @@ public static class WorkFolders
     {
         // The XDG spec ignores a relative XDG_CACHE_HOME.
         if (!macOS && Path.IsPathFullyQualified(cacheHome ?? ""))
-            return Path.Combine(cacheHome!, "filee");
+            return Path.Combine(cacheHome!, ForkDefaults.UnixFolderName);
         if (!Path.IsPathFullyQualified(home ?? ""))
             return null;
-        return macOS ? Path.Combine(home!, "Library", "Caches", "Filee") : Path.Combine(home!, ".cache", "filee");
+        return macOS ? Path.Combine(home!, "Library", "Caches", ForkDefaults.DataFolderName) : Path.Combine(home!, ".cache", ForkDefaults.UnixFolderName);
     }
 
     /// <summary>

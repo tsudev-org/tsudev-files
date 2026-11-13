@@ -201,7 +201,7 @@ public class StartupDiagnosticsTests
         {
             var log = StartupDiagnostics.CreateEarlyLogger(folder);
             log.LogInformation("{Startup}", "Filee test starting");
-            var file = Assert.Single(Directory.GetFiles(folder, "filee-*.log"));
+            var file = Assert.Single(Directory.GetFiles(folder, "tsufiles-*.log"));
             Assert.Contains("Program: Filee test starting", File.ReadAllText(file));
         }
         finally
@@ -222,7 +222,7 @@ public class StartupDiagnosticsTests
 
             store.Load();
 
-            var file = Assert.Single(Directory.GetFiles(Path.Combine(folder, "logs"), "filee-*.log"));
+            var file = Assert.Single(Directory.GetFiles(Path.Combine(folder, "logs"), "tsufiles-*.log"));
             Assert.Contains("WARN UserDataStore: Could not read", File.ReadAllText(file));
             Assert.True(File.Exists(Path.Combine(folder, "settings.json.broken")));
             Assert.True(store.Settings.ShowInDock);
