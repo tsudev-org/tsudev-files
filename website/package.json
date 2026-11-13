@@ -1,5 +1,5 @@
 {
-  "name": "tsudev-files-website",
+  "name": "tsufiles-website",
   "private": true,
   "type": "module",
   "description": "Trang sản phẩm files.tsudev.com (Astro, trang tĩnh; JavaScript phía trình duyệt chỉ có public/theme.js)",
