@@ -1,9 +1,9 @@
 #!/bin/sh
 set -eu
 
-# TsuFiles: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
+# TsuFiles: thông báo tiếng Việt mặc định; TSUFILES_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
 say() {
-    case "$(printf '%s' "${FILEE_LANG:-}" | tr '[:upper:]' '[:lower:]')" in
+    case "$(printf '%s' "${TSUFILES_LANG:-}" | tr '[:upper:]' '[:lower:]')" in
         en|en-us|english) shift ;;
     esac
     printf '%s\n' "$1"

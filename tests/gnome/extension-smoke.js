@@ -67,7 +67,7 @@ async function run() {
     map(null, actor);
     await settle(100);
     assert(moves.length === 2 && moves[1][0] === 1520 && moves[1][1] === 680, 'clamp at monitor edge on next opening');
-    // Native Wayland (FILEE_USE_WAYLAND=1): no WM class or app id, matched by the connected Filee process.
+    // Native Wayland (TSUFILES_USE_WAYLAND=1): no WM class or app id, matched by the connected Filee process.
     const nativeWindow = {...window, get_wm_class: () => null, get_wm_class_instance: () => null};
     map(null, {meta_window: nativeWindow, is_visible: () => true});
     await settle(100);

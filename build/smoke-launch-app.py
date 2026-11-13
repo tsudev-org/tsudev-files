@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Starts the packaged desktop app (FILEE_SMOKE_APP, set by build/smoke-portable.ps1), checks that it stays up, that a
+"""Starts the packaged desktop app (TSUFILES_SMOKE_APP, set by build/smoke-portable.ps1), checks that it stays up, that a
 second start hands over to it (macOS) and that `filee --quit` ends it cleanly. On Linux it runs under Xvfb in an X11
 session and fails when the app logged that the X11 input hook back end could not be loaded.
 
@@ -13,7 +13,7 @@ import subprocess
 import sys
 import time
 
-app = os.environ['FILEE_SMOKE_APP']
+app = os.environ['TSUFILES_SMOKE_APP']
 temp = pathlib.Path(os.environ.get('RUNNER_TEMP', '/tmp'))
 shots = temp / 'filee-screens'
 shots.mkdir(exist_ok=True)

@@ -49,7 +49,11 @@ internal static class Program
     {
         Options = CommandLine.Parse(args);
         PreloadedStore = null;
+        // TsuFiles (ADR-0003 T3b): dữ liệu của bản 2.4.0-vn.* nằm ở thư mục "Filee"; chuyển trước khi ghi gì vào chỗ mới.
+        var migrated = LegacyDataMigration.Run();
         Log = StartupDiagnostics.CreateEarlyLogger(Path.Combine(UserDataStore.DefaultDirectory, "logs"), out var earlyStoreLogger);
+        foreach (var step in migrated)
+            Log.LogInformation("Moved data from {From} to {To}: {Outcome}", step.From, step.To, step.Outcome);
         StartupDiagnostics.LogUnhandledExceptions(Log);
         Elevation = TsuFiles.Platform.Windows.Elevation.Probe();
         var startup = StartupDiagnostics.Describe(UpdateService.CurrentVersion, Environment.ProcessPath,
@@ -275,8 +279,8 @@ internal static class Program
     public static AppBuilder BuildAvaloniaApp()
     {
         var builder = AppBuilder.Configure<App>();
-#if FILEE_NATIVE_WAYLAND
-        // The native backend is only compiled into Linux builds and only used when asked for (FILEE_USE_WAYLAND=1).
+#if TSUFILES_NATIVE_WAYLAND
+        // The native backend is only compiled into Linux builds and only used when asked for (TSUFILES_USE_WAYLAND=1).
         // UseWayland configures the Wayland windowing subsystem; UseSkia registers the rendering subsystem; UseHarfBuzz provides text shaping.
         builder = TsuFiles.Platform.Linux.WaylandSupport.NativeWaylandRequested ? builder.UseWayland().UseSkia().UseHarfBuzz() : builder.UsePlatformDetect();
 #else
@@ -305,7 +309,7 @@ internal static class Program
         return builder;
     }
 
-    /// <summary><c>FILEE_RENDERING=software</c> on Linux.</summary>
+    /// <summary><c>TSUFILES_RENDERING=software</c> on Linux.</summary>
     internal static bool LinuxDrawsInSoftware => OperatingSystem.IsLinux()
         && WindowsRendering.Normalize(Environment.GetEnvironmentVariable(WindowsRendering.Variable)) == "software";
 }

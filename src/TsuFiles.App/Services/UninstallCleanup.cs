@@ -16,7 +16,7 @@ internal static class UninstallCleanup
             : OperatingSystem.IsMacOS() ? new MacOSPlatformServices()
             : OperatingSystem.IsLinux() ? new LinuxPlatformServices() : new NullPlatformServices();
         var succeeded = true;
-        // A copy with its own data folder (FILEE_DATA_DIR) never registered anything: only its engines go.
+        // A copy with its own data folder (TSUFILES_DATA_DIR) never registered anything: only its engines go.
         var integrated = UserDataStore.OverrideDirectory is null;
         if (integrated)
         {

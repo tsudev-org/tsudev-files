@@ -6,7 +6,7 @@ namespace TsuFiles.Platform.Linux;
 public static class WaylandSupport
 {
     /// <summary>
-    /// Whether the native Wayland backend (Avalonia.Wayland) is opted into: on Linux, with <c>FILEE_USE_WAYLAND=1</c>
+    /// Whether the native Wayland backend (Avalonia.Wayland) is opted into: on Linux, with <c>TSUFILES_USE_WAYLAND=1</c>
     /// and a Wayland display to connect to. Otherwise Filee runs through X11 or XWayland.
     /// </summary>
     public static bool IsNativeWaylandRequested(bool isLinux, string? fileeUseWayland, string? waylandDisplay) =>
@@ -16,7 +16,7 @@ public static class WaylandSupport
 
     /// <summary><see cref="IsNativeWaylandRequested(bool, string?, string?)"/> for this process.</summary>
     public static bool NativeWaylandRequested => IsNativeWaylandRequested(OperatingSystem.IsLinux(),
-        Environment.GetEnvironmentVariable("FILEE_USE_WAYLAND"), Environment.GetEnvironmentVariable("WAYLAND_DISPLAY"));
+        Environment.GetEnvironmentVariable("TSUFILES_USE_WAYLAND"), Environment.GetEnvironmentVariable("WAYLAND_DISPLAY"));
 
     /// <summary>
     /// Whether the compositor has a way to put the donut at the cursor: KDE Plasma (the KWin script) or Hyprland (a

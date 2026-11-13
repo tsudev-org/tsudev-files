@@ -168,10 +168,10 @@ jobs:
       - name: Test UI on its own
         run: dotnet test tests/TsuFiles.App.Tests --no-build -c Release --blame-crash --blame-hang-timeout 5m --logger "console;verbosity=normal" --results-directory TestResults/app
 
-      # FILEE_TEST_EXIFTOOL: the metadata tests write real files, and fail rather than skip if it isn't there.
+      # TSUFILES_TEST_EXIFTOOL: the metadata tests write real files, and fail rather than skip if it isn't there.
       - name: Test
         env:
-          FILEE_TEST_EXIFTOOL: ${{ github.workspace }}\engines\exiftool\exiftool.exe
+          TSUFILES_TEST_EXIFTOOL: ${{ github.workspace }}\engines\exiftool\exiftool.exe
         run: dotnet test TsuFiles.slnx --no-build -c Release --filter "FullyQualifiedName!~TsuFiles.App.Tests" --logger "trx" --results-directory TestResults
 
       # Builds Setup (src/TsuFiles.Setup) around a stub app and runs it in a sandbox: install, update and uninstall into a
@@ -225,7 +225,7 @@ jobs:
           echo "$sha256  $RUNNER_TEMP/exiftool.tar.gz" | sha256sum --check
           mkdir "$RUNNER_TEMP/exiftool"
           tar -xzf "$RUNNER_TEMP/exiftool.tar.gz" -C "$RUNNER_TEMP/exiftool" --strip-components=1
-          echo "FILEE_TEST_EXIFTOOL=$RUNNER_TEMP/exiftool/exiftool" >> "$GITHUB_ENV"
+          echo "TSUFILES_TEST_EXIFTOOL=$RUNNER_TEMP/exiftool/exiftool" >> "$GITHUB_ENV"
           # On the PATH too: the conversion test goes through Filee's own search and the Perl check.
           echo "$RUNNER_TEMP/exiftool" >> "$GITHUB_PATH"
 

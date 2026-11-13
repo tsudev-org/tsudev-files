@@ -29,7 +29,7 @@ internal sealed class CliHost : IAsyncDisposable
     public ILocalizer Texts { get; } = new CliTexts();
 
     /// <summary>
-    /// The installer Settings → Engines uses, on EngineEnvironment.DownloadRoot (the engines folder in FILEE_DATA_DIR
+    /// The installer Settings → Engines uses, on EngineEnvironment.DownloadRoot (the engines folder in TSUFILES_DATA_DIR
     /// when that is set). Created when 'filee engines' first needs it.
     /// </summary>
     public EngineInstaller Engines => _engines ??= new EngineInstaller(EngineInstaller.CreateHttpClient(Timeout.InfiniteTimeSpan));

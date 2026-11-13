@@ -98,7 +98,7 @@ New-Item -ItemType Directory -Force -Path $obj, $Destination | Out-Null
 
 # The version resource gets the numbers through a generated header-like prefix (zig's resource compiler has no -D).
 $rc = Join-Path $obj 'FileeExplorerMenu.rc'
-$defines = "#define FILEE_VERSION_MAJOR $major`r`n#define FILEE_VERSION_MINOR $minor`r`n#define FILEE_VERSION_PATCH $patch`r`n#define FILEE_VERSION_TEXT `"$Version`"`r`n"
+$defines = "#define TSUFILES_VERSION_MAJOR $major`r`n#define TSUFILES_VERSION_MINOR $minor`r`n#define TSUFILES_VERSION_PATCH $patch`r`n#define TSUFILES_VERSION_TEXT `"$Version`"`r`n"
 Set-Content -Path $rc -Value ($defines + (Get-Content (Join-Path $source 'FileeExplorerMenu.rc') -Raw)) -Encoding utf8NoBOM -NoNewline
 
 Write-Host "build FileeExplorerMenu.dll $Version ($Architecture)"

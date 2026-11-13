@@ -5,7 +5,7 @@ Filee's own colours can be replaced with a `theme.json` file in the folder that 
 - Windows: `%APPDATA%\Filee\theme.json`
 - Linux: `~/.config/Filee/theme.json`
 - macOS: `~/Library/Application Support/Filee/theme.json`
-- With `FILEE_DATA_DIR` set: `theme.json` in that folder
+- With `TSUFILES_DATA_DIR` set: `theme.json` in that folder
 
 ```jsonc
 {

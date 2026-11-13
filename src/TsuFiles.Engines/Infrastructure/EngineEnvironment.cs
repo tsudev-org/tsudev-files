@@ -21,8 +21,8 @@ public sealed class EngineEnvironment(string dataDirectory)
 
     /// <summary>
     /// Per-user folder for engines downloaded on demand (see <see cref="EngineInstaller"/>):
-    /// %LOCALAPPDATA%\Filee\engines. It is outside the app folder, so app updates keep it, and inside Filee's
-    /// install root, so uninstalling removes it. With FILEE_DATA_DIR set (<see cref="UserDataStore.DirectoryVariable"/>)
+    /// %LOCALAPPDATA%\TsuFiles\engines. It is outside the app folder, so app updates keep it, and inside Filee's
+    /// install root, so uninstalling removes it. With TSUFILES_DATA_DIR set (<see cref="UserDataStore.DirectoryVariable"/>)
     /// it is the engines folder in there.
     /// </summary>
     public static string DownloadRoot { get; set; } = DefaultDownloadRoot(UserDataStore.OverrideDirectory);
@@ -30,7 +30,7 @@ public sealed class EngineEnvironment(string dataDirectory)
     internal static string DefaultDownloadRoot(string? dataDirectoryOverride) =>
         dataDirectoryOverride is not null
             ? Path.Combine(dataDirectoryOverride, "engines")
-            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Filee", "engines");
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), TsuFiles.Core.ForkDefaults.DataFolderName, "engines");
 
     /// <summary>
     /// Finds an engine directory (<c>engines/&lt;name&gt;</c>): next to the executable (bundled with the installer),

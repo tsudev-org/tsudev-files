@@ -652,7 +652,7 @@ exec ""$REAL_MV"" ""$@""
 
         // Setting obsolete internal test hook variables has no effect because install.sh contains no test hooks
         var (exitCode, output, error) = RunInstaller(v2Source, env.DataDir, env.HomeDir,
-            new Dictionary<string, string> { ["_FILEE_TEST_FAIL_ACTIVATION"] = "1", ["_FILEE_TEST_HARNESS"] = "com.filee.test.harness" }, "--upgrade");
+            new Dictionary<string, string> { ["_TSUFILES_TEST_FAIL_ACTIVATION"] = "1", ["_TSUFILES_TEST_HARNESS"] = "com.filee.test.harness" }, "--upgrade");
 
         Assert.True(exitCode == 0, $"Upgrade failed unexpectedly. Output: {output}. Error: {error}");
         Assert.Contains("Upgraded TsuFiles at", output); // TsuFiles: tên hiển thị
@@ -779,7 +779,7 @@ exec ""$REAL_MV"" ""$@""
         psi.Environment["HOME"] = homeDir;
         psi.Environment["PATH"] = $"{_shimBinDir}:{Environment.GetEnvironmentVariable("PATH") ?? "/bin:/usr/bin"}";
         // TsuFiles: các test upstream so khớp thông báo tiếng Anh; tiếng Việt mặc định có test riêng (ForkLinuxInstallerTests).
-        psi.Environment["FILEE_LANG"] = "en";
+        psi.Environment["TSUFILES_LANG"] = "en";
 
         if (extraEnv is not null)
         {

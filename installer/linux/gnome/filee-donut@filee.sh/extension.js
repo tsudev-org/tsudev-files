@@ -108,7 +108,7 @@ export default class FileeDonutExtension extends Extension {
     _isDonut(window) {
         if (window?.get_title() !== DONUT_TITLE)
             return false;
-        // X11/XWayland: WM class. Native Wayland (FILEE_USE_WAYLAND=1): the app id, which Mutter reports as the WM
+        // X11/XWayland: WM class. Native Wayland (TSUFILES_USE_WAYLAND=1): the app id, which Mutter reports as the WM
         // class, or, when Filee sets none, the connected Filee process or the process name.
         return [window.get_wm_class(), window.get_wm_class_instance(), window.get_gtk_application_id()]
             .some(value => /^(filee|com\.filee\.app)$/i.test(value ?? '')) ||

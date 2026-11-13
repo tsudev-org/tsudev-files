@@ -14,7 +14,7 @@ internal static class StartupFailure
         {
             var logs = Path.Combine(UserDataStore.DefaultDirectory, "logs");
             Directory.CreateDirectory(logs);
-            File.AppendAllText(Path.Combine(logs, $"filee-{DateTime.Now:yyyyMMdd}.log"),
+            File.AppendAllText(Path.Combine(logs, $"{Services.FileLoggerProvider.Prefix}{DateTime.Now:yyyyMMdd}.log"),
                 $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [Error] Startup: {message}{Environment.NewLine}{exception}{Environment.NewLine}");
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)

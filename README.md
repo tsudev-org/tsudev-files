@@ -24,7 +24,7 @@ máy của bạn**, không tải tệp lên bất kỳ máy chủ nào, không c
 | Hạng mục | Bản gốc Filee | TsuFiles |
 | --- | --- | --- |
 | Ngôn ngữ mặc định | Theo ngôn ngữ hệ điều hành, dự phòng tiếng Anh | **Tiếng Việt** cho giao diện, trình cài đặt và dòng lệnh; đổi được trong Cài đặt (`auto`, `en`, ...) |
-| Dòng lệnh `filee` | Chỉ tiếng Anh | Tiếng Việt mặc định, `FILEE_LANG=en` để dùng tiếng Anh; khóa JSON giữ nguyên cho script |
+| Dòng lệnh `filee` | Chỉ tiếng Anh | Tiếng Việt mặc định, `TSUFILES_LANG=en` để dùng tiếng Anh; khóa JSON giữ nguyên cho script |
 | Kiểm tra cập nhật | `KnifeLemon/Filee` + khóa ký của tác giả gốc | `tsudev-org/tsudev-files` + **khóa ký ECDSA P-256 riêng**; bản phát hành của repo khác bị từ chối |
 | Tên sản phẩm | Filee | **TsuFiles** - logo con cú, kiểu giao diện Cú đêm ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)); tệp chạy, lệnh `filee`, thư mục dữ liệu, lối tắt và tệp phát hành đổi sang `tsufiles` ở bản 2.4.1 kèm di trú |
 | Trang tải khi cập nhật lỗi | filee.sh | Trang phát hành của repo này |
@@ -59,7 +59,7 @@ Chạy dòng lệnh từ mã nguồn:
 
 ```bash
 dotnet run --project src/TsuFiles.Cli -- help
-FILEE_LANG=en dotnet run --project src/TsuFiles.Cli -- help
+TSUFILES_LANG=en dotnet run --project src/TsuFiles.Cli -- help
 ```
 
 Quy ước làm việc (cho người và agent AI): đọc [AGENTS.md](AGENTS.md) trước tiên.

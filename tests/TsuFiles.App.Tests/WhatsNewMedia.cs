@@ -5,7 +5,7 @@
 //
 //   dotnet build tests/TsuFiles.App.Tests
 //   tests/TsuFiles.App.Tests/bin/Debug/net10.0/TsuFiles.App.Tests.exe -method "TsuFiles.App.Tests.WhatsNewMedia.*" -explicit only
-// Set FILEE_WHATSNEW_LANGUAGE=pt-PT (or pt-BR) for localized recordings; shared English recordings stay unchanged.
+// Set TSUFILES_WHATSNEW_LANGUAGE=pt-PT (or pt-BR) for localized recordings; shared English recordings stay unchanged.
 //
 // Each clip is drawn on a 768 × 432 canvas (16:9, shown at 496 × 279 in the window, sharp up to 150 % scaling) in the
 // light theme. The first frame of each clip is what reduced motion shows, so every clip starts on a meaningful picture;
@@ -62,7 +62,7 @@ public class WhatsNewMedia
     [AvaloniaFact(Explicit = true)]
     public void Generate_2_0_0()
     {
-        var language = Environment.GetEnvironmentVariable("FILEE_WHATSNEW_LANGUAGE") ?? "en";
+        var language = Environment.GetEnvironmentVariable("TSUFILES_WHATSNEW_LANGUAGE") ?? "en";
         Assert.Contains(language, AppLanguages.All.Select(l => l.Code));
         TestServices.EnsureInitialized(language);
         var folder = language == "en" ? Folder("2.0.0") : Path.Combine(Folder("2.0.0"), language);
@@ -79,7 +79,7 @@ public class WhatsNewMedia
             theme.Apply(new ThemeSettings { ReduceMotion = false, Mode = ThemeMode.Light }, language);
             // browser.webp and flip.webp come from the demo-video generator (branch media/demo-videos: a scripted desktop
             // with a browser and a file manager). These headless versions are written only when asked for by name
-            // (FILEE_WHATSNEW_ONLY=browser,flip).
+            // (TSUFILES_WHATSNEW_ONLY=browser,flip).
             Write(folder, "browser.webp", BrowserDrop, onRequestOnly: true);
             Write(folder, "flip.webp", DonutFlip, onRequestOnly: true);
             Write(folder, "formats.webp", FormatDonuts);
@@ -2034,13 +2034,13 @@ public class WhatsNewMedia
     }
 
     /// <summary>
-    /// Renders and writes one clip. FILEE_WHATSNEW_ONLY (names without extension, comma-separated) limits a run to some
-    /// clips, e.g. <c>FILEE_WHATSNEW_ONLY=crop,theme</c>; <paramref name="onRequestOnly"/> clips (made elsewhere) are
+    /// Renders and writes one clip. TSUFILES_WHATSNEW_ONLY (names without extension, comma-separated) limits a run to some
+    /// clips, e.g. <c>TSUFILES_WHATSNEW_ONLY=crop,theme</c>; <paramref name="onRequestOnly"/> clips (made elsewhere) are
     /// written only when named there.
     /// </summary>
     private static void Write(string folder, string name, Func<Clip> render, bool onRequestOnly = false)
     {
-        var only = Environment.GetEnvironmentVariable("FILEE_WHATSNEW_ONLY");
+        var only = Environment.GetEnvironmentVariable("TSUFILES_WHATSNEW_ONLY");
         var named = !string.IsNullOrWhiteSpace(only)
                     && only.Split(',', StringSplitOptions.TrimEntries).Contains(Path.GetFileNameWithoutExtension(name), StringComparer.OrdinalIgnoreCase);
         if (onRequestOnly ? !named : !string.IsNullOrWhiteSpace(only) && !named)

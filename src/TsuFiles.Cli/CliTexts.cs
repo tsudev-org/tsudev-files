@@ -1,6 +1,6 @@
 // TsuFiles: văn bản của dòng lệnh, đọc từ file dịch của ứng dụng (nhúng sẵn): thông báo lỗi của từng file và tên
 // các preset có sẵn. Mặc định tiếng Việt (vi.json), thiếu chuỗi nào thì lấy tiếng Anh (en.json).
-// Chọn ngôn ngữ bằng biến môi trường FILEE_LANG=vi|en (xem CliLanguage).
+// Chọn ngôn ngữ bằng biến môi trường TSUFILES_LANG=vi|en (xem CliLanguage).
 
 using System.Globalization;
 using System.Text.Json;
@@ -13,7 +13,7 @@ namespace TsuFiles.Cli;
 internal static class CliLanguage
 {
     /// <summary>Biến môi trường chọn ngôn ngữ dòng lệnh.</summary>
-    public const string EnvironmentVariable = "FILEE_LANG";
+    public const string EnvironmentVariable = "TSUFILES_LANG";
 
     /// <summary>Ngôn ngữ đang dùng. Chỉ nhận danh sách trắng "vi" | "en"; giá trị lạ quay về mặc định.</summary>
     public static string Current { get; set; } = FromEnvironment(Environment.GetEnvironmentVariable(EnvironmentVariable));

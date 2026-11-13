@@ -49,7 +49,7 @@ xuất tại repo `tsudev-standards` theo `.standards/docs/SYNC.md` mục 1.
 dotnet build TsuFiles.slnx                 # .NET SDK 10 (global.json)
 dotnet test tests/TsuFiles.Core.Tests          # và tests/TsuFiles.{App,Cli,Setup,Engines,Platform}.Tests
 python3 -I tools/check_i18n_vi.py          # bản dịch tiếng Việt
-dotnet run --project src/TsuFiles.Cli -- help # FILEE_LANG=en để xem tiếng Anh
+dotnet run --project src/TsuFiles.Cli -- help # TSUFILES_LANG=en để xem tiếng Anh
 ```
 
 ### B.3. Ranh giới sở hữu file

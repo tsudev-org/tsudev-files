@@ -1381,7 +1381,7 @@ public sealed class CliTests : IDisposable
     public async Task Engine_less_cli_discovery_is_verified()
     {
         var packageIds = EngineDownloads.Packages.SelectMany(p => p.ConverterIds).ToHashSet();
-        if (Environment.GetEnvironmentVariable("FILEE_753_VERIFY_NO_ENGINES") == "1")
+        if (Environment.GetEnvironmentVariable("TSUFILES_753_VERIFY_NO_ENGINES") == "1")
         {
             await using var host = CliHost.Create(_settings);
             TestContext.Current.TestOutputHelper!.WriteLine($"BaseDirectory={AppContext.BaseDirectory}; Data={host.Store.Directory}; " +

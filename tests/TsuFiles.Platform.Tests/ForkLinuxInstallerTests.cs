@@ -1,4 +1,4 @@
-// TsuFiles: script cài/gỡ Linux và macOS nói tiếng Việt mặc định và tiếng Anh khi FILEE_LANG=en (giống dòng lệnh).
+// TsuFiles: script cài/gỡ Linux và macOS nói tiếng Việt mặc định và tiếng Anh khi TSUFILES_LANG=en (giống dòng lệnh).
 
 using System.Diagnostics;
 
@@ -70,9 +70,9 @@ public sealed class ForkLinuxInstallerTests
         psi.ArgumentList.Add(Path.Combine(InstallerFolder, script));
         foreach (var arg in args)
             psi.ArgumentList.Add(arg);
-        psi.Environment.Remove("FILEE_LANG");
+        psi.Environment.Remove("TSUFILES_LANG");
         if (language is not null)
-            psi.Environment["FILEE_LANG"] = language;
+            psi.Environment["TSUFILES_LANG"] = language;
         using var process = Process.Start(psi)!;
         var output = process.StandardOutput.ReadToEnd() + process.StandardError.ReadToEnd();
         process.WaitForExit(10000);

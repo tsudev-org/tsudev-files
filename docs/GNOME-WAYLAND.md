@@ -52,7 +52,7 @@ Updating Filee, in the app or with `./install.sh --upgrade`, also updates the ex
 - GNOME Shell 45–51 are declared as supported, but not every version has been tested.
 - Global Tab and mouse-wheel state are not available for switching wheel faces during a drag.
 - Global selection shortcuts and hold gestures are not available.
-- Filee runs through XWayland by default. With the experimental native Wayland backend (`FILEE_USE_WAYLAND=1`), the extension recognizes the donut by Filee's process; this combination has had less testing.
+- Filee runs through XWayland by default. With the experimental native Wayland backend (`TSUFILES_USE_WAYLAND=1`), the extension recognizes the donut by Filee's process; this combination has had less testing.
 - Multi-monitor setups and fractional scaling may require additional testing.
 
 KDE Plasma and Hyprland use a different setup; see `INSTALL.txt`.
@@ -173,7 +173,7 @@ Use disposable files in a temporary folder, after signing in again:
 - [ ] Disabling/re-enabling the extension disconnects/reconnects Filee without restarting the app.
 - [ ] Locking and unlocking the screen does not leave a gesture stuck.
 - [ ] Repeat near screen edges, on a second monitor and with fractional scaling.
-- [ ] Repeat separately with the optional native backend (`FILEE_USE_WAYLAND=1`), keeping its validation distinct
+- [ ] Repeat separately with the optional native backend (`TSUFILES_USE_WAYLAND=1`), keeping its validation distinct
       from the default XWayland backend.
 
 Before declaring support for the next GNOME major version, review its porting guide, run both smoke tests on that

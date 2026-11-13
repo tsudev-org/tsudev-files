@@ -14,6 +14,28 @@ change, a language may repeat; a language without lines shows the English ones):
 - `recommended`: bug fixes. The card shows once per version.
 - `optional`: new features only. No card, the sidebar button only.
 
+## Chưa phát hành (2.4.1)
+
+<!-- Khi phát hành: đổi tiêu đề thành "## 2.4.1" (release.yml và trang /nhat-ky/ chỉ nhận "## <phiên bản>"). -->
+
+<!-- update
+level: recommended
+vi: Đổi tên thành TsuFiles: logo con cú, kiểu giao diện Cú đêm, thư mục dữ liệu TsuFiles (tự chuyển từ thư mục cũ)
+vi: Biến môi trường đổi sang TSUFILES_* (ví dụ TSUFILES_LANG=en), tên FILEE_* không còn tác dụng
+en: Renamed to TsuFiles: owl logo, Night Owl theme, TsuFiles data folder (moved from the old one automatically)
+en: Environment variables are now TSUFILES_* (for example TSUFILES_LANG=en); the FILEE_* names no longer work
+-->
+
+Sản phẩm đổi tên thành **TsuFiles** ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)).
+
+- **Thư mục dữ liệu mới:** cài đặt, preset, lịch sử và nhật ký ở `%APPDATA%\TsuFiles` (macOS:
+  `~/Library/Application Support/TsuFiles`, Linux: `~/.config/TsuFiles`), engine đã tải ở `%LOCALAPPDATA%\TsuFiles\engines`
+  (Linux: `~/.local/share/TsuFiles/engines`). Lần chạy đầu tiên tự chuyển dữ liệu từ thư mục `Filee` cũ, không phải tải
+  lại engine; tệp trùng tên ở chỗ mới được giữ và bản cũ để nguyên ở chỗ cũ. Nhật ký mới tên `tsufiles-<ngày>.log`.
+- **Biến môi trường đổi tên (gãy tương thích):** `FILEE_LANG` -> `TSUFILES_LANG`, `FILEE_DATA_DIR` -> `TSUFILES_DATA_DIR`,
+  `FILEE_USE_WAYLAND` -> `TSUFILES_USE_WAYLAND`, `FILEE_WAYLAND_GESTURES` -> `TSUFILES_WAYLAND_GESTURES`,
+  `FILEE_RENDERING` -> `TSUFILES_RENDERING`. Tên cũ không còn được đọc: sửa script, `~/.config/environment.d/*.conf`.
+
 ## 2.4.0-vn.1
 
 <!-- update

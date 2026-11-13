@@ -1,9 +1,9 @@
 #!/bin/sh
 set -eu
 
-# TsuFiles: thông báo tiếng Việt mặc định; FILEE_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
+# TsuFiles: thông báo tiếng Việt mặc định; TSUFILES_LANG=en để dùng tiếng Anh (giống dòng lệnh). say "<vi>" "<en>".
 say() {
-    case "$(printf '%s' "${FILEE_LANG:-}" | tr '[:upper:]' '[:lower:]')" in
+    case "$(printf '%s' "${TSUFILES_LANG:-}" | tr '[:upper:]' '[:lower:]')" in
         en|en-us|english) shift ;;
     esac
     printf '%s\n' "$1"
@@ -14,11 +14,11 @@ install_dir="$data_dir/filee/application"
 desktop_file="$data_dir/applications/com.filee.app.desktop"
 gnome_extension_id="filee-donut@filee.sh"
 gnome_extension_dir="$data_dir/gnome-shell/extensions/$gnome_extension_id"
-python3 - "$data_dir" "$install_dir" "${FILEE_LANG:-}" <<'PY'
+python3 - "$data_dir" "$install_dir" "${TSUFILES_LANG:-}" <<'PY'
 import pathlib
 import sys
 
-# TsuFiles: tiếng Việt mặc định, FILEE_LANG=en để dùng tiếng Anh.
+# TsuFiles: tiếng Việt mặc định, TSUFILES_LANG=en để dùng tiếng Anh.
 EN = sys.argv[3].strip().lower() in ('en', 'en-us', 'english')
 
 root, target = map(pathlib.Path, sys.argv[1:3])

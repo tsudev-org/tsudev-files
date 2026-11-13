@@ -15,7 +15,7 @@ Thanks for helping! Filee is built to be easy to extend: most contributions touc
    Engines lets you choose a specific copy. Microsoft Office is not used.
 4. `dotnet run --project src/TsuFiles.App`, `dotnet test`.
 
-To try a build next to the Filee you use every day (testing, measuring memory), set `FILEE_DATA_DIR` to an empty
+To try a build next to the Filee you use every day (testing, measuring memory), set `TSUFILES_DATA_DIR` to an empty
 folder first. Settings, logs and downloaded engines then live there, the copy is its own single instance (later
 launches with the same variable, `--quit` included, reach it and never your installed Filee), and it registers no
 startup entry, context menu or Explorer menu.
@@ -52,10 +52,10 @@ local package without it needs the glibc of the machine that built it. Check a p
   Thunar, Nautilus, Nemo and Dolphin. The first enabled keyboard shortcut uses Thunar's native custom action;
   close Thunar before changing or pausing that shortcut and reopen it afterwards. Global selected-file queries
   and hold gestures are not supported. Wayland can use file actions, the drop zone, watch folders and CLI.
-  On KDE Plasma 6 and Hyprland, the drag gesture can also run there, experimentally with `FILEE_WAYLAND_GESTURES=1`. It needs
+  On KDE Plasma 6 and Hyprland, the drag gesture can also run there, experimentally with `TSUFILES_WAYLAND_GESTURES=1`. It needs
   the user in the `input` group (libuiohook's libinput back end) and a compositor positioning mechanism (the KWin script in
   `installer/linux/kwin` or a Hyprland floating window rule). Native Wayland support (`Avalonia.Wayland`) is also available
-  as an opt-in via `FILEE_USE_WAYLAND=1`. See `installer/linux/INSTALL.txt`.
+  as an opt-in via `TSUFILES_USE_WAYLAND=1`. See `installer/linux/INSTALL.txt`.
   On GNOME Wayland, the bundled Shell extension supplies pointer state through a private Unix socket; no input
   group is required. See [docs/GNOME-WAYLAND.md](docs/GNOME-WAYLAND.md) for setup, limits and troubleshooting.
 - **macOS:** grant Filee Accessibility permission for gestures and Finder Automation permission for selection.
@@ -139,7 +139,7 @@ Store listing points at because GitHub's download links redirect. Look over the 
 The update key is made once with `pwsh build/new-update-key.ps1 -PrivateKeyPath <file outside the repository>`. Its
 public half goes into `TsuFilesUpdatePublicKey` in `Directory.Build.props`; official builds (`-p:TsuFilesRelease=true`)
 then refuse an update whose checksum file isn't signed with it, so `sign-release.ps1` stops without `-UpdateKey` (or
-`FILEE_UPDATE_KEY`) and won't publish a draft with an unsigned checksum file. Keep the private key and a backup off
+`TSUFILES_UPDATE_KEY`) and won't publish a draft with an unsigned checksum file. Keep the private key and a backup off
 the repository: copies that carry the public key can only be updated with releases signed by it.
 `TsuFilesExpectedPublisher` and `TsuFilesExpectedIssuer` name the code signing certificate the Windows installer must be
 signed with; before a renewed certificate comes from another certificate authority, release a build that lists both
@@ -165,13 +165,13 @@ A release with features worth showing gets slides, which Filee shows once after 
    tests/TsuFiles.App.Tests/bin/Debug/net10.0/TsuFiles.App.Tests.exe -method "TsuFiles.App.Tests.WhatsNewMedia.*" -explicit only
    ```
 
-   `FILEE_WHATSNEW_ONLY=crop,theme` renders only those clips. Each file must stay under 400 KB (the test checks it,
+   `TSUFILES_WHATSNEW_ONLY=crop,theme` renders only those clips. Each file must stay under 400 KB (the test checks it,
    and `WhatsNewTests` checks all of them together stay under 2 MB); look at the first frames in
    `bin/.../screenshots/whatsnew-*.png` and at the window in `whatsnew-window-*.png`.
 5. Run `dotnet test`: `WhatsNewTests` checks that every slide's media and keys exist.
 
 To try it in the app, build with the new version (`dotnet run --project src/TsuFiles.App -p:Version=X.Y.Z`) against a
-data folder whose settings say an older version was seen (`"whatsNewSeenVersion": "1.0.0"`, `FILEE_DATA_DIR`), or
+data folder whose settings say an older version was seen (`"whatsNewSeenVersion": "1.0.0"`, `TSUFILES_DATA_DIR`), or
 open About → "What's new".
 
 To try the installer locally run `pwsh build/build-installer.ps1` (output in `Releases/`; it fetches the bundled

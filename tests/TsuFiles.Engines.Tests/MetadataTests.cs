@@ -1,7 +1,7 @@
 // The Metadata tool's engines: ExifTool reads every field grouped by where it lives, lists whole, and writes changes,
 // removals, additions, Remove location and Remove everything into a copy without touching the picture, sound or
 // document; what it would write otherwise than asked fails the copy instead. Its converter is the only engine a
-// conversion with changes takes. The ExifTool tests need one on this computer (PATH or FILEE_TEST_EXIFTOOL).
+// conversion with changes takes. The ExifTool tests need one on this computer (PATH or TSUFILES_TEST_EXIFTOOL).
 
 using ImageMagick;
 using TsuFiles.Core.Conversion;
@@ -20,8 +20,8 @@ public class MetadataTests(EngineFixture fx) : IClassFixture<EngineFixture>
     private static string? FindExifTool()
     {
         // Set and not there is a broken setup, as in CI: failing, not skipping, so the writer can't go untested unseen.
-        if (Environment.GetEnvironmentVariable("FILEE_TEST_EXIFTOOL") is { Length: > 0 } chosen)
-            return File.Exists(chosen) ? chosen : throw new FileNotFoundException("FILEE_TEST_EXIFTOOL is set, but no such file.", chosen);
+        if (Environment.GetEnvironmentVariable("TSUFILES_TEST_EXIFTOOL") is { Length: > 0 } chosen)
+            return File.Exists(chosen) ? chosen : throw new FileNotFoundException("TSUFILES_TEST_EXIFTOOL is set, but no such file.", chosen);
         var name = OperatingSystem.IsWindows() ? "exiftool.exe" : "exiftool";
         return (Environment.GetEnvironmentVariable("PATH") ?? "").Split(Path.PathSeparator)
             .Concat(["/opt/homebrew/bin", "/usr/local/bin", "/usr/bin"])

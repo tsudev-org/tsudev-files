@@ -37,7 +37,7 @@
 
   <PropertyGroup>
     <TsuFilesNativeWayland Condition="$(RuntimeIdentifier.StartsWith('linux')) Or ('$(RuntimeIdentifier)' == '' And $([MSBuild]::IsOSPlatform('Linux')))">true</TsuFilesNativeWayland>
-    <DefineConstants Condition="'$(TsuFilesNativeWayland)' == 'true'">$(DefineConstants);FILEE_NATIVE_WAYLAND</DefineConstants>
+    <DefineConstants Condition="'$(TsuFilesNativeWayland)' == 'true'">$(DefineConstants);TSUFILES_NATIVE_WAYLAND</DefineConstants>
   </PropertyGroup>
 
   <!-- Linux-only Wayland packages to keep Windows and macOS binaries small -->

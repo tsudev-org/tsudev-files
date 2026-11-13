@@ -3,7 +3,7 @@
 # the X11 input hook back end (libuiohook-xrecord.so) to prove its libraries and glibc requirement resolve.
 # Used by .github/workflows/portable.yml on the build machine and on the oldest supported Ubuntu.
 #
-# In GitHub Actions it sets FILEE_SMOKE_APP (the desktop app, for build/smoke-launch-app.py) and FILEE_SMOKE_PACKAGE
+# In GitHub Actions it sets TSUFILES_SMOKE_APP (the desktop app, for build/smoke-launch-app.py) and TSUFILES_SMOKE_PACKAGE
 # (the unpacked package folder).
 [CmdletBinding()]
 param(
@@ -77,7 +77,7 @@ if ($IsLinux) {
 }
 
 if ($env:GITHUB_ENV) {
-    "FILEE_SMOKE_APP=$(Join-Path $bin 'Filee')" >> $env:GITHUB_ENV
-    "FILEE_SMOKE_PACKAGE=$package" >> $env:GITHUB_ENV
+    "TSUFILES_SMOKE_APP=$(Join-Path $bin 'Filee')" >> $env:GITHUB_ENV
+    "TSUFILES_SMOKE_PACKAGE=$package" >> $env:GITHUB_ENV
 }
 Write-Host "Package checks passed: $package"

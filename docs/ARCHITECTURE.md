@@ -511,7 +511,7 @@ starting the GPU paths (`AvaloniaLogForwarder`), and describes each kind of tran
 shows (`TransparentWindows`). A system backdrop (Acrylic, Mica) or an accent blur on such a window turns its
 transparent area into a blurred rectangle (issue #269). Filee sets neither, so one found there came from another
 program: each time the window shows, a backdrop is set back to none and the accent (which can't be read back) is
-turned off. For a report that still shows the wrong thing, the `FILEE_RENDERING` environment variable picks another
+turned off. For a report that still shows the wrong thing, the `TSUFILES_RENDERING` environment variable picks another
 way to draw (`WindowsRendering`): `dcomp` (skip WinUI composition), `redirection` (Direct3D into the redirection
 surface) or `software` (no GPU); unset or `auto` keeps the defaults. Filee reads it at start. On ARM64, Avalonia's
 Adreno blocklist draws on the CPU through the Microsoft Basic Render Driver (issue #236), and three values try the GPU

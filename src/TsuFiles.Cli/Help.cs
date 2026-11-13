@@ -10,7 +10,7 @@ internal static class Help
     public static string Version =>
         typeof(Help).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "?";
 
-    /// <summary>Trợ giúp theo ngôn ngữ dòng lệnh (FILEE_LANG): tiếng Việt mặc định, tiếng Anh khi FILEE_LANG=en.</summary>
+    /// <summary>Trợ giúp theo ngôn ngữ dòng lệnh (TSUFILES_LANG): tiếng Việt mặc định, tiếng Anh khi TSUFILES_LANG=en.</summary>
     public static string Text(string? command) => Text(command, CliLanguage.Current);
 
     internal static string Text(string? command, string language) =>
@@ -64,7 +64,7 @@ internal static class Help
         Preset và engine dùng chung với ứng dụng Filee. Mã thoát: 0 không có lỗi (kể cả tệp bị bỏ qua),
         1 có tệp lỗi hoặc bị hủy, 2 sai tham số hoặc thiếu đầu vào, 3 không có gì để chuyển đổi.
 
-        Ngôn ngữ: mặc định tiếng Việt; đặt biến môi trường FILEE_LANG=en để dùng tiếng Anh.
+        Ngôn ngữ: mặc định tiếng Việt; đặt biến môi trường TSUFILES_LANG=en để dùng tiếng Anh.
 
         """;
 

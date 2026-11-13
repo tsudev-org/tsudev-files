@@ -10,7 +10,7 @@
   private key is the one that public key belongs to. Outputs the paths of the .sig files.
 
 .PARAMETER PrivateKeyPath
-  The private key (PEM). Defaults to $env:FILEE_UPDATE_KEY. An encrypted key asks for its passphrase.
+  The private key (PEM). Defaults to $env:TSUFILES_UPDATE_KEY. An encrypted key asks for its passphrase.
 
 .PARAMETER PublicKey
   The public key the build carries (base64), to check that the signatures are made with the matching key.
@@ -22,12 +22,12 @@
 param(
     [Parameter(Mandatory)]
     [string]$Folder,
-    [string]$PrivateKeyPath = $env:FILEE_UPDATE_KEY,
+    [string]$PrivateKeyPath = $env:TSUFILES_UPDATE_KEY,
     [string]$PublicKey
 )
 
 $ErrorActionPreference = 'Stop'
-if (-not $PrivateKeyPath) { throw 'Pass -PrivateKeyPath or set FILEE_UPDATE_KEY.' }
+if (-not $PrivateKeyPath) { throw 'Pass -PrivateKeyPath or set TSUFILES_UPDATE_KEY.' }
 if (-not (Test-Path -LiteralPath $PrivateKeyPath -PathType Leaf)) { throw "No private key at $PrivateKeyPath." }
 $sums = @(Get-ChildItem -LiteralPath $Folder -File -Filter '*SHA256SUMS.txt')
 if (-not $sums.Count) { throw "No SHA256SUMS file in $Folder." }

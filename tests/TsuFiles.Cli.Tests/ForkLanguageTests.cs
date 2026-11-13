@@ -1,5 +1,5 @@
 // TsuFiles: kiểm thử ngôn ngữ dòng lệnh của bản fork. Các test gốc của upstream kiểm câu tiếng Anh, nên module
-// initializer đặt FILEE_LANG=en cho cả assembly test; các test dưới đây tự chuyển sang tiếng Việt khi cần.
+// initializer đặt TSUFILES_LANG=en cho cả assembly test; các test dưới đây tự chuyển sang tiếng Việt khi cần.
 
 using System.Runtime.CompilerServices;
 
@@ -53,7 +53,7 @@ public sealed class ForkLanguageTests
         Assert.Contains("Cách dùng", Help.Text(null, "vi"));
         Assert.Contains("Cách dùng", Help.Text("convert", "vi"));
         Assert.Contains("Cách dùng", Help.Text("watch", "vi"));
-        Assert.Contains("FILEE_LANG", Help.Text(null, "vi"));
+        Assert.Contains("TSUFILES_LANG", Help.Text(null, "vi"));
         Assert.Contains("Usage", Help.Text(null, "en"));
     }
 }

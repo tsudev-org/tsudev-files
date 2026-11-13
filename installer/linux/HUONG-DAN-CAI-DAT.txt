@@ -1,6 +1,6 @@
 HƯỚNG DẪN CÀI ĐẶT TSUDEV-FILES TRÊN LINUX (bản Việt hóa của Filee)
 Bản tiếng Anh đầy đủ: INSTALL.txt. Thông báo của install.sh/uninstall.sh mặc định
-là tiếng Việt; đặt FILEE_LANG=en để xem tiếng Anh.
+là tiếng Việt; đặt TSUFILES_LANG=en để xem tiếng Anh.
 
 Chạy thử ngay không cần cài: ./Filee (giao diện) hoặc ./filee-cli help (dòng lệnh).
 
@@ -51,11 +51,11 @@ Gói Linux kèm extension "TsuFiles donut at the cursor". install.sh cài nó ch
 dùng hiện tại khi chạy trên GNOME và yêu cầu bật. Mở Extensions và bật nó. Nếu chưa
 thấy hoặc vẫn chạy bản cũ, hãy đăng xuất rồi đăng nhập lại, mở TsuFiles, giữ Ctrl và
 kéo một tệp trong Files. Trên GNOME không cần nhóm input, sudo hay biến
-FILEE_WAYLAND_GESTURES. Trang Trình kích hoạt (Triggers) cho biết khi TsuFiles đang chờ
+TSUFILES_WAYLAND_GESTURES. Trang Trình kích hoạt (Triggers) cho biết khi TsuFiles đang chờ
 extension hoặc khi extension đang chạy không khớp phiên bản TsuFiles.
 Extension chỉ gửi trạng thái con trỏ qua socket cục bộ riêng và đặt vòng donut mỗi
 lần mở; không thu phím bạn gõ. Tắt extension là ngừng nhận diện;
-FILEE_WAYLAND_GESTURES=0 cũng tắt được trên GNOME. Cập nhật TsuFiles (trong ứng dụng
+TSUFILES_WAYLAND_GESTURES=0 cũng tắt được trên GNOME. Cập nhật TsuFiles (trong ứng dụng
 hoặc bằng --upgrade) cũng cập nhật extension nếu do TsuFiles cài; sau đó đăng xuất và
 đăng nhập lại. install.sh chỉ thay thư mục extension do chính TsuFiles cài.
 Chi tiết, giới hạn và cách xử lý sự cố: GNOME-WAYLAND.md trong gói.
@@ -65,8 +65,8 @@ TsuFiles đọc chuột và bàn phím từ /dev/input qua libinput; một KWin 
 cửa sổ Hyprland đặt vòng donut tại con trỏ (ứng dụng Wayland không tự đặt được vị
 trí cửa sổ). Cần libinput, libudev và libwayland-client (trên Ubuntu: libinput10,
 libudev1, libwayland-client0). Cách bật:
-1. Chạy TsuFiles với biến môi trường FILEE_WAYLAND_GESTURES=1, ví dụ thêm dòng
-   FILEE_WAYLAND_GESTURES=1 vào ~/.config/environment.d/filee.conf (có hiệu lực
+1. Chạy TsuFiles với biến môi trường TSUFILES_WAYLAND_GESTURES=1, ví dụ thêm dòng
+   TSUFILES_WAYLAND_GESTURES=1 vào ~/.config/environment.d/filee.conf (có hiệu lực
    sau khi đăng nhập lại).
 2. Thêm bạn vào nhóm input rồi đăng xuất, đăng nhập lại. CẢNH BÁO: thành viên nhóm
    này đọc được mọi phím và chuột từ bất kỳ chương trình nào họ chạy; chỉ bật nếu
@@ -90,7 +90,7 @@ libudev1, libwayland-client0). Cách bật:
 
 Chạy Wayland gốc (thử nghiệm, mặc định tắt):
 Mặc định TsuFiles chạy qua XWayland để tương thích tốt nhất. Muốn dùng Wayland gốc,
-chạy TsuFiles với FILEE_USE_WAYLAND=1 (export, hoặc ghi vào
+chạy TsuFiles với TSUFILES_USE_WAYLAND=1 (export, hoặc ghi vào
 ~/.config/environment.d/filee.conf). Hạn chế: Wayland không cho biết cửa sổ nào
 đang nằm dưới con trỏ, nên Ctrl+kéo trong bất kỳ ứng dụng nào cũng mở một cửa sổ
 donut ẩn; nó chỉ nhận tệp, nên thao tác Ctrl+kéo để chép chữ có thể bị nuốt gần

@@ -193,7 +193,9 @@ internal static class Program
 
     private static bool EngineInstalled(EngineOffer engine, SetupPaths paths, string marker) =>
         marker.Length > 0 && engine.MarkerFolders.Count > 0
-        && engine.MarkerFolders.All(folder => File.Exists(Path.Combine(paths.EnginesFolder, folder, marker)));
+        && (engine.MarkerFolders.All(folder => File.Exists(Path.Combine(paths.EnginesFolder, folder, marker)))
+            // TsuFiles: bản 2.4.0-vn.* chưa chuyển engine sang thư mục mới (ứng dụng 2.4.1 chuyển ở lần chạy đầu).
+            || engine.MarkerFolders.All(folder => File.Exists(Path.Combine(paths.LegacyEnginesFolder, folder, marker))));
 
     private static int Uninstall(string[] args, SetupOptions options, string exe, SetupPaths paths, string? sandbox, SetupLog log, SetupTexts texts)
     {

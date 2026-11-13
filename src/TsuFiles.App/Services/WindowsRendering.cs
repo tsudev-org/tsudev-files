@@ -1,6 +1,6 @@
 // How Avalonia draws Filee's windows on Windows. The donut, the toast and the notices are transparent windows; a report
 // of one standing on a dark rectangle (issue #269) needs to say which way they were drawn, so the log gets it once per
-// start, with the graphics adapters, and FILEE_RENDERING picks another way without a new build.
+// start, with the graphics adapters, and TSUFILES_RENDERING picks another way without a new build.
 //
 // Avalonia's defaults: ANGLE (OpenGL ES on Direct3D 11) composed through WinUI composition, else DirectComposition, else
 // drawn into the window's redirection surface; software rendering when Direct3D 11 can't start. Every one of these
@@ -18,9 +18,9 @@ namespace TsuFiles.App.Services;
 
 internal static class WindowsRendering
 {
-    public const string Variable = "FILEE_RENDERING";
+    public const string Variable = "TSUFILES_RENDERING";
 
-    /// <summary>FILEE_RENDERING's values besides "auto" (or unset): Avalonia's defaults.</summary>
+    /// <summary>TSUFILES_RENDERING's values besides "auto" (or unset): Avalonia's defaults.</summary>
     public static readonly IReadOnlyList<string> Choices = ["dcomp", "redirection", "software", "gpu", "vulkan", "wgl"];
 
     /// <summary>The variable's value in lower case, or null for unset, empty and "auto".</summary>
@@ -88,7 +88,7 @@ internal static class WindowsRendering
             : string.Join(", ", names.Select((name, i) => $"[{i}] {name ?? "(no name)"}{(i == used ? " (used)" : "")}"));
 
     /// <summary>
-    /// "Rendering: AngleEgl with WinUIComposition (FILEE_RENDERING not set)", from what Avalonia registered at start.
+    /// "Rendering: AngleEgl with WinUIComposition (TSUFILES_RENDERING not set)", from what Avalonia registered at start.
     /// </summary>
     public static string Describe(string? variable)
     {

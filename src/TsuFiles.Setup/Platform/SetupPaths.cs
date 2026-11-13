@@ -9,8 +9,8 @@ namespace TsuFiles.Setup.Platform;
 /// <param name="UserStartMenu">This user's Start menu programs folder.</param>
 /// <param name="CommonDesktop">All users' desktop.</param>
 /// <param name="UserDesktop">This user's desktop.</param>
-/// <param name="AppData">%APPDATA%: Filee's settings are in AppData\Filee.</param>
-/// <param name="LocalAppData">%LocalAppData%: downloaded engines (LocalAppData\Filee\engines), Filee 1.1's Velopack copy.</param>
+/// <param name="AppData">%APPDATA%: TsuFiles's settings are in AppData\TsuFiles (2.4.0-vn.*: AppData\Filee).</param>
+/// <param name="LocalAppData">%LocalAppData%: downloaded engines (LocalAppData\TsuFiles\engines), Filee 1.1's Velopack copy.</param>
 /// <param name="Temp">Setup's temporary files.</param>
 /// <param name="SystemFolder">System32 (the Microsoft C++ runtime, if installed).</param>
 public sealed record SetupPaths(
@@ -25,11 +25,17 @@ public sealed record SetupPaths(
     string Temp,
     string SystemFolder)
 {
-    /// <summary>Filee's settings folder (UserDataStore.DefaultDirectory without FILEE_DATA_DIR).</summary>
-    public string SettingsFolder => Path.Combine(AppData, "Filee");
+    /// <summary>TsuFiles's settings folder (UserDataStore.DefaultDirectory without TSUFILES_DATA_DIR).</summary>
+    public string SettingsFolder => Path.Combine(AppData, TsuFiles.Core.ForkDefaults.DataFolderName);
 
     /// <summary>Downloaded engines (EngineEnvironment.DownloadRoot).</summary>
-    public string EnginesFolder => Path.Combine(LocalAppData, "Filee", "engines");
+    public string EnginesFolder => Path.Combine(LocalAppData, TsuFiles.Core.ForkDefaults.DataFolderName, "engines");
+
+    /// <summary>
+    /// TsuFiles: engine đã tải của bản 2.4.0-vn.* (LocalAppData\Filee\engines). TsuFiles 2.4.1 chuyển sang
+    /// <see cref="EnginesFolder"/> ở lần chạy đầu (LegacyDataMigration); Setup cập nhật chạy trước lần đó.
+    /// </summary>
+    public string LegacyEnginesFolder => Path.Combine(LocalAppData, TsuFiles.Core.ForkDefaults.LegacyDataFolderName, "engines");
 
     public string StartMenu(InstallScope scope) => scope == InstallScope.Machine ? CommonStartMenu : UserStartMenu;
 

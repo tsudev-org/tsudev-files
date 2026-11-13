@@ -2,7 +2,7 @@
 // the old one (as the crop overlay does), the donut redraws, and each frame is captured and encoded as PNG, while
 // another thread runs MemoryTrimmer.Trim (engine caches released, every generation collected, finalizers run, working
 // set trimmed) with compacting collections in between. Native code left with a pointer into moved or freed memory
-// crashes the test host. FILEE_STRESS_SECONDS runs it longer.
+// crashes the test host. TSUFILES_STRESS_SECONDS runs it longer.
 
 using System.Runtime;
 using Avalonia.Controls;
@@ -20,7 +20,7 @@ namespace TsuFiles.App.Tests;
 public class NativeMemoryRenderTests
 {
     private static TimeSpan Duration =>
-        TimeSpan.FromSeconds(int.TryParse(Environment.GetEnvironmentVariable("FILEE_STRESS_SECONDS"), out var s) && s > 0 ? s : 5);
+        TimeSpan.FromSeconds(int.TryParse(Environment.GetEnvironmentVariable("TSUFILES_STRESS_SECONDS"), out var s) && s > 0 ? s : 5);
 
     [AvaloniaFact]
     public async Task Rendering_and_saving_frames_survive_idle_trims_and_compacting_collections()
