@@ -7,7 +7,7 @@
         x:Class="TsuFiles.App.Views.AskPagesWindow"
         x:DataType="vm:AskPagesViewModel"
         Title="{DynamicResource pages.title}"
-        Icon="avares://Filee/Assets/Icons/filee.ico"
+        Icon="avares://TsuFiles/Assets/Icons/filee.ico"
         Width="460" SizeToContent="Height" CanResize="False"
         WindowStartupLocation="CenterScreen">
   <Window.Styles>

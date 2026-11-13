@@ -41,6 +41,10 @@ Sản phẩm đổi tên thành **TsuFiles** ([ADR-0003](docs/adr/0003-ten-san-p
   nhật xóa `cli\filee.cmd`, thư mục `cli` trên PATH giữ nguyên), Linux/macOS `~/.local/bin/tsufiles` (nâng cấp gỡ liên
   kết `filee` cũ nếu nó trỏ vào bản cài TsuFiles). Tệp chạy dòng lệnh `tsufiles-cli`. Tham số và khóa JSON đầu ra giữ
   nguyên: chỉ cần đổi tên lệnh trong script.
+- **Tệp chạy ứng dụng `TsuFiles`:** Windows `TsuFiles.exe` (cài mới vào thư mục `TsuFiles`; cập nhật giữ thư mục cũ,
+  Setup đóng `Filee.exe` của bản 2.4.0 rồi thay bằng `TsuFiles.exe`, lối tắt Gửi tới đổi thành `TsuFiles`), Linux
+  `TsuFiles` (gói vẫn kèm tệp khởi chạy `Filee` để trình cập nhật của bản 2.4.0-vn.1 cập nhật được), macOS
+  `Filee.app/Contents/MacOS/TsuFiles`.
 
 ## 2.4.0-vn.1
 

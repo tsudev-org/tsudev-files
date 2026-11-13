@@ -6,13 +6,13 @@
 .DESCRIPTION
   Without -PublishDir the app is published first (Release, self-contained, -p:TsuFilesRelease=true) into
   publish/win-x64, together with the Windows 11 Explorer menu extension (build-explorer-menu.ps1), the bundled
-  small engines rhwp and 7-Zip and the Microsoft C++ runtime DLLs next to rhwp.exe and Filee.exe
+  small engines rhwp and 7-Zip and the Microsoft C++ runtime DLLs next to rhwp.exe and TsuFiles.exe
   (fetch-engines.ps1); the large engines are downloaded by the app (engines.json).
 
   Setup itself (src/TsuFiles.Setup) is published as one self-contained, trimmed program (no .NET needed on the PC);
   build/tools/make-setup.cs appends the publish folder to it as an LZMA payload with a SHA-256 manifest, and the
   engines Setup offers from EngineDownloads. The portable zip is the publish folder as it is: without Setup's
-  uninstall.exe next to Filee.exe, Filee knows it is a portable copy.
+  uninstall.exe next to TsuFiles.exe, Filee knows it is a portable copy.
 
 .PARAMETER Runtime
   win-x64 (default) or win-arm64. The ARM64 build (Filee-<version>-win-arm64-Setup.exe and -Portable.zip) has an ARM64
@@ -39,7 +39,7 @@
 param(
     # Defaults to <Version> in Directory.Build.props.
     [string]$Version,
-    # A finished publish folder (Filee.exe, FileeExplorerMenu.dll/.msix, engines\); skips publishing.
+    # A finished publish folder (TsuFiles.exe, FileeExplorerMenu.dll/.msix, engines\); skips publishing.
     [string]$PublishDir,
     # A finished Setup program (TsuFiles.Setup.exe from an earlier run); skips publishing src/TsuFiles.Setup.
     [string]$SetupProgram,
@@ -66,12 +66,12 @@ New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 $OutputDir = (Resolve-Path $OutputDir).Path
 
 if ($CheckOnly) {
-    # A stand-in app: Setup only needs files, Filee.exe among them.
+    # A stand-in app: Setup only needs files, TsuFiles.exe among them.
     $check = Join-Path $cache 'installer-check'
     Remove-Item $check -Recurse -Force -ErrorAction SilentlyContinue
     $PublishDir = Join-Path $check 'app'
     New-Item -ItemType Directory -Force -Path (Join-Path $PublishDir 'cli'), (Join-Path $PublishDir 'engines\rhwp') | Out-Null
-    Set-Content (Join-Path $PublishDir 'Filee.exe') 'stub' -NoNewline
+    Set-Content (Join-Path $PublishDir 'TsuFiles.exe') 'stub' -NoNewline
     Set-Content (Join-Path $PublishDir 'cli\tsufiles.cmd') "@`"%~dp0..\tsufiles-cli.exe`" %*" -Encoding ascii
     Set-Content (Join-Path $PublishDir 'engines\rhwp\rhwp.exe') 'stub' -NoNewline
     $OutputDir = $check
@@ -79,7 +79,7 @@ if ($CheckOnly) {
 elseif (-not $PublishDir) {
     $PublishDir = Join-Path $root "publish\$Runtime"
     Remove-Item $PublishDir -Recurse -Force -ErrorAction SilentlyContinue
-    # Unhwp's package has no win-arm64 library: the pinned ARM64 build goes next to Filee.exe through the build.
+    # Unhwp's package has no win-arm64 library: the pinned ARM64 build goes next to TsuFiles.exe through the build.
     $native = @()
     if ($Runtime -eq 'win-arm64') {
         $natives = Join-Path $cache 'win-arm64-native'
@@ -91,7 +91,7 @@ elseif (-not $PublishDir) {
             "-p:Version=$Version" -p:PublishReadyToRun=true -p:TsuFilesRelease=true @native -o $PublishDir
     }
     # The command line, in the same folder so it shares the runtime and the engines (tsufiles-cli.exe). Its name can't
-    # be tsufiles.exe next to Filee.exe, so the "tsufiles" command is cli\tsufiles.cmd, which Setup can put on PATH.
+    # be tsufiles.exe next to TsuFiles.exe, so the "tsufiles" command is cli\tsufiles.cmd, which Setup can put on PATH.
     Invoke-Checked 'dotnet publish (cli)' {
         dotnet publish (Join-Path $root 'src\TsuFiles.Cli\TsuFiles.Cli.csproj') -c Release -r $Runtime --self-contained `
             "-p:Version=$Version" -p:PublishReadyToRun=true -p:TsuFilesRelease=true @native -o $PublishDir
@@ -101,18 +101,18 @@ elseif (-not $PublishDir) {
     Get-ChildItem $PublishDir -Filter 'lib*.pdb' | Remove-Item
     New-Item -ItemType Directory -Force -Path (Join-Path $PublishDir 'cli') | Out-Null
     Set-Content (Join-Path $PublishDir 'cli\tsufiles.cmd') "@`"%~dp0..\tsufiles-cli.exe`" %*" -Encoding ascii
-    # Next to Filee.exe: the Explorer menu package's external location is the install folder.
+    # Next to TsuFiles.exe: the Explorer menu package's external location is the install folder.
     $architecture = $Runtime.Substring(4)
     & (Join-Path $PSScriptRoot 'build-explorer-menu.ps1') -Destination $PublishDir -Version $Version -Architecture $architecture
     # Only the small rhwp and 7-Zip are bundled; the app downloads the others when the user picks them. The Microsoft
-    # C++ runtime goes next to rhwp.exe and next to Filee.exe (unhwp.dll imports VCRUNTIME140.dll), so neither needs
+    # C++ runtime goes next to rhwp.exe and next to TsuFiles.exe (unhwp.dll imports VCRUNTIME140.dll), so neither needs
     # the Visual C++ Redistributable (#248). The ARM64 builds need none.
     $runtimeTo = @{}
     if ($Runtime -eq 'win-x64') { $runtimeTo = @{ RuntimeTo = $PublishDir } }
     & (Join-Path $PSScriptRoot 'fetch-engines.ps1') -Runtime $Runtime -Only rhwp, 7zip -Destination (Join-Path $PublishDir 'engines') @runtimeTo
 }
 $PublishDir = (Resolve-Path $PublishDir).Path
-if (-not (Test-Path (Join-Path $PublishDir 'Filee.exe'))) { throw "Filee.exe is missing in $PublishDir" }
+if (-not (Test-Path (Join-Path $PublishDir 'TsuFiles.exe'))) { throw "TsuFiles.exe is missing in $PublishDir" }
 if (-not $CheckOnly) {
     # Without them rhwp and unhwp fail on PCs without the Visual C++ Redistributable (#248). They go into the payload
     # and the portable zip; Setup checks again after unpacking (RuntimeCheck) on the user's PC.
@@ -173,9 +173,9 @@ if ($CheckOnly) {
             throw "$(Split-Path $exe -Leaf) $arguments failed with exit code $($process.ExitCode)"
         }
     }
-    $installed = Join-Path $sandbox 'Program Files\Filee'
+    $installed = Join-Path $sandbox 'Program Files\TsuFiles'
     Invoke-Setup $setupExe @('/MERGETASKS=desktopicon')
-    foreach ($file in 'Filee.exe', 'cli\tsufiles.cmd', 'engines\rhwp\rhwp.exe', 'uninstall.exe', 'uninstall.json') {
+    foreach ($file in 'TsuFiles.exe', 'cli\tsufiles.cmd', 'engines\rhwp\rhwp.exe', 'uninstall.exe', 'uninstall.json') {
         if (-not (Test-Path (Join-Path $installed $file))) { throw "Setup did not install $file" }
     }
     $registry = Get-Content (Join-Path $sandbox 'registry.json') -Raw

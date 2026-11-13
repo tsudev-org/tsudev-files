@@ -101,10 +101,17 @@ if ($RhwpOverride) {
 else {
     & (Join-Path $PSScriptRoot 'fetch-portable-engines.ps1') -Runtime $Runtime -Destination $engines
 }
-foreach ($name in @('Filee', 'tsufiles-cli')) {
+foreach ($name in @('TsuFiles', 'tsufiles-cli')) {
     $executable = Join-Path $publish $name
     if (-not (Test-Path -LiteralPath $executable -PathType Leaf)) { throw "Publish did not produce $name" }
     Invoke-Checked 'Executable permissions' { chmod +x $executable }
+}
+if (-not $Runtime.StartsWith('osx-')) {
+    # TsuFiles 2.4.1 (ADR-0003 section 5): the updater of 2.4.0-vn.1 only takes a package with an executable named
+    # Filee, and starts <install folder>/Filee after install.sh. This launcher hands everything to TsuFiles.
+    $legacy = Join-Path $publish 'Filee'
+    [IO.File]::WriteAllText($legacy, "#!/bin/sh`n# TsuFiles: the app was named Filee up to 2.4.0-vn.1; its updater starts this file.`nexec `"`$(dirname `"`$(readlink -f `"`$0`")`")/TsuFiles`" `"`$@`"`n")
+    Invoke-Checked 'Legacy launcher permissions' { chmod +x $legacy }
 }
 foreach ($notice in @('LICENSE', 'THIRD-PARTY-NOTICES.md')) {
     if (Test-Path -LiteralPath (Join-Path $root $notice)) {
@@ -155,7 +162,7 @@ if ($Runtime.StartsWith('osx-')) {
     if ($SigningIdentity -ne '-') { $signOptions += @('--timestamp', '--options', 'runtime') }
     # Every file in Contents/MacOS is code to codesign, the .NET assemblies too (their signature goes into extended
     # attributes): signing the main executable checks all of them. Deepest paths first, the main executable last.
-    $mainExecutable = Join-Path $publish 'Filee'
+    $mainExecutable = Join-Path $publish 'TsuFiles'
     $files = Get-ChildItem -LiteralPath $publish -Recurse -File | Where-Object { $_.FullName -ne $mainExecutable } |
         Sort-Object { $_.FullName.Length } -Descending
     foreach ($file in $files) {

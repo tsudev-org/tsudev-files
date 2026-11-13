@@ -54,7 +54,7 @@ public class ExplorerMenuTests
         Assert.Equal("10.0.22000.0", (string?)manifest.Descendants(F + "TargetDeviceFamily").Single().Attribute("MinVersion"));
 
         var app = manifest.Descendants(F + "Application").Single();
-        Assert.Equal("Filee.exe", (string?)app.Attribute("Executable"));
+        Assert.Equal("TsuFiles.exe", (string?)app.Attribute("Executable"));
         Assert.Equal("mediumIL", (string?)app.Attribute(Uap10 + "TrustLevel"));
         Assert.Equal("win32App", (string?)app.Attribute(Uap10 + "RuntimeBehavior"));
         Assert.Equal("none", (string?)app.Element(Uap + "VisualElements")!.Attribute("AppListEntry"));
@@ -234,7 +234,7 @@ public class ExplorerMenuTests
         // TsuFiles: bản fork dùng tiêu đề dự phòng tiếng Việt.
         var expectedTitle = ExplorerMenuRegistration.ReadTitle();
         Assert.Equal(expectedTitle ?? "Chuyển đổi bằng TsuFiles", command.GetTitle());
-        Assert.Equal(Path.Combine(BuiltFolder, "Filee.exe") + ",0", command.GetIcon(), ignoreCase: true);
+        Assert.Equal(Path.Combine(BuiltFolder, "TsuFiles.exe") + ",0", command.GetIcon(), ignoreCase: true);
         Assert.Equal(ExplorerMenuPackage.ClassId, command.GetCanonicalName());
 
         const int enabled = 0, hidden = 2;

@@ -263,6 +263,32 @@ exec ""$REAL_MV"" ""$@""
     }
 
     [Fact]
+    public void Upgrade_from_2_4_0_quits_the_running_filee_and_installs_tsufiles()
+    {
+        // TsuFiles 2.4.0-vn.1 ran as "Filee" and had no TsuFiles executable.
+        var env = CreateEnvironment();
+        CreateMockPayload(env.SourceDir, "v1.0.0");
+        Assert.Equal(0, RunInstaller(env.SourceDir, env.DataDir, env.HomeDir).ExitCode);
+        var installDir = Path.Combine(env.DataDir, "filee", "application");
+        File.Delete(Path.Combine(installDir, "TsuFiles"));
+        var quitLog = Path.Combine(env.DataDir, "quit.log");
+        var old = Path.Combine(installDir, "Filee");
+        File.WriteAllText(old, $"#!/bin/sh\nif [ \"$1\" = \"--quit\" ]; then echo quit >> \"{quitLog}\"; fi\nexit 0\n");
+
+        var v2Source = Path.Combine(_root, "source-v2");
+        CreateMockPayload(v2Source, "v2.0.0");
+        var (exitCode, output, error) = RunInstaller(v2Source, env.DataDir, env.HomeDir, "--upgrade");
+
+        Assert.True(exitCode == 0, $"Upgrade failed with code {exitCode}. Output: {output}. Error: {error}");
+        Assert.Equal("quit", File.ReadAllText(quitLog).Trim());
+        Assert.True(File.Exists(Path.Combine(installDir, "TsuFiles")));
+        // The 2.4.0-vn.1 updater starts <install folder>/Filee after install.sh: the package's launcher is there.
+        Assert.True(File.Exists(old));
+        Assert.Contains($"Exec=\"{Path.Combine(installDir, "TsuFiles")}\" --convert %F",
+            File.ReadAllText(Path.Combine(env.DataDir, "applications", "com.filee.app.desktop")));
+    }
+
+    [Fact]
     public void Upgrade_keeps_a_filee_command_that_is_not_ours()
     {
         var env = CreateEnvironment();
@@ -352,8 +378,8 @@ exec ""$REAL_MV"" ""$@""
         var installDir = Path.Combine(env.DataDir, "filee", "application");
         var quitLog = Path.Combine(env.DataDir, "quit.log");
 
-        // Replace Filee with a mock script that records --quit
-        var fileeScript = Path.Combine(installDir, "Filee");
+        // Replace TsuFiles with a mock script that records --quit
+        var fileeScript = Path.Combine(installDir, "TsuFiles");
         File.WriteAllText(fileeScript, $"#!/bin/sh\nif [ \"$1\" = \"--quit\" ]; then echo \"quit-called\" >> \"{quitLog}\"; exit 0; fi\nexit 0\n");
         File.SetUnixFileMode(fileeScript, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
 
@@ -745,7 +771,7 @@ exec ""$REAL_MV"" ""$@""
         Assert.Equal(0, exitCode1);
 
         var installDir = Path.Combine(env.DataDir, "filee", "application");
-        var activeFilee = Path.Combine(installDir, "Filee");
+        var activeFilee = Path.Combine(installDir, "TsuFiles");
 
         // Make the installed Filee binary fail if --quit is invoked
         File.WriteAllText(activeFilee, "#!/bin/sh\nif [ \"$1\" = \"--quit\" ]; then exit 42; fi\nexit 0\n");
@@ -778,18 +804,21 @@ exec ""$REAL_MV"" ""$@""
     {
         Directory.CreateDirectory(dir);
         var filee = Path.Combine(dir, "Filee");
+        var app = Path.Combine(dir, "TsuFiles");
         var cli = Path.Combine(dir, "tsufiles-cli");
         var icon = Path.Combine(dir, "filee.png");
         var ver = Path.Combine(dir, "version.txt");
         var script = Path.Combine(dir, "install.sh");
 
-        File.WriteAllText(filee, "#!/bin/sh\nexit 0\n");
+        File.WriteAllText(filee, "#!/bin/sh\nexit 0\n"); // the launcher the 2.4.0-vn.1 updater starts
+        File.WriteAllText(app, "#!/bin/sh\nexit 0\n");
         File.WriteAllText(cli, "#!/bin/sh\nexit 0\n");
         File.WriteAllText(icon, "dummy-png");
         File.WriteAllText(ver, version);
         File.Copy(_installScriptPath, script, overwrite: true);
 
         File.SetUnixFileMode(filee, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
+        File.SetUnixFileMode(app, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
         File.SetUnixFileMode(cli, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
         File.SetUnixFileMode(script, UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute);
     }

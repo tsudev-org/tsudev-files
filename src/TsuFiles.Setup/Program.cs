@@ -116,7 +116,7 @@ internal static class Program
             texts.SetLanguage(recorded);
         var folder = previous?.Folder
                      ?? (options.Directory is { } dir ? Path.GetFullPath(Environment.ExpandEnvironmentVariables(dir)) : null)
-                     ?? (options.Portable ? Path.Combine(Path.GetDirectoryName(exe)!, "Filee") : paths.DefaultInstallFolder(scope));
+                     ?? (options.Portable ? Path.Combine(Path.GetDirectoryName(exe)!, TsuFiles.Core.ForkDefaults.DataFolderName) : paths.DefaultInstallFolder(scope));
         if (previous is not null && options.Directory is { } asked
             && !Path.GetFullPath(Environment.ExpandEnvironmentVariables(asked)).TrimEnd('\\').Equals(previous.Folder, StringComparison.OrdinalIgnoreCase))
             log.Warn($"/DIR={asked} ignored: Filee is installed in {previous.Folder}, which an update keeps");

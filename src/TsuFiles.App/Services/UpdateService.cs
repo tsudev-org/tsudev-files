@@ -448,7 +448,7 @@ public sealed partial class UpdateService : ObservableObject
 
             var scriptPath = Path.Combine(payloadDir, "install.sh");
             var targetInstallDir = LinuxInstallDirectoryOverride ?? GetLinuxInstallDirectory();
-            var newExe = Path.Combine(targetInstallDir, "Filee");
+            var newExe = Path.Combine(targetInstallDir, AppExecutable);
             var currentPid = Environment.ProcessId;
             var logDir = Path.Combine(UserDataStore.DefaultDirectory, "logs");
             Directory.CreateDirectory(logDir);
@@ -986,10 +986,10 @@ public sealed partial class UpdateService : ObservableObject
         }
 
         var installSh = Path.Combine(payloadDir, "install.sh");
-        var fileeExe = Path.Combine(payloadDir, "Filee");
+        var fileeExe = Path.Combine(payloadDir, AppExecutable);
         if (!File.Exists(installSh) || !File.Exists(fileeExe))
         {
-            throw new InvalidDataException("Archive is missing install.sh or Filee executable in the payload directory.");
+            throw new InvalidDataException($"Archive is missing install.sh or {AppExecutable} executable in the payload directory.");
         }
 
         if (OperatingSystem.IsLinux())
@@ -1256,6 +1256,12 @@ public sealed partial class UpdateService : ObservableObject
             log?.LogWarning(ex, "Failed to enumerate update workspaces in {Root}", root);
         }
     }
+
+    /// <summary>
+    /// The app's executable on Linux (TsuFiles from 2.4.1, ADR-0003). Packages also carry a "Filee" launcher for the
+    /// updater of 2.4.0-vn.1, which checks for and starts that name.
+    /// </summary>
+    internal const string AppExecutable = "TsuFiles";
 
     /// <summary>Locates the installation directory on Linux.</summary>
     internal static string GetLinuxInstallDirectory()

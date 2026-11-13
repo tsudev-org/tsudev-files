@@ -11,7 +11,7 @@
   2. checks out the tag in a worktree and runs its build-installer.ps1 with -CertificateThumbprint, which signs the
      unsigned programs and the Setup program, packs Setup.exe, signs it, zips the portable copy and writes the
      SHA-256 sums;
-  3. installs the signed Setup into a sandbox (nothing on the PC is touched) and checks that Filee.exe and
+  3. installs the signed Setup into a sandbox (nothing on the PC is touched) and checks that TsuFiles.exe and
      uninstall.exe come out signed, then uninstalls it;
   4. signs every SHA256SUMS file of the release (Windows, and the Linux and macOS ones from the draft) with Filee's
      update key (build/sign-checksums.ps1, -UpdateKey), which writes a .sig file next to each;
@@ -108,8 +108,8 @@ function Invoke-Setup([string]$exe) {
 }
 Write-Host 'install the signed Setup into a sandbox'
 Invoke-Setup $setup
-$installed = Join-Path $sandbox 'Program Files\Filee'
-foreach ($file in 'Filee.exe', 'tsufiles-cli.exe', 'uninstall.exe', 'engines\rhwp\rhwp.exe') {
+$installed = Join-Path $sandbox 'Program Files\TsuFiles'
+foreach ($file in 'TsuFiles.exe', 'tsufiles-cli.exe', 'uninstall.exe', 'engines\rhwp\rhwp.exe') {
     $signature = Get-AuthenticodeSignature (Join-Path $installed $file)
     if ($signature.Status -ne 'Valid') { throw "$file is not signed after installing ($($signature.Status))." }
 }

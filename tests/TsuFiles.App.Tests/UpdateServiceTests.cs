@@ -517,7 +517,7 @@ public class UpdateServiceTests
 
         var tarBytes = CreateTarGz(writer =>
         {
-            AddFileEntry(writer, "Filee-1.0.0-linux-x64/Filee", "#!/bin/sh\necho app\n");
+            AddFileEntry(writer, "Filee-1.0.0-linux-x64/TsuFiles", "#!/bin/sh\necho app\n");
             AddFileEntry(writer, "Filee-1.0.0-linux-x64/install.sh", "#!/bin/sh\necho installer\n");
             AddFileEntry(writer, "Filee-1.0.0-linux-x64/filee.png", "fake png data");
         });
@@ -527,7 +527,7 @@ public class UpdateServiceTests
 
         Assert.Equal(Path.Combine(destFolder, "Filee-1.0.0-linux-x64"), payloadDir);
         var installSh = Path.Combine(payloadDir, "install.sh");
-        var fileeExe = Path.Combine(payloadDir, "Filee");
+        var fileeExe = Path.Combine(payloadDir, "TsuFiles");
         Assert.True(File.Exists(installSh));
         Assert.True(File.Exists(fileeExe));
 
@@ -609,7 +609,7 @@ public class UpdateServiceTests
     {
         var tarBytes = CreateTarGz(writer =>
         {
-            AddFileEntry(writer, "Filee-9.9.9-linux-x64/Filee", "#!/bin/sh\nexit 0\n");
+            AddFileEntry(writer, "Filee-9.9.9-linux-x64/TsuFiles", "#!/bin/sh\nexit 0\n");
             AddFileEntry(writer, "Filee-9.9.9-linux-x64/install.sh", "#!/bin/sh\nexit 0\n");
             AddFileEntry(writer, "Filee-9.9.9-linux-x64/filee.png", "png data");
         });
@@ -653,7 +653,7 @@ public class UpdateServiceTests
         Assert.Contains("rm -rf \"$5\"", helperPsi.ArgumentList[1]);
         Assert.Equal(Environment.ProcessId.ToString(), helperPsi.ArgumentList[3]);
         Assert.EndsWith("install.sh", helperPsi.ArgumentList[4]);
-        Assert.Equal(Path.Combine(mockInstallDir, "Filee"), helperPsi.ArgumentList[5]);
+        Assert.Equal(Path.Combine(mockInstallDir, "TsuFiles"), helperPsi.ArgumentList[5]);
         Assert.EndsWith(".log", helperPsi.ArgumentList[6]);
         Assert.EndsWith(".update-failed", helperPsi.ArgumentList[8]);
 
@@ -665,7 +665,7 @@ public class UpdateServiceTests
     {
         var tarBytes = CreateTarGz(writer =>
         {
-            AddFileEntry(writer, "Filee-9.9.9-linux-x64/Filee", "#!/bin/sh\nexit 0\n");
+            AddFileEntry(writer, "Filee-9.9.9-linux-x64/TsuFiles", "#!/bin/sh\nexit 0\n");
             AddFileEntry(writer, "Filee-9.9.9-linux-x64/install.sh", "#!/bin/sh\nexit 0\n");
             AddFileEntry(writer, "Filee-9.9.9-linux-x64/filee.png", "png data");
         });
@@ -833,7 +833,7 @@ public class UpdateServiceTests
                              | UnixFileMode.GroupRead | UnixFileMode.GroupExecute | UnixFileMode.OtherRead | UnixFileMode.OtherExecute;
             var setgidMode = UnixFileMode.SetGroup | UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute
                              | UnixFileMode.GroupRead | UnixFileMode.GroupExecute | UnixFileMode.OtherRead | UnixFileMode.OtherExecute;
-            AddFileEntry(writer, "Filee-9.9.9-linux-x64/Filee", "#!/bin/sh\nexit 0\n", setuidMode);
+            AddFileEntry(writer, "Filee-9.9.9-linux-x64/TsuFiles", "#!/bin/sh\nexit 0\n", setuidMode);
             AddFileEntry(writer, "Filee-9.9.9-linux-x64/install.sh", "#!/bin/sh\nexit 0\n", setgidMode);
         });
         var archiveFile = Path.Combine(TempFolder(), "payload.tar.gz");
@@ -844,7 +844,7 @@ public class UpdateServiceTests
 
         if (OperatingSystem.IsLinux())
         {
-            var fileeMode = File.GetUnixFileMode(Path.Combine(payloadDir, "Filee"));
+            var fileeMode = File.GetUnixFileMode(Path.Combine(payloadDir, "TsuFiles"));
             var installMode = File.GetUnixFileMode(Path.Combine(payloadDir, "install.sh"));
 
             Assert.False(fileeMode.HasFlag(UnixFileMode.SetUser), "setuid bit must be stripped");

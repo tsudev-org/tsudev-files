@@ -68,7 +68,7 @@ public sealed class Uninstaller(SetupContext context)
         var stuck = new List<string>();
         progress?.Report(new SetupProgress(SetupStep.Closing, 0));
 
-        var exe = Path.Combine(folder, SetupNames.AppExe);
+        var exe = SetupNames.AppExeIn(folder);
         // Gone already when an earlier try ended in files that stayed: that one ran the cleanup, so nothing failed.
         var hasExe = File.Exists(exe);
         var cleaned = !hasExe || RunCleanup(exe);
@@ -200,7 +200,7 @@ public sealed class Uninstaller(SetupContext context)
         while (true)
         {
             var left = ProgramsLeftIn(folder, record);
-            var unseen = record.Scope == InstallScope.Machine && System.RunsOutOfSight(Path.GetFileNameWithoutExtension(SetupNames.AppExe));
+            var unseen = record.Scope == InstallScope.Machine && System.RunsOutOfSight(Path.GetFileNameWithoutExtension(SetupNames.AppExeIn(folder)));
             if (left.Count == 0 && !unseen)
                 return false;
             if (DateTime.UtcNow >= deadline)

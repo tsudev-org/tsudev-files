@@ -25,7 +25,7 @@ Run ./uninstall.sh to remove the ~/Applications installation, integration and
 TsuFiles-downloaded engines. Your settings and conversion results are kept.
 If integration cleanup fails, the installation is kept so you can fix the error
 and run the uninstaller again. A manually placed app in
-/Applications can be removed after running its Filee executable (Filee.app/Contents/MacOS/Filee) with
+/Applications can be removed after running its executable (Filee.app/Contents/MacOS/TsuFiles; 2.4.0: .../MacOS/Filee) with
 --uninstall-cleanup.
 
 rhwp and 7-Zip are bundled. Other engines can be installed in TsuFiles settings or

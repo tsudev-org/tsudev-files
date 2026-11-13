@@ -42,7 +42,7 @@ public sealed record SetupPaths(
     public string Desktop(InstallScope scope) => scope == InstallScope.Machine ? CommonDesktop : UserDesktop;
 
     public string DefaultInstallFolder(InstallScope scope) =>
-        Path.Combine(scope == InstallScope.Machine ? ProgramFiles : UserPrograms, "Filee");
+        Path.Combine(scope == InstallScope.Machine ? ProgramFiles : UserPrograms, TsuFiles.Core.ForkDefaults.DataFolderName); // TsuFiles 2.4.1: new installs; an update stays in its folder
 
     /// <summary>This PC's folders.</summary>
     public static SetupPaths Real()

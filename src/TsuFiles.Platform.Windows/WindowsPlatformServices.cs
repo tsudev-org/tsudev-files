@@ -292,6 +292,7 @@ public sealed class WindowsPlatformServices : IPlatformServices
         {
             RemoveClassicVerb();
             TryDelete(SendToShortcutPath);
+            TryDelete(LegacySendToShortcutPath);
             return;
         }
 
@@ -301,6 +302,8 @@ public sealed class WindowsPlatformServices : IPlatformServices
             WriteClassicVerb(executablePath, label);
 
         CreateShortcut(SendToShortcutPath, executablePath, "--convert", label);
+        // TsuFiles 2.4.1: the Send To entry of 2.4.0-vn.* was Filee.lnk (pointing at Filee.exe, gone after the update).
+        TryDelete(LegacySendToShortcutPath);
     }
 
     public ModernContextMenuState GetModernContextMenuState(string executablePath)
@@ -405,6 +408,9 @@ public sealed class WindowsPlatformServices : IPlatformServices
     }
 
     private static string SendToShortcutPath =>
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo), TsuFiles.Core.ForkDefaults.DisplayName + ".lnk");
+
+    private static string LegacySendToShortcutPath =>
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SendTo), "Filee.lnk");
 
     private static nint RootWindowAt(int x, int y)

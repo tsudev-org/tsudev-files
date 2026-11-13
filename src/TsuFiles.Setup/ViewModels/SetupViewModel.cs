@@ -279,10 +279,12 @@ public sealed partial class SetupViewModel : ObservableObject
             return;
         if (await PickFolder(Folder) is { } picked)
         {
-            // A folder of its own, like Inno Setup: picking "D:\Apps" installs into "D:\Apps\Filee".
-            Folder = Path.GetFileName(Path.TrimEndingDirectorySeparator(picked)).Equals("Filee", StringComparison.OrdinalIgnoreCase)
+            // A folder of its own, like Inno Setup: picking "D:\Apps" installs into "D:\Apps\TsuFiles".
+            var name = Path.GetFileName(Path.TrimEndingDirectorySeparator(picked));
+            Folder = name.Equals(TsuFiles.Core.ForkDefaults.DataFolderName, StringComparison.OrdinalIgnoreCase)
+                     || name.Equals(TsuFiles.Core.ForkDefaults.LegacyDataFolderName, StringComparison.OrdinalIgnoreCase)
                 ? picked
-                : Path.Combine(picked, "Filee");
+                : Path.Combine(picked, TsuFiles.Core.ForkDefaults.DataFolderName);
         }
     }
 

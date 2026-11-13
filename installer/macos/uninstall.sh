@@ -25,7 +25,8 @@ if [ "$bundle_id" != 'com.filee.app' ]; then
     say 'Gói này không phải TsuFiles.' 'The bundle is not TsuFiles.'
     exit 1
 fi
-"$install_dir/Contents/MacOS/Filee" --uninstall-cleanup
+# TsuFiles: the bundle of 2.4.0-vn.* has Contents/MacOS/Filee only.
+if [ -x "$install_dir/Contents/MacOS/TsuFiles" ]; then "$install_dir/Contents/MacOS/TsuFiles" --uninstall-cleanup; else "$install_dir/Contents/MacOS/Filee" --uninstall-cleanup; fi
 if [ -L "$HOME/.local/bin/tsufiles" ] && [ "$(readlink "$HOME/.local/bin/tsufiles")" = "$install_dir/Contents/MacOS/tsufiles-cli" ]; then
     rm -- "$HOME/.local/bin/tsufiles"
 fi
