@@ -1325,7 +1325,7 @@
   "installer.options.later": "Vous pourrez les modifier plus tard dans Filee, sous Paramètres → Général.",
   "installer.options.update_note": "Filee conserve ses autres paramètres. Modifiez-les à tout moment dans Filee, sous Paramètres → Général.",
   "installer.task.modern_menu": "L'afficher aussi en haut du menu de Windows 11, pas seulement sous « Afficher d'autres options »",
-  "installer.task.cli": "Ajouter la commande « filee » au PATH (conversion en ligne de commande)",
+  "installer.task.cli": "Ajouter la commande « tsufiles » au PATH (conversion en ligne de commande)",
   "installer.task.desktop_icon": "Créer un raccourci sur le Bureau",
   "installer.engines.when": "Filee télécharge les moteurs choisis depuis leurs sources officielles au démarrage.",
   "installer.progress.install": "Installation de Filee",
@@ -1467,7 +1467,7 @@
   "watch.status_watching": "Surveillance active",
   "watch.status_starting": "Démarrage…",
   "watch.status_error": "Impossible de surveiller ce dossier : {0}",
-  "watch.cli_hint": "Aussi en ligne de commande : filee watch <folder> --to <format>",
+  "watch.cli_hint": "Aussi en ligne de commande : tsufiles watch <folder> --to <format>",
 
   "preset.sheet_studio": "PDF + Modifier",
   "sheet_studio.title": "Atelier d’impression des feuilles de calcul",

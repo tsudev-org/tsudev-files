@@ -1,4 +1,4 @@
-// The "filee" command on PATH: the install folder's cli subfolder in the system PATH (per-machine) or the user's PATH
+// The "tsufiles" command on PATH: the install folder's cli subfolder in the system PATH (per-machine) or the user's PATH
 // (per-user), written as REG_EXPAND_SZ like Windows' own value so %SystemRoot% entries keep working.
 
 using TsuFiles.Setup.Platform;

@@ -1325,7 +1325,7 @@
   "installer.options.later": "Podes alterar estas opções mais tarde no Filee, em Definições → Geral.",
   "installer.options.update_note": "O Filee mantém as restantes definições. Podes alterá-las a qualquer momento no Filee, em Definições → Geral.",
   "installer.task.modern_menu": "Mostrar também no menu principal do Windows 11, além de «Mostrar mais opções»",
-  "installer.task.cli": "Adicionar o comando «filee» ao PATH (converter pela linha de comandos)",
+  "installer.task.cli": "Adicionar o comando «tsufiles» ao PATH (converter pela linha de comandos)",
   "installer.task.desktop_icon": "Criar um atalho no ambiente de trabalho",
   "installer.engines.when": "Ao iniciar, o Filee descarrega os motores escolhidos das respetivas fontes oficiais.",
   "installer.progress.install": "A instalar o Filee",
@@ -1467,7 +1467,7 @@
   "watch.status_watching": "A monitorizar",
   "watch.status_starting": "A iniciar…",
   "watch.status_error": "Não é possível monitorizar esta pasta: {0}",
-  "watch.cli_hint": "Também na linha de comandos: filee watch <pasta> --to <formato>",
+  "watch.cli_hint": "Também na linha de comandos: tsufiles watch <pasta> --to <formato>",
 
   "preset.sheet_studio": "PDF + Editar",
   "sheet_studio.title": "Estúdio de impressão",

@@ -109,7 +109,7 @@ function Invoke-Setup([string]$exe) {
 Write-Host 'install the signed Setup into a sandbox'
 Invoke-Setup $setup
 $installed = Join-Path $sandbox 'Program Files\Filee'
-foreach ($file in 'Filee.exe', 'filee-cli.exe', 'uninstall.exe', 'engines\rhwp\rhwp.exe') {
+foreach ($file in 'Filee.exe', 'tsufiles-cli.exe', 'uninstall.exe', 'engines\rhwp\rhwp.exe') {
     $signature = Get-AuthenticodeSignature (Join-Path $installed $file)
     if ($signature.Status -ne 'Valid') { throw "$file is not signed after installing ($($signature.Status))." }
 }

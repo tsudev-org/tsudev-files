@@ -72,7 +72,7 @@ if ($CheckOnly) {
     $PublishDir = Join-Path $check 'app'
     New-Item -ItemType Directory -Force -Path (Join-Path $PublishDir 'cli'), (Join-Path $PublishDir 'engines\rhwp') | Out-Null
     Set-Content (Join-Path $PublishDir 'Filee.exe') 'stub' -NoNewline
-    Set-Content (Join-Path $PublishDir 'cli\filee.cmd') "@`"%~dp0..\filee-cli.exe`" %*" -Encoding ascii
+    Set-Content (Join-Path $PublishDir 'cli\tsufiles.cmd') "@`"%~dp0..\tsufiles-cli.exe`" %*" -Encoding ascii
     Set-Content (Join-Path $PublishDir 'engines\rhwp\rhwp.exe') 'stub' -NoNewline
     $OutputDir = $check
 }
@@ -90,8 +90,8 @@ elseif (-not $PublishDir) {
         dotnet publish (Join-Path $root 'src\TsuFiles.App\TsuFiles.App.csproj') -c Release -r $Runtime --self-contained `
             "-p:Version=$Version" -p:PublishReadyToRun=true -p:TsuFilesRelease=true @native -o $PublishDir
     }
-    # The command line, in the same folder so it shares the runtime and the engines (filee-cli.exe). Its name can't
-    # be filee.exe next to Filee.exe, so the "filee" command is cli\filee.cmd, which Setup can put on PATH.
+    # The command line, in the same folder so it shares the runtime and the engines (tsufiles-cli.exe). Its name can't
+    # be tsufiles.exe next to Filee.exe, so the "tsufiles" command is cli\tsufiles.cmd, which Setup can put on PATH.
     Invoke-Checked 'dotnet publish (cli)' {
         dotnet publish (Join-Path $root 'src\TsuFiles.Cli\TsuFiles.Cli.csproj') -c Release -r $Runtime --self-contained `
             "-p:Version=$Version" -p:PublishReadyToRun=true -p:TsuFilesRelease=true @native -o $PublishDir
@@ -100,7 +100,7 @@ elseif (-not $PublishDir) {
     # TsuFiles.App's publish removes them, but publishing the command line into the same folder brings them back.
     Get-ChildItem $PublishDir -Filter 'lib*.pdb' | Remove-Item
     New-Item -ItemType Directory -Force -Path (Join-Path $PublishDir 'cli') | Out-Null
-    Set-Content (Join-Path $PublishDir 'cli\filee.cmd') "@`"%~dp0..\filee-cli.exe`" %*" -Encoding ascii
+    Set-Content (Join-Path $PublishDir 'cli\tsufiles.cmd') "@`"%~dp0..\tsufiles-cli.exe`" %*" -Encoding ascii
     # Next to Filee.exe: the Explorer menu package's external location is the install folder.
     $architecture = $Runtime.Substring(4)
     & (Join-Path $PSScriptRoot 'build-explorer-menu.ps1') -Destination $PublishDir -Version $Version -Architecture $architecture
@@ -175,7 +175,7 @@ if ($CheckOnly) {
     }
     $installed = Join-Path $sandbox 'Program Files\Filee'
     Invoke-Setup $setupExe @('/MERGETASKS=desktopicon')
-    foreach ($file in 'Filee.exe', 'cli\filee.cmd', 'engines\rhwp\rhwp.exe', 'uninstall.exe', 'uninstall.json') {
+    foreach ($file in 'Filee.exe', 'cli\tsufiles.cmd', 'engines\rhwp\rhwp.exe', 'uninstall.exe', 'uninstall.json') {
         if (-not (Test-Path (Join-Path $installed $file))) { throw "Setup did not install $file" }
     }
     $registry = Get-Content (Join-Path $sandbox 'registry.json') -Raw

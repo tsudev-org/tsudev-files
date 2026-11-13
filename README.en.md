@@ -21,8 +21,8 @@ runs **on your computer**: no file is uploaded anywhere, and Microsoft Office is
 | Area | Filee | TsuFiles |
 | --- | --- | --- |
 | Default language | The operating system's, English as fallback | **Vietnamese** for the app, the installer and the CLI; changeable in Settings |
-| `filee` command line | English only | Vietnamese by default, `TSUFILES_LANG=en` for English; JSON keys unchanged for scripts |
-| Product name | Filee | **TsuFiles**, owl logo, Night Owl theme ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)); executable, `filee` command, data folder, shortcuts and release files move to `tsufiles` in 2.4.1 with migration |
+| `tsufiles` command line | English only | Vietnamese by default, `TSUFILES_LANG=en` for English; JSON keys unchanged for scripts |
+| Product name | Filee | **TsuFiles**, owl logo, Night Owl theme ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)); executable, `tsufiles` command, data folder, shortcuts and release files move to `tsufiles` in 2.4.1 with migration |
 | Updates | `KnifeLemon/Filee` and its author's signing key | `tsudev-org/tsudev-files` and **its own ECDSA P-256 signing key**; releases of other repositories are refused |
 | GitHub Actions | Pinned by tag | **Pinned by commit SHA** |
 | Security gates | CI + tests | Also CodeQL (security-extended), gitleaks, NuGet vulnerability audit, SBOM and build provenance, Dependabot |

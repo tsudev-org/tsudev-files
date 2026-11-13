@@ -1,4 +1,4 @@
-// The "filee" commands: convert, watch, formats, presets, engines. Writes results for people (one line per file) or, with
+// The "tsufiles" commands: convert, watch, formats, presets, engines. Writes results for people (one line per file) or, with
 // --json, one JSON document for other programs; while it runs, convert --json writes events to stderr and watch --json
 // to stdout, one JSON object per line. Exit codes: 0 nothing failed (skipped files included), 1 some failed or were
 // cancelled, 2 wrong arguments or a missing input, 3 nothing to convert.
@@ -28,8 +28,8 @@ internal static class Cli
         var options = CliOptions.Parse(args);
         if (options.Error is not null)
         {
-            errors.WriteLine($"filee: {options.Error}");
-            errors.WriteLine(CliLanguage.T("Chạy 'filee help' để xem cách dùng.", "Run 'filee help' for usage."));
+            errors.WriteLine($"tsufiles: {options.Error}");
+            errors.WriteLine(CliLanguage.T("Chạy 'tsufiles help' để xem cách dùng.", "Run 'tsufiles help' for usage."));
             return UsageError;
         }
         switch (options.Command)
@@ -38,7 +38,7 @@ internal static class Cli
                 output.Write(Help.Text(options.Inputs.FirstOrDefault()));
                 return Success;
             case "version":
-                output.WriteLine($"filee {Help.Version}");
+                output.WriteLine($"tsufiles {Help.Version}");
                 return Success;
         }
 
@@ -64,12 +64,12 @@ internal static class Cli
         var files = ExpandInputs(options.Inputs, options.Recursive, missing,
             foldersAsInputs: preset.TargetFormat == "iso" || preset.PacksIntoOneArchive);
         foreach (var path in missing)
-            errors.WriteLine(CliLanguage.T($"filee: không tìm thấy: {path}", $"filee: not found: {path}"));
+            errors.WriteLine(CliLanguage.T($"tsufiles: không tìm thấy: {path}", $"tsufiles: not found: {path}"));
         if (missing.Count > 0)
             return UsageError;
         if (files.Count == 0)
         {
-            errors.WriteLine(CliLanguage.T("filee: không có tệp nào để chuyển đổi.", "filee: no files to convert."));
+            errors.WriteLine(CliLanguage.T("tsufiles: không có tệp nào để chuyển đổi.", "tsufiles: no files to convert."));
             return NothingToDo;
         }
         // Without it files stay as given, and a folder or wildcard as the file system lists it.
@@ -114,7 +114,7 @@ internal static class Cli
             settleTime: settle);
         if (!watcher.Start())
         {
-            errors.WriteLine($"filee: {watcher.Error}");
+            errors.WriteLine($"tsufiles: {watcher.Error}");
             return UsageError;
         }
         if (events is not null)
@@ -269,12 +269,12 @@ internal static class Cli
         {
             if (FindFormat(options.To) is not { } format)
             {
-                errors.WriteLine(CliLanguage.T($"filee: định dạng không xác định '{options.To}'. Chạy 'filee formats' để xem danh sách.", $"filee: unknown format '{options.To}'. Run 'filee formats' for the list."));
+                errors.WriteLine(CliLanguage.T($"tsufiles: định dạng không xác định '{options.To}'. Chạy 'tsufiles formats' để xem danh sách.", $"tsufiles: unknown format '{options.To}'. Run 'tsufiles formats' for the list."));
                 return null;
             }
             if (!format.Writable)
             {
-                errors.WriteLine(CliLanguage.T($"filee: Filee đọc được {format.DisplayName} nhưng không ghi được định dạng này.", $"filee: Filee reads {format.DisplayName} but can't write it."));
+                errors.WriteLine(CliLanguage.T($"tsufiles: Filee đọc được {format.DisplayName} nhưng không ghi được định dạng này.", $"tsufiles: Filee reads {format.DisplayName} but can't write it."));
                 return null;
             }
             preset = new Preset { TargetFormat = format.Id };
@@ -290,7 +290,7 @@ internal static class Cli
             var found = Find(host.Store.Presets.Where(p => !p.IsGroup && !p.IsTool)) ?? Find(host.Store.Presets);
             if (found is null)
             {
-                errors.WriteLine(CliLanguage.T($"filee: không có preset '{wanted}'. Chạy 'filee presets' để xem danh sách.", $"filee: no preset '{wanted}'. Run 'filee presets' for the list."));
+                errors.WriteLine(CliLanguage.T($"tsufiles: không có preset '{wanted}'. Chạy 'tsufiles presets' để xem danh sách.", $"tsufiles: no preset '{wanted}'. Run 'tsufiles presets' for the list."));
                 return null;
             }
             if (found.IsGroup)
@@ -298,13 +298,13 @@ internal static class Cli
                 // A donut group converts nothing; name what it holds so the right one is easy to pick.
                 var members = found.SubPresetIds.Select(host.Store.FindConversion).OfType<Preset>().Select(p => p.Id).ToList();
                 errors.WriteLine(members.Count > 0
-                    ? CliLanguage.T($"filee: '{wanted}' là một nhóm trên vòng donut, không phải phép chuyển đổi. Dùng một trong: {string.Join(", ", members)}", $"filee: '{wanted}' is a group on the donut, not a conversion. Use one of: {string.Join(", ", members)}")
-                    : CliLanguage.T($"filee: '{wanted}' là một nhóm trên vòng donut, không phải phép chuyển đổi, và không còn preset nào. Chạy 'filee presets' để xem danh sách.", $"filee: '{wanted}' is a group on the donut, not a conversion, and has no presets left. Run 'filee presets' for the list."));
+                    ? CliLanguage.T($"tsufiles: '{wanted}' là một nhóm trên vòng donut, không phải phép chuyển đổi. Dùng một trong: {string.Join(", ", members)}", $"tsufiles: '{wanted}' is a group on the donut, not a conversion. Use one of: {string.Join(", ", members)}")
+                    : CliLanguage.T($"tsufiles: '{wanted}' là một nhóm trên vòng donut, không phải phép chuyển đổi, và không còn preset nào. Chạy 'tsufiles presets' để xem danh sách.", $"tsufiles: '{wanted}' is a group on the donut, not a conversion, and has no presets left. Run 'tsufiles presets' for the list."));
                 return null;
             }
             if (found.IsTool)
             {
-                errors.WriteLine(CliLanguage.T($"filee: '{wanted}' là công cụ tương tác, không phải phép chuyển đổi.", $"filee: '{wanted}' is an interactive tool, not a conversion."));
+                errors.WriteLine(CliLanguage.T($"tsufiles: '{wanted}' là công cụ tương tác, không phải phép chuyển đổi.", $"tsufiles: '{wanted}' is an interactive tool, not a conversion."));
                 return null;
             }
             preset = found.Clone();
@@ -378,7 +378,7 @@ internal static class Cli
         {
             if (FindFormat(name) is not { } from)
             {
-                errors.WriteLine(CliLanguage.T($"filee: định dạng không xác định '{name}'.", $"filee: unknown format '{name}'."));
+                errors.WriteLine(CliLanguage.T($"tsufiles: định dạng không xác định '{name}'.", $"tsufiles: unknown format '{name}'."));
                 return UsageError;
             }
             var installed = host.Catalog.CreatePlanner();
@@ -402,7 +402,7 @@ internal static class Cli
             output.WriteLine(CliLanguage.T($"{from.DisplayName} ({string.Join(", ", from.Extensions)}) chuyển được sang:", $"{from.DisplayName} ({string.Join(", ", from.Extensions)}) converts to:"));
             output.WriteLine(now.Count > 0 ? "  " + string.Join(", ", now) : CliLanguage.T("  (không có định dạng nào với các engine đang cài)", "  (nothing with the engines installed now)"));
             if (later.Count > 0)
-                output.WriteLine(CliLanguage.T($"Khi cài thêm engine tùy chọn (cài bằng 'filee engines'):{Environment.NewLine}  {string.Join(", ", later)}", $"With optional engines (install them with 'filee engines'):{Environment.NewLine}  {string.Join(", ", later)}"));
+                output.WriteLine(CliLanguage.T($"Khi cài thêm engine tùy chọn (cài bằng 'tsufiles engines'):{Environment.NewLine}  {string.Join(", ", later)}", $"With optional engines (install them with 'tsufiles engines'):{Environment.NewLine}  {string.Join(", ", later)}"));
             return Success;
         }
 
@@ -431,7 +431,7 @@ internal static class Cli
                 output.WriteLine($"  {format.Id,-10} {format.DisplayName}{(format.Writable ? "" : CliLanguage.T(" (chỉ đọc)", " (read only)"))}  .{string.Join(" .", format.Extensions)}");
         }
         output.WriteLine();
-        output.WriteLine(CliLanguage.T("Chạy 'filee formats <định dạng>' để xem một định dạng chuyển được sang đâu.", "Run 'filee formats <format>' to see what a format converts to."));
+        output.WriteLine(CliLanguage.T("Chạy 'tsufiles formats <định dạng>' để xem một định dạng chuyển được sang đâu.", "Run 'tsufiles formats <format>' to see what a format converts to."));
         return Success;
     }
 
@@ -486,7 +486,7 @@ internal static class Cli
         foreach (var preset in host.Store.Presets.Where(p => !p.IsGroup && !p.IsTool))
             output.WriteLine($"{preset.Id,-24} {host.Texts.DisplayName(preset),-28} {preset.TargetFormat}");
         output.WriteLine();
-        output.WriteLine(CliLanguage.T("Dùng bằng: filee convert <tệp> --preset <id hoặc tên>", "Use one with: filee convert <files> --preset <id or name>"));
+        output.WriteLine(CliLanguage.T("Dùng bằng: tsufiles convert <tệp> --preset <id hoặc tên>", "Use one with: tsufiles convert <files> --preset <id or name>"));
         return Success;
     }
 

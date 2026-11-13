@@ -1325,7 +1325,7 @@
   "installer.options.later": "Позже это можно изменить в Filee в разделе «Настройки → Общие».",
   "installer.options.update_note": "Остальные настройки Filee не изменятся. Их можно изменить в любой момент в разделе «Настройки → Общие».",
   "installer.task.modern_menu": "Показывать также вверху меню Windows 11, а не только в «Показать дополнительные параметры»",
-  "installer.task.cli": "Добавить команду «filee» в PATH (конвертация из командной строки)",
+  "installer.task.cli": "Добавить команду «tsufiles» в PATH (конвертация из командной строки)",
   "installer.task.desktop_icon": "Создать ярлык на рабочем столе",
   "installer.engines.when": "Выбранные движки Filee скачает из официальных источников при запуске.",
   "installer.progress.install": "Установка Filee",
@@ -1467,7 +1467,7 @@
   "watch.status_watching": "Идёт наблюдение",
   "watch.status_starting": "Запуск…",
   "watch.status_error": "Не удаётся следить за этой папкой: {0}",
-  "watch.cli_hint": "Также из командной строки: filee watch <папка> --to <формат>",
+  "watch.cli_hint": "Также из командной строки: tsufiles watch <папка> --to <формат>",
 
   "preset.sheet_studio": "PDF + Редактор",
   "sheet_studio.title": "Подготовка таблицы к PDF",

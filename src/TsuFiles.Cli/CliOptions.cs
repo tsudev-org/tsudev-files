@@ -1,4 +1,4 @@
-// Parses the "filee" command line. Kept dependency-free: a handful of commands and options.
+// Parses the "tsufiles" command line. Kept dependency-free: a handful of commands and options.
 
 using TsuFiles.Core.Platform;
 using TsuFiles.Core.Presets;
@@ -159,10 +159,10 @@ internal sealed record CliOptions
             "convert" when options.Inputs.Count == 0 => CliLanguage.T("Hãy chỉ định ít nhất một tệp hoặc thư mục cần chuyển đổi.", "Give at least one file or folder to convert."),
             "convert" or "watch" when options.To is null == (options.Preset is null) => CliLanguage.T("Dùng một trong hai: --to <định dạng> hoặc --preset <preset>.", "Use either --to <format> or --preset <preset>."),
             "watch" when options.Inputs.Count != 1 => CliLanguage.T("Hãy chỉ định đúng một thư mục cần theo dõi.", "Give exactly one folder to watch."),
-            "watch" when options.Sort is not null => CliLanguage.T("--sort chỉ dùng được với 'filee convert'.", "--sort only works with 'filee convert'."),
+            "watch" when options.Sort is not null => CliLanguage.T("--sort chỉ dùng được với 'tsufiles convert'.", "--sort only works with 'tsufiles convert'."),
             "engines" when options.Inputs.Count > 0 && options.Inputs[0].ToLowerInvariant() is not ("install" or "remove") =>
-                CliLanguage.T($"Lệnh engines không xác định '{options.Inputs[0]}'. Dùng 'filee engines', 'filee engines install <id>' hoặc 'filee engines remove <id>'.", $"Unknown engines command '{options.Inputs[0]}'. Use 'filee engines', 'filee engines install <id>' or 'filee engines remove <id>'."),
-            "engines" when options.Inputs.Count == 1 => CliLanguage.T($"Hãy chỉ định engine cần {options.Inputs[0].ToLowerInvariant()}, ví dụ 'filee engines {options.Inputs[0].ToLowerInvariant()} pandoc'.", $"Give the engine to {options.Inputs[0].ToLowerInvariant()}, e.g. 'filee engines {options.Inputs[0].ToLowerInvariant()} pandoc'."),
+                CliLanguage.T($"Lệnh engines không xác định '{options.Inputs[0]}'. Dùng 'tsufiles engines', 'tsufiles engines install <id>' hoặc 'tsufiles engines remove <id>'.", $"Unknown engines command '{options.Inputs[0]}'. Use 'tsufiles engines', 'tsufiles engines install <id>' or 'tsufiles engines remove <id>'."),
+            "engines" when options.Inputs.Count == 1 => CliLanguage.T($"Hãy chỉ định engine cần {options.Inputs[0].ToLowerInvariant()}, ví dụ 'tsufiles engines {options.Inputs[0].ToLowerInvariant()} pandoc'.", $"Give the engine to {options.Inputs[0].ToLowerInvariant()}, e.g. 'tsufiles engines {options.Inputs[0].ToLowerInvariant()} pandoc'."),
             "engines" when options.Inputs.Count > 2 => CliLanguage.T("Mỗi lần chỉ chỉ định một engine.", "Give one engine at a time."),
             _ => null,
         };

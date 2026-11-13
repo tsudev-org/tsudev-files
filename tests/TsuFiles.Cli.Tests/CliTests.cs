@@ -1,4 +1,4 @@
-// End-to-end tests of the "filee" command: real engines, a temporary settings folder, files in a temporary folder.
+// End-to-end tests of the "tsufiles" command: real engines, a temporary settings folder, files in a temporary folder.
 
 using System.Buffers.Binary;
 using System.Text.Json;
@@ -652,7 +652,7 @@ public sealed class CliTests : IDisposable
 
         (code, output, _) = await Run("--version");
         Assert.Equal(Cli.Success, code);
-        Assert.StartsWith("filee ", output);
+        Assert.StartsWith("tsufiles ", output);
     }
 
     [Fact]

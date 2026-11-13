@@ -1,12 +1,12 @@
 <!--
   TsuFiles.Cli: the "filee" command line. Converts files and watches folders without the tray app, with the same
-  engines, presets and settings. Published next to Filee.exe as filee-cli.exe (one runtime for both); the installer
-  puts a "filee" shim on PATH (cli\filee.cmd).
+  engines, presets and settings. Published next to Filee.exe as tsufiles-cli.exe (one runtime for both); the installer
+  puts a "tsufiles" shim on PATH (cli\tsufiles.cmd).
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <AssemblyName>filee-cli</AssemblyName>
+    <AssemblyName>tsufiles-cli</AssemblyName>
     <RootNamespace>TsuFiles.Cli</RootNamespace>
     <ApplicationIcon>..\TsuFiles.App\Assets\Icons\filee.ico</ApplicationIcon>
     <!-- The Recycle Bin is IFileOperation, a COM interface (TsuFiles.Platform.Windows). -->

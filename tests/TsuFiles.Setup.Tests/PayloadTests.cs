@@ -63,7 +63,7 @@ public class PayloadTests
         using var bench = new SetupBench(app: (temp, _) => File.Copy(Path.Combine(Environment.SystemDirectory, "kernel32.dll"), temp.Sub(@"app\native.dll")));
         using var payload = SetupPayload.Open(bench.SetupExe)!;
         Assert.Equal(PayloadFile.X86, payload.Manifest.Files.Single(f => f.Path == "native.dll").Filter);
-        Assert.Equal("", payload.Manifest.Files.Single(f => f.Path == @"cli\filee.cmd").Filter);
+        Assert.Equal("", payload.Manifest.Files.Single(f => f.Path == @"cli\tsufiles.cmd").Filter);
         var target = bench.Temp.Sub("out");
         payload.ExtractTo(target, cancellation: TestContext.Current.CancellationToken);
         Assert.Equal(File.ReadAllBytes(bench.Temp.Sub(@"app\native.dll")), File.ReadAllBytes(Path.Combine(target, "native.dll")));

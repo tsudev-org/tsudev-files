@@ -1325,7 +1325,7 @@
   "installer.options.later": "You can change these later in Filee under Settings → General.",
   "installer.options.update_note": "Filee keeps its other settings. Change them any time in Filee under Settings → General.",
   "installer.task.modern_menu": "Also show it at the top of the Windows 11 menu, not only under “Show more options”",
-  "installer.task.cli": "Add the “filee” command to PATH (convert from the command line)",
+  "installer.task.cli": "Add the “tsufiles” command to PATH (convert from the command line)",
   "installer.task.desktop_icon": "Create a desktop shortcut",
   "installer.engines.when": "Filee downloads the engines you pick from their official sources when it starts.",
   "installer.progress.install": "Installing Filee",
@@ -1467,7 +1467,7 @@
   "watch.status_watching": "Watching",
   "watch.status_starting": "Starting…",
   "watch.status_error": "Can't watch this folder: {0}",
-  "watch.cli_hint": "Also on the command line: filee watch <folder> --to <format>",
+  "watch.cli_hint": "Also on the command line: tsufiles watch <folder> --to <format>",
 
   "preset.sheet_studio": "PDF + Edit",
   "sheet_studio.title": "Spreadsheet Print Studio",

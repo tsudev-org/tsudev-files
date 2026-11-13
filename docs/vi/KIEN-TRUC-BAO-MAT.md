@@ -1,6 +1,6 @@
 # Kiến trúc bảo mật TsuFiles
 
-> Phạm vi: ứng dụng desktop chuyển đổi tệp ngoại tuyến (Windows/Linux/macOS), dòng lệnh `filee`, trình cài đặt và
+> Phạm vi: ứng dụng desktop chuyển đổi tệp ngoại tuyến (Windows/Linux/macOS), dòng lệnh `tsufiles`, trình cài đặt và
 > trình cập nhật. Không có máy chủ, không có tài khoản người dùng.
 
 ## 1. Phân loại dữ liệu (SECURITY_BASELINE mục 2)

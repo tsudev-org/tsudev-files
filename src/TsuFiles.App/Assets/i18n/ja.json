@@ -1305,7 +1305,7 @@
   "installer.options.later": "あとからFileeの「設定」→「一般」で変更できます。",
   "installer.options.update_note": "Fileeのその他の設定はそのまま残ります。いつでもFileeの「設定」→「一般」で変更できます。",
   "installer.task.modern_menu": "「その他のオプションを確認」の中だけでなく、Windows 11のメニューの最上部にも表示する",
-  "installer.task.cli": "「filee」コマンドをPATHに追加する（コマンドラインから変換）",
+  "installer.task.cli": "「tsufiles」コマンドをPATHに追加する（コマンドラインから変換）",
   "installer.task.desktop_icon": "デスクトップにショートカットを作成する",
   "installer.engines.when": "選択したエンジンは、Fileeの起動時に公式の配布元からダウンロードされます。",
   "installer.progress.install": "Fileeをインストールしています",
@@ -1447,7 +1447,7 @@
   "watch.status_watching": "監視中",
   "watch.status_starting": "開始中…",
   "watch.status_error": "このフォルダーを監視できません：{0}",
-  "watch.cli_hint": "コマンドラインからも使えます：filee watch <folder> --to <format>",
+  "watch.cli_hint": "コマンドラインからも使えます：tsufiles watch <folder> --to <format>",
 
   "preset.sheet_studio": "PDF + 編集",
   "sheet_studio.title": "スプレッドシート印刷スタジオ",

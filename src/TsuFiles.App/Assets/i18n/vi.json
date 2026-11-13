@@ -1325,7 +1325,7 @@
   "installer.options.later": "Bạn có thể thay đổi các mục này sau trong Filee ở Cài đặt → Chung.",
   "installer.options.update_note": "Filee giữ các cài đặt khác. Bạn có thể thay đổi bất cứ lúc nào trong Filee ở Cài đặt → Chung.",
   "installer.task.modern_menu": "Cũng hiện ở đầu menu Windows 11, không chỉ trong “Hiển thị thêm tùy chọn”",
-  "installer.task.cli": "Thêm lệnh “filee” vào PATH (chuyển đổi từ dòng lệnh)",
+  "installer.task.cli": "Thêm lệnh “tsufiles” vào PATH (chuyển đổi từ dòng lệnh)",
   "installer.task.desktop_icon": "Tạo lối tắt trên màn hình nền",
   "installer.engines.when": "Filee sẽ tải xuống các bộ xử lý bạn chọn từ nguồn chính thức khi khởi động.",
   "installer.progress.install": "Đang cài đặt Filee",
@@ -1467,7 +1467,7 @@
   "watch.status_watching": "Đang theo dõi",
   "watch.status_starting": "Đang khởi động…",
   "watch.status_error": "Không thể theo dõi thư mục này: {0}",
-  "watch.cli_hint": "Cũng có trên dòng lệnh: filee watch <folder> --to <format>",
+  "watch.cli_hint": "Cũng có trên dòng lệnh: tsufiles watch <folder> --to <format>",
 
   "preset.sheet_studio": "PDF + chỉnh sửa",
   "sheet_studio.title": "Xưởng in bảng tính",

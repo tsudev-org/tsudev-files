@@ -35,6 +35,10 @@ if [ -f "$gnome_extension_dir/.filee-package" ] && [ "$(cat "$gnome_extension_di
     fi
     rm -rf -- "$gnome_extension_dir"
 fi
+if [ -L "$HOME/.local/bin/tsufiles" ] && [ "$(readlink "$HOME/.local/bin/tsufiles")" = "$install_dir/tsufiles-cli" ]; then
+    rm -- "$HOME/.local/bin/tsufiles"
+fi
+# TsuFiles 2.4.0-vn.*: the command was "filee".
 if [ -L "$HOME/.local/bin/filee" ] && [ "$(readlink "$HOME/.local/bin/filee")" = "$install_dir/filee-cli" ]; then
     rm -- "$HOME/.local/bin/filee"
 fi
