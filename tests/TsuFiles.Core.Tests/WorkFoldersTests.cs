@@ -17,7 +17,7 @@ public class WorkFoldersTests
         Assert.Equal(WorkFolders.Root, JobQueue.DefaultWorkRoot);
         Assert.Equal(Path.Combine(WorkFolders.Root, "web"), WebDrop.DefaultWorkRoot);
         if (OperatingSystem.IsWindows())
-            Assert.Equal(Path.Combine(Path.GetTempPath(), "Filee"), WorkFolders.Root); // as before: %TEMP% is the user's
+            Assert.Equal(Path.Combine(Path.GetTempPath(), "TsuFiles"), WorkFolders.Root); // as before: %TEMP% is the user's
     }
 
     [Fact]
