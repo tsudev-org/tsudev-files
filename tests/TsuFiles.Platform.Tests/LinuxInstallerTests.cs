@@ -266,6 +266,7 @@ exec ""$REAL_MV"" ""$@""
     [Fact]
     public void Upgrade_from_2_4_0_quits_the_running_filee_and_installs_tsufiles()
     {
+        Assert.SkipUnless(OperatingSystem.IsLinux(), "Requires Linux.");
         // TsuFiles 2.4.0-vn.1 ran as "Filee" and had no TsuFiles executable.
         var env = CreateEnvironment();
         CreateMockPayload(env.SourceDir, "v1.0.0");
