@@ -18,8 +18,16 @@ public sealed class LinuxDesktopIntegrationTests : IDisposable
         const string existing = "<action><name>Keep me</name><unique-id>other</unique-id><command>echo unchanged</command><other-files /></action>";
         File.WriteAllText(path, "<actions>" + existing + "</actions>");
         var integration = new LinuxDesktopIntegration(configuration, data);
+        // TsuFiles 2.4.0-vn.*: the same entries under the old names go.
+        var legacy = new[] { Path.Combine(data, "nautilus", "scripts", "tsudev-files"), Path.Combine(data, "kio", "servicemenus", "filee.desktop") };
+        foreach (var file in legacy)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(file)!);
+            File.WriteAllText(file, "old");
+        }
 
         integration.SetContextMenu(true, "/opt/Filee's app/TsuFiles.App", "Filee로 변환 & test");
+        Assert.All(legacy, file => Assert.False(File.Exists(file), file));
         integration.SetContextMenu(true, "/opt/new/TsuFiles.App", "Updated");
 
         var document = XDocument.Load(path);
@@ -28,14 +36,14 @@ public sealed class LinuxDesktopIntegrationTests : IDisposable
             .Single(action => (string?)action.Element("unique-id") == "other").Element("command")!.Value);
         Assert.Equal("'/opt/new/TsuFiles.App' --convert %F", document.Root.Elements("action")
             .Single(action => (string?)action.Element("unique-id") == LinuxDesktopIntegration.ThunarActionId).Element("command")!.Value);
-        Assert.Contains("exec '/opt/new/TsuFiles.App' --convert \"$@\"", File.ReadAllText(Path.Combine(data, "nautilus", "scripts", "tsudev-files"))); // TsuFiles: tên hiển thị
+        Assert.Contains("exec '/opt/new/TsuFiles.App' --convert \"$@\"", File.ReadAllText(Path.Combine(data, "nautilus", "scripts", "TsuFiles"))); // TsuFiles: tên hiển thị
 
         integration.SetContextMenu(false, "", "");
 
         document = XDocument.Load(path);
         Assert.Single(document.Root!.Elements("action"));
         Assert.Equal("other", document.Root.Element("action")!.Element("unique-id")!.Value);
-        Assert.False(File.Exists(Path.Combine(data, "kio", "servicemenus", "filee.desktop")));
+        Assert.False(File.Exists(Path.Combine(data, "kio", "servicemenus", "tsufiles.desktop")));
     }
 
     [Fact]
@@ -57,8 +65,12 @@ public sealed class LinuxDesktopIntegrationTests : IDisposable
     public void AutostartEscapesLineBreaksAndKeepsTheExecutableAsOneArgument()
     {
         var integration = new LinuxDesktopIntegration(_root, Path.Combine(_root, "data"));
+        var legacy = Path.Combine(_root, "autostart", "filee.desktop");
+        Directory.CreateDirectory(Path.GetDirectoryName(legacy)!);
+        File.WriteAllText(legacy, "[Desktop Entry]\nExec=/old/Filee --background\n");
         integration.SetAutostart(true, "/opt/Filee test/TsuFiles.App");
-        var path = Path.Combine(_root, "autostart", "filee.desktop");
+        Assert.False(File.Exists(legacy)); // TsuFiles 2.4.0-vn.*
+        var path = Path.Combine(_root, "autostart", "tsufiles.desktop");
         Assert.Contains("Exec=\"/opt/Filee test/TsuFiles.App\" --background\n", File.ReadAllText(path));
         Assert.Throws<ArgumentException>(() => integration.SetAutostart(true, "/opt/Filee\nExec=bad"));
         Assert.Contains("Exec=\"/opt/Filee test/TsuFiles.App\" --background\n", File.ReadAllText(path));

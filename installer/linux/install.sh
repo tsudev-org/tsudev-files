@@ -36,9 +36,14 @@ source_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd -P)
 data_dir=${XDG_DATA_HOME:-"$HOME/.local/share"}
 install_dir="$data_dir/filee/application"
 bin_dir="$HOME/.local/bin"
-desktop_file="$data_dir/applications/com.filee.app.desktop"
-gnome_extension_id="filee-donut@filee.sh"
+desktop_file="$data_dir/applications/com.tsudev.tsufiles.desktop"
+# TsuFiles 2.4.0-vn.* named its launcher after Filee's bundle id.
+legacy_desktop_file="$data_dir/applications/com.filee.app.desktop"
+gnome_extension_id="tsufiles-donut@tsudev.com"
 gnome_extension_dir="$data_dir/gnome-shell/extensions/$gnome_extension_id"
+# TsuFiles 2.4.0-vn.* installed the extension under the upstream's name (filee.sh is Filee's domain).
+legacy_gnome_extension_id="filee-donut@filee.sh"
+legacy_gnome_extension_dir="$data_dir/gnome-shell/extensions/$legacy_gnome_extension_id"
 is_gnome=false
 if printf '%s' "${XDG_CURRENT_DESKTOP:-}" | tr ':' '\n' | grep -qi '^GNOME$'; then
     is_gnome=true
@@ -77,12 +82,14 @@ copy_gnome_extension() {
     rm -rf "$work"
 }
 
-# Asks GNOME Shell to enable the extension. Only a first install does this; an upgrade leaves the user's choice alone.
+# Asks GNOME Shell to enable the extension. Only a first install does this; an upgrade leaves the user's choice alone
+# (an upgrade from 2.4.0-vn.* carries the old extension's choice over to the renamed one). With "remove", takes the old
+# extension's id out of the list instead.
 enable_gnome_extension() {
     command -v gsettings >/dev/null 2>&1 || return 0
     enabled=$(gsettings get org.gnome.shell enabled-extensions 2>/dev/null || true)
     [ -n "$enabled" ] || return 0
-    updated=$(python3 - "$enabled" "$gnome_extension_id" <<'PY'
+    updated=$(python3 - "$enabled" "${1:-$gnome_extension_id}" "${2:-add}" <<'PY'
 import ast
 import sys
 
@@ -92,7 +99,9 @@ except (SyntaxError, ValueError):
     raise SystemExit(0)
 if not isinstance(extensions, list) or not all(isinstance(item, str) for item in extensions):
     raise SystemExit(0)
-if sys.argv[2] not in extensions:
+if sys.argv[3] == "remove":
+    extensions = [item for item in extensions if item != sys.argv[2]]
+elif sys.argv[2] not in extensions:
     extensions.append(sys.argv[2])
 print("[" + ", ".join("'" + item.replace("'", "\\'") + "'" for item in extensions) + "]")
 PY
@@ -100,6 +109,13 @@ PY
     if [ -n "$updated" ]; then
         gsettings set org.gnome.shell enabled-extensions "$updated" >/dev/null 2>&1 || true
     fi
+}
+
+# True when the extension of TsuFiles 2.4.0-vn.* is in place: a real folder with our marker.
+legacy_gnome_extension_is_ours() {
+    [ -d "$legacy_gnome_extension_dir" ] && [ ! -L "$legacy_gnome_extension_dir" ] \
+        && [ -f "$legacy_gnome_extension_dir/.filee-package" ] \
+        && [ "$(tr -d '\r\n' < "$legacy_gnome_extension_dir/.filee-package" 2>/dev/null || true)" = 'com.filee.app' ]
 }
 
 # Validate required tools and incoming payload files before doing anything.
@@ -312,17 +328,32 @@ fi
 # GNOME Shell extension. A first install puts it in place on GNOME and asks GNOME to enable it. An upgrade refreshes
 # a copy that Filee installed, and on GNOME adds a missing one without enabling it (the Triggers page says how).
 gnome_extension_note=''
+legacy_gnome_enabled=false
+legacy_gnome_replaced=false
+if [ -d "$install_dir/gnome/$gnome_extension_id" ] && legacy_gnome_extension_is_ours; then
+    if command -v gsettings >/dev/null 2>&1 \
+        && gsettings get org.gnome.shell enabled-extensions 2>/dev/null | grep -qF "'$legacy_gnome_extension_id'"; then
+        legacy_gnome_enabled=true
+    fi
+    if command -v gnome-extensions >/dev/null 2>&1; then
+        gnome-extensions disable "$legacy_gnome_extension_id" >/dev/null 2>&1 || true
+    fi
+    enable_gnome_extension "$legacy_gnome_extension_id" remove
+    rm -rf -- "$legacy_gnome_extension_dir"
+    legacy_gnome_replaced=true
+fi
 if [ -d "$install_dir/gnome/$gnome_extension_id" ]; then
     if gnome_extension_is_ours; then
         gnome_extension_note=updated
-    elif [ "$is_gnome" = true ] && [ ! -e "$gnome_extension_dir" ] && [ ! -L "$gnome_extension_dir" ]; then
+    elif { [ "$is_gnome" = true ] || [ "$legacy_gnome_replaced" = true ]; } \
+        && [ ! -e "$gnome_extension_dir" ] && [ ! -L "$gnome_extension_dir" ]; then
         gnome_extension_note=added
     elif [ "$is_gnome" = true ]; then
         say "Giữ nguyên $gnome_extension_dir: thư mục này không do TsuFiles cài." "Left $gnome_extension_dir as it is: TsuFiles didn't install it." >&2
     fi
     if [ -n "$gnome_extension_note" ]; then
         if copy_gnome_extension; then
-            if [ "$upgrade" -eq 0 ] && [ "$is_gnome" = true ]; then
+            if { [ "$upgrade" -eq 0 ] && [ "$is_gnome" = true ]; } || [ "$legacy_gnome_enabled" = true ]; then
                 enable_gnome_extension
             fi
         else
@@ -333,6 +364,9 @@ if [ -d "$install_dir/gnome/$gnome_extension_id" ]; then
 fi
 
 # Update desktop launcher.
+if [ -f "$legacy_desktop_file" ] && grep -q '^X-Filee-Managed=true$' "$legacy_desktop_file"; then
+    rm -f -- "$legacy_desktop_file"
+fi
 python3 - "$install_dir" "$desktop_file" <<'PY'
 import pathlib
 import sys
@@ -353,7 +387,7 @@ desktop.write_text(
     'Comment=Convert files with TsuFiles\nComment[vi]=Chuyển đổi tệp bằng TsuFiles\n'
     f'Exec={quoted_exec(str(app / "TsuFiles"))} --convert %F\n'
     f'Icon={desktop_value(app / "filee.png")}\n'
-    'Terminal=false\nCategories=Utility;\nX-Filee-Managed=true\n', encoding='utf-8')
+    'Terminal=false\nCategories=Utility;\nStartupWMClass=TsuFiles\nX-Filee-Managed=true\n', encoding='utf-8')
 PY
 
 if command -v update-desktop-database >/dev/null 2>&1; then

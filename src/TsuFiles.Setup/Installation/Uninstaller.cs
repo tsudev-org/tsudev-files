@@ -97,7 +97,8 @@ public sealed class Uninstaller(SetupContext context)
         foreach (var shortcut in new[] { context.Paths.StartMenu(record.Scope), context.Paths.Desktop(record.Scope) })
         {
             DeleteFile(Path.Combine(shortcut, SetupNames.ShortcutName), trash, later, stuck);
-            DeleteFile(Path.Combine(shortcut, SetupNames.LegacyShortcutName), trash, later, stuck); // TsuFiles
+            foreach (var legacy in SetupNames.LegacyShortcutNames) // TsuFiles
+                DeleteFile(Path.Combine(shortcut, legacy), trash, later, stuck);
         }
         if (PathVariable.Set(Registry, record.Scope, Path.Combine(folder, SetupNames.CliFolder), present: false))
         {
@@ -217,11 +218,14 @@ public sealed class Uninstaller(SetupContext context)
     /// <summary>Filee's startup entry in this account's registry, if it starts the Filee in this folder (not a portable copy).</summary>
     private void RemoveStartupEntry(string folder)
     {
-        var command = Registry.Get(Hive.CurrentUser, SetupNames.RunKey, SetupNames.AppName)?.Text;
-        if (command is null || !command.Contains(folder + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
-            return;
-        Registry.DeleteValue(Hive.CurrentUser, SetupNames.RunKey, SetupNames.AppName);
-        Log.Info("Removed the startup entry");
+        foreach (var name in new[] { SetupNames.AppName, SetupNames.LegacyAppName })
+        {
+            var command = Registry.Get(Hive.CurrentUser, SetupNames.RunKey, name)?.Text;
+            if (command is null || !command.Contains(folder + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+                continue;
+            Registry.DeleteValue(Hive.CurrentUser, SetupNames.RunKey, name);
+            Log.Info($"Removed the startup entry {name}");
+        }
     }
 
     /// <summary>

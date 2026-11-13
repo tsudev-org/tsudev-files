@@ -1,5 +1,5 @@
 # Builds the Linux or macOS portable package (tar.gz + SHA256SUMS) on its own operating system. macOS also gets a
-# disk image (Filee.app next to an Applications link, to drag it there), signed and notarized as the app is.
+# disk image (TsuFiles.app next to an Applications link, to drag it there), signed and notarized as the app is.
 #
 # Linux packages must run on Ubuntu 22.04 (glibc 2.35). rhwp's Linux release needs a newer glibc, so CI builds it from
 # source on Ubuntu 22.04 (build/build-native.py) and passes it in:
@@ -75,7 +75,7 @@ if ((Test-Path -LiteralPath $archive) -or (Test-Path -LiteralPath $sums) -or (Te
 }
 $stage = Join-Path $root ('build/.cache/portable/' + [Guid]::NewGuid().ToString('N'))
 $package = Join-Path $stage $packageName
-$appBundle = Join-Path $package 'Filee.app'
+$appBundle = Join-Path $package 'TsuFiles.app'
 $publish = if ($Runtime.StartsWith('osx-')) { Join-Path $appBundle 'Contents/MacOS' } else { $package }
 New-Item -ItemType Directory -Force -Path $publish | Out-Null
 
@@ -138,7 +138,7 @@ if ($Runtime.StartsWith('osx-')) {
     $info.Replace('__VERSION__', $bundleVersion).Replace('__BUNDLE_VERSION__', $bundleVersion) |
         Set-Content -LiteralPath (Join-Path $contents 'Info.plist') -Encoding utf8NoBOM
     Invoke-Checked 'Validate Info.plist' { plutil -lint (Join-Path $contents 'Info.plist') }
-    $iconset = Join-Path $stage 'filee.iconset'
+    $iconset = Join-Path $stage 'tsufiles.iconset'
     New-Item -ItemType Directory -Path $iconset | Out-Null
     $sourceIcon = Join-Path $root 'src/TsuFiles.App/Assets/Icons/filee.png'
     foreach ($size in @(16, 32, 128, 256, 512)) {
@@ -149,8 +149,8 @@ if ($Runtime.StartsWith('osx-')) {
             Invoke-Checked 'Render app icon' { sips -z $pixels $pixels $sourceIcon --out $target | Out-Null }
         }
     }
-    Invoke-Checked 'Create app icon' { iconutil -c icns $iconset -o (Join-Path $resources 'filee.icns') }
-    # Translations of the service title ("Convert with Filee") in Finder's right-click menu.
+    Invoke-Checked 'Create app icon' { iconutil -c icns $iconset -o (Join-Path $resources 'tsufiles.icns') }
+    # Translations of the service title ("Convert with TsuFiles") in Finder's right-click menu.
     foreach ($localization in Get-ChildItem -LiteralPath (Join-Path $root 'installer/macos') -Directory -Filter '*.lproj') {
         foreach ($stringsFile in Get-ChildItem -LiteralPath $localization.FullName -File -Filter '*.strings') {
             Invoke-Checked 'Validate localized strings' { plutil -lint $stringsFile.FullName }
@@ -195,17 +195,17 @@ Invoke-Checked 'Create tar.gz' { tar -czf $temporaryArchive -C $stage $packageNa
 Move-Item -LiteralPath $temporaryArchive -Destination $archive
 $packages = @($archive)
 if ($Runtime.StartsWith('osx-')) {
-    # The same signed Filee.app, next to a link to /Applications to drag it onto. ditto keeps the signature's
+    # The same signed TsuFiles.app, next to a link to /Applications to drag it onto. ditto keeps the signature's
     # extended attributes. install.sh (in the tar.gz) is still the way to get the tsufiles command.
     $volume = Join-Path $stage 'dmg'
     New-Item -ItemType Directory -Path $volume | Out-Null
-    Invoke-Checked 'Copy app for the disk image' { ditto $appBundle (Join-Path $volume 'Filee.app') }
+    Invoke-Checked 'Copy app for the disk image' { ditto $appBundle (Join-Path $volume 'TsuFiles.app') }
     Invoke-Checked 'Applications link' { ln -s /Applications (Join-Path $volume 'Applications') }
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/INSTALL.txt') -Destination $volume
     # TsuFiles: kèm hướng dẫn cài đặt tiếng Việt.
     Copy-Item -LiteralPath (Join-Path $root 'installer/macos/HUONG-DAN-CAI-DAT.txt') -Destination $volume
     $temporaryImage = "$diskImage.$([Guid]::NewGuid().ToString('N')).partial.dmg"
-    Invoke-Checked 'Create dmg' { hdiutil create -volname Filee -srcfolder $volume -fs HFS+ -format UDZO -ov $temporaryImage | Out-Null }
+    Invoke-Checked 'Create dmg' { hdiutil create -volname TsuFiles -srcfolder $volume -fs HFS+ -format UDZO -ov $temporaryImage | Out-Null }
     Move-Item -LiteralPath $temporaryImage -Destination $diskImage
     $packages += $diskImage
 }

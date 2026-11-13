@@ -144,13 +144,17 @@ public class UninstallerTests
         var (bench, record) = Installed();
         using var _ = bench;
         var command = $"\"{Path.Combine(bench.InstallFolder, "TsuFiles.exe")}\" --background";
-        bench.Registry.SetString(Hive.CurrentUser, SetupNames.RunKey, "Filee", command.ToUpperInvariant());
+        bench.Registry.SetString(Hive.CurrentUser, SetupNames.RunKey, SetupNames.AppName, command.ToUpperInvariant());
+        // TsuFiles: the value of 2.4.0-vn.* under the old name goes too.
+        bench.Registry.SetString(Hive.CurrentUser, SetupNames.RunKey, "Filee", command);
         bench.Registry.SetString(Hive.CurrentUser, SetupNames.RunKey, "Other", command);
         bench.System.Run = (_, _) => -1;
 
         var uninstaller = new Uninstaller(bench.Context);
         uninstaller.Run(bench.InstallFolder, record, deleteSettings: false, bench.Temp.Sub("trash"));
 
+        Assert.Equal("TsuFiles", SetupNames.AppName);
+        Assert.Null(bench.Registry.Get(Hive.CurrentUser, SetupNames.RunKey, SetupNames.AppName));
         Assert.Null(bench.Registry.Get(Hive.CurrentUser, SetupNames.RunKey, "Filee"));
         Assert.Equal(command, bench.Registry.Get(Hive.CurrentUser, SetupNames.RunKey, "Other")?.Text);
         Assert.True(uninstaller.CleanupFailed);

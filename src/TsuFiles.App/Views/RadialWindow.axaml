@@ -9,7 +9,7 @@
         xmlns:vm="using:TsuFiles.App.ViewModels"
         x:Class="TsuFiles.App.Views.RadialWindow"
         x:DataType="vm:RadialViewModel"
-        Title="Filee Donut"
+        Title="TsuFiles Donut"
         WindowDecorations="None"
         Background="Transparent"
         TransparencyLevelHint="Transparent"

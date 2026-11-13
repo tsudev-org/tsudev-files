@@ -29,7 +29,7 @@ public class PortugueseLocalizationTests
             var title = window.Title;
             Assert.False(string.IsNullOrWhiteSpace(title));
             var script = File.ReadAllText(Path.Combine(WhatsNewMedia.RepositoryRoot,
-                "installer", "linux", "kwin", "filee-donut", "contents", "code", "main.js"));
+                "installer", "linux", "kwin", "tsufiles-donut", "contents", "code", "main.js"));
             Assert.Contains($"w.caption === \"{title}\"", script);
             AppHost.Get<LocalizationService>().SetLanguage(language == "pt-PT" ? "pt-BR" : "pt-PT");
             Assert.Equal(title, window.Title);

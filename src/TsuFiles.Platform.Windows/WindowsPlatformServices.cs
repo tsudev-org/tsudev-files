@@ -13,8 +13,12 @@ namespace TsuFiles.Platform.Windows;
 public sealed class WindowsPlatformServices : IPlatformServices
 {
     private const string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
-    private const string ContextMenuKey = @"Software\Classes\*\shell\Filee";
-    private const string AppName = "Filee";
+    private const string ContextMenuKey = @"Software\Classes\*\shell\TsuFiles";
+    private const string AppName = TsuFiles.Core.ForkDefaults.DisplayName;
+
+    // TsuFiles 2.4.0-vn.* (and Filee) wrote the startup value and the classic verb under the upstream's name.
+    private const string LegacyContextMenuKey = @"Software\Classes\*\shell\Filee";
+    private const string LegacyAppName = "Filee";
 
     /// <summary>Window classes that belong to Explorer windows and the desktop.</summary>
     private static readonly HashSet<string> FileManagerClasses = new(StringComparer.Ordinal)
@@ -254,6 +258,7 @@ public sealed class WindowsPlatformServices : IPlatformServices
     public void SetStartWithSystem(bool enabled, string executablePath)
     {
         using var key = Registry.CurrentUser.CreateSubKey(RunKey);
+        key.DeleteValue(LegacyAppName, throwOnMissingValue: false);
         if (!enabled)
         {
             key.DeleteValue(AppName, throwOnMissingValue: false);
@@ -353,6 +358,7 @@ public sealed class WindowsPlatformServices : IPlatformServices
 
     private static void WriteClassicVerb(string executablePath, string label)
     {
+        Registry.CurrentUser.DeleteSubKeyTree(LegacyContextMenuKey, throwOnMissingSubKey: false);
         using var verb = Registry.CurrentUser.CreateSubKey(ContextMenuKey);
         verb.SetValue("MUIVerb", label);
         verb.SetValue("Icon", $"\"{executablePath}\",0");
@@ -363,8 +369,11 @@ public sealed class WindowsPlatformServices : IPlatformServices
         command.SetValue(null, $"\"{executablePath}\" --convert \"%1\"");
     }
 
-    private static void RemoveClassicVerb() =>
+    private static void RemoveClassicVerb()
+    {
         Registry.CurrentUser.DeleteSubKeyTree(ContextMenuKey, throwOnMissingSubKey: false);
+        Registry.CurrentUser.DeleteSubKeyTree(LegacyContextMenuKey, throwOnMissingSubKey: false);
+    }
 
     public void RevealInFileManager(string path)
     {

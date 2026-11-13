@@ -280,9 +280,9 @@ public sealed class Installer(SetupContext context, SetupPayload payload)
             File.Delete(desktop);
         }
         // TsuFiles: cài đè lên Filee gốc thì bỏ lối tắt cũ "Filee.lnk" (cùng trỏ vào tệp chạy này).
-        foreach (var legacy in new[] { Paths.StartMenu(choices.Scope), Paths.Desktop(choices.Scope) })
+        foreach (var old in new[] { Paths.StartMenu(choices.Scope), Paths.Desktop(choices.Scope) }
+                     .SelectMany(folder => SetupNames.LegacyShortcutNames.Select(name => Path.Combine(folder, name))))
         {
-            var old = Path.Combine(legacy, SetupNames.LegacyShortcutName);
             if (!File.Exists(old))
                 continue;
             var bytes = File.ReadAllBytes(old);

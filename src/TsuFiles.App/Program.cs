@@ -296,9 +296,8 @@ internal static class Program
 
         if (OperatingSystem.IsLinux())
         {
-            // TsuFiles (ADR-0003 T3b): the executable is TsuFiles now, but the window class stays "Filee" until the GNOME
-            // extension, KWin script, .desktop StartupWMClass and APT/RPM packages change with it (Avalonia's default
-            // is the entry assembly's name).
+            // TsuFiles (ADR-0003 T3b-4): the window class the GNOME extension and the KWin script match (set explicitly
+            // rather than relying on Avalonia's default, the entry assembly's name).
             var x11 = new X11PlatformOptions { WmClass = LinuxWindowClass };
             // The GPU's driver stays in memory for as long as Filee runs, also with no window open (#957).
             if (LinuxDrawsInSoftware)
@@ -318,7 +317,7 @@ internal static class Program
     }
 
     /// <summary>WM_CLASS of every window on X11/XWayland (window rules and the GNOME extension match it).</summary>
-    internal const string LinuxWindowClass = "Filee";
+    internal const string LinuxWindowClass = "TsuFiles";
 
     /// <summary><c>TSUFILES_RENDERING=software</c> on Linux.</summary>
     internal static bool LinuxDrawsInSoftware => OperatingSystem.IsLinux()
