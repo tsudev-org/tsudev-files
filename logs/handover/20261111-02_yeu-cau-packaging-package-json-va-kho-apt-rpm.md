@@ -23,7 +23,7 @@ tsudev-files đã phát hành `tsudev-files-{version}-linux-x64.tar.gz` và `-li
   "schema": 1, "name": "tsudev-files", "winget": "tsudev.Files",
   "homepage": "https://files.tsudev.com", "license": "MIT",
   "description": { "vi": "...", "en": "..." },
-  "release": { "repo": "tsudev-org/tsudev-files",
+  "release": { "repo": "tsudev-org/tsufiles",
                "tagRegex": "^v(?<version>\\d+\\.\\d+\\.\\d+-vn\\.\\d+)$",
                "sums": "tsudev-files-{version}-SHA256SUMS.txt" },
   "assets": {
@@ -52,7 +52,7 @@ tsudev-files đã phát hành `tsudev-files-{version}-linux-x64.tar.gz` và `-li
    Phiên bản `2.4.0-vn.1` chứa `-`: deb chấp nhận, rpm thì không - nên tách `version` = `2.4.0`, `revision` = `vn.1`
    bằng nhóm `(?<revision>...)` trong `tagRegex`.
 
-2. PR → CI → merge, rồi nhắn phiên đóng gói (hoặc tự mở PR thêm `{ "repo": "tsudev-org/tsudev-files" }` vào
+2. PR → CI → merge, rồi nhắn phiên đóng gói (hoặc tự mở PR thêm `{ "repo": "tsudev-org/tsufiles" }` vào
    `products.json` của `tsudev-org/linux-packages` - CI ở đó cài thử thật trên Ubuntu/Debian/Fedora).
 
 ## Kết quả

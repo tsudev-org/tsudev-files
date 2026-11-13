@@ -13,7 +13,7 @@ Tóm tắt:
 1. **Không chạy `gh auth switch` / `gh auth login`** trên cấu hình chung `~/.config/gh/hosts.yml` - nó đổi tài
    khoản của mọi phiên trên máy ngay lập tức.
 2. `tsudev-tsudev` (active, cũng là chủ khoá SSH) push được repo này - đo 11/11 bằng
-   `gh api repos/tsudev-org/tsudev-files -q .permissions.push` = `true`. Không cần làm gì thêm.
+   `gh api repos/tsudev-org/tsufiles -q .permissions.push` = `true`. Không cần làm gì thêm.
 3. Cần đứng tên tài khoản khác cho một lệnh: `GH_TOKEN=$(gh auth token -u <tài-khoản>) gh ...`.
 4. Cần tài khoản riêng lâu dài: `GH_CONFIG_DIR=~/.config/gh-tsudev-files` + `env` trong `.claude/settings.local.json`
    (mục 4 của hướng dẫn); chủ máy tự chạy `gh auth login` trong phiên.

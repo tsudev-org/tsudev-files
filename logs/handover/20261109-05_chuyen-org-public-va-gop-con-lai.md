@@ -18,7 +18,7 @@ limit Actions giữ **0 USD**, chuẩn hóa nhận diện *.tsudev.com.
 KHÔNG gồm: phát hành `v2.4.0-vn.1` (cần Windows + khóa ký của chủ dự án), tắt Actions, nới quyền/chính sách Org, bật
 CodeQL default setup ở repo NÀY (đã có job `codeql` advanced), đổi Public `sumy-wedding`.
 
-**Luôn** `gh ... -R tsudev-org/tsudev-files` (remote `upstream` = KnifeLemon/Filee; `gh` mặc định nhắm upstream).
+**Luôn** `gh ... -R tsudev-org/tsufiles` (remote `upstream` = KnifeLemon/Filee; `gh` mặc định nhắm upstream).
 
 Lệnh từng bị bộ phân loại tác vụ tự động CHẶN (không lách; cần thì nhờ chủ dự án chạy `! <lệnh>`): `gh run cancel`
 hàng loạt cho Dependabot, `git push --force-with-lease`. Thay force-push: `gh pr update-branch <n> -R ... --rebase`
@@ -30,7 +30,7 @@ hàng loạt cho Dependabot, `git push --force-with-lease`. Thay force-push: `gh
   8.30.1 ghim SHA-256 `551f6fc8...70eb`, đối chiếu 2 lần tải; quét toàn lịch sử; `.gitleaksignore` miễn 6 dương tính
   giả upstream theo dấu vân tay) gộp. PR #15 đóng (thay bằng #17).
 - 2.1: 2 test App nghi chập chờn chạy riêng đạt 4/4 -> chập chờn.
-- Repo đã CHUYỂN sang `tsudev-org/tsudev-files` và **Public**. Bật lại: secret scanning, push protection, Dependabot
+- Repo đã CHUYỂN sang `tsudev-org/tsufiles` và **Public**. Bật lại: secret scanning, push protection, Dependabot
   alerts, private vulnerability reporting. CodeQL default setup: `not-configured` (đúng ý). `git remote origin` đã trỏ
   `tsudev-org`. Đối chiếu trước/sau (bước 1/4 phiếu 03):
   - Trước (tsudev-tsudev, Private): secret 0, environment 0, release 0, 10 workflow `active`, 15 PR mở,
@@ -53,16 +53,16 @@ hàng loạt cho Dependabot, `git push --force-with-lease`. Thay force-push: `gh
 ## 2. Việc tiếp theo CỤ THỂ (làm theo thứ tự)
 
 - [x] 2.1. PR #10 `feat/doi-ten-hien-thi` (đã rebase phía máy chủ lên `main` có gitleaks binary; commit `c2ff4048`
-      sửa 4 test `Filee.Setup.Tests.InstallerTests` mong tên cũ). `gh pr checks 10 -R tsudev-org/tsudev-files`.
-      - Xanh -> `gh pr merge 10 -R tsudev-org/tsudev-files --rebase --delete-branch`.
-      - Job `build` (Windows) đỏ ở `Filee.Setup.Tests`: đọc log (`gh api repos/tsudev-org/tsudev-files/actions/jobs/<id>/logs`),
+      sửa 4 test `Filee.Setup.Tests.InstallerTests` mong tên cũ). `gh pr checks 10 -R tsudev-org/tsufiles`.
+      - Xanh -> `gh pr merge 10 -R tsudev-org/tsufiles --rebase --delete-branch`.
+      - Job `build` (Windows) đỏ ở `Filee.Setup.Tests`: đọc log (`gh api repos/tsudev-org/tsufiles/actions/jobs/<id>/logs`),
         sửa test theo `SetupNames.ShortcutName/DisplayName/Publisher` (ADR-0001), đánh dấu `tsudev-files:`. Test Setup
         chỉ chạy được trên Windows (trên WSL lỗi 65 test kể cả khi chưa sửa - KHÔNG dùng để kết luận).
-      - Job hủy vì thiếu runner/hết giờ: `gh run rerun <id> --failed -R tsudev-org/tsudev-files`.
+      - Job hủy vì thiếu runner/hết giờ: `gh run rerun <id> --failed -R tsudev-org/tsufiles`.
       - Trước đó: `git fetch origin && git checkout feat/doi-ten-hien-thi && git reset --hard origin/feat/doi-ten-hien-thi`
         nếu nhánh local lệch (nhánh đã bị rebase phía máy chủ).
 - [x] 2.2. Nhánh `chore/repo-url-tsudev-org` (đã đẩy, chưa PR), 4 commit trên nền nhánh đổi tên CŨ (`c0af7e34`):
-      `chore(repo): doi URL repo sang github.com/tsudev-org/tsudev-files` (33 tệp), `chore(standards): nang len quy
+      `chore(repo): doi URL repo sang github.com/tsudev-org/tsufiles` (33 tệp), `chore(standards): nang len quy
       uoc v3.2.0 (tsudev-org)` (sync-standards.sh, đã xác minh MANIFEST), `docs(readme): dong gioi thieu tsudev va hang
       san pham C`, `chore(logs): ...` (phiếu này + STATE). Sau khi PR #10 gộp:
       `git fetch origin && git checkout chore/repo-url-tsudev-org && git rebase --onto origin/main c0af7e34`
@@ -82,7 +82,7 @@ hàng loạt cho Dependabot, `git push --force-with-lease`. Thay force-push: `gh
 - [ ] 2.5. (Tùy chọn, cần chủ dự án duyệt) Repo Public nên giờ bật được ruleset bảo vệ `main` (trước 403). Đề xuất:
       chặn force-push/xóa `main`, bắt buộc PR + check `build`, `Quét lộ bí mật (gitleaks)`. Hỏi trước khi bật.
 - [ ] 2.6. 13 PR Dependabot lẻ (#2-#9, #11-#14) sẽ được thay bằng PR nhóm ở lần chạy ngày 1 hằng tháng (cấu hình
-      PR #16). Không gộp lẻ; nếu muốn dọn sớm: `gh pr close <n> -R tsudev-org/tsudev-files` (hỏi chủ dự án).
+      PR #16). Không gộp lẻ; nếu muốn dọn sớm: `gh pr close <n> -R tsudev-org/tsufiles` (hỏi chủ dự án).
 
 ## 3. File liên quan / đang khóa
 

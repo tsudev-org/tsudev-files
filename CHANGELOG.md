@@ -30,6 +30,9 @@ en: The command line is now tsufiles (filee is gone): update scripts that call f
 
 Sản phẩm đổi tên thành **TsuFiles** ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)).
 
+- **Repo GitHub đổi thành [`tsudev-org/tsufiles`](https://github.com/tsudev-org/tsufiles)** (13/11/2026). Liên kết
+  `tsudev-org/tsudev-files` cũ vẫn chuyển hướng; trình cập nhật lấy bản mới từ địa chỉ mới.
+
 - **Thư mục dữ liệu mới:** cài đặt, preset, lịch sử và nhật ký ở `%APPDATA%\TsuFiles` (macOS:
   `~/Library/Application Support/TsuFiles`, Linux: `~/.config/TsuFiles`), engine đã tải ở `%LOCALAPPDATA%\TsuFiles\engines`
   (Linux: `~/.local/share/TsuFiles/engines`). Lần chạy đầu tiên tự chuyển dữ liệu từ thư mục `Filee` cũ, không phải tải
@@ -51,10 +54,10 @@ Sản phẩm đổi tên thành **TsuFiles** ([ADR-0003](docs/adr/0003-ten-san-p
 <!-- update
 level: recommended
 vi: Bản phát hành đầu tiên của tsudev-files: dựa trên Filee 2.4.0, giao diện, trình cài đặt và dòng lệnh tiếng Việt
-vi: Trình cập nhật lấy bản mới từ github.com/tsudev-org/tsudev-files và kiểm chữ ký bằng khóa riêng của tsudev-files
+vi: Trình cập nhật lấy bản mới từ github.com/tsudev-org/tsufiles và kiểm chữ ký bằng khóa riêng của tsudev-files
 vi: Trang Giới thiệu liên kết tới tsudev.com và files.tsudev.com
 en: First tsudev-files release: based on Filee 2.4.0, with a Vietnamese interface, installers and command line
-en: Updates come from github.com/tsudev-org/tsudev-files and are checked against the tsudev-files update key
+en: Updates come from github.com/tsudev-org/tsufiles and are checked against the tsudev-files update key
 en: The About page links to tsudev.com and files.tsudev.com
 -->
 
@@ -65,7 +68,7 @@ Mọi tính năng và bản sửa của Filee 2.4.0 (mục bên dưới) đều 
   để dùng tiếng Anh). Vẫn đổi được ngôn ngữ trong Cài đặt.
 - **Tên hiển thị tsudev-files:** thanh bên, trang Giới thiệu, lối tắt và tên tệp phát hành
   (`tsudev-files-<phiên bản>-...`). Lệnh dòng lệnh vẫn là `filee`.
-- **Cập nhật an toàn:** trình cập nhật chỉ nhận bản phát hành của `tsudev-org/tsudev-files` có tệp SHA256SUMS ký bằng
+- **Cập nhật an toàn:** trình cập nhật chỉ nhận bản phát hành của `tsudev-org/tsufiles` có tệp SHA256SUMS ký bằng
   khóa ECDSA riêng của tsudev-files. Bản phát hành của Filee gốc không được cài đè.
 - **Trang Giới thiệu:** liên kết tới [tsudev.com](https://tsudev.com) và [files.tsudev.com](https://files.tsudev.com).
 - **Lưu ý Windows:** bộ cài chưa ký Authenticode, SmartScreen có thể cảnh báo lần đầu (chọn *Thêm thông tin* rồi

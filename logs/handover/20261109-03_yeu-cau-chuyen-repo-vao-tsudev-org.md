@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261109-03
 - **Từ**: phiên tsudev-b1 (repo `tsudev`) - **Đến**: phiên đang làm ở repo này
 - **Thời điểm**: 16:33 09/11/2026
-- **Trạng thái**: HOÀN THÀNH (10/11/2026) - repo ở `tsudev-org/tsudev-files`, Public; kết quả đo ở cuối phiếu
+- **Trạng thái**: HOÀN THÀNH (10/11/2026) - repo ở `tsudev-org/tsufiles`, Public; kết quả đo ở cuối phiếu
 - **Uỷ quyền**: chủ dự án đồng ý chuyển repo này vào `tsudev-org` (chat 09/11/2026). Giao cho phiên của repo này vì
   đang có việc dở ở đây - phiên khác chuyển hộ có thể làm hỏng việc đang chạy.
 
@@ -22,17 +22,17 @@ Org đã cài sẵn GitHub App `render` và `gitguardian` (All repositories) - k
    - `gh api repos/tsudev-tsudev/tsudev-files/code-scanning/default-setup` (`configured` hay không)
    - mã HTTP của mọi URL mà bản app ĐÃ CÀI gọi tới (updater, link tải) - dùng `curl -sIL -o /dev/null -w '%{http_code}'`
 2. Chuyển: `gh api -X POST repos/tsudev-tsudev/tsudev-files/transfer -f new_owner=tsudev-org`, rồi chờ
-   `gh api repos/tsudev-org/tsudev-files` trả về (vài giây). Token `gh` sẵn có đủ quyền.
+   `gh api repos/tsudev-org/tsufiles` trả về (vài giây). Token `gh` sẵn có đủ quyền.
 3. ⚠️ **Chuyển repo TẮT secret scanning + push protection** (đo được ở cả 4 repo public) **và CodeQL default setup**.
    Bật lại:
    ```bash
-   gh api -X PATCH repos/tsudev-org/tsudev-files --input - <<'J'
+   gh api -X PATCH repos/tsudev-org/tsufiles --input - <<'J'
    {"security_and_analysis":{"secret_scanning":{"status":"enabled"},"secret_scanning_push_protection":{"status":"enabled"}}}
    J
-   gh api -X PATCH repos/tsudev-org/tsudev-files/code-scanning/default-setup -f state=configured -f query_suite=default  # chỉ khi trước đó configured; KHÔNG truyền languages
+   gh api -X PATCH repos/tsudev-org/tsufiles/code-scanning/default-setup -f state=configured -f query_suite=default  # chỉ khi trước đó configured; KHÔNG truyền languages
    ```
 4. Đối chiếu với ảnh chụp bước 1: protection, secret, release, mọi URL cũ vẫn 200 (GitHub tự chuyển hướng).
-5. `git remote set-url origin https://github.com/tsudev-org/tsudev-files.git` rồi `git fetch`.
+5. `git remote set-url origin https://github.com/tsudev-org/tsufiles.git` rồi `git fetch`.
 6. Mở một PR thử: số check phải bằng trước khi chuyển (GitGuardian phải có). Chính sách Actions của Org có thể khác
    tài khoản cá nhân - workflow nào bị chặn thì báo chủ dự án, đừng nới quyền tự ý.
 
@@ -63,13 +63,13 @@ Xong thì đóng phiếu này (HOÀN THÀNH + kết quả đo), ghi vào `logs/S
   job `gitleaks` (8.30.1). Phiên tsudev-files sẽ tự đối chiếu SHA-256 với `gitleaks_8.30.1_checksums.txt` của bản
   phát hành chính thức, không chép nguyên con số từ tin nhắn.
 - Bước 3: repo này CÓ workflow CodeQL riêng (job `codeql` trong `security.yml`, advanced) ⇒ KHÔNG bật CodeQL default
-  setup. Sau khi chuyển: `gh api repos/tsudev-org/tsudev-files/actions/workflows` - mọi workflow phải `active`.
+  setup. Sau khi chuyển: `gh api repos/tsudev-org/tsufiles/actions/workflows` - mọi workflow phải `active`.
 - Trạng thái: chủ dự án đã xác nhận trực tiếp trong phiên tsudev-files (09/11/2026). Kế hoạch chi tiết: phiếu
   `20261109-04` bước 2.6.
 
 ## Kết quả (phiên tsudev-files, 09-10/11/2026) - HOÀN THÀNH
 
-Đã chuyển `tsudev-tsudev/tsudev-files` -> `tsudev-org/tsudev-files` và đổi sang Public (chủ dự án ủy quyền). Số đo
+Đã chuyển `tsudev-tsudev/tsudev-files` -> `tsudev-org/tsufiles` và đổi sang Public (chủ dự án ủy quyền). Số đo
 đầy đủ: phiếu `20261109-05` mục 1.
 
 | Hạng mục | Trước (tsudev-tsudev, Private) | Sau (tsudev-org, Public) |
