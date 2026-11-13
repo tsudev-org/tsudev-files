@@ -69,12 +69,19 @@ export function renderMd(tepMd: string, opts: { boTieuDeDau?: boolean; md?: stri
   if (opts.boTieuDeDau) md = md.replace(/^#\s+.+\n/m, '');
   const haCap = opts.haCap ?? 0;   // hạ cấp tiêu đề khi ghép tài liệu vào giữa trang
   const marked = new Marked({ gfm: true });
+  // id trùng (CHANGELOG lặp "### Fixes" ở mỗi phiên bản) làm hỏng neo và vi phạm HTML: thêm hậu tố -1, -2 như GitHub.
+  const daDung = new Map<string, number>();
+  const idDuyNhat = (goc: string): string => {
+    const lan = daDung.get(goc) ?? 0;
+    daDung.set(goc, lan + 1);
+    return lan === 0 ? goc : `${goc}-${lan}`;
+  };
   marked.use({
     renderer: {
       heading({ tokens, depth }) {
         const text = this.parser.parseInline(tokens);
         const d = Math.min(depth + haCap, 6);
-        return `<h${d} id="${slug(text)}">${text}</h${d}>\n`;
+        return `<h${d} id="${idDuyNhat(slug(text))}">${text}</h${d}>\n`;
       },
       link({ href, title, tokens }) {
         const text = this.parser.parseInline(tokens);
