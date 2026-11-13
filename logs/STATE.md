@@ -10,7 +10,7 @@
       tên registry/MSIX) rồi phát hành 2.4.1. ĐỌC ADR-0003 mục 5 (ràng buộc trình cập nhật 2.4.0-vn.1).
 
 - [ ] Kế hoạch gia cố + hard fork (11/11/2026), mỗi phase một PR, làm theo thứ tự:
-  - P1 PR #42 tải tệp build từ `tsudev-org/tsudev-files-assets` - CHỜ chủ dự án tạo repo assets (job win-arm64 đỏ tới lúc đó).
+  - P1 PR #42 tải tệp build từ `tsudev-org/tsufiles-assets` - CHỜ chủ dự án tạo repo assets (job win-arm64 đỏ tới lúc đó).
   - P2 PR #43 SBOM CycloneDX + chứng thực - ĐÃ GỘP 12/11/2026 (`70768d88`).
   - P3 PR #44 (nháp) vòng khóa ký - CHỜ chủ dự án tạo khóa dự phòng.
   - P4 PR #45 fuzz bộ đọc tự viết - ĐÃ GỘP 12/11/2026 (`4e2dfd8a`).
@@ -82,7 +82,7 @@
 - 11/11/2026 - PR #36 thay PR #31 (Dependabot NuGet, đỏ mọi job): nâng Avalonia 12.1.6, Logging/Pkcs 10.0.15, Magick.NET
   15.1.0, Markdig 1.6.0, ExcelNumberFormat 1.2.0, AngleSharp 1.10.1, Tomlyn 2.11.1, MsgReader 6.2.1. CI 20/20 xanh.
   Đóng #31. Trên WSL: Engines trượt 2 (phông chữ), Setup trượt 15 (đường dẫn Windows) - lỗi môi trường, CI đạt.
-- 11/11/2026 - **Phát hành `v2.4.0-vn.1`** (bản đầu tiên, latest): https://github.com/tsudev-org/tsudev-files/releases/tag/v2.4.0-vn.1
+- 11/11/2026 - **Phát hành `v2.4.0-vn.1`** (bản đầu tiên, latest): https://github.com/tsudev-org/tsufiles/releases/tag/v2.4.0-vn.1
   Workflow Release `42851826849` xanh; 8 gói (Windows Setup/Portable x64, Linux x64/arm64 tar.gz, macOS arm64/x64
   dmg+tar.gz) khớp SHA256SUMS; 5 tệp SHA256SUMS ký ECDSA trên WSL (`tools/sign-checksums-vn.sh`), đã tải `.sig`.
   Chạy thử gói Linux x64: `filee-cli --version` = 2.4.0-vn.1, `help` tiếng Việt, chuyển `.txt -> .md` đạt. Gộp PR #33

@@ -48,7 +48,7 @@ Nếu không muốn gói Linux kéo `libinput` (hook bàn phím/chuột toàn c�
 `libuiohook-*.so` khỏi tar Linux ở Release sau. Lựa chọn thuộc repo này.
 
 Xong thì ghi mục 3 và nhắn phiên `linux-packages`, hoặc ghi phiếu vào `~/projects/linux-packages/logs/handover/`.
-Phía kho sẽ thêm `{ "repo": "tsudev-org/tsudev-files", "ref": "main" }` vào `products.json`, chờ CI cài thật xanh rồi
+Phía kho sẽ thêm `{ "repo": "tsudev-org/tsufiles", "ref": "main" }` vào `products.json`, chờ CI cài thật xanh rồi
 xuất bản. Sau đó repo này chuyển `apt`, `rpm` từ `planned` sang `channels`.
 
 ## 3. Kết quả xử lý (phiên nhận điền)

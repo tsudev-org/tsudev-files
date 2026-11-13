@@ -9,7 +9,7 @@
 ## 0. Đọc trước
 
 - `AGENTS.md`, `logs/STATE.md` (hàng đợi + mục Quyết định), `logs/LOCKS.md` (trống).
-- Luôn `-R tsudev-org/tsudev-files` với `gh` (không có `-R` thì `gh` trỏ nhầm về upstream KnifeLemon/Filee).
+- Luôn `-R tsudev-org/tsufiles` với `gh` (không có `-R` thì `gh` trỏ nhầm về upstream KnifeLemon/Filee).
 - Ruleset "Bảo vệ main" (id 26937532): chỉ gộp qua PR, bắt buộc check `build` và `Quét lộ bí mật (gitleaks)`. PR chỉ
   sửa `.md` thì `build` "skipping" = đạt. Từ PR #33 có thêm job "Quy ước tsudev" (`check-standards.sh`,
   `STANDARDS_VERIFY_UPSTREAM=1`) - phải đạt.
@@ -66,9 +66,9 @@
   `AnnotationTests.A_pen_line_text...` - thiếu phông), Setup trượt 15 (đường dẫn Windows) - lỗi môi trường, CI đạt.
   App tests mất ~2 giờ trên WSL.
 - Test chập chờn trên CI: `WebDropJobTests.A_job_cancelled_before_it_runs...` (linux-arm64), cùng các test macOS và
-  `apt-get update` treo đã biết - `gh run rerun <run> --failed -R tsudev-org/tsudev-files`.
+  `apt-get update` treo đã biết - `gh run rerun <run> --failed -R tsudev-org/tsufiles`.
 - Chờ CI: dùng tác vụ nền `gh pr checks <n> -R ... --watch`; ngay sau khi push, chờ check-runs xuất hiện trước
-  (`gh api repos/tsudev-org/tsudev-files/commits/<sha>/check-runs -q .total_count`), nếu không `--watch` thoát sớm.
+  (`gh api repos/tsudev-org/tsufiles/commits/<sha>/check-runs -q .total_count`), nếu không `--watch` thoát sớm.
 
 ## 6. Trạng thái cổng kiểm
 

@@ -85,20 +85,20 @@ Không bao giờ push, mở PR hay comment lên `KnifeLemon/Filee`.
         `code-scanning/default-setup`, danh sách workflow + `state`, mã HTTP của
         `https://github.com/tsudev-tsudev/tsudev-files/releases`).
   - [ ] d. Chuyển: `gh api -X POST repos/tsudev-tsudev/tsudev-files/transfer -f new_owner=tsudev-org`; lặp
-        `gh api repos/tsudev-org/tsudev-files --jq .full_name` tới khi trả về (vài giây).
+        `gh api repos/tsudev-org/tsufiles --jq .full_name` tới khi trả về (vài giây).
   - [ ] e. Bật lại secret scanning + push protection (lệnh ở bước 3 phiếu `20261109-03`). KHÔNG bật CodeQL default
         setup (repo đã có job `codeql` advanced; bật default setup sẽ làm job advanced lỗi).
   - [ ] f. Đối chiếu với ảnh chụp: `security_and_analysis` khớp (đều `enabled`); secret/environment/release khớp;
-        `gh api repos/tsudev-org/tsudev-files/actions/workflows --jq '.workflows[]|.name+": "+.state'` mọi dòng
+        `gh api repos/tsudev-org/tsufiles/actions/workflows --jq '.workflows[]|.name+": "+.state'` mọi dòng
         `active`; URL cũ `https://github.com/tsudev-tsudev/tsudev-files` vẫn chuyển hướng (200 sau `-L`).
-  - [ ] g. `git remote set-url origin https://github.com/tsudev-org/tsudev-files.git && git fetch origin`. Từ đây mọi
-        lệnh `gh` dùng `-R tsudev-org/tsudev-files`.
+  - [ ] g. `git remote set-url origin https://github.com/tsudev-org/tsufiles.git && git fetch origin`. Từ đây mọi
+        lệnh `gh` dùng `-R tsudev-org/tsufiles`.
   - [ ] h. Nhánh `chore/repo-url-tsudev-org`, commit riêng: đổi mọi `github.com/tsudev-tsudev/tsudev-files` thành
-        `github.com/tsudev-org/tsudev-files` (tìm bằng `git grep -n "tsudev-tsudev/tsudev-files"`: `ForkDefaults.cs`
+        `github.com/tsudev-org/tsufiles` (tìm bằng `git grep -n "tsudev-tsudev/tsudev-files"`: `ForkDefaults.cs`
         `RepositoryUrl`, `Directory.Build.props`, `SetupInfo.cs`, 22 tệp `src/Filee.App/Assets/i18n/*.json` (6 khóa
         `update.*`/`installer.error.*` mỗi tệp), test, README, `docs/vi/`, `installer/*/HUONG-DAN-CAI-DAT.txt`; đo
         09/11 có 33 tệp). Cách làm: `git grep -lz "tsudev-tsudev/tsudev-files" -- . ':!logs' ':!.standards' | xargs -0
-        sed -i 's#tsudev-tsudev/tsudev-files#tsudev-org/tsudev-files#g'`, rồi `git grep -n "tsudev-tsudev"` phải chỉ
+        sed -i 's#tsudev-tsudev/tsudev-files#tsudev-org/tsufiles#g'`, rồi `git grep -n "tsudev-tsudev"` phải chỉ
         còn trong `logs/` (đọc kỹ từng dòng còn lại). KHÔNG sửa `logs/` cũ và `.standards/`). Chạy test Core/Cli/Platform + `dotnet test tests/Filee.App.Tests
         --filter Update`. PR này đồng thời là "PR thử" của bước 6 phiếu `20261109-03`: số check phải bằng trước khi
         chuyển, có GitGuardian. Workflow bị chính sách Org chặn thì báo chủ dự án, không tự nới quyền. Xanh -> gộp.

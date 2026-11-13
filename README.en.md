@@ -11,8 +11,8 @@ Drag a file and drop it on a format in the "donut" ring that opens under the poi
 formats: images, PDF, Word, Excel, PowerPoint, HWP/HWPX, video, audio, e-books, archives, CAD, maps, 3D... Everything
 runs **on your computer**: no file is uploaded anywhere, and Microsoft Office is not needed.
 
-- Download: <https://files.tsudev.com/tai-ve/> (or [GitHub Releases](https://github.com/tsudev-org/tsudev-files/releases/latest))
-- Bugs and ideas: <https://github.com/tsudev-org/tsudev-files/issues>
+- Download: <https://files.tsudev.com/tai-ve/> (or [GitHub Releases](https://github.com/tsudev-org/tsufiles/releases/latest))
+- Bugs and ideas: <https://github.com/tsudev-org/tsufiles/issues>
 - Security vulnerabilities: see [SECURITY.md](SECURITY.md) (do NOT open a public issue)
 - Support the project: <https://files.tsudev.com/ung-ho/>
 
@@ -23,7 +23,7 @@ runs **on your computer**: no file is uploaded anywhere, and Microsoft Office is
 | Default language | The operating system's, English as fallback | **Vietnamese** for the app, the installer and the CLI; changeable in Settings |
 | `tsufiles` command line | English only | Vietnamese by default, `TSUFILES_LANG=en` for English; JSON keys unchanged for scripts |
 | Product name | Filee | **TsuFiles**, owl logo, Night Owl theme ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)); executable, `tsufiles` command, data folder, shortcuts and release files move to `tsufiles` in 2.4.1 with migration |
-| Updates | `KnifeLemon/Filee` and its author's signing key | `tsudev-org/tsudev-files` and **its own ECDSA P-256 signing key**; releases of other repositories are refused |
+| Updates | `KnifeLemon/Filee` and its author's signing key | `tsudev-org/tsufiles` and **its own ECDSA P-256 signing key**; releases of other repositories are refused |
 | GitHub Actions | Pinned by tag | **Pinned by commit SHA** |
 | Security gates | CI + tests | Also CodeQL (security-extended), gitleaks, NuGet vulnerability audit, SBOM and build provenance, Dependabot |
 

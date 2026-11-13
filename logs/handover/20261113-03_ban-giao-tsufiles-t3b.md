@@ -7,7 +7,7 @@
 
 ## 0. Đọc trước
 
-- `gh` luôn kèm `-R tsudev-org/tsudev-files`. Máy KHÔNG có `jq`: dùng `gh ... --jq`.
+- `gh` luôn kèm `-R tsudev-org/tsufiles`. Máy KHÔNG có `jq`: dùng `gh ... --jq`.
 - Agent bị chặn force-push, xóa nhánh từ xa, deploy: đưa chủ dự án lệnh `!`. Nhánh đã push: chỉ merge, không rebase.
 - **Ràng buộc trình cập nhật 2.4.0-vn.1 (ADR-0003 mục 5)**: tệp phát hành PHẢI giữ tiền tố `tsudev-files-`; gói Linux
   PHẢI có tệp chạy tên `Filee` (đang là launcher gọi `TsuFiles`) cạnh `install.sh`; Windows Setup phải tiếp quản

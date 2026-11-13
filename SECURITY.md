@@ -2,12 +2,12 @@
 
 ## Phiên bản được hỗ trợ
 
-Chỉ bản phát hành mới nhất tại <https://github.com/tsudev-org/tsudev-files/releases/latest> nhận bản vá bảo mật.
+Chỉ bản phát hành mới nhất tại <https://github.com/tsudev-org/tsufiles/releases/latest> nhận bản vá bảo mật.
 
 ## Báo cáo lỗ hổng
 
 **Không mở issue công khai.** Dùng tính năng báo cáo riêng của GitHub:
-<https://github.com/tsudev-org/tsudev-files/security/advisories/new>
+<https://github.com/tsudev-org/tsufiles/security/advisories/new>
 
 Vui lòng gửi kèm: phiên bản, hệ điều hành, tệp mẫu (nếu có thể chia sẻ) hoặc các bước tái hiện, và mức ảnh hưởng.
 

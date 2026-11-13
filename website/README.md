@@ -47,7 +47,7 @@ Lần đầu chỉ cần `npm run deploy`: khối `routes` trong `wrangler.jsonc
 ghi DNS và chứng chỉ, khoảng 1 phút). Rồi đổi trang chủ của repo:
 
 ```bash
-gh repo edit tsudev-org/tsudev-files --homepage https://files.tsudev.com
+gh repo edit tsudev-org/tsufiles --homepage https://files.tsudev.com
 ```
 
 Không dùng Cloudflare Pages: `wrangler pages project create` bản 4.158 tự chuyển sang Workers rồi lỗi, và tên miền riêng

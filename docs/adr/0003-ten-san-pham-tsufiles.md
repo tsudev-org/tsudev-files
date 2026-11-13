@@ -22,7 +22,7 @@ Chủ dự án (12/11/2026) chốt tên sản phẩm mới **TsuFiles** cho th�
 | Biến môi trường | `FILEE_*` | `TSUFILES_*` |
 | Thư mục dữ liệu, khóa registry, AppGuid | `Filee` | `TsuFiles` + di trú một lần từ chỗ cũ |
 | Tệp phát hành | `tsudev-files-<ver>-...` | `tsufiles-<ver>-...` (trình cập nhật bản mới nhận cả hai tiền tố) |
-| Repo GitHub | `tsudev-org/tsudev-files` | `tsudev-org/tsufiles` - đổi ở phase cuối |
+| Repo GitHub | `tsudev-org/tsufiles` | `tsudev-org/tsufiles` - đổi ở phase cuối |
 | Website | `files.tsudev.com` | giữ nguyên tên miền; Worker đổi tên `tsufiles` |
 | Giao diện | `Soft`, `Material You` | thêm kiểu **TsuFiles Cú đêm** (đen + tím theo logo), mặc định cho cài mới |
 
@@ -63,3 +63,13 @@ Hệ quả (thay dòng "Tệp phát hành" ở bảng mục 2): **tiền tố t�
 2.4.0-vn.1 lên bản mới (đổi sang `tsufiles-` sẽ làm các bản đó im lặng không bao giờ cập nhật). Gói Linux giữ tệp
 `Filee` (lối chuyển tiếp gọi sang `TsuFiles`) và `install.sh` để lại lối chuyển tiếp ở thư mục cài cũ cho lần chạy lại
 đầu tiên. Thư mục dữ liệu và biến môi trường không bị ràng buộc này (T3b-1, `Settings/LegacyDataMigration.cs`).
+
+## 7. Bổ sung 13/11/2026 - T4 đổi tên repo
+
+- 13/11/2026: `tsudev-org/tsudev-files` đổi thành **`tsudev-org/tsufiles`** (`gh repo rename`). Secret scanning, push
+  protection, ruleset "Bảo vệ main" (id 26937532) giữ nguyên sau khi đổi (đã kiểm). URL cũ chuyển hướng 301, kể cả
+  API `repos/.../releases/latest` mà trình cập nhật 2.4.0-vn.1 gọi (đã kiểm chuỗi API -> bản phát hành -> tệp tải).
+- **Cấm vĩnh viễn** tạo lại repo/fork/đổi tên thành `tsudev-files` trong `tsudev-org` (và `tsudev-tsudev`): chuyển hướng
+  mất ngay và bản 2.4.0-vn.1 đã cài sẽ cập nhật từ repo sai. Đã ghi vào `~/.claude/CLAUDE.md` của máy phát triển.
+- Mã, tài liệu, website trỏ địa chỉ mới; nhật ký (`logs/`), CHANGELOG bản cũ, ADR cũ giữ nguyên (lịch sử).
+- Worker Cloudflare `tsudev-files` và thư mục cục bộ `~/projects/tsudev-files` đổi tên do chủ dự án làm (phiếu bàn giao).
