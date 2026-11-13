@@ -1,13 +1,13 @@
-# STATE.md - Trạng thái project tsudev-files
+# STATE.md - Trạng thái project TsuFiles (repo tsudev-org/tsufiles)
 
 > Agent đọc file này ở đầu mỗi phiên và cập nhật ở cuối mỗi phiên.
 > Quy trình: `.standards/docs/AGENT_PROTOCOL.md`.
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261113-03_ban-giao-tsufiles-t3b.md` - TsuFiles (ADR-0003): T3b-1..3 đã gộp
-      (#57-#59: thư mục dữ liệu, lệnh `tsufiles`, tệp chạy `TsuFiles`); tiếp T3b-4 (GNOME/KWin/WM_CLASS, bundle macOS,
-      tên registry/MSIX) rồi phát hành 2.4.1. ĐỌC ADR-0003 mục 5 (ràng buộc trình cập nhật 2.4.0-vn.1).
+- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261113-05_ban-giao-tsufiles-t3b4-t4.md` - ADR-0003 T3b + T4 xong (repo giờ là
+      `tsudev-org/tsufiles`). Chủ dự án: deploy Worker `tsufiles` + xóa Worker cũ, tắt Cloudflare JavaScript
+      Detections, đổi thư mục cục bộ thành `~/projects/tsufiles`. Sau đó phát hành 2.4.1 (mục 2.3 của phiếu).
 
 - [ ] Kế hoạch gia cố + hard fork (11/11/2026), mỗi phase một PR, làm theo thứ tự:
   - P1 PR #42 tải tệp build từ `tsudev-org/tsufiles-assets` - CHỜ chủ dự án tạo repo assets (job win-arm64 đỏ tới lúc đó).
@@ -56,6 +56,11 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 13/11/2026 - ADR-0003 T3b-4 (#61: bundle macOS `TsuFiles.app`/`com.tsudev.tsufiles`, GNOME `tsufiles-donut@tsudev.com`,
+  WM_CLASS `TsuFiles`, registry/lối tắt `TsuFiles`) và T4 (#62: repo đổi tên `tsudev-org/tsufiles`, URL cũ chuyển hướng);
+  #63 Worker `tsufiles` (chưa deploy); #65 rà quét giao diện website (phiếu `20261113-07`). Quyết định: GIỮ tiền tố tệp
+  phát hành `tsudev-files-`, launcher `Filee`, thư mục cài Linux `filee` (ADR-0003 mục 5-6); cấm tạo lại tên
+  `tsudev-files` trong `tsudev-org` (mục 7).
 - 13/11/2026 - ADR-0003 T3b-1..3 gộp: #57 thư mục dữ liệu `TsuFiles` + di trú `LegacyDataMigration`, biến `TSUFILES_*`;
   #58 lệnh `tsufiles`/`tsufiles-cli`; #59 tệp chạy `TsuFiles(.exe)`, Setup tiếp quản `Filee.exe`, launcher `Filee` trong
   gói Linux. `main` @ `9c11f17d`. Phiếu `20261113-03`.
