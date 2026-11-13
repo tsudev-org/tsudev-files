@@ -22,7 +22,7 @@ Chủ dự án (12/11/2026) chốt tên sản phẩm mới **TsuFiles** cho th�
 | Biến môi trường | `FILEE_*` | `TSUFILES_*` |
 | Thư mục dữ liệu, khóa registry, AppGuid | `Filee` | `TsuFiles` + di trú một lần từ chỗ cũ |
 | Tệp phát hành | `tsudev-files-<ver>-...` | `tsufiles-<ver>-...` (trình cập nhật bản mới nhận cả hai tiền tố) |
-| Repo GitHub | `tsudev-org/tsudev-files` | `tsudev-org/tsufiles` - đổi ở phase cuối |
+| Repo GitHub | `tsudev-org/tsufiles` | `tsudev-org/tsufiles` - đổi ở phase cuối |
 | Website | `files.tsudev.com` | giữ nguyên tên miền; Worker đổi tên `tsufiles` |
 | Giao diện | `Soft`, `Material You` | thêm kiểu **TsuFiles Cú đêm** (đen + tím theo logo), mặc định cho cài mới |
 
@@ -75,3 +75,13 @@ Hệ quả (thay dòng "Tệp phát hành" ở bảng mục 2): **tiền tố t�
   `X-Filee-Managed`; AppGuid Inno Setup và các giá trị `Filee Setup: *` (Setup đọc lựa chọn cũ); định danh gói MSIX
   `Filee.ExplorerMenu` / `CN=Filee` (đổi phải tính lại FamilyName và gỡ gói cũ - tên hiển thị đã là TsuFiles); marker
   engine `.filee-component` (đổi thì engine đã tải bị coi là chưa cài); id hành động Thunar `filee-convert`.
+
+## 7. Bổ sung 13/11/2026 - T4 đổi tên repo
+
+- 13/11/2026: `tsudev-org/tsudev-files` đổi thành **`tsudev-org/tsufiles`** (`gh repo rename`). Secret scanning, push
+  protection, ruleset "Bảo vệ main" (id 26937532) giữ nguyên sau khi đổi (đã kiểm). URL cũ chuyển hướng 301, kể cả
+  API `repos/.../releases/latest` mà trình cập nhật 2.4.0-vn.1 gọi (đã kiểm chuỗi API -> bản phát hành -> tệp tải).
+- **Cấm vĩnh viễn** tạo lại repo/fork/đổi tên thành `tsudev-files` trong `tsudev-org` (và `tsudev-tsudev`): chuyển hướng
+  mất ngay và bản 2.4.0-vn.1 đã cài sẽ cập nhật từ repo sai. Đã ghi vào `~/.claude/CLAUDE.md` của máy phát triển.
+- Mã, tài liệu, website trỏ địa chỉ mới; nhật ký (`logs/`), CHANGELOG bản cũ, ADR cũ giữ nguyên (lịch sử).
+- Worker Cloudflare `tsudev-files` và thư mục cục bộ `~/projects/tsudev-files` đổi tên do chủ dự án làm (phiếu bàn giao).

@@ -7,7 +7,7 @@
 
 ## 0. Đọc trước
 
-- Phiếu `20261111-01` mục 0 (gh luôn `-R tsudev-org/tsudev-files`, vì `gh` mặc định trỏ upstream KnifeLemon/Filee).
+- Phiếu `20261111-01` mục 0 (gh luôn `-R tsudev-org/tsufiles`, vì `gh` mặc định trỏ upstream KnifeLemon/Filee).
 - Agent **bị chặn force-push** (classifier "Git Destructive") ngoài việc bị chặn deploy/xóa nhánh từ xa. Không rebase
   nhánh đã push: gộp `main` vào nhánh bằng merge commit (`git merge origin/main`) rồi push thường.
 - Đổi tên/namespace xong PHẢI chạy `dotnet format tsudev-files.slnx --no-restore --severity warn` (thứ tự `using`),
@@ -37,7 +37,7 @@
   - Tên hiển thị `tsudev-files` -> `TsuFiles`: `ForkDefaults.Brand`, `Directory.Build.props` `<Product>`, i18n
     (`vi.json`, `en.json`, các ngôn ngữ khác: khóa `theme.style.Soft` đang là "Filee Soft"), Setup, README, website
     (tiêu đề, og-image chữ trong `tao-tai-san.py`, tên tệp `tsudev-files-mark.*` -> `tsufiles-mark.*`).
-    **CHƯA** đổi ở T2: URL `github.com/tsudev-org/tsudev-files` (T4), tên tệp phát hành `tsudev-files-<ver>-*` và
+    **CHƯA** đổi ở T2: URL `github.com/tsudev-org/tsufiles` (T4), tên tệp phát hành `tsudev-files-<ver>-*` và
     tên exe/lệnh/thư mục dữ liệu (T3) - trình cập nhật của bản đã cài phụ thuộc.
   - Kiểu giao diện **TsuFiles Cú đêm**: thẻ thứ 3 trong `ThemePage.axaml` (cạnh Soft, Material You); bảng màu đen
     `#0A0A0A` + tím lấy từ logo (đo từ `tsufiles-2.webp`), logo cú ở thanh bên/Trang chủ/Giới thiệu; mặc định cho cài
@@ -49,7 +49,7 @@
       vẫn hiện icon và tên cũ), ExplorerMenu/COM, GNOME, bundle macOS, tên tệp phát hành `tsufiles-*` (trình cập nhật
       nhận cả hai tiền tố). Gộp luôn phiếu hệ sinh thái `~/projects/logs/handover/20261112-04_*` (bắt buộc cập nhật,
       `files.tsudev.com/phien-ban.json`, mẫu lotus-share PR #39) - ghi kết quả vào phiếu đó.
-- [ ] 2.3. **T4 - repo**: chủ dự án đổi tên `tsudev-org/tsudev-files` -> `tsudev-org/tsufiles` (Settings), rồi sửa
+- [ ] 2.3. **T4 - repo**: chủ dự án đổi tên `tsudev-org/tsufiles` -> `tsudev-org/tsufiles` (Settings), rồi sửa
       URL, `git remote`, Worker `tsufiles`, thư mục cục bộ; thêm `tsudev-files` vào danh sách tên cấm tạo lại trong
       `~/.claude/CLAUDE.md` (đã có sẵn trong danh sách tsudev-tsudev - kiểm lại cho `tsudev-org`).
 - [ ] 2.4. Còn từ phiếu `20261112-03`: 2.5 (rebase #42, #44 bằng merge `main`, chạy lại công cụ đổi tên), 2.8 (chủ dự

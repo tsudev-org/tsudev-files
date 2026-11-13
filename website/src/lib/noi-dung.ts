@@ -4,7 +4,7 @@ import { dirname, join, normalize } from 'node:path';
 import { Marked } from 'marked';
 
 export const SAN_PHAM = 'TsuFiles';
-export const REPO = 'tsudev-org/tsudev-files';
+export const REPO = 'tsudev-org/tsufiles';
 export const REPO_URL = `https://github.com/${REPO}`;
 export const RELEASES_URL = `${REPO_URL}/releases/latest`;
 export const UPSTREAM_URL = 'https://github.com/KnifeLemon/Filee';

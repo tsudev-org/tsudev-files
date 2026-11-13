@@ -37,20 +37,20 @@
 
    ```bash
    V=2.4.1; D=$(mktemp -d)
-   gh release download "v$V" -R tsudev-org/tsudev-files -p '*SHA256SUMS*.txt' -D "$D"
+   gh release download "v$V" -R tsudev-org/tsufiles -p '*SHA256SUMS*.txt' -D "$D"
    tools/sign-checksums-vn.sh "$D"/*SHA256SUMS*.txt
-   gh release upload "v$V" -R tsudev-org/tsudev-files "$D"/*.sig
+   gh release upload "v$V" -R tsudev-org/tsufiles "$D"/*.sig
    ```
 
    Script từ chối nếu khóa không khớp `TsuFilesUpdatePublicKey`, nằm trong git working tree hoặc có quyền đọc rộng.
 5. Kiểm tra bản nháp: mỗi `*SHA256SUMS*.txt` đều có `.sig`; mỗi gói có chứng thực nguồn gốc build (từ 2.4.1,
    bước "Attest build provenance" của `release.yml`):
-   `gh release download "v$V" -R tsudev-org/tsudev-files -p '*linux-x64.tar.gz' -D "$D" &&
-   gh attestation verify "$D"/*linux-x64.tar.gz -R tsudev-org/tsudev-files`. Có thêm SBOM
+   `gh release download "v$V" -R tsudev-org/tsufiles -p '*linux-x64.tar.gz' -D "$D" &&
+   gh attestation verify "$D"/*linux-x64.tar.gz -R tsudev-org/tsufiles`. Có thêm SBOM
    `tsudev-files-<ver>-sbom.cdx.json` (CycloneDX 1.7, từ 2.4.1) được chứng thực cho mọi gói:
-   `gh attestation verify "$D"/*linux-x64.tar.gz -R tsudev-org/tsudev-files --predicate-type https://cyclonedx.org/bom`.
+   `gh attestation verify "$D"/*linux-x64.tar.gz -R tsudev-org/tsufiles --predicate-type https://cyclonedx.org/bom`.
    Rồi xuất bản:
-   `gh release edit "v$V" -R tsudev-org/tsudev-files --draft=false --latest`.
+   `gh release edit "v$V" -R tsudev-org/tsufiles --draft=false --latest`.
 6. Bản cài cũ sẽ nhận cập nhật: tải SHA256SUMS -> kiểm chữ ký ECDSA -> kiểm số phiên bản mới hơn -> tải bộ cài ->
    kiểm SHA-256 -> cài. Sai bất kỳ bước nào thì từ chối và mở trang phát hành.
 7. **Sau khi** bản phát hành đã công khai: sửa `website/public/phien-ban.json` (`phienBan`, `moiNhat` = số build vừa

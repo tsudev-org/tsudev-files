@@ -9,7 +9,7 @@
     "en": "Offline file converter for 260+ formats - Vietnamese, security-hardened Filee"
   },
   "release": {
-    "repo": "tsudev-org/tsudev-files",
+    "repo": "tsudev-org/tsufiles",
     "tagRegex": "^v(?<version>\\d+\\.\\d+\\.\\d+)-(?<revision>vn\\.\\d+)$",
     "sums": "tsudev-files-{tagVersion}-SHA256SUMS.txt"
   },

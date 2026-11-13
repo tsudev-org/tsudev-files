@@ -1,5 +1,5 @@
 # Báo cáo lỗ hổng bảo mật của TsuFiles (RFC 9116)
-Contact: https://github.com/tsudev-org/tsudev-files/security/advisories/new
+Contact: https://github.com/tsudev-org/tsufiles/security/advisories/new
 Expires: 2027-11-01T00:00:00.000Z
 Preferred-Languages: vi, en
 Canonical: https://files.tsudev.com/.well-known/security.txt

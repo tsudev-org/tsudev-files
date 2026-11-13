@@ -20,7 +20,7 @@ public static class ForkDefaults
     public const string FallbackLanguage = "en";
 
     /// <summary>Repo phát hành của bản fork (trình cập nhật đọc giá trị build TsuFilesRepositoryUrl; đây là bản sao để hiển thị).</summary>
-    public const string RepositoryUrl = "https://github.com/tsudev-org/tsudev-files";
+    public const string RepositoryUrl = "https://github.com/tsudev-org/tsufiles";
 
     /// <summary>Nhà phát hành (ECOSYSTEM_IDENTITY mục 2.3): thương hiệu luôn viết thường.</summary>
     public const string PublisherName = "tsudev";

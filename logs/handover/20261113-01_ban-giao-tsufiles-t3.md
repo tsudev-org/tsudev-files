@@ -7,7 +7,7 @@
 
 ## 0. Đọc trước
 
-- `gh` luôn kèm `-R tsudev-org/tsudev-files`. Agent bị chặn force-push, xóa nhánh từ xa, deploy: đưa chủ dự án lệnh `!`.
+- `gh` luôn kèm `-R tsudev-org/tsufiles`. Agent bị chặn force-push, xóa nhánh từ xa, deploy: đưa chủ dự án lệnh `!`.
 - Đổi tên hàng loạt: KHÔNG ghi tệp bằng `Path.read_text()/write_text()` mặc định cho tệp CRLF (`build/*.ps1`), và
   dùng `--tep` của `tools/doi-ten-tsudev.py` cho JSON dịch (đọc/ghi lại bằng `json.dumps` làm hỏng định dạng 22 tệp).
 - Thay chuỗi hiển thị bằng regex phải soát các chỗ chuỗi nằm trong mã: phiên này suýt làm gãy regex tên tệp phát hành
