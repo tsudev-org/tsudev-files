@@ -39,6 +39,13 @@ npm run check:theme  # nút đổi giao diện trong Chromium, với CSP của p
 npm run deploy       # build rồi `wrangler deploy` (cần `npx wrangler login` với tài khoản tsudev)
 ```
 
+Đổi tên Worker `tsudev-files` -> `tsufiles` (13/11/2026, ADR-0003 mục 7) - làm MỘT lần, theo thứ tự:
+
+```bash
+npm run deploy                          # tạo Worker "tsufiles"; wrangler hỏi chuyển files.tsudev.com sang Worker mới: chọn Yes
+npx wrangler delete --name tsudev-files # xóa Worker cũ sau khi https://files.tsudev.com/ đã chạy bằng Worker mới
+```
+
 Sau mỗi lần phát hành bản mới, chạy lại `npm run deploy` để trang Tải về cập nhật phiên bản và mã SHA-256.
 
 ## Thiết lập một lần
