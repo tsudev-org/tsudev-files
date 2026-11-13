@@ -5,9 +5,9 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261113-01_ban-giao-tsufiles-t3.md` - TsuFiles (ADR-0003): T2 xong (#49),
-      T3a bắt buộc cập nhật PR #50; tiếp T3b định danh lúc chạy + di trú (bản 2.4.1) -> T4 đổi tên repo. Phiếu
-      `20261112-03` mục 2.5, 2.8 vẫn còn hiệu lực.
+- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261113-03_ban-giao-tsufiles-t3b.md` - TsuFiles (ADR-0003): T3b-1..3 đã gộp
+      (#57-#59: thư mục dữ liệu, lệnh `tsufiles`, tệp chạy `TsuFiles`); tiếp T3b-4 (GNOME/KWin/WM_CLASS, bundle macOS,
+      tên registry/MSIX) rồi phát hành 2.4.1. ĐỌC ADR-0003 mục 5 (ràng buộc trình cập nhật 2.4.0-vn.1).
 
 - [ ] Kế hoạch gia cố + hard fork (11/11/2026), mỗi phase một PR, làm theo thứ tự:
   - P1 PR #42 tải tệp build từ `tsudev-org/tsudev-files-assets` - CHỜ chủ dự án tạo repo assets (job win-arm64 đỏ tới lúc đó).
@@ -55,6 +55,10 @@
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 13/11/2026 - ADR-0003 T3b-1..3 gộp: #57 thư mục dữ liệu `TsuFiles` + di trú `LegacyDataMigration`, biến `TSUFILES_*`;
+  #58 lệnh `tsufiles`/`tsufiles-cli`; #59 tệp chạy `TsuFiles(.exe)`, Setup tiếp quản `Filee.exe`, launcher `Filee` trong
+  gói Linux. `main` @ `9c11f17d`. Phiếu `20261113-03`.
 
 - 13/11/2026 - Gói APT/RPM tsudev-files 2.4.0-vn.1 xuất bản trên `pkg.tsudev.com` (linux-packages PR #13, cài thật xanh
   8 môi trường); `apt`, `rpm` chuyển sang `channels`; khối "Cài bằng lệnh" ở `/tai-ve/`. Phụ thuộc Linux: PR #53.
@@ -116,6 +120,10 @@
 - 09/11/2026 - Khởi tạo fork từ `KnifeLemon/Filee@64890f1e` (v2.4.0): rà soát an toàn, tiếng Việt mặc định (GUI, Setup, CLI), trình cập nhật trỏ về repo riêng + khóa ký riêng, ghim action theo SHA, thêm CodeQL/gitleaks/Dependabot/kiểm tra bản dịch.
 
 ## Quyết định quan trọng
+
+- 13/11/2026 - Tiền tố tệp phát hành GIỮ `tsudev-files-` và gói Linux giữ tệp chạy tên `Filee` (launcher): trình
+  cập nhật của 2.4.0-vn.1 chỉ nhận như vậy (ADR-0003 mục 5). Cài mới Windows vào thư mục `TsuFiles`, cập nhật giữ thư
+  mục cũ. Biến `FILEE_*` và lệnh `filee` bỏ hẳn (gãy tương thích, ghi CHANGELOG). Dữ liệu di trú một lần, không ghi đè.
 
 - 13/11/2026 - Tên còn phụ thuộc bởi bản 2.4.0-vn.1 đã cài (lối tắt `tsudev-files.lnk`, script Nautilus, tiền tố tệp
   phát hành) gom vào `ForkDefaults.InstalledName`; chỉ đổi ở T3b cùng di trú. Trình cập nhật đã nhận cả tiền tố
