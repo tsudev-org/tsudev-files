@@ -37,7 +37,7 @@
         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="18">
           <!-- Centered next to the text. Side by side, this card is stretched to the height of the Updates card, so a
                top-aligned logo would sit above the middle of the text. -->
-          <Image Source="avares://Filee/Assets/Icons/filee.png" Width="72" Height="72" VerticalAlignment="Center" />
+          <Image Source="avares://TsuFiles/Assets/Icons/filee.png" Width="72" Height="72" VerticalAlignment="Center" />
           <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
             <StackPanel Orientation="Horizontal" Spacing="10">
               <!-- TsuFiles: tên hiển thị (ADR-0001), không viết cứng "Filee". -->

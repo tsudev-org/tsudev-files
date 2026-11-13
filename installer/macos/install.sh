@@ -28,7 +28,7 @@ if [ "$stale_link" = false ] && { [ -e "$bin_dir/tsufiles" ] || [ -L "$bin_dir/t
     say "$bin_dir/tsufiles đã tồn tại. Hãy xóa hoặc đổi tên nó trước khi cài TsuFiles." "$bin_dir/tsufiles already exists. Remove or rename it before installing TsuFiles."
     exit 1
 fi
-test -x "$source_dir/Filee.app/Contents/MacOS/Filee"
+test -x "$source_dir/Filee.app/Contents/MacOS/TsuFiles"
 mkdir -p "$HOME/Applications" "$bin_dir"
 /usr/bin/ditto "$source_dir/Filee.app" "$install_dir"
 # ditto keeps the download's quarantine flag: macOS would then start Filee from a translocated copy and could stop

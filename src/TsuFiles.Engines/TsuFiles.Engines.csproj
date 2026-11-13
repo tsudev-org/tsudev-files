@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Filee" />
+    <InternalsVisibleTo Include="TsuFiles" />
     <InternalsVisibleTo Include="TsuFiles.Engines.Tests" />
     <InternalsVisibleTo Include="TsuFiles.App.Tests" />
   </ItemGroup>

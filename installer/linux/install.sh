@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-# Filee Linux standalone installer.
+# TsuFiles Linux standalone installer.
 # Supports first-time installation and in-place upgrade (--upgrade).
 # Preserves downloaded conversion engines (~/.local/share/TsuFiles/engines) and user settings (~/.config/TsuFiles; 2.4.0-vn.*: Filee, moved by the app).
 
@@ -109,8 +109,8 @@ command -v python3 >/dev/null 2>&1 || {
 }
 
 
-if [ ! -f "$source_dir/Filee" ] || [ ! -x "$source_dir/Filee" ]; then
-    say "Gói cài không hợp lệ: thiếu $source_dir/Filee hoặc tệp không chạy được." "Payload validation failed: $source_dir/Filee is missing or not executable." >&2
+if [ ! -f "$source_dir/TsuFiles" ] || [ ! -x "$source_dir/TsuFiles" ]; then
+    say "Gói cài không hợp lệ: thiếu $source_dir/TsuFiles hoặc tệp không chạy được." "Payload validation failed: $source_dir/TsuFiles is missing or not executable." >&2
     exit 1
 fi
 
@@ -166,8 +166,11 @@ else
     fi
 
     # Tell running instance to save and exit cleanly before touching files.
-    if [ -x "$install_dir/Filee" ]; then
-        if ! "$install_dir/Filee" --quit; then
+    # TsuFiles: 2.4.0-vn.* runs as Filee (from 2.4.1 Filee is a launcher that starts TsuFiles).
+    running_app="$install_dir/TsuFiles"
+    [ -x "$running_app" ] || running_app="$install_dir/Filee"
+    if [ -x "$running_app" ]; then
+        if ! "$running_app" --quit; then
             say "Không đóng được TsuFiles đang chạy. Hãy thoát TsuFiles rồi thử lại." "Could not gracefully shut down the running TsuFiles instance. Please exit TsuFiles and try again." >&2
             exit 1
         fi
@@ -196,10 +199,12 @@ else
     cp -R "$source_dir/." "$staging_dir/"
     printf '%s\n' 'com.filee.app' > "$staging_dir/.filee-package"
     printf '%s\n' "$upgrade_token" > "$staging_dir/.filee-upgrade-token"
-    chmod +x "$staging_dir/Filee" "$staging_dir/tsufiles-cli"
+    chmod +x "$staging_dir/TsuFiles" "$staging_dir/tsufiles-cli"
+    # The launcher the 2.4.0-vn.1 updater starts after this script (ADR-0003 section 5).
+    if [ -f "$staging_dir/Filee" ]; then chmod +x "$staging_dir/Filee"; fi
 
     # Validate the staged files before moving the existing installation aside.
-    if [ ! -x "$staging_dir/Filee" ] || [ ! -x "$staging_dir/tsufiles-cli" ]; then
+    if [ ! -x "$staging_dir/TsuFiles" ] || [ ! -x "$staging_dir/tsufiles-cli" ]; then
         rm -rf "$staging_dir"
         say "Bản chuẩn bị nâng cấp không hợp lệ." "Staged payload validation failed." >&2
         exit 1
@@ -285,7 +290,7 @@ else
     activated=1
 
     # Post-swap validation: ensure new installation is active and healthy.
-    if [ ! -x "$install_dir/Filee" ] || [ ! -x "$install_dir/tsufiles-cli" ] || [ ! -f "$install_dir/.filee-package" ]; then
+    if [ ! -x "$install_dir/TsuFiles" ] || [ ! -x "$install_dir/tsufiles-cli" ] || [ ! -f "$install_dir/.filee-package" ]; then
         say "Bản vừa thay thế không vượt qua kiểm tra. Đang khôi phục..." "Activated installation failed post-swap validation. Rolling back..." >&2
         exit 1
     fi
@@ -346,7 +351,7 @@ desktop.write_text(
     # TsuFiles: tên hiển thị trong trình đơn ứng dụng.
     '[Desktop Entry]\nType=Application\nName=TsuFiles\n'
     'Comment=Convert files with TsuFiles\nComment[vi]=Chuyển đổi tệp bằng TsuFiles\n'
-    f'Exec={quoted_exec(str(app / "Filee"))} --convert %F\n'
+    f'Exec={quoted_exec(str(app / "TsuFiles"))} --convert %F\n'
     f'Icon={desktop_value(app / "filee.png")}\n'
     'Terminal=false\nCategories=Utility;\nX-Filee-Managed=true\n', encoding='utf-8')
 PY

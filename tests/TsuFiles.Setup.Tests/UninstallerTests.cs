@@ -29,7 +29,7 @@ public class UninstallerTests
         Assert.Empty(later);
         // Filee cleaned up after itself first (Explorer menu, startup entry, downloaded engines), once and as the
         // signed-in user: those are that user's, and an elevated process can't reach the Filee they run.
-        Assert.Equal(["run-as-user Filee.exe --uninstall-cleanup"], bench.System.Calls.Where(c => c.Contains("--uninstall-cleanup", StringComparison.Ordinal)));
+        Assert.Equal(["run-as-user TsuFiles.exe --uninstall-cleanup"], bench.System.Calls.Where(c => c.Contains("--uninstall-cleanup", StringComparison.Ordinal)));
         Assert.Contains("unregister-menu", bench.System.Calls);
         Assert.False(Directory.Exists(bench.InstallFolder));
         Assert.False(File.Exists(Path.Combine(bench.Paths.CommonStartMenu, SetupNames.ShortcutName))); // TsuFiles: tên hiển thị
@@ -126,14 +126,14 @@ public class UninstallerTests
     {
         var (bench, record) = Installed();
         using var _ = bench;
-        bench.System.Running.Add(new RunningProgram(11, Path.Combine(bench.InstallFolder, "Filee.exe")));
-        // What Filee.exe does when the running Filee stays: exit code 1, before it removes anything (#1079).
+        bench.System.Running.Add(new RunningProgram(11, Path.Combine(bench.InstallFolder, "TsuFiles.exe")));
+        // What TsuFiles.exe does when the running Filee stays: exit code 1, before it removes anything (#1079).
         bench.System.Run = (_, _) => bench.System.Running.Count > 0 ? 1 : 0;
 
         var uninstaller = new Uninstaller(bench.Context);
         uninstaller.Run(bench.InstallFolder, record, deleteSettings: false, bench.Temp.Sub("trash"));
 
-        Assert.Equal(["run-as-user Filee.exe --uninstall-cleanup", "kill 11", "run-as-user Filee.exe --uninstall-cleanup"],
+        Assert.Equal(["run-as-user TsuFiles.exe --uninstall-cleanup", "kill 11", "run-as-user TsuFiles.exe --uninstall-cleanup"],
             bench.System.Calls.Where(c => c.Contains("--uninstall-cleanup", StringComparison.Ordinal) || c.StartsWith("kill", StringComparison.Ordinal)));
         Assert.False(uninstaller.CleanupFailed);
     }
@@ -143,7 +143,7 @@ public class UninstallerTests
     {
         var (bench, record) = Installed();
         using var _ = bench;
-        var command = $"\"{Path.Combine(bench.InstallFolder, "Filee.exe")}\" --background";
+        var command = $"\"{Path.Combine(bench.InstallFolder, "TsuFiles.exe")}\" --background";
         bench.Registry.SetString(Hive.CurrentUser, SetupNames.RunKey, "Filee", command.ToUpperInvariant());
         bench.Registry.SetString(Hive.CurrentUser, SetupNames.RunKey, "Other", command);
         bench.System.Run = (_, _) => -1;
@@ -162,7 +162,7 @@ public class UninstallerTests
     {
         var (bench, record) = Installed();
         using var _ = bench;
-        var portable = $"\"{Path.Combine(bench.InstallFolder + "-portable", "Filee.exe")}\" --background";
+        var portable = $"\"{Path.Combine(bench.InstallFolder + "-portable", "TsuFiles.exe")}\" --background";
         bench.Registry.SetString(Hive.CurrentUser, SetupNames.RunKey, "Filee", portable);
         bench.System.Run = (_, _) => 1;
 
@@ -176,7 +176,7 @@ public class UninstallerTests
     {
         var (bench, record) = Installed();
         using var _ = bench;
-        bench.System.Running.Add(new RunningProgram(11, Path.Combine(bench.InstallFolder, "Filee.exe")));
+        bench.System.Running.Add(new RunningProgram(11, Path.Combine(bench.InstallFolder, "TsuFiles.exe")));
         bench.System.CantBeEnded = true;
         var files = Directory.GetFiles(bench.InstallFolder, "*", SearchOption.AllDirectories);
 
@@ -200,7 +200,7 @@ public class UninstallerTests
             new Uninstaller(bench.Context).Run(bench.InstallFolder, record, deleteSettings: false, bench.Temp.Sub("trash")));
 
         Assert.Equal("installer.uninstall.still_running", error.TextKey);
-        Assert.True(File.Exists(Path.Combine(bench.InstallFolder, "Filee.exe")));
+        Assert.True(File.Exists(Path.Combine(bench.InstallFolder, "TsuFiles.exe")));
         Assert.True(bench.Registry.KeyExists(Hive.LocalMachine, SetupNames.UninstallKey));
     }
 
@@ -224,7 +224,7 @@ public class UninstallerTests
         using var _ = bench;
         // Explorer showing its icon, or Apps in Settings: mapped as an image, which refuses opening it for writing as a
         // running program does. Nothing runs it, and it can be moved away.
-        var exe = Path.Combine(bench.InstallFolder, "Filee.exe");
+        var exe = Path.Combine(bench.InstallFolder, "TsuFiles.exe");
         File.Copy(Path.Combine(Environment.SystemDirectory, "msimg32.dll"), exe, overwrite: true);
         var library = NativeLibrary.Load(exe);
         try
@@ -297,10 +297,10 @@ public class UninstallerTests
         Assert.True(File.Exists(uninstaller));
         Assert.NotNull(InstallRecord.Read(bench.InstallFolder));
 
-        // The first try took Filee.exe, and ran the cleanup: not having it now is no failure to warn about. A startup
+        // The first try took TsuFiles.exe, and ran the cleanup: not having it now is no failure to warn about. A startup
         // entry that still points here goes all the same.
-        Assert.False(File.Exists(Path.Combine(bench.InstallFolder, "Filee.exe")));
-        var command = $"\"{Path.Combine(bench.InstallFolder, "Filee.exe")}\" --background";
+        Assert.False(File.Exists(Path.Combine(bench.InstallFolder, "TsuFiles.exe")));
+        var command = $"\"{Path.Combine(bench.InstallFolder, "TsuFiles.exe")}\" --background";
         bench.Registry.SetString(Hive.CurrentUser, SetupNames.RunKey, "Filee", command);
         var second = new Uninstaller(bench.Context);
         Assert.Empty(second.Run(bench.InstallFolder, InstallRecord.Read(bench.InstallFolder)!, deleteSettings: false, bench.Temp.Sub("trash")));
@@ -460,7 +460,7 @@ public class UninstallerTests
     public void Install_record_round_trip_and_bad_records()
     {
         using var temp = new TempFolder();
-        var record = new InstallRecord("2.0.0", InstallScope.User, ["Filee.exe", @"cli\tsufiles.cmd"]);
+        var record = new InstallRecord("2.0.0", InstallScope.User, ["TsuFiles.exe", @"cli\tsufiles.cmd"]);
         File.WriteAllBytes(InstallRecord.PathIn(temp.Path), record.ToJson());
         var read = InstallRecord.Read(temp.Path)!;
         Assert.Equal(record.Version, read.Version);
@@ -492,7 +492,7 @@ public class PreviousInstallTests
     public void Inno_setups_app_path_is_enough_and_the_scope_is_kept_apart()
     {
         using var temp = new TempFolder();
-        temp.Write(@"Filee\Filee.exe");
+        temp.Write(@"Filee\TsuFiles.exe");
         temp.Write(@"Filee\unins000.exe");
         var registry = new MemoryRegistry();
         registry.SetString(Hive.LocalMachine, SetupNames.UninstallKey, "Inno Setup: App Path", temp.Sub("Filee"));
@@ -509,7 +509,7 @@ public class PreviousInstallTests
     {
         using var temp = new TempFolder();
         var paths = SetupPaths.Sandbox(temp.Sub("pc"));
-        var folder = Path.GetDirectoryName(temp.Write(@"pc\Program Files\Filee\Filee.exe"))!;
+        var folder = Path.GetDirectoryName(temp.Write(@"pc\Program Files\Filee\TsuFiles.exe"))!;
         var registry = new MemoryRegistry();
         registry.SetString(Hive.LocalMachine, SetupNames.UninstallKey, "InstallLocation", folder);
         // 1.x recorded the desktop icon and PATH, but the user deleted the shortcut since.

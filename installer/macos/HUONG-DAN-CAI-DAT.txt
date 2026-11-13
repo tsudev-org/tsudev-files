@@ -31,7 +31,7 @@ Gỡ cài đặt: ./uninstall.sh
 - Xóa bản cài trong ~/Applications, phần tích hợp hệ thống và các engine do
   TsuFiles tải về. Cài đặt và các tệp đã chuyển đổi của bạn được giữ lại.
 - Nếu bước dọn tích hợp lỗi, bản cài được giữ để bạn sửa lỗi rồi chạy lại.
-- Bản tự đặt trong /Applications: chạy tệp thực thi Filee.app/Contents/MacOS/Filee của nó với
+- Bản tự đặt trong /Applications: chạy tệp thực thi Filee.app/Contents/MacOS/TsuFiles (bản 2.4.0: .../MacOS/Filee) của nó với
   --uninstall-cleanup rồi xóa ứng dụng.
 
 Engine: rhwp và 7-Zip có sẵn. Engine khác cài trong Cài đặt của TsuFiles hoặc dùng

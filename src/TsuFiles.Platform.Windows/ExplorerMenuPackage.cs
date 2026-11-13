@@ -116,7 +116,7 @@ public static class ExplorerMenuPackage
             new XElement(Foundation + "Applications",
                 new XElement(Foundation + "Application",
                     new XAttribute("Id", "Filee"),
-                    new XAttribute("Executable", "Filee.exe"),
+                    new XAttribute("Executable", "TsuFiles.exe"),
                     new XAttribute(Uap10 + "TrustLevel", "mediumIL"),
                     new XAttribute(Uap10 + "RuntimeBehavior", "win32App"),
                     // AppListEntry="none": the package only carries the shell extension, it adds no Start menu entry.

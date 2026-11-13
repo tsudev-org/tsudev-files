@@ -38,6 +38,8 @@ $bin = if ($IsMacOS) { Join-Path $package 'Filee.app/Contents/MacOS' } else { $p
 $cli = Join-Path $bin 'tsufiles-cli'
 
 Invoke-Checked 'CLI start' { & $cli version }
+# TsuFiles 2.4.1: the Filee launcher that the updater of 2.4.0-vn.1 starts (ADR-0003 section 5).
+if (-not $IsMacOS -and -not (Select-String -LiteralPath (Join-Path $bin 'Filee') -SimpleMatch '/TsuFiles"' -Quiet)) { throw 'The Filee launcher is missing.' }
 Invoke-Checked 'rhwp start' { & (Join-Path $bin 'engines/rhwp/rhwp') --version }
 Invoke-Checked '7-Zip start' { & (Join-Path $bin 'engines/7zip/7zz') i | Out-Null }
 
@@ -77,7 +79,7 @@ if ($IsLinux) {
 }
 
 if ($env:GITHUB_ENV) {
-    "TSUFILES_SMOKE_APP=$(Join-Path $bin 'Filee')" >> $env:GITHUB_ENV
+    "TSUFILES_SMOKE_APP=$(Join-Path $bin 'TsuFiles')" >> $env:GITHUB_ENV
     "TSUFILES_SMOKE_PACKAGE=$package" >> $env:GITHUB_ENV
 }
 Write-Host "Package checks passed: $package"

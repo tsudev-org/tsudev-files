@@ -31,7 +31,7 @@ static const KNOWNFOLDERID kFolderRoamingAppData = {0x3eb685db, 0x65f9, 0x4cf6, 
 // the entry off and on again without re-registering the package (which needs administrator rights).
 // Must match ExplorerMenuPackage.TitleFileName.
 #define TITLE_FILE L"TsuFiles\\explorer-menu.txt"  // TsuFiles 2.4.1: ForkDefaults.DataFolderName
-#define APP_EXE L"Filee.exe"
+#define APP_EXE L"TsuFiles.exe"  // SetupNames.AppExe (TsuFiles 2.4.1)
 #define LIST_PREFIX L"Filee-convert-"       // CommandLine.ListFilePrefix in the app
 // CreateProcess accepts at most 32767 characters; longer selections go through a list file.
 #define MAX_COMMAND_LINE 32000

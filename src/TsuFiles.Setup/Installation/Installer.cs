@@ -216,7 +216,8 @@ public sealed class Installer(SetupContext context, SetupPayload payload)
     /// </summary>
     private void CloseFilee(string folder, bool force, bool velopack)
     {
-        var exe = Path.Combine(folder, SetupNames.AppExe);
+        var exe = SetupNames.AppExeIn(folder); // TsuFiles: Filee.exe of 2.4.0-vn.* until this update swaps it
+
         if (File.Exists(exe))
         {
             var code = System.RunAndWait(exe, "--quit", QuitTimeout);

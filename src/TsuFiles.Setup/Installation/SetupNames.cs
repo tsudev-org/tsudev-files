@@ -28,7 +28,18 @@ public static class SetupNames
 
     // TsuFiles: nhà phát hành của bản fork.
     public const string Publisher = "tsudev";
-    public const string AppExe = "Filee.exe";
+    public const string AppExe = "TsuFiles.exe";
+
+    /// <summary>TsuFiles 2.4.0-vn.* (and Filee): the app was Filee.exe. Setup still closes, cleans up and takes it over.</summary>
+    public const string LegacyAppExe = "Filee.exe";
+
+    /// <summary>The app in <paramref name="folder"/>: TsuFiles.exe, or Filee.exe of an installation not yet updated.</summary>
+    public static string AppExeIn(string folder)
+    {
+        var exe = Path.Combine(folder, AppExe);
+        var legacy = Path.Combine(folder, LegacyAppExe);
+        return !File.Exists(exe) && File.Exists(legacy) ? legacy : exe;
+    }
 
     /// <summary>The uninstaller next to Filee.exe (UpdateService.IsInstalled looks for it).</summary>
     public const string UninstallerExe = "uninstall.exe";

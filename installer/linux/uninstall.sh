@@ -28,7 +28,8 @@ if target.is_symlink() or target.resolve() != expected:
 if (target / '.filee-package').read_text(encoding='utf-8').strip() != 'com.filee.app':
     raise SystemExit('The directory is not an installation created by TsuFiles.' if EN else 'Thư mục này không phải bản cài do TsuFiles tạo.')
 PY
-"$install_dir/Filee" --uninstall-cleanup
+# TsuFiles: an installation of 2.4.0-vn.* has Filee only.
+if [ -x "$install_dir/TsuFiles" ]; then "$install_dir/TsuFiles" --uninstall-cleanup; else "$install_dir/Filee" --uninstall-cleanup; fi
 if [ -f "$gnome_extension_dir/.filee-package" ] && [ "$(cat "$gnome_extension_dir/.filee-package")" = 'com.filee.app' ]; then
     if command -v gnome-extensions >/dev/null 2>&1; then
         gnome-extensions disable "$gnome_extension_id" >/dev/null 2>&1 || true

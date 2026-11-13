@@ -52,7 +52,7 @@ public class LocalizationResourceTests
     [InlineData("en", "Noto Sans KR")]
     public void Han_characters_take_the_embedded_font_of_the_ui_languages_region(string language, string font)
     {
-        Assert.SkipUnless(AssetLoader.Exists(new Uri("avares://Filee/Assets/Fonts/NotoSansSC-Regular.otf")), "Needs build/fetch-fonts.ps1.");
+        Assert.SkipUnless(AssetLoader.Exists(new Uri("avares://TsuFiles/Assets/Fonts/NotoSansSC-Regular.otf")), "Needs build/fetch-fonts.ps1.");
         TestServices.EnsureInitialized(language);
         try
         {
@@ -77,7 +77,7 @@ public class LocalizationResourceTests
     [InlineData("所有转换都保留原文件日期")]
     public void Simplified_chinese_text_is_one_run_of_noto_sans_sc(string text)
     {
-        Assert.SkipUnless(AssetLoader.Exists(new Uri("avares://Filee/Assets/Fonts/NotoSansSC-Regular.otf")), "Needs build/fetch-fonts.ps1.");
+        Assert.SkipUnless(AssetLoader.Exists(new Uri("avares://TsuFiles/Assets/Fonts/NotoSansSC-Regular.otf")), "Needs build/fetch-fonts.ps1.");
         TestServices.EnsureInitialized("zh-CN");
         try
         {
@@ -93,7 +93,7 @@ public class LocalizationResourceTests
     [AvaloniaFact]
     public void Traditional_chinese_text_reaches_the_system_traditional_font()
     {
-        Assert.SkipUnless(AssetLoader.Exists(new Uri("avares://Filee/Assets/Fonts/NotoSansSC-Regular.otf")), "Needs build/fetch-fonts.ps1.");
+        Assert.SkipUnless(AssetLoader.Exists(new Uri("avares://TsuFiles/Assets/Fonts/NotoSansSC-Regular.otf")), "Needs build/fetch-fonts.ps1.");
         TestServices.EnsureInitialized("zh-TW");
         try
         {
