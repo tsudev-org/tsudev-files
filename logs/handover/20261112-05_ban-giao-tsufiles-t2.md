@@ -2,7 +2,7 @@
 
 - **Mã phiếu**: 20261112-05
 - **Từ**: phiên tsufiles-02 (12/11/2026) - **Đến**: phiên kế tiếp của repo này
-- **Trạng thái**: CHỜ NHẬN
+- **Trạng thái**: ĐÓNG (14/11/2026) - T2 (#49), T3 (#50, #57-#61), T4 (#62) xong; phát hành 2.4.1 ở phiếu 20261113-05
 - **Quyết định nguồn**: `docs/adr/0003-ten-san-pham-tsufiles.md` (chủ dự án chốt 12/11/2026). Đọc ADR trước.
 
 ## 0. Đọc trước

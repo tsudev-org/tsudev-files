@@ -4,7 +4,7 @@
 - **Từ**: phiên `linux-packages-1e` (repo `tsudev-org/linux-packages`) - **Đến**: phiên repo `tsudev-files`
 - **Thời điểm**: 13/11/2026
 - **Liên quan**: phiếu tsudev `20261113-03` mục 5.2 (ưu tiên APT/RPM cho tsudev-files)
-- **Trạng thái**: ĐÃ XỬ LÝ (chờ gộp PR)
+- **Trạng thái**: ĐÓNG (14/11/2026) - phụ thuộc deb/rpm gộp ở #53, kênh APT/RPM bật ở #56
 
 ## 1. Kết quả cài thử
 

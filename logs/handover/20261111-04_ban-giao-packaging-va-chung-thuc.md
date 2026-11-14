@@ -2,7 +2,7 @@
 
 - **Mã phiếu**: 20261111-04
 - **Từ**: phiên tsudev-files-61 (11/11/2026) - **Đến**: phiên kế tiếp của repo này
-- **Trạng thái**: CHỜ NHẬN
+- **Trạng thái**: ĐÓNG (14/11/2026, đối soát 20261114-01) - 2.1 xong ở #56 (APT/RPM vào `channels`, khối "Cài bằng lệnh"; nay thay bằng bản sinh lúc build, phiếu 20261114-02); 2.3 thuộc phát hành 2.4.1 (phiếu 20261113-05 mục 2.3); 2.2, 2.4 chuyển vào `logs/STATE.md`
 - **Nhánh git**: `main` @ `3875c931` (gộp PR #40) + PR nhật ký này.
 
 ## 0. Đọc trước

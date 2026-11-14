@@ -2,7 +2,7 @@
 
 - **Mã phiếu**: 20261112-03
 - **Từ**: phiên tsudev-files-01 (11-12/11/2026) - **Đến**: phiên kế tiếp của repo này
-- **Trạng thái**: CHỜ NHẬN
+- **Trạng thái**: ĐÓNG (14/11/2026) - #46, #47 đã gộp, website đã deploy; 2.6 (P5b) thay bằng T3/T3b của ADR-0003 (xong #57-#61); 2.5 (#42, #44) và 2.8 (Code Owner) còn trong `logs/STATE.md`
 - **Nhánh git**: làm việc trên `feat/p6-thuong-hieu-va-ung-ho` @ `7f6103b3` (xếp trên `feat/p5a-doi-ten-ma-nguon` @
   `93524a49`, trên `main` @ `70768d88`). Nhật ký (`logs/STATE.md`, phiếu `20261111-05`, `20261112-02`, phiếu này) CHƯA
   commit - đưa vào PR nhật ký riêng từ `main` (mục 2.4).
