@@ -5,7 +5,7 @@
 - **Gửi**: mọi repo có website / trang `*.tsudev.com` - tsudev-cwico, tsudev-swico, tsudev-contact,
   tsudev-trafficmonitor, tsufiles (`tsudev-files`), lotus-share, linux-packages (trang kho, nếu có),
   6 repo game TsuGameLabs + tsudev-game-kit
-- **Trạng thái**: MỞ - mỗi repo ghi "Đã đọc" + kết quả vào cuối phiếu BẢN SAO trong repo mình
+- **Trạng thái**: ĐÓNG (14/11/2026) - #65 gộp + deploy, quét production đạt; ngoại lệ lỗi console CSP do Cloudflare JavaScript Detections (chủ dự án tắt - phiếu 20261113-05 mục 2.1)
 
 ## 1. Yêu cầu của chủ dự án
 

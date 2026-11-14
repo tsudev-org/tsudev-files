@@ -2,7 +2,7 @@
 
 - **Mã phiếu**: 20261113-01
 - **Từ**: phiên tsudev-files-b3 (12-13/11/2026) - **Đến**: phiên kế tiếp của repo này
-- **Trạng thái**: CHỜ NHẬN
+- **Trạng thái**: ĐÓNG (14/11/2026) - T3b xong (#57-#61), T4 xong (#62); 2.3b, 2.4 chuyển sang phiếu 20261113-05 mục 2.3
 - **Quyết định nguồn**: `docs/adr/0003-ten-san-pham-tsufiles.md`. Phiếu trước: `20261112-05` (mục 0 vẫn đúng).
 
 ## 0. Đọc trước

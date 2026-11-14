@@ -2,7 +2,7 @@
 
 - **Mã phiếu**: 20261111-05
 - **Từ**: phiên tsudev-files-01 (11/11/2026) - **Đến**: phiên phụ trách repo `tsudev-org/tsudev-standards`
-- **Trạng thái**: CHỜ NHẬN (đề xuất đổi quy ước - mở ở `proposals/` của repo quy ước theo `.standards/docs/SYNC.md` mục 1)
+- **Trạng thái**: ĐÓNG (14/11/2026) - đã thành quy ước: tsudev-standards v3.6.0, BRAND_ASSETS mục 15 "Logo sản phẩm riêng" (PR tsudev-standards#51)
 
 ## 1. Bối cảnh
 

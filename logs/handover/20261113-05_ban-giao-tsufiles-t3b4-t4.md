@@ -2,7 +2,7 @@
 
 - **Mã phiếu**: 20261113-05
 - **Từ**: phiên agent-files (13/11/2026) - **Đến**: phiên kế tiếp của repo này
-- **Trạng thái**: CHỜ NHẬN
+- **Trạng thái**: ĐANG LÀM (14/11/2026) - 2.1 deploy xong; còn việc chủ dự án (xóa Worker cũ, Cloudflare, thư mục) và phát hành 2.4.1 (kế hoạch 20261114-01)
 - **Quyết định nguồn**: `docs/adr/0003-ten-san-pham-tsufiles.md` mục 5 (ràng buộc trình cập nhật 2.4.0-vn.1),
   mục 6 (T3b-4: đổi gì, GIỮ gì), mục 7 (T4: đổi tên repo). Phiếu trước: `20261113-03_ban-giao-tsufiles-t3b.md`.
 

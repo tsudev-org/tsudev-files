@@ -2,7 +2,7 @@
 
 - **Mã phiếu**: 20261113-03
 - **Từ**: phiên agent-files (13/11/2026) - **Đến**: phiên kế tiếp của repo này
-- **Trạng thái**: ĐÃ NHẬN - xong T3b-4, T4 (phiếu 20261113-05)
+- **Trạng thái**: ĐÓNG (14/11/2026) - T3b-4 (#61), T4 (#62) xong; còn lại ở phiếu 20261113-05
 - **Quyết định nguồn**: `docs/adr/0003-ten-san-pham-tsufiles.md` (đọc kỹ **mục 5** mới thêm). Phiếu trước: `20261113-01`.
 
 ## 0. Đọc trước
