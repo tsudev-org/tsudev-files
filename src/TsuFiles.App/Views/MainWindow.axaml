@@ -93,7 +93,11 @@
                       AutomationProperties.Name="{Binding Title}">
                 <StackPanel Classes="navitem" Orientation="Horizontal" Spacing="12">
                   <PathIcon Classes="navicon" Width="17" Height="17" Data="{Binding Icon}" />
-                  <TextBlock Text="{Binding Title}" VerticalAlignment="Center" IsVisible="{Binding ShowTitle}" />
+                  <!-- TsuFiles: tiêu đề dài (vd. "Thanh công cụ vòng tròn") xuống dòng thay vì bị cắt mất chữ. MaxWidth = chỗ còn
+                       lại của NavExpandedWidth (230 - lề khung 2x14 - viền 1 - lề hàng 2x12 - biểu tượng 17 - khoảng cách 12);
+                       nới thanh bên thì cột phải của trang Thanh công cụ bị cắt ở cỡ cửa sổ mặc định. -->
+                  <TextBlock Text="{Binding Title}" VerticalAlignment="Center" IsVisible="{Binding ShowTitle}"
+                             TextWrapping="Wrap" MaxWidth="148" />
                 </StackPanel>
               </Border>
             </DataTemplate>
