@@ -71,3 +71,7 @@ thái. Mỗi repo: kiểm từng phiếu với mã + production ⇒ ĐÓNG kèm 
     chờ linux-packages dựng lại (phiếu 20261113-04), đã nhắn tsudev chạy `pkg:catalog`.
   - 20261114-02: XONG (#68, deploy 14/11 version `b8fe9ef4`, đối chiếu tsudev.com/apps đạt).
   - SignPath: chờ D5 (👤 nộp đơn).
+- 14/11/2026, phiên agent-files (sau):
+  - Phiếu 20261113-03 (uy tín): ĐÓNG phần agent - README ảnh + Install, ghi chú EN, Scorecard, best-practices, issue
+    #75-#78. Phiếu 20261113-05: ĐÓNG. Dependabot #52, #64 gộp; website deploy lại sau PR uy tín.
+  - Còn 👤: `WINGET_TOKEN`, Best Practices, JavaScript Detections, SignPath (D5), #42 repo assets, #44 khóa dự phòng.

@@ -2,7 +2,7 @@
 
 - **Mã phiếu**: 20261113-05
 - **Từ**: phiên agent-files (13/11/2026) - **Đến**: phiên kế tiếp của repo này
-- **Trạng thái**: ĐANG LÀM (14/11/2026) - 2.1 deploy, 2.3 phát hành xong; còn việc chủ dự án ở 2.1, 2.2, 2.4
+- **Trạng thái**: ĐÓNG (14/11/2026) - 2.1-2.4 xong; 2.5 (#42, #44 chờ chủ dự án) chuyển sang `logs/STATE.md` và phiếu `20261114-03`
 - **Quyết định nguồn**: `docs/adr/0003-ten-san-pham-tsufiles.md` mục 5 (ràng buộc trình cập nhật 2.4.0-vn.1),
   mục 6 (T3b-4: đổi gì, GIỮ gì), mục 7 (T4: đổi tên repo). Phiếu trước: `20261113-03_ban-giao-tsufiles-t3b.md`.
 
@@ -39,7 +39,7 @@
   Cùng lúc: tắt **Security > Bots > JavaScript Detections** của zone tsudev.com (hoặc ít nhất cho `files.tsudev.com`) -
   script `cdn-cgi/challenge-platform/.../jsd/main.js` bị CSP `script-src 'self'` chặn, báo lỗi console trên mọi trang.
   Deploy xong chạy lại `node ~/projects/logs/tools/quet-giao-dien.cjs https://files.tsudev.com / ... --out <thư mục>`.
-- [ ] 2.2. **Chủ dự án** đổi tên thư mục cục bộ (đóng mọi phiên Claude đang mở ở thư mục này trước):
+- [x] 2.2. (XONG 14/11/2026: thư mục đã là `~/projects/tsufiles`, agent chép bộ nhớ phiên) **Chủ dự án** đổi tên thư mục cục bộ (đóng mọi phiên Claude đang mở ở thư mục này trước):
   `mv ~/projects/tsudev-files ~/projects/tsufiles` rồi chép bộ nhớ phiên:
   `cp -r ~/.claude/projects/-home-devtsuitstmy-projects-tsudev-files/memory ~/.claude/projects/-home-devtsuitstmy-projects-tsufiles/`.
   Remote git đã là `https://github.com/tsudev-org/tsufiles.git`. Cập nhật đường dẫn trong phiếu hệ sinh thái nếu có.
@@ -53,6 +53,6 @@
   phải sạch; sau khi công khai sửa `phien-ban.json` (`phienBan` 2.4.1, `moiNhat` 2) và nhờ deploy. Thử cập nhật thật từ
   bản 2.4.0-vn.1 đã cài trên Windows, Linux, macOS (kiểm `Filee.app` được thay bằng `TsuFiles.app`, extension GNOME
   chuyển sang id mới). Xong tag thì nhắn phiên `linux-packages` (phiếu `20261113-04` mục 3).
-- [ ] 2.4. Dependabot #64 (astro 7.4.8, marked, wrangler - CI xanh) và #52 (NuGet): quy tắc nhánh chặn agent gộp, cần
+- [x] 2.4. (XONG 14/11/2026: gộp #52, #64 theo ủy quyền chủ dự án trong phiên) Dependabot #64 (astro 7.4.8, marked, wrangler - CI xanh) và #52 (NuGet): quy tắc nhánh chặn agent gộp, cần
   chủ dự án duyệt/gộp.
 - [ ] 2.5. Còn từ `20261112-03`: 2.5 (#42 chờ repo assets, #44 chờ khóa dự phòng), 2.8 (Code Owner review).
