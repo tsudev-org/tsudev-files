@@ -6,7 +6,7 @@
 ## Hàng đợi task (làm từ trên xuống)
 
 - [ ] ⚡ TIẾP THEO: kế hoạch tổng `logs/handover/20261114-01_ke-hoach-tong-he-sinh-thai.md` (dòng tsufiles, tiến độ ở
-      cuối bản sao) + phiếu `20261113-05`. TsuFiles 2.4.1-vn.1 ĐÃ PHÁT HÀNH 14/11/2026. Website đã deploy 14/11 (#68, #71). Còn: xóa Worker cũ `tsudev-files`, tắt Cloudflare JavaScript Detections, `WINGET_TOKEN` (rồi winget qua
+      cuối bản sao) + phiếu `20261113-05`. TsuFiles 2.4.1-vn.1 ĐÃ PHÁT HÀNH 14/11/2026. Website đã deploy 14/11 (#68, #71). Worker cũ đã xóa. Còn: tắt Cloudflare JavaScript Detections, `WINGET_TOKEN` (rồi winget qua
       komac), Dependabot #52/#64; phiếu 20261113-03 (uy tín công khai); SignPath khi duyệt.
 
 - [ ] Kế hoạch gia cố + hard fork (11/11/2026), mỗi phase một PR, làm theo thứ tự:
