@@ -33,7 +33,7 @@
 
 ## 2. Việc tiếp theo
 
-- [ ] 2.1. **Chủ dự án** deploy Worker mới rồi xóa Worker cũ:
+- [ ] 2.1. **Chủ dự án** deploy Worker mới (XONG 14/11/2026, version `5fa9213e`, `files.tsudev.com` đã trỏ Worker `tsufiles`) rồi xóa Worker cũ:
   `! cd website && npm run deploy` (trả lời Yes khi wrangler hỏi chuyển miền `files.tsudev.com`), mở
   https://files.tsudev.com kiểm tra, rồi `! cd website && npx wrangler delete --name tsudev-files`.
   Cùng lúc: tắt **Security > Bots > JavaScript Detections** của zone tsudev.com (hoặc ít nhất cho `files.tsudev.com`) -

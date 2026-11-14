@@ -73,5 +73,6 @@ mâu thuẫn nội dung hoặc thiếu chuyên nghiệp; sửa để giao diện
   2 cột, "© tsudev" + Sáng/Tối/Hệ thống một hàng; chỉ `-`. Không có đăng nhập: không áp mẫu avatar/cột "Tài khoản".
 - PR: tsudev-org/tsufiles#65 (không chạm đường dẫn bảo vệ bản quyền). Bản build cục bộ: mọi trang `OK` (trừ 404 có
   chủ đích), `check:theme` và `check:a11y` 0 lỗi.
-- Production: CHỜ chủ dự án deploy (`cd website && npm run deploy`, cùng lúc chuyển Worker sang tên `tsufiles` - phiếu
-  `20261113-05` mục 2.1).
+- Production: ĐÃ DEPLOY 14/11/2026 (Worker `tsufiles`, version `5fa9213e`). Quét lại production: mọi trang × khổ × chế độ
+  không lỗi bố cục/h1/id; còn lại (ngoại lệ) lỗi console CSP do Cloudflare JavaScript Detections - chờ chủ dự án tắt
+  trong bảng điều khiển Cloudflare; `/khong-ton-tai` trả 404 là có chủ đích.
