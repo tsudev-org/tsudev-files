@@ -5,9 +5,10 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261113-05_ban-giao-tsufiles-t3b4-t4.md` - ADR-0003 T3b + T4 xong (repo giờ là
-      `tsudev-org/tsufiles`). Chủ dự án: deploy Worker `tsufiles` + xóa Worker cũ, tắt Cloudflare JavaScript
-      Detections, đổi thư mục cục bộ thành `~/projects/tsufiles`. Sau đó phát hành 2.4.1 (mục 2.3 của phiếu).
+- [ ] ⚡ TIẾP THEO: kế hoạch tổng `logs/handover/20261114-01_ke-hoach-tong-he-sinh-thai.md` (dòng tsufiles, tiến độ ở
+      cuối bản sao) + phiếu `20261113-05`. TsuFiles 2.4.1-vn.1 ĐÃ PHÁT HÀNH 14/11/2026. Còn: chủ dự án deploy website
+      (#68, #71), xóa Worker cũ `tsudev-files`, tắt Cloudflare JavaScript Detections, `WINGET_TOKEN` (rồi winget qua
+      komac), Dependabot #52/#64; phiếu 20261113-03 (uy tín công khai); SignPath khi duyệt.
 
 - [ ] Kế hoạch gia cố + hard fork (11/11/2026), mỗi phase một PR, làm theo thứ tự:
   - P1 PR #42 tải tệp build từ `tsudev-org/tsufiles-assets` - CHỜ chủ dự án tạo repo assets (job win-arm64 đỏ tới lúc đó).
@@ -55,6 +56,10 @@
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 14/11/2026 - **Phát hành TsuFiles 2.4.1-vn.1** (#70, thẻ `v2.4.1-vn.1`, #71 packaging + website + `phien-ban.json`
+  `moiNhat` 2); ký SHA256SUMS, chứng thực build/SBOM đạt lần đầu, nâng cấp thật Linux từ 2.4.0-vn.1 đạt. #68 khối
+  "Cài bằng lệnh" sinh lúc build (phiếu 20261114-02); #69 đối soát phiếu tồn; #65-#67 rà quét giao diện + deploy.
 
 - 13/11/2026 - ADR-0003 T3b-4 (#61: bundle macOS `TsuFiles.app`/`com.tsudev.tsufiles`, GNOME `tsufiles-donut@tsudev.com`,
   WM_CLASS `TsuFiles`, registry/lối tắt `TsuFiles`) và T4 (#62: repo đổi tên `tsudev-org/tsufiles`, URL cũ chuyển hướng);

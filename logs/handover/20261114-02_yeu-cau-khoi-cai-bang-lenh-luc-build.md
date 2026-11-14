@@ -26,3 +26,14 @@ Scoop, Homebrew, APT, DNF), mỗi lệnh có nút Chép, nhóm theo hệ điều
 - Trang production hiện đúng các kênh như `tsudev.com/apps` cho cùng app (đối chiếu từng lệnh).
 - `node ~/projects/logs/tools/quet-giao-dien.cjs https://<site>.tsudev.com /` ra OK.
 - ⛔ Chạm chân trang / logo / script cài ⇒ PR + chờ chủ dự án duyệt (cổng Bảo vệ bản quyền).
+
+## Kết quả - repo tsufiles (files.tsudev.com)
+
+- **Đã đọc** 14/11/2026 - phiên agent-files (`tsudev-files-8d`).
+- PR tsudev-org/tsufiles#68 (gộp): `website/scripts/cai-bang-lenh.mjs` chạy trước `astro build`/`astro dev`, tải
+  catalog pkg.tsudev.com + scoop-bucket + homebrew-tap, kiểm schema 1 và vân tay khóa cứng, lọc `homepage`, bỏ
+  `replacedBy`; winget từ `packaging/package.json` khi đã ở `channels`. Lỗi => build thất bại (thử lại 3 lần, #71).
+  Khối nằm trên phần tải tệp ở `/tai-ve/`, nhóm Windows/macOS/Linux, nút Chép, dòng "Gói được ký...".
+- Kèm sửa lỗi có sẵn: trang tài liệu ở khổ di động mất lề ngang (`.tai-lieu` ghi đè `.khung`).
+- Kiểm cục bộ: check-dist/theme/a11y 0 lỗi, quét giao diện 10 trang OK, nút Chép thử bằng Playwright.
+- Production: CHỜ chủ dự án deploy (`cd website && npm run deploy`); xong thì đối chiếu với tsudev.com/apps.
