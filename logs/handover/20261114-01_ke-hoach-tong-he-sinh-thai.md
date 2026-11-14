@@ -60,3 +60,14 @@ thái. Mỗi repo: kiểm từng phiếu với mã + production ⇒ ĐÓNG kèm 
 4. Nộp đơn SignPath Foundation cho `tsudev-org` (D5).
 5. PAT `WINGET_TOKEN` (`public_repo`) đặt làm secret ở các repo app cần winget.
 6. Giữ khoá riêng `age` cho bản sao lưu DB (P1.9) và bản sao khoá ký ngoại tuyến (G11).
+
+## Tiến độ - repo tsufiles (bản sao)
+
+- 14/11/2026, phiên `tsudev-files-8d`:
+  - Mục 2 (đối soát): ĐÓNG 9 phiếu kèm lý do (#69); 20261113-03 (uy tín), 20261113-05 chuyển ĐANG LÀM.
+  - 20261113-07 giao diện: XONG (#65, deploy, quét production đạt; ngoại lệ CSP do Cloudflare - 👤).
+  - winget (komac): CHƯA - cần 👤 `WINGET_TOKEN` (mục 4.5); `packaging/package.json` để `winget` ở `planned`.
+  - Tag `v2.4.1-vn.1`: XONG, công khai 14/11 (#70, #71); thử nâng cấp thật Linux đạt. Gói `tsufiles` trong catalog:
+    chờ linux-packages dựng lại (phiếu 20261113-04), đã nhắn tsudev chạy `pkg:catalog`.
+  - 20261114-02: gộp #68, chờ 👤 deploy.
+  - SignPath: chờ D5 (👤 nộp đơn).

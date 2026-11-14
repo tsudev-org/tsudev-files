@@ -2,7 +2,7 @@
 
 - **Mã phiếu**: 20261113-05
 - **Từ**: phiên agent-files (13/11/2026) - **Đến**: phiên kế tiếp của repo này
-- **Trạng thái**: ĐANG LÀM (14/11/2026) - 2.1 deploy xong; còn việc chủ dự án (xóa Worker cũ, Cloudflare, thư mục) và phát hành 2.4.1 (kế hoạch 20261114-01)
+- **Trạng thái**: ĐANG LÀM (14/11/2026) - 2.1 deploy, 2.3 phát hành xong; còn việc chủ dự án ở 2.1, 2.2, 2.4
 - **Quyết định nguồn**: `docs/adr/0003-ten-san-pham-tsufiles.md` mục 5 (ràng buộc trình cập nhật 2.4.0-vn.1),
   mục 6 (T3b-4: đổi gì, GIỮ gì), mục 7 (T4: đổi tên repo). Phiếu trước: `20261113-03_ban-giao-tsufiles-t3b.md`.
 
@@ -43,7 +43,9 @@
   `mv ~/projects/tsudev-files ~/projects/tsufiles` rồi chép bộ nhớ phiên:
   `cp -r ~/.claude/projects/-home-devtsuitstmy-projects-tsudev-files/memory ~/.claude/projects/-home-devtsuitstmy-projects-tsufiles/`.
   Remote git đã là `https://github.com/tsudev-org/tsufiles.git`. Cập nhật đường dẫn trong phiếu hệ sinh thái nếu có.
-- [ ] 2.3. Phát hành 2.4.1 (`docs/vi/PHAT-HANH.md`): tiêu đề CHANGELOG `## Chưa phát hành (2.4.1)` -> `## 2.4.1`;
+- [x] 2.3. (XONG 14/11/2026: #70 phiên bản, thẻ `v2.4.1-vn.1` công khai, #71 packaging/website/phien-ban.json; ký
+  SHA256SUMS, `gh attestation verify` + SBOM đạt; nâng cấp thật Linux đạt; Windows/macOS chỉ có test CI - chủ dự án
+  duyệt công khai) Phát hành 2.4.1 (`docs/vi/PHAT-HANH.md`): tiêu đề CHANGELOG `## Chưa phát hành (2.4.1)` -> `## 2.4.1`;
   `packaging/package.json`: `bin` `tsufiles-cli(.exe)`, `gui` `TsuFiles.exe`, `app` `TsuFiles.app`
   (`TsuFiles.app/Contents/MacOS/tsufiles-cli`), `links` `{"tsufiles": "tsufiles-cli"}`, `command`, `exec`
   `TsuFiles --convert %F`, `wmClass` `TsuFiles`, `linux.formerNames: ["tsudev-files"]` - CHỈ đổi cùng tag 2.4.1; website
