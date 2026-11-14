@@ -82,4 +82,24 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ganNut);
   else ganNut();
+
+  // Nút "Chép" của khối "Cài bằng lệnh" (/tai-ve/, phiếu 20261114-02). Ở đây vì CSP chỉ cho script cùng nguồn và mỗi
+  // trang chỉ nạp một script; ủy quyền sự kiện nên không cần chờ DOM. Nút ẩn sẵn, chỉ hiện khi có Clipboard API.
+  function hienNutChep() {
+    if (!(navigator.clipboard && window.isSecureContext)) return;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-chep]'), function (n) { n.hidden = false; });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hienNutChep);
+  else hienNutChep();
+  document.addEventListener('click', function (e) {
+    var nut = e.target && e.target.closest ? e.target.closest('[data-chep]') : null;
+    if (!nut) return;
+    var nguon = document.getElementById(nut.getAttribute('data-chep'));
+    if (!nguon) return;
+    var nhan = nut.querySelector('[data-nhan]') || nut;
+    var cu = nhan.getAttribute('data-nhan-goc') || nhan.textContent;
+    nhan.setAttribute('data-nhan-goc', cu);
+    navigator.clipboard.writeText(nguon.textContent).then(function () { nhan.textContent = 'Đã chép'; }, function () { nhan.textContent = 'Không chép được'; });
+    setTimeout(function () { nhan.textContent = cu; }, 2000);
+  });
 })();

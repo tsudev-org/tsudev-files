@@ -130,6 +130,14 @@ kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; border-r
 
 /* Tải về */
 .bang-tai { width: 100%; border-collapse: collapse; }
+/* Khối "Cài bằng lệnh" (/tai-ve/): nhóm theo hệ điều hành, mỗi kênh một lệnh có nút Chép */
+.lenh-cai { display: grid; gap: 1.25rem; margin: 1rem 0; }
+.lenh-cai__nhom { display: grid; gap: 0.6rem; }
+.lenh-cai__nhom h3 { margin: 0; font-size: 1.1rem; }
+.lenh-cai__muc { border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; background: var(--bg-surface); min-width: 0; }
+.lenh-cai__dau { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.5rem; }
+.lenh-cai__ten { margin: 0; font-weight: 600; }
+.lenh-cai__muc pre { margin: 0; }
 .goi { display: grid; gap: 1.5rem; }
 .goi__nhom { display: grid; gap: 0.6rem; }
 .goi__nhom h3 { margin: 0; font-size: 1.1rem; }
@@ -142,7 +150,7 @@ kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; border-r
 .chu-y p { margin: 0.3rem 0; }
 
 /* Trang tài liệu */
-.tai-lieu { display: grid; grid-template-columns: 15rem 1fr; gap: 2.5rem; padding: 2.5rem 0 4rem; }
+.tai-lieu { display: grid; grid-template-columns: 15rem 1fr; gap: 2.5rem; padding-block: 2.5rem 4rem; }   /* chỉ dọc: giữ lề ngang của .khung */
 .tai-lieu__menu { position: sticky; top: 5rem; align-self: start; }
 .tai-lieu__menu ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.1rem; }
 .tai-lieu__menu a { display: block; padding: 0.35rem 0.7rem; border-radius: 6px; text-decoration: none; color: var(--text-secondary); font-weight: 500; font-size: 0.94rem; }

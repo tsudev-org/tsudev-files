@@ -1,10 +1,18 @@
 ---
 import Trang from '../layouts/Trang.astro';
 import { banMoiNhat, NEN_TANG, RELEASES_URL, REPO, REPO_URL } from '../lib/noi-dung';
+// Sinh lúc build bởi scripts/cai-bang-lenh.mjs từ catalog của các kho gói (phiếu 20261114-02) - không sửa tay.
+import caiBangLenh from '../data/cai-bang-lenh.generated.json';
 
 const ban = await banMoiNhat();
 const mb = (b: number) => `${(b / 1024 / 1024).toFixed(1).replace('.', ',')} MB`;
 const theoNenTang = NEN_TANG.map((nt) => ({ ...nt, goi: ban?.goi.filter((g) => g.nenTang === nt.ma) ?? [] })).filter((nt) => nt.goi.length > 0);
+const HE = [
+  { ma: 'windows', ten: 'Windows' },
+  { ma: 'macos', ten: 'macOS' },
+  { ma: 'linux', ten: 'Linux' },
+] as const;
+const nhomLenh = HE.map((h) => ({ ...h, kenh: caiBangLenh.kenh.filter((k) => k.he === h.ma) })).filter((h) => h.kenh.length > 0);
 const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsudev-files-<phiên bản>-win-Setup.exe';
 ---
 <Trang tieuDe="Tải về" moTa="Tải TsuFiles cho Windows, macOS và Linux; mã SHA-256 của từng gói, cách kiểm tra tệp và hướng dẫn cài đặt từng hệ điều hành." duongDan="/tai-ve/">
@@ -12,6 +20,7 @@ const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsude
     <nav class="tai-lieu__menu" aria-label="Tải về">
       <p>Tải về</p>
       <ul>
+        <li><a href="#cai-bang-lenh">Cài bằng lệnh</a></li>
         <li><a href="#chon-goi">Chọn gói</a></li>
         <li><a href="#kiem-tra">Kiểm tra tệp</a></li>
         <li><a href="#windows">Cài trên Windows</a></li>
@@ -35,6 +44,26 @@ const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsude
           </div>
         </>
       )}
+
+      <h2 id="cai-bang-lenh">Cài bằng lệnh</h2>
+      <p>Cách nhanh nhất, cập nhật cùng các gói khác của máy. <strong>Gói được ký - trình quản lý gói tự kiểm SHA-256 và chữ ký.</strong></p>
+      <div class="lenh-cai">
+        {nhomLenh.map((h) => (
+          <section class="lenh-cai__nhom" aria-labelledby={`lenh-${h.ma}`}>
+            <h3 id={`lenh-${h.ma}`}>{h.ten}</h3>
+            {h.kenh.map((k, i) => (
+              <div class="lenh-cai__muc">
+                <div class="lenh-cai__dau">
+                  <p class="lenh-cai__ten">{k.ten}</p>
+                  <button type="button" class="nut nut--phu nut--nho" data-chep={`lenh-${h.ma}-${i}`} hidden><span data-nhan>Chép</span><span class="an-di"> lệnh {k.ten}</span></button>
+                </div>
+                <pre tabindex="0"><code id={`lenh-${h.ma}-${i}`}>{k.lenh.join('\n')}</code></pre>
+              </div>
+            ))}
+          </section>
+        ))}
+      </div>
+      {caiBangLenh.lenhLinux.length > 0 && <p>Sau khi cài trên Linux có lệnh {caiBangLenh.lenhLinux.map((c, i) => <>{i > 0 && ', '}<code>{c}</code></>)}. Kho APT/RPM ký bằng khóa có vân tay <code>{caiBangLenh.vanTay}</code> (đối chiếu tại <a href="https://tsudev.com/apps" target="_blank" rel="noopener noreferrer">tsudev.com/apps</a>).</p>}
 
       <h2 id="chon-goi">Chọn gói</h2>
       {theoNenTang.length > 0 ? (
@@ -97,16 +126,7 @@ const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsude
       </ol>
 
       <h2 id="linux">Cài trên Linux x64, ARM64 (Ubuntu 22.04 trở lên)</h2>
-      <h3 id="cai-bang-lenh">Cài bằng lệnh (khuyên dùng)</h3>
-      <p>Gói <code>.deb</code>, <code>.rpm</code> ký GPG trong kho <code>pkg.tsudev.com</code> của tsudev, dựng từ chính tệp Linux của bản phát hành trên GitHub. Cập nhật cùng hệ thống bằng <code>apt upgrade</code> hoặc <code>dnf upgrade</code>. Sau khi cài có hai lệnh <code>tsudev-files</code> và <code>filee</code>.</p>
-      <p>Debian, Ubuntu, Linux Mint:</p>
-      <pre tabindex="0"><code>curl -fsSL https://pkg.tsudev.com/tsudev-archive-keyring.gpg | sudo tee /usr/share/keyrings/tsudev.gpg &gt;/dev/null
-echo "deb [signed-by=/usr/share/keyrings/tsudev.gpg] https://pkg.tsudev.com/apt stable main" | sudo tee /etc/apt/sources.list.d/tsudev.list
-sudo apt update &amp;&amp; sudo apt install tsudev-files</code></pre>
-      <p>Fedora:</p>
-      <pre tabindex="0"><code>sudo curl -fsSLo /etc/yum.repos.d/tsudev.repo https://pkg.tsudev.com/rpm/tsudev.repo
-sudo dnf install tsudev-files</code></pre>
-      <p>Vân tay khóa ký của kho ghi tại <a href="https://tsudev.com/apps" target="_blank" rel="noopener noreferrer">tsudev.com/apps</a>.</p>
+      <p>Cách khuyên dùng: gói <code>.deb</code>/<code>.rpm</code> ký GPG trong kho <code>pkg.tsudev.com</code>, lệnh ở mục <a href="#cai-bang-lenh">Cài bằng lệnh</a>; cập nhật cùng hệ thống bằng <code>apt upgrade</code> hoặc <code>dnf upgrade</code>.</p>
       <h3 id="cai-tu-goi-nen">Cài từ gói nén (không cần quyền root)</h3>
       <pre tabindex="0"><code>tar -xzf tsudev-files-&lt;phiên bản&gt;-linux-x64.tar.gz
 cd tsudev-files-&lt;phiên bản&gt;-linux-x64
