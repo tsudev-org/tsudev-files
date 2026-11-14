@@ -4,8 +4,8 @@
   "type": "module",
   "description": "Trang sản phẩm files.tsudev.com (Astro, trang tĩnh; JavaScript phía trình duyệt chỉ có public/theme.js)",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build && node scripts/check-dist.mjs",
+    "dev": "node scripts/cai-bang-lenh.mjs && astro dev",
+    "build": "node scripts/cai-bang-lenh.mjs && astro build && node scripts/check-dist.mjs",
     "preview": "astro preview",
     "deploy": "npm run build && wrangler deploy",
     "check:a11y": "node scripts/check-a11y.mjs",
