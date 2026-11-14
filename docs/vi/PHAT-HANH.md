@@ -30,13 +30,14 @@
 1. Cập nhật `Version`, `ForkDefaults.BuildNumber` (+1 so với bản trước), `CHANGELOG.md`; chạy đủ kiểm tra cục bộ:
    `dotnet test`, `python3 -I tools/check_i18n_vi.py`.
 2. Mở PR vào `main`, chờ CI + workflow "Bảo mật" xanh, merge.
-3. Gắn nhãn và đẩy: `git tag v2.4.1 && git push origin v2.4.1`.
+3. Gắn nhãn và đẩy: `git tag v2.4.1-vn.1 && git push origin v2.4.1-vn.1` (khuôn `v<x.y.z>-vn.<n>` của
+   `packaging/package.json`; mục CHANGELOG phải là `## 2.4.1-vn.1` - release.yml lấy ghi chú theo đúng tên thẻ).
    Workflow `release.yml` build, test, đóng gói Windows/Linux/macOS và tạo **bản nháp** (draft) kèm các tệp
    `*SHA256SUMS*.txt`. Bản Windows chưa ký Authenticode (SmartScreen sẽ cảnh báo lần đầu).
 4. Trên WSL, ký các tệp checksum và tải chữ ký lên bản nháp:
 
    ```bash
-   V=2.4.1; D=$(mktemp -d)
+   V=2.4.1-vn.1; D=$(mktemp -d)
    gh release download "v$V" -R tsudev-org/tsufiles -p '*SHA256SUMS*.txt' -D "$D"
    tools/sign-checksums-vn.sh "$D"/*SHA256SUMS*.txt
    gh release upload "v$V" -R tsudev-org/tsufiles "$D"/*.sig
