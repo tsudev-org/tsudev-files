@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261114-02
 - **Từ**: phiên 52 repo `tsudev`, 14/11/2026 - kế hoạch tổng 20261114-01, việc C5
 - **Gửi**: tsudev-cwico, tsudev-swico, tsudev-contact, tsudev-trafficmonitor, tsufiles, lotus-share
-- **Trạng thái**: MỞ - ghi "Đã đọc" + PR + trạng thái production vào cuối bản sao trong repo mình
+- **Trạng thái**: ĐÓNG (14/11/2026) - #68 gộp + deploy production, đối chiếu tsudev.com/apps đạt
 
 ## Yêu cầu
 
@@ -36,4 +36,6 @@ Scoop, Homebrew, APT, DNF), mỗi lệnh có nút Chép, nhóm theo hệ điều
   Khối nằm trên phần tải tệp ở `/tai-ve/`, nhóm Windows/macOS/Linux, nút Chép, dòng "Gói được ký...".
 - Kèm sửa lỗi có sẵn: trang tài liệu ở khổ di động mất lề ngang (`.tai-lieu` ghi đè `.khung`).
 - Kiểm cục bộ: check-dist/theme/a11y 0 lỗi, quét giao diện 10 trang OK, nút Chép thử bằng Playwright.
-- Production: CHỜ chủ dự án deploy (`cd website && npm run deploy`); xong thì đối chiếu với tsudev.com/apps.
+- Production: ĐÃ DEPLOY 14/11/2026 (Worker `tsufiles`, version `b8fe9ef4`). Khối có 4 kênh Scoop, Homebrew, APT, DNF;
+  cùng gói `tsudev-files` như tsudev.com/apps (đã đối chiếu). Quét production 10 trang OK (ngoại lệ CSP Cloudflare).
+  winget sẽ tự hiện khi `winget` vào `channels` (cần `WINGET_TOKEN`).

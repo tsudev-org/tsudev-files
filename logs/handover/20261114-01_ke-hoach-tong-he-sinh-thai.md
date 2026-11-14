@@ -69,5 +69,5 @@ thái. Mỗi repo: kiểm từng phiếu với mã + production ⇒ ĐÓNG kèm 
   - winget (komac): CHƯA - cần 👤 `WINGET_TOKEN` (mục 4.5); `packaging/package.json` để `winget` ở `planned`.
   - Tag `v2.4.1-vn.1`: XONG, công khai 14/11 (#70, #71); thử nâng cấp thật Linux đạt. Gói `tsufiles` trong catalog:
     chờ linux-packages dựng lại (phiếu 20261113-04), đã nhắn tsudev chạy `pkg:catalog`.
-  - 20261114-02: gộp #68, chờ 👤 deploy.
+  - 20261114-02: XONG (#68, deploy 14/11 version `b8fe9ef4`, đối chiếu tsudev.com/apps đạt).
   - SignPath: chờ D5 (👤 nộp đơn).
