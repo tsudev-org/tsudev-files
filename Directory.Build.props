@@ -14,7 +14,7 @@
          parameters of a member is fine (CS1573). -->
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
 
-    <Version>2.4.0</Version>
+    <Version>2.4.1</Version>
     <!-- TsuFiles: tên hiển thị trong thuộc tính tệp (ProductName); tệp chạy ứng dụng là TsuFiles từ bản 2.4.1 (ADR-0003 T3b). -->
     <Product>TsuFiles</Product>
     <!-- TsuFiles: siêu dữ liệu nhà phát hành theo ECOSYSTEM_IDENTITY 2.3 (Company, Copyright); vẫn ghi công upstream

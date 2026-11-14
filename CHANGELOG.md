@@ -14,9 +14,7 @@ change, a language may repeat; a language without lines shows the English ones):
 - `recommended`: bug fixes. The card shows once per version.
 - `optional`: new features only. No card, the sidebar button only.
 
-## Chưa phát hành (2.4.1)
-
-<!-- Khi phát hành: đổi tiêu đề thành "## 2.4.1" (release.yml và trang /nhat-ky/ chỉ nhận "## <phiên bản>"). -->
+## 2.4.1-vn.1
 
 <!-- update
 level: recommended
