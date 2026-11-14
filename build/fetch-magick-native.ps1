@@ -7,7 +7,7 @@
 # (build/build-portable.ps1) get this library in place of Magick.NET's own (Apple silicon) or added (Intel), and the
 # tests on Intel Macs get it next to their builds.
 #
-# Each Magick.NET update needs a new build of the workflow, hosted on dl.filee.sh and pinned below.
+# Each Magick.NET update needs a new build of the workflow, hosted on tsudev-org/tsudev-files-assets (an immutable release per version) and pinned below.
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)][ValidateSet('osx-x64', 'osx-arm64')][string]$Runtime,
@@ -20,11 +20,11 @@ $ProgressPreference = 'SilentlyContinue'
 # Magick.Native 2026.1010.1943 (Magick.NET 15.0.0) built for macOS 13.
 $pins = @{
     'osx-arm64' = @{
-        url = 'https://dl.filee.sh/engines/magick-native/2026.1010.1943/Magick.Native-Q8-arm64.dll.dylib'
+        url = 'https://github.com/tsudev-org/tsudev-files-assets/releases/download/magick-native-2026.1010.1943/Magick.Native-Q8-arm64.dll.dylib'
         sha256 = 'd8c4f6733e50e3457d5324291d1f96cb859d8f2e8983c94fd405b07c89a14e6d'
     }
     'osx-x64' = @{
-        url = 'https://dl.filee.sh/engines/magick-native/2026.1010.1943/Magick.Native-Q8-x64.dll.dylib'
+        url = 'https://github.com/tsudev-org/tsudev-files-assets/releases/download/magick-native-2026.1010.1943/Magick.Native-Q8-x64.dll.dylib'
         sha256 = '40852de95f53128cb0a77edc6857eb62d0e866ef1c34de42673b539c1bd4a898'
     }
 }
@@ -32,7 +32,7 @@ $pins = @{
 $pin = $pins[$Runtime]
 if ($pin.sha256 -notmatch '^[0-9a-fA-F]{64}$' -or -not $pin.url) {
     throw "No Magick.Native for macOS 13 is pinned for $Runtime. Run .github/workflows/magick-native-macos.yml, " +
-        'host its dylibs on dl.filee.sh and pin them in build/fetch-magick-native.ps1.'
+        'host its dylibs on tsudev-org/tsudev-files-assets and pin them in build/fetch-magick-native.ps1.'
 }
 $cache = Join-Path $PSScriptRoot '.cache/portable-downloads'
 $cached = Join-Path $cache "$($pin.sha256).dylib"
