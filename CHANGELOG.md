@@ -26,6 +26,19 @@ en: Environment variables are now TSUFILES_* (for example TSUFILES_LANG=en); the
 en: The command line is now tsufiles (filee is gone): update scripts that call filee
 -->
 
+### English summary
+
+Filee's Vietnamese fork is now **TsuFiles** ([ADR-0003](https://github.com/tsudev-org/tsufiles/blob/main/docs/adr/0003-ten-san-pham-tsufiles.md)): owl logo and a pitch-black **Night Owl** theme (default for new installs).
+
+- **Repository moved to [`tsudev-org/tsufiles`](https://github.com/tsudev-org/tsufiles).** Old links redirect; the in-app updater follows the new address.
+- **New data folder** `%APPDATA%\TsuFiles` (macOS `~/Library/Application Support/TsuFiles`, Linux `~/.config/TsuFiles`); engines in `%LOCALAPPDATA%\TsuFiles\engines` (Linux `~/.local/share/TsuFiles/engines`). The first start moves your settings, presets, history and downloaded engines from the old `Filee` folder.
+- **Breaking:** environment variables are now `TSUFILES_*` (`TSUFILES_LANG=en`, `TSUFILES_DATA_DIR`, ...) and the command line is `tsufiles` (no `filee` alias). Options and JSON output keys are unchanged, so scripts only need the new command name.
+- **Executables:** `TsuFiles.exe` / `TsuFiles` / `TsuFiles.app` (`com.tsudev.tsufiles`); the GNOME extension is now `tsufiles-donut@tsudev.com`. macOS asks once again for Accessibility and Finder Automation permission.
+- **Verify downloads:** every package is listed with its SHA-256 in `tsudev-files-2.4.1-vn.1*-SHA256SUMS.txt` (ECDSA-signed `.sig` next to it), and has a build provenance attestation: `gh attestation verify <file> -R tsudev-org/tsufiles`. A CycloneDX SBOM is attached.
+- **Install with a package manager:** Scoop (`scoop bucket add tsudev https://github.com/tsudev-org/scoop-bucket; scoop install tsudev/tsudev-files`), Homebrew (`brew install --cask tsudev-org/tap/tsudev-files`), APT/DNF from `pkg.tsudev.com` - see <https://files.tsudev.com/tai-ve/#cai-bang-lenh>.
+
+### Chi tiết (tiếng Việt)
+
 Sản phẩm đổi tên thành **TsuFiles** ([ADR-0003](docs/adr/0003-ten-san-pham-tsufiles.md)).
 
 - **Repo GitHub đổi thành [`tsudev-org/tsufiles`](https://github.com/tsudev-org/tsufiles)** (13/11/2026). Liên kết

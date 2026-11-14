@@ -29,6 +29,9 @@
 
 1. Cập nhật `Version`, `ForkDefaults.BuildNumber` (+1 so với bản trước), `CHANGELOG.md`; chạy đủ kiểm tra cục bộ:
    `dotnet test`, `python3 -I tools/check_i18n_vi.py`.
+   Mục CHANGELOG của bản: khối `<!-- update ... -->` (trình cập nhật đọc), rồi `### English summary` (vài gạch đầu
+   dòng tiếng Anh: thay đổi chính, gãy tương thích, cách kiểm SHA256SUMS/chứng thực) và `### Chi tiết (tiếng Việt)`.
+   Ghi chú tiếng Anh là yêu cầu của kế hoạch uy tín công khai (phiếu `20261113-03`, P1.2).
 2. Mở PR vào `main`, chờ CI + workflow "Bảo mật" xanh, merge.
 3. Gắn nhãn và đẩy: `git tag v2.4.1-vn.1 && git push origin v2.4.1-vn.1` (khuôn `v<x.y.z>-vn.<n>` của
    `packaging/package.json`; mục CHANGELOG phải là `## 2.4.1-vn.1` - release.yml lấy ghi chú theo đúng tên thẻ).

@@ -1,0 +1,12 @@
+# TsuFiles: lối tắt ở trang "New issue" - lỗ hổng bảo mật đi kênh riêng, câu hỏi sang Discussions.
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability / Lỗ hổng bảo mật
+    url: https://github.com/tsudev-org/tsufiles/security/advisories/new
+    about: Report privately - please do not open a public issue. / Báo riêng, không mở issue công khai.
+  - name: Questions and ideas / Hỏi đáp, ý tưởng
+    url: https://github.com/tsudev-org/tsufiles/discussions
+    about: Ask how to do something or share an idea before it becomes a request.
+  - name: User guide / Hướng dẫn sử dụng
+    url: https://files.tsudev.com/huong-dan/
+    about: How to install, use the donut toolbar, presets and the command line.
