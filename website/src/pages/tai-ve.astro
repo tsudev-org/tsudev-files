@@ -113,15 +113,15 @@ const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsude
       <h2 id="windows">Cài trên Windows 10/11</h2>
       <ol>
         <li>Chạy <code>tsudev-files-&lt;phiên bản&gt;-win-Setup.exe</code>. Bộ cài bằng tiếng Việt, không cần cài thêm gì.</li>
-        <li>Chọn các tùy chọn: menu chuột phải trong Explorer, chạy khi đăng nhập, lệnh <code>filee</code>, engine tùy chọn.</li>
-        <li>Hoặc dùng bản di động: giải nén <code>-win-Portable.zip</code> vào một thư mục cố định rồi chạy <code>Filee.exe</code>.</li>
+        <li>Chọn các tùy chọn: menu chuột phải trong Explorer, chạy khi đăng nhập, lệnh <code>tsufiles</code>, engine tùy chọn.</li>
+        <li>Hoặc dùng bản di động: giải nén <code>-win-Portable.zip</code> vào một thư mục cố định rồi chạy <code>TsuFiles.exe</code>.</li>
       </ol>
       <p>Cài im lặng cho nhiều máy: bộ cài nhận tham số của Inno Setup, ví dụ <code>/VERYSILENT /SUPPRESSMSGBOXES</code>.</p>
       <p>Ứng dụng không mở (không cửa sổ, không báo lỗi) trên Windows 10 lâu ngày chưa cập nhật? Xem <a href="/huong-dan/#khong-mo-duoc-tren-windows">cách xử lý</a>.</p>
 
       <h2 id="macos">Cài trên macOS 13 trở lên (bản xem trước)</h2>
       <ol>
-        <li>Mở tệp <code>.dmg</code> rồi kéo ứng dụng vào thư mục Applications; hoặc giải nén gói <code>.tar.gz</code> và chạy <code>./install.sh</code> (cách này cài cả lệnh <code>filee</code>).</li>
+        <li>Mở tệp <code>.dmg</code> rồi kéo ứng dụng vào thư mục Applications; hoặc giải nén gói <code>.tar.gz</code> và chạy <code>./install.sh</code> (cách này cài cả lệnh <code>tsufiles</code>).</li>
         <li>Bản build chưa được Apple công chứng (notarize). Lần mở đầu tiên, vào <strong>Cài đặt hệ thống, Quyền riêng tư và bảo mật</strong>, chọn <strong>Vẫn mở</strong>.</li>
       </ol>
 
@@ -130,7 +130,7 @@ const vd = ban?.goi.find((g) => g.ten.endsWith('-win-Setup.exe'))?.ten ?? 'tsude
       <h3 id="cai-tu-goi-nen">Cài từ gói nén (không cần quyền root)</h3>
       <pre tabindex="0"><code>tar -xzf tsudev-files-&lt;phiên bản&gt;-linux-x64.tar.gz
 cd tsudev-files-&lt;phiên bản&gt;-linux-x64
-./install.sh            # không cần quyền root, cần Python 3; FILEE_LANG=en ./install.sh để xem tiếng Anh</code></pre>
+./install.sh            # không cần quyền root, cần Python 3; TSUFILES_LANG=en ./install.sh để xem tiếng Anh</code></pre>
       <p>Gói kèm tệp <code>HUONG-DAN-CAI-DAT.txt</code>. Thao tác giữ phím rồi kéo cần X11; trên Wayland, dùng vùng thả tệp và menu chuột phải của trình quản lý tệp.</p>
 
       <h2 id="cap-nhat">Cập nhật</h2>

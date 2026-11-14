@@ -17,8 +17,8 @@
     "windows-x64": {
       "file": "tsudev-files-{tagVersion}-win-Portable.zip",
       "kind": "portable",
-      "bin": "filee-cli.exe",
-      "gui": "Filee.exe"
+      "bin": "tsufiles-cli.exe",
+      "gui": "TsuFiles.exe"
     },
     "windows-x64-installer": {
       "file": "tsudev-files-{tagVersion}-win-Setup.exe",
@@ -29,41 +29,41 @@
       "kind": "tar",
       "root": "tsudev-files-{tagVersion}-linux-x64",
       "sums": "tsudev-files-{tagVersion}-linux-x64-SHA256SUMS.txt",
-      "bin": "filee-cli"
+      "bin": "tsufiles-cli"
     },
     "linux-arm64": {
       "file": "tsudev-files-{tagVersion}-linux-arm64.tar.gz",
       "kind": "tar",
       "root": "tsudev-files-{tagVersion}-linux-arm64",
       "sums": "tsudev-files-{tagVersion}-linux-arm64-SHA256SUMS.txt",
-      "bin": "filee-cli"
+      "bin": "tsufiles-cli"
     },
     "macos-arm64": {
       "file": "tsudev-files-{tagVersion}-osx-arm64.tar.gz",
       "kind": "tar",
       "root": "tsudev-files-{tagVersion}-osx-arm64",
       "sums": "tsudev-files-{tagVersion}-osx-arm64-SHA256SUMS.txt",
-      "app": "Filee.app",
-      "bin": "Filee.app/Contents/MacOS/filee-cli"
+      "app": "TsuFiles.app",
+      "bin": "TsuFiles.app/Contents/MacOS/tsufiles-cli"
     },
     "macos-x64": {
       "file": "tsudev-files-{tagVersion}-osx-x64.tar.gz",
       "kind": "tar",
       "root": "tsudev-files-{tagVersion}-osx-x64",
       "sums": "tsudev-files-{tagVersion}-osx-x64-SHA256SUMS.txt",
-      "app": "Filee.app",
-      "bin": "Filee.app/Contents/MacOS/filee-cli"
+      "app": "TsuFiles.app",
+      "bin": "TsuFiles.app/Contents/MacOS/tsufiles-cli"
     }
   },
   "linux": {
     "command": "tsudev-files",
     "links": {
-      "filee": "filee-cli"
+      "tsufiles": "tsufiles-cli"
     },
     "icon": "filee.png",
     "desktop": {
       "name": "TsuFiles",
-      "exec": "Filee --convert %F",
+      "exec": "TsuFiles --convert %F",
       "genericName": {
         "vi": "Chuyển đổi tệp",
         "en": "File converter"
@@ -72,6 +72,7 @@
         "Utility"
       ],
       "keywords": [
+        "TsuFiles",
         "Filee",
         "convert",
         "PDF",
@@ -79,7 +80,7 @@
         "video",
         "chuyển đổi"
       ],
-      "wmClass": "Filee"
+      "wmClass": "TsuFiles"
     },
     "deb": {
       "depends": [
