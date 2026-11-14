@@ -33,7 +33,7 @@ const mucLuc = [
     <li><strong>Menu chuột phải</strong> trong Explorer (Windows) hoặc trình quản lý tệp (Linux, macOS): chọn tệp, nhấp phải, chọn TsuFiles.</li>
     <li><strong>Phím tắt</strong>: đặt trong Cài đặt, mục <em>Phím tắt</em>, để mở vòng tròn cho tệp đang chọn.</li>
     <li><strong>Vùng thả tệp</strong> ở Trang chủ của cửa sổ chính.</li>
-    <li><strong>Dòng lệnh</strong> <code>filee</code>: xem trang <a href="/dong-lenh/">Dòng lệnh</a>.</li>
+    <li><strong>Dòng lệnh</strong> <code>tsufiles</code>: xem trang <a href="/dong-lenh/">Dòng lệnh</a>.</li>
   </ul>
 
   <h2 id="tu-trinh-duyet">Kéo từ trình duyệt</h2>
@@ -47,7 +47,7 @@ const mucLuc = [
     <li>mã hóa video, âm thanh;</li>
     <li>thư mục đầu ra và quy tắc đặt tên tệp.</li>
   </ul>
-  <p>Cấu hình sẵn dùng chung với dòng lệnh: <code>filee convert *.png --preset &lt;tên&gt;</code>.</p>
+  <p>Cấu hình sẵn dùng chung với dòng lệnh: <code>tsufiles convert *.png --preset &lt;tên&gt;</code>.</p>
 
   <h2 id="danh-sach">Danh sách tệp ở Trang chủ</h2>
   <p>Bật <em>Gom các tệp được thả vào một danh sách</em> trong Cài đặt chung. Khi đó tệp thả vào Trang chủ (kể cả tệp kéo từ trình duyệt) xếp hàng trong danh sách thay vì mở vòng tròn ngay. Kéo thẻ hoặc dùng <kbd>Alt</kbd>+<kbd>↑</kbd> / <kbd>Alt</kbd>+<kbd>↓</kbd> để đổi thứ tự, <kbd>Delete</kbd> để bỏ một tệp, rồi bấm <em>Chọn thao tác</em> để mở vòng tròn cho cả danh sách theo đúng thứ tự (hữu ích khi ghép PDF). Danh sách tự xóa khi chuyển đổi xong.</p>
@@ -73,7 +73,7 @@ const mucLuc = [
   <p>Mọi engine tải về đều được kiểm mã SHA-256 ghim sẵn trong mã nguồn; sai mã thì hủy. Nếu máy đã có sẵn một engine (ví dụ LibreOffice), TsuFiles dùng luôn bản đó.</p>
 
   <h2 id="ngon-ngu">Ngôn ngữ và giao diện</h2>
-  <p>Giao diện, bộ cài và dòng lệnh mặc định là tiếng Việt. Đổi ngôn ngữ ở mục <em>Chung</em> (chọn <em>Mặc định của hệ thống</em> để theo hệ điều hành, hoặc một trong 22 ngôn ngữ). Dòng lệnh dùng tiếng Anh khi đặt biến môi trường <code>FILEE_LANG=en</code>. Mục <em>Chủ đề</em> chọn chế độ sáng, tối, màu nhấn và độ trong của vòng tròn.</p>
+  <p>Giao diện, bộ cài và dòng lệnh mặc định là tiếng Việt. Đổi ngôn ngữ ở mục <em>Chung</em> (chọn <em>Mặc định của hệ thống</em> để theo hệ điều hành, hoặc một trong 22 ngôn ngữ). Dòng lệnh dùng tiếng Anh khi đặt biến môi trường <code>TSUFILES_LANG=en</code>. Mục <em>Chủ đề</em> chọn chế độ sáng, tối, màu nhấn và độ trong của vòng tròn.</p>
 
   <h2 id="khong-mo-duoc-tren-windows">Không mở được trên Windows (không cửa sổ, không báo lỗi)</h2>
   <p>Việc này xảy ra trên Windows 10 lâu ngày chưa cập nhật, ở máy có bộ xử lý hỗ trợ <em>Hardware-enforced Stack Protection</em> (CET). Windows bật lớp bảo vệ đó nhưng thiếu một thành phần .NET cần, nên ứng dụng và bộ cài dừng ngay.</p>
@@ -81,8 +81,8 @@ const mucLuc = [
     <li><strong>Nên làm:</strong> cài các bản cập nhật Windows đang chờ (bản tích lũy mới nhất).</li>
     <li><strong>Nếu không cập nhật được:</strong> tắt lớp bảo vệ đó cho riêng ứng dụng. Chạy PowerShell với quyền quản trị:</li>
   </ul>
-  <pre tabindex="0"><code>Set-ProcessMitigation -Name Filee.exe -Disable UserShadowStack
-Set-ProcessMitigation -Name filee-cli.exe -Disable UserShadowStack</code></pre>
+  <pre tabindex="0"><code>Set-ProcessMitigation -Name TsuFiles.exe -Disable UserShadowStack
+Set-ProcessMitigation -Name tsufiles-cli.exe -Disable UserShadowStack</code></pre>
   <p>Làm tương tự với tên tệp bộ cài (ví dụ <code>tsudev-files-&lt;phiên bản&gt;-win-Setup.exe</code>), hoặc dùng bản di động ZIP chỉ cần hai dòng trên. Muốn hoàn tác: Bảo mật Windows, Kiểm soát ứng dụng và trình duyệt, Cài đặt bảo vệ khai thác, Cài đặt chương trình, xóa hai mục vừa thêm.</p>
 
   <h2 id="wayland">Linux: Wayland</h2>

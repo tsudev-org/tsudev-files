@@ -36,11 +36,16 @@ const chuoi = (v, ten) => {
 };
 
 async function tai(loai, url) {
+  // Thử 3 lần (mạng chập chờn không làm đỏ CI oan); hỏng cả 3 lần thì dừng build.
   let res;
-  try {
-    res = await fetch(url, { signal: AbortSignal.timeout(20000), headers: { accept: 'application/json' } });
-  } catch (e) {
-    dung(`${loai}: không tải được ${url} (${e.cause?.code ?? e.message})`);
+  for (let lan = 1; ; lan++) {
+    try {
+      res = await fetch(url, { signal: AbortSignal.timeout(20000), headers: { accept: 'application/json' } });
+      if (res.status < 500 || lan === 3) break;
+    } catch (e) {
+      if (lan === 3) dung(`${loai}: không tải được ${url} sau 3 lần (${e.cause?.code ?? e.message})`);
+    }
+    await new Promise((r) => setTimeout(r, 2000 * lan));
   }
   if (!res.ok) dung(`${loai}: ${url} trả HTTP ${res.status}`);
   let cat;

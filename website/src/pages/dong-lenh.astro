@@ -1,19 +1,19 @@
 ---
 import TaiLieu from '../components/TaiLieu.astro';
 
-// Nội dung theo `filee help <lệnh>` (src/TsuFiles.Cli, chuỗi CliLanguage.T). Đổi tùy chọn ở đó thì cập nhật trang này.
+// Nội dung theo `tsufiles help <lệnh>` (src/TsuFiles.Cli, chuỗi CliLanguage.T). Đổi tùy chọn ở đó thì cập nhật trang này.
 const mucLuc = [
-  { id: 'cai-dat', ten: 'Cài lệnh filee' },
-  { id: 'convert', ten: 'filee convert' },
-  { id: 'watch', ten: 'filee watch' },
+  { id: 'cai-dat', ten: 'Cài lệnh tsufiles' },
+  { id: 'convert', ten: 'tsufiles convert' },
+  { id: 'watch', ten: 'tsufiles watch' },
   { id: 'formats-presets', ten: 'formats, presets' },
-  { id: 'engines', ten: 'filee engines' },
+  { id: 'engines', ten: 'tsufiles engines' },
   { id: 'json', ten: 'Đầu ra JSON' },
   { id: 'ma-thoat', ten: 'Mã thoát' },
 ];
 const convert: [string, string][] = [
-  ['-t, --to <định dạng>', 'Định dạng đích, ví dụ jpg, png, pdf, docx, mp4 (xem filee formats)'],
-  ['-p, --preset <preset>', 'Một cấu hình sẵn của ứng dụng, theo id hoặc tên (xem filee presets)'],
+  ['-t, --to <định dạng>', 'Định dạng đích, ví dụ jpg, png, pdf, docx, mp4 (xem tsufiles formats)'],
+  ['-p, --preset <preset>', 'Một cấu hình sẵn của ứng dụng, theo id hoặc tên (xem tsufiles presets)'],
   ['-o, --output <thư mục>', 'Lưu vào thư mục này thay vì cạnh tệp nguồn'],
   ['-r, --recursive', 'Bao gồm thư mục con'],
   ['--sort <thứ tự>', 'Thứ tự ghép tệp: name, name-desc, modified, modified-desc, created, created-desc'],
@@ -33,56 +33,56 @@ const watch: [string, string][] = [
   ['-r, --recursive', 'Theo dõi cả thư mục con, kết quả giữ nguyên cấu trúc'],
   ['--move-originals', 'Chuyển tệp nguồn đã xử lý vào <thư mục>/originals; tệp đang chờ sẵn được chuyển ngay khi bắt đầu'],
   ['--settle <giây>', 'Thời gian tệp phải giữ nguyên không đổi trước khi chuyển (mặc định 5)'],
-  ['--keep-dates, --zip, --json, --quiet', 'Như ở filee convert'],
+  ['--keep-dates, --zip, --json, --quiet', 'Như ở tsufiles convert'],
 ];
 ---
-<TaiLieu tieuDe="Dòng lệnh" moTa="Dùng lệnh filee của TsuFiles để chuyển đổi tệp từ terminal và script: convert, watch, formats, presets, engines, đầu ra JSON và mã thoát." duongDan="/dong-lenh/" mucLuc={mucLuc}>
-  <h1>Dòng lệnh filee</h1>
-  <p>Lệnh <code>filee</code> dùng chung engine và cấu hình sẵn với ứng dụng, chạy được trong script, tác vụ định kỳ hay máy chủ không có màn hình. Thông báo mặc định bằng tiếng Việt; đặt <code>FILEE_LANG=en</code> để dùng tiếng Anh. Tên khóa trong đầu ra JSON giữ nguyên như Filee gốc nên script viết cho Filee vẫn chạy.</p>
-  <pre tabindex="0"><code>filee convert anh.heic --to jpg
-filee convert *.png --to webp --quality 80 -o da-chuyen
-filee convert D:\BanScan --recursive --preset to-pdf
-filee watch D:\HopThuDen --to pdf --move-originals
-filee engines install pandoc</code></pre>
+<TaiLieu tieuDe="Dòng lệnh" moTa="Dùng lệnh tsufiles của TsuFiles để chuyển đổi tệp từ terminal và script: convert, watch, formats, presets, engines, đầu ra JSON và mã thoát." duongDan="/dong-lenh/" mucLuc={mucLuc}>
+  <h1>Dòng lệnh tsufiles</h1>
+  <p>Lệnh <code>tsufiles</code> dùng chung engine và cấu hình sẵn với ứng dụng, chạy được trong script, tác vụ định kỳ hay máy chủ không có màn hình. Thông báo mặc định bằng tiếng Việt; đặt <code>TSUFILES_LANG=en</code> để dùng tiếng Anh. Tên khóa trong đầu ra JSON giữ nguyên như Filee gốc nên script viết cho Filee vẫn chạy.</p>
+  <pre tabindex="0"><code>tsufiles convert anh.heic --to jpg
+tsufiles convert *.png --to webp --quality 80 -o da-chuyen
+tsufiles convert D:\BanScan --recursive --preset to-pdf
+tsufiles watch D:\HopThuDen --to pdf --move-originals
+tsufiles engines install pandoc</code></pre>
 
-  <h2 id="cai-dat">Cài lệnh filee</h2>
-  <p>Bộ cài Windows có tùy chọn thêm lệnh <code>filee</code> vào PATH. Trên Linux và macOS, <code>install.sh</code> trong gói cài luôn lệnh này. Kiểm tra bằng <code>filee version</code>; xem trợ giúp bằng <code>filee help</code> hoặc <code>filee help &lt;lệnh&gt;</code>.</p>
+  <h2 id="cai-dat">Cài lệnh tsufiles</h2>
+  <p>Bộ cài Windows có tùy chọn thêm lệnh <code>tsufiles</code> vào PATH. Trên Linux và macOS, <code>install.sh</code> trong gói cài luôn lệnh này. Kiểm tra bằng <code>tsufiles version</code>; xem trợ giúp bằng <code>tsufiles help</code> hoặc <code>tsufiles help &lt;lệnh&gt;</code>.</p>
 
-  <h2 id="convert">filee convert</h2>
-  <pre tabindex="0"><code>filee convert &lt;tệp hoặc thư mục...&gt; (--to &lt;định dạng&gt; | --preset &lt;preset&gt;) [tùy chọn]</code></pre>
+  <h2 id="convert">tsufiles convert</h2>
+  <pre tabindex="0"><code>tsufiles convert &lt;tệp hoặc thư mục...&gt; (--to &lt;định dạng&gt; | --preset &lt;preset&gt;) [tùy chọn]</code></pre>
   <p>Tệp có thể dùng ký tự đại diện (<code>*.heic</code>). Với thư mục, TsuFiles chuyển các tệp bên trong mà nó nhận diện được.</p>
-  <div class="bang" tabindex="0" role="region" aria-label="Tùy chọn của filee convert, cuộn ngang được">
+  <div class="bang" tabindex="0" role="region" aria-label="Tùy chọn của tsufiles convert, cuộn ngang được">
     <table>
       <thead><tr><th scope="col">Tùy chọn</th><th scope="col">Ý nghĩa</th></tr></thead>
       <tbody>{convert.map(([a, b]) => <tr><td><code>{a}</code></td><td>{b}</td></tr>)}</tbody>
     </table>
   </div>
 
-  <h2 id="watch">filee watch</h2>
-  <pre tabindex="0"><code>filee watch &lt;thư mục&gt; (--to &lt;định dạng&gt; | --preset &lt;preset&gt;) [tùy chọn]</code></pre>
+  <h2 id="watch">tsufiles watch</h2>
+  <pre tabindex="0"><code>tsufiles watch &lt;thư mục&gt; (--to &lt;định dạng&gt; | --preset &lt;preset&gt;) [tùy chọn]</code></pre>
   <p>Chuyển đổi các tệp được đưa vào thư mục cho tới khi nhấn <kbd>Ctrl</kbd>+<kbd>C</kbd>. Tệp chỉ được chuyển khi đã hoàn chỉnh (không còn tăng dung lượng, không bị chương trình khác mở). Kết quả lưu vào thư mục <code>converted</code> bên trong, trừ khi có <code>-o</code>.</p>
-  <div class="bang" tabindex="0" role="region" aria-label="Tùy chọn của filee watch, cuộn ngang được">
+  <div class="bang" tabindex="0" role="region" aria-label="Tùy chọn của tsufiles watch, cuộn ngang được">
     <table>
       <thead><tr><th scope="col">Tùy chọn</th><th scope="col">Ý nghĩa</th></tr></thead>
       <tbody>{watch.map(([a, b]) => <tr><td><code>{a}</code></td><td>{b}</td></tr>)}</tbody>
     </table>
   </div>
 
-  <h2 id="formats-presets">filee formats, filee presets</h2>
-  <pre tabindex="0"><code>filee formats [&lt;định dạng&gt;] [--json]    # mọi định dạng, hoặc một định dạng chuyển được sang đâu
-filee presets [--json]                   # cấu hình sẵn đã lưu (có sẵn và do bạn tạo)</code></pre>
+  <h2 id="formats-presets">tsufiles formats, tsufiles presets</h2>
+  <pre tabindex="0"><code>tsufiles formats [&lt;định dạng&gt;] [--json]    # mọi định dạng, hoặc một định dạng chuyển được sang đâu
+tsufiles presets [--json]                   # cấu hình sẵn đã lưu (có sẵn và do bạn tạo)</code></pre>
 
-  <h2 id="engines">filee engines</h2>
-  <pre tabindex="0"><code>filee engines [--json]
-filee engines install &lt;engine&gt; [--json] [--quiet]
-filee engines remove &lt;engine&gt; [--json] [--quiet]</code></pre>
+  <h2 id="engines">tsufiles engines</h2>
+  <pre tabindex="0"><code>tsufiles engines [--json]
+tsufiles engines install &lt;engine&gt; [--json] [--quiet]
+tsufiles engines remove &lt;engine&gt; [--json] [--quiet]</code></pre>
   <p>Liệt kê engine tùy chọn (LibreOffice, Pandoc, FFmpeg...), hoặc cài, gỡ một engine với cùng nguồn tải và cùng bước kiểm SHA-256 như ứng dụng. <code>remove</code> chỉ gỡ những gì TsuFiles đã tải; bản riêng của bạn và bản tìm thấy trên máy được giữ nguyên.</p>
 
   <h2 id="json">Đầu ra JSON cho script</h2>
-  <p>Với <code>--json</code>, <code>filee convert</code> in một tài liệu JSON ra stdout khi xong việc. Trong lúc chạy, stderr nhận mỗi dòng một đối tượng JSON:</p>
+  <p>Với <code>--json</code>, <code>tsufiles convert</code> in một tài liệu JSON ra stdout khi xong việc. Trong lúc chạy, stderr nhận mỗi dòng một đối tượng JSON:</p>
   <pre tabindex="0"><code>{"{"}"event":"progress","source":"...","fraction":0.42{"}"}     # 0 tới 1, khoảng 150 ms một lần khi có thay đổi
 {"{"}"event":"file", ...{"}"}                                    # từng tệp xong, cùng trường như mục của tệp đó trong "files"</code></pre>
-  <p><code>filee watch --json</code> chỉ in sự kiện ra stdout: <code>started</code> (kèm thư mục, cấu hình sẵn, định dạng đích, thư mục kết quả), <code>file</code> khi từng tệp xong, và <code>stopped</code> khi nhấn <kbd>Ctrl</kbd>+<kbd>C</kbd>.</p>
+  <p><code>tsufiles watch --json</code> chỉ in sự kiện ra stdout: <code>started</code> (kèm thư mục, cấu hình sẵn, định dạng đích, thư mục kết quả), <code>file</code> khi từng tệp xong, và <code>stopped</code> khi nhấn <kbd>Ctrl</kbd>+<kbd>C</kbd>.</p>
 
   <h2 id="ma-thoat">Mã thoát</h2>
   <div class="bang" tabindex="0" role="region" aria-label="Mã thoát, cuộn ngang được">
