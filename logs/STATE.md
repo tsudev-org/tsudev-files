@@ -5,9 +5,9 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] ⚡ TIẾP THEO: kế hoạch tổng `logs/handover/20261114-01_ke-hoach-tong-he-sinh-thai.md` (dòng tsufiles, tiến độ ở
-      cuối bản sao) + phiếu `20261113-05`. TsuFiles 2.4.1-vn.1 ĐÃ PHÁT HÀNH 14/11/2026. Website đã deploy 14/11 (#68, #71). Worker cũ đã xóa. Còn: tắt Cloudflare JavaScript Detections, `WINGET_TOKEN` (rồi winget qua
-      komac), Dependabot #52/#64; phiếu 20261113-03 (uy tín công khai); SignPath khi duyệt.
+- [ ] ⚡ TIẾP THEO: phiếu `logs/handover/20261114-03_ban-giao-uy-tin-va-dependabot.md` (đọc mục 2). Kế hoạch tổng
+      `20261114-01` dòng tsufiles: phần agent XONG; còn việc 👤: tắt Cloudflare JavaScript Detections, `WINGET_TOKEN`
+      (rồi winget qua komac), đăng ký OpenSSF Best Practices (`docs/best-practices.md`), SignPath khi D5 duyệt.
 
 - [ ] Kế hoạch gia cố + hard fork (11/11/2026), mỗi phase một PR, làm theo thứ tự:
   - P1 PR #42 tải tệp build từ `tsudev-org/tsufiles-assets` - CHỜ chủ dự án tạo repo assets (job win-arm64 đỏ tới lúc đó).
@@ -55,6 +55,13 @@
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 14/11/2026 - Gộp Dependabot #52 (NuGet AngleSharp 1.10.2, Test.Sdk 18.12.0) và #64 (website astro/marked/wrangler).
+  Phiếu `20261113-03` (uy tín công khai) ĐÓNG phần agent: README VI/EN có huy hiệu + ảnh Cú đêm + khối Cài đặt;
+  ghi chú phát hành EN cho v2.4.1-vn.1 + CHANGELOG + quy trình; `scorecard.yml`; `docs/best-practices.md`; issue
+  #75-#78 (good first issue/help wanted); `ISSUE_TEMPLATE/config.yml`; CONTRIBUTING đổi tên TsuFiles. Sửa nhãn thanh
+  bên dài bị cắt ("Thanh công cụ vòng tròn" xuống dòng); ảnh website sinh lại theo TsuFiles 2.4.1. Bộ nhớ phiên đã chép
+  sang thư mục `-tsufiles` (phiếu 20261113-05 mục 2.2 xong).
 
 - 14/11/2026 - **Phát hành TsuFiles 2.4.1-vn.1** (#70, thẻ `v2.4.1-vn.1`, #71 packaging + website + `phien-ban.json`
   `moiNhat` 2); ký SHA256SUMS, chứng thực build/SBOM đạt lần đầu, nâng cấp thật Linux từ 2.4.0-vn.1 đạt. #68 khối

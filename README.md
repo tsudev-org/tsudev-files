@@ -2,6 +2,11 @@
 
 # TsuFiles
 
+[![Latest release](https://img.shields.io/github/v/release/tsudev-org/tsufiles?label=b%E1%BA%A3n%20ph%C3%A1t%20h%C3%A0nh)](https://github.com/tsudev-org/tsufiles/releases/latest)
+[![CI](https://github.com/tsudev-org/tsufiles/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/tsudev-org/tsufiles/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/tsudev-org/tsufiles/badge)](https://scorecard.dev/viewer/?uri=github.com/tsudev-org/tsufiles)
+
 **Trình chuyển đổi tệp ngoại tuyến, miễn phí, mã nguồn mở - bản Việt hóa và gia cố bảo mật của [Filee](https://github.com/KnifeLemon/Filee).**
 
 Một sản phẩm của [tsudev](https://tsudev.com).
@@ -12,6 +17,24 @@ trọn vẹn không cần internet và không cần tài khoản; kiểm tra c�
 Kéo tệp, thả vào một định dạng trên vòng "donut" mở ra ngay tại con trỏ chuột là xong. Hơn 260 định dạng: ảnh, PDF,
 Word, Excel, PowerPoint, HWP/HWPX, video, âm thanh, sách điện tử, tệp nén, CAD, bản đồ, 3D... Mọi xử lý chạy **trên
 máy của bạn**, không tải tệp lên bất kỳ máy chủ nào, không cần cài Microsoft Office.
+
+<p align="center"><img src="assets/screenshots/tsufiles-toolbar-vi.png" alt="TsuFiles ở kiểu giao diện Cú đêm: trang Thanh công cụ vòng tròn, mỗi loại tệp có một vòng định dạng riêng" width="760"></p>
+
+## Cài đặt
+
+| Hệ điều hành | Lệnh |
+| --- | --- |
+| Windows (Scoop) | `scoop bucket add tsudev https://github.com/tsudev-org/scoop-bucket; scoop install tsudev/tsudev-files` |
+| macOS (Homebrew) | `brew install --cask tsudev-org/tap/tsudev-files` |
+| Debian, Ubuntu, Fedora, macOS | `curl -fsSL https://tsudev.com/install.sh \| sh -s -- tsudev-files` |
+
+Lệnh một dòng chỉ thêm kho tsudev đã ký (APT/DNF, vân tay khóa `3883 10F4 7FA8 224D 76C0 A9C7 9745 B6AF 3EA3 3C74`)
+hoặc tap Homebrew rồi để trình quản lý gói tự kiểm và cài; đọc script trước tại <https://tsudev.com/install.sh>. Tải
+tay (Windows Setup/Portable, Linux tar.gz, macOS dmg) ở [trang Tải về](https://files.tsudev.com/tai-ve/) hoặc
+[GitHub Releases](https://github.com/tsudev-org/tsufiles/releases/latest), kèm `SHA256SUMS` đã ký và chứng thực nguồn
+gốc build: `gh attestation verify <tệp> -R tsudev-org/tsufiles`.
+
+## Liên kết
 
 - Tải bản phát hành: <https://github.com/tsudev-org/tsufiles/releases/latest>
 - Báo lỗi / đề xuất: <https://github.com/tsudev-org/tsufiles/issues>

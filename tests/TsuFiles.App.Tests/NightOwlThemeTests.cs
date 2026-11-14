@@ -7,7 +7,9 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Media;
 using Avalonia.Styling;
 using TsuFiles.App.Services;
+using TsuFiles.App.ViewModels;
 using TsuFiles.App.ViewModels.Pages;
+using TsuFiles.App.Views;
 using TsuFiles.App.Views.Pages;
 using TsuFiles.Core.Localization;
 using TsuFiles.Core.Platform;
@@ -145,6 +147,40 @@ public class NightOwlThemeTests
         {
             AppHost.Get<ThemeService>().Apply(new ThemeSettings(), "en");
             Directory.Delete(directory, true);
+        }
+    }
+
+    // Ảnh chụp cửa sổ chính như người dùng mới thấy (Cú đêm tối) cho README và website:
+    // bin/.../screenshots/readme-<trang>-<ngôn ngữ>.png, chép sang assets/screenshots/ (xem assets/screenshots/README.md).
+    [AvaloniaTheory]
+    [InlineData("home", "en")]
+    [InlineData("home", "vi")]
+    [InlineData("toolbar", "en")]
+    [InlineData("toolbar", "vi")]
+    public void Main_window_renders_in_night_owl_dark_for_the_readme(string page, string language)
+    {
+        TestServices.EnsureInitialized(language);
+        var store = AppHost.Get<UserDataStore>();
+        var previous = store.Settings.Theme;
+        var theme = AppHost.Get<ThemeService>();
+        store.Settings.Theme = new ThemeSettings { Style = ThemeStyle.NightOwl, Mode = ThemeMode.Dark };
+        theme.Apply(store.Settings.Theme, language);
+        using var vm = new MainWindowViewModel(AppHost.Services, AppHost.Get<ILocalizer>(), AppHost.Get<UpdateService>(), store);
+        vm.Navigate(page);
+        var window = new MainWindow { DataContext = vm, Width = 1080, Height = 720 };
+        window.Show();
+        try
+        {
+            RenderTests.Pump();
+            Assert.Equal(ThemeVariant.Dark, window.ActualThemeVariant);
+            RenderTests.Save(window, $"readme-{page}-{language}.png");
+        }
+        finally
+        {
+            window.Close();
+            store.Settings.Theme = previous;
+            theme.Apply(previous, "en");
+            TestServices.EnsureInitialized("en");
         }
     }
 

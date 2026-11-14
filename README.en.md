@@ -2,6 +2,11 @@
 
 # TsuFiles
 
+[![Latest release](https://img.shields.io/github/v/release/tsudev-org/tsufiles?label=release)](https://github.com/tsudev-org/tsufiles/releases/latest)
+[![CI](https://github.com/tsudev-org/tsufiles/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/tsudev-org/tsufiles/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/tsudev-org/tsufiles/badge)](https://scorecard.dev/viewer/?uri=github.com/tsudev-org/tsufiles)
+
 **An offline, free and open-source file converter - a Vietnamese-first, security-hardened fork of
 [Filee](https://github.com/KnifeLemon/Filee).**
 
@@ -10,6 +15,24 @@ A [tsudev](https://tsudev.com) product. Vietnamese version: [README.md](README.m
 Drag a file and drop it on a format in the "donut" ring that opens under the pointer - that's it. More than 260
 formats: images, PDF, Word, Excel, PowerPoint, HWP/HWPX, video, audio, e-books, archives, CAD, maps, 3D... Everything
 runs **on your computer**: no file is uploaded anywhere, and Microsoft Office is not needed.
+
+<p align="center"><img src="assets/screenshots/tsufiles-toolbar-en.png" alt="TsuFiles in the Night Owl theme: the donut toolbar editor, where each file type gets its own ring of formats" width="760"></p>
+
+## Install
+
+| System | Command |
+| --- | --- |
+| Windows (Scoop) | `scoop bucket add tsudev https://github.com/tsudev-org/scoop-bucket; scoop install tsudev/tsudev-files` |
+| macOS (Homebrew) | `brew install --cask tsudev-org/tap/tsudev-files` |
+| Debian, Ubuntu, Fedora, macOS | `curl -fsSL https://tsudev.com/install.sh \| sh -s -- tsudev-files` |
+
+The one-line installer only adds the signed tsudev repository (APT/DNF, key fingerprint
+`3883 10F4 7FA8 224D 76C0 A9C7 9745 B6AF 3EA3 3C74`) or the Homebrew tap and lets the package manager verify and install
+the package; read it first at <https://tsudev.com/install.sh>. Manual downloads (Windows Setup/Portable, Linux tar.gz,
+macOS dmg) are on [GitHub Releases](https://github.com/tsudev-org/tsufiles/releases/latest) with signed `SHA256SUMS`
+and build provenance: `gh attestation verify <file> -R tsudev-org/tsufiles`.
+
+## Links
 
 - Download: <https://files.tsudev.com/tai-ve/> (or [GitHub Releases](https://github.com/tsudev-org/tsufiles/releases/latest))
 - Bugs and ideas: <https://github.com/tsudev-org/tsufiles/issues>

@@ -1,6 +1,6 @@
-# Contributing to Filee
+# Contributing to TsuFiles
 
-Thanks for helping! Filee is built to be easy to extend: most contributions touch one file plus a test.
+Thanks for helping! TsuFiles (a Vietnamese-first fork of [Filee](https://github.com/KnifeLemon/Filee)) is built to be easy to extend: most contributions touch one file plus a test.
 
 ## Setup
 
@@ -11,13 +11,13 @@ Thanks for helping! Filee is built to be easy to extend: most contributions touc
    DOCX. XLSX ↔ CSV and anything → HWPX work without either). Without `-Only` it also downloads LibreOffice with
    H2Orestart and Java (~420 MB), which only older formats such as DOC, XLS and PPT need. Engines in the
    repository's `engines/` folder are picked up by debug builds; users download the large ones from the app.
-   Filee can also discover supported engines on `PATH` and in their standard installation folders. Settings >
+   TsuFiles can also discover supported engines on `PATH` and in their standard installation folders. Settings >
    Engines lets you choose a specific copy. Microsoft Office is not used.
 4. `dotnet run --project src/TsuFiles.App`, `dotnet test`.
 
-To try a build next to the Filee you use every day (testing, measuring memory), set `TSUFILES_DATA_DIR` to an empty
+To try a build next to the TsuFiles you use every day (testing, measuring memory), set `TSUFILES_DATA_DIR` to an empty
 folder first. Settings, logs and downloaded engines then live there, the copy is its own single instance (later
-launches with the same variable, `--quit` included, reach it and never your installed Filee), and it registers no
+launches with the same variable, `--quit` included, reach it and never your installed TsuFiles), and it registers no
 startup entry, context menu or Explorer menu.
 
 Any IDE works (Visual Studio 2022+, Rider, VS Code with C# Dev Kit).
@@ -35,11 +35,11 @@ pwsh build/build-portable.ps1 -Runtime linux-x64
 ```
 
 Use the matching runtime on a Mac or ARM64 Linux machine. Magick.NET has no ImageMagick library for Intel Macs: there,
-put Filee's own next to each build after building, e.g.
+put TsuFiles' own next to each build after building, e.g.
 `pwsh build/fetch-magick-native.ps1 -Runtime osx-x64 -Destination src/TsuFiles.App/bin/Debug/net10.0`. Packaging runs on Linux/macOS so archives retain
 executable permissions. Each archive contains the app, CLI, rhwp, 7-Zip, installation instructions and per-user
-install/uninstall scripts. `Filee-<version>-<rid>-SHA256SUMS.txt` verifies the archive. macOS bundles use
-`com.filee.app` and a development ad-hoc signature by default; public distribution still needs Developer ID signing
+install/uninstall scripts. `tsudev-files-<version>-<rid>-SHA256SUMS.txt` verifies the archive. macOS bundles use
+`com.tsudev.tsufiles` and a development ad-hoc signature by default; public distribution still needs Developer ID signing
 and notarization. `-SigningIdentity` can supply a signing identity, but does not perform notarization.
 
 Linux release packages must run on Ubuntu 22.04 (glibc 2.35). CI builds rhwp from source on Ubuntu 22.04
@@ -58,7 +58,7 @@ local package without it needs the glibc of the machine that built it. Check a p
   as an opt-in via `TSUFILES_USE_WAYLAND=1`. See `installer/linux/INSTALL.txt`.
   On GNOME Wayland, the bundled Shell extension supplies pointer state through a private Unix socket; no input
   group is required. See [docs/GNOME-WAYLAND.md](docs/GNOME-WAYLAND.md) for setup, limits and troubleshooting.
-- **macOS:** grant Filee Accessibility permission for gestures and Finder Automation permission for selection.
+- **macOS:** grant TsuFiles Accessibility permission for gestures and Finder Automation permission for selection.
   Keep the development `.app` at a stable path while testing these permissions. Finder integration is a Quick
   Action under Services; auto-start uses a per-user LaunchAgent.
 - **Engines:** packages are selected by OS and architecture. Linux LibreOffice/Ghostscript and macOS
@@ -114,10 +114,14 @@ Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) first. In short:
 
 ## Releasing (maintainers)
 
+> **TsuFiles releases follow [docs/vi/PHAT-HANH.md](docs/vi/PHAT-HANH.md)** (tag `vX.Y.Z-vn.N`, checksums signed
+> with the fork's own key, no Authenticode certificate yet). The rest of this section describes the upstream Filee
+> process and is kept as a reference for the steps that still apply.
+
 Bump `<Version>` in `Directory.Build.props`, merge, then push a tag `vX.Y.Z`. `.github/workflows/release.yml` runs the
 tests and `build/build-installer.ps1 -Portable`: it publishes the app (`-p:TsuFilesRelease=true`, which lets it register
 Explorer and startup entries), adds the Explorer menu extension and the bundled rhwp and 7-Zip, compiles
-`src/TsuFiles.Setup` (Filee's own installer) and appends the app to it. It drafts the release with the Linux and macOS
+`src/TsuFiles.Setup` (the TsuFiles installer) and appends the app to it. It drafts the release with the Linux and macOS
 packages and release notes generated from the merged pull requests, and keeps the tested Windows build unsigned (the
 artifact `windows-unsigned`).
 
